@@ -1,21 +1,3 @@
-![JAVA](https://img.shields.io/badge/-JAVA-gray?Style=flat&logo=Java&logoColor=61DAFB)
-![Apache Maven](https://img.shields.io/badge/-Apache_Maven-gray?Style=flat&logo=Apache-Maven&logoColor=C71A36)
-![SpringBoot](https://img.shields.io/badge/SpringBoot-gray?Style=flat&logo=Spring&logoColor=6DB33F)
-![Swagger](https://img.shields.io/badge/Swagger-gray?Style=flat&logo=Swagger&logoColor=85EA2D)
-![SpringDataJPA](https://img.shields.io/badge/SpringDataJPA-gray?Style=flat)
-![SpringSecurity](https://img.shields.io/badge/SpringSecurity-gray?Style=flat)
-![AWS_EC2](https://img.shields.io/badge/AWS_EC2-gray?Style=flat&logo=Amazon-AWS&logoColor=FF9900)
-![AWS_RDS](https://img.shields.io/badge/AWS_RDS-gray?Style=flat)
-![Redis](https://img.shields.io/badge/Redis-gray?Style=flat&logo=Redis&logoColor=DC382D)
-
-![React](https://img.shields.io/badge/React-gray?Style=flat&logo=React&logoColor=61DAFB)
-![HTML5](https://img.shields.io/badge/-HTML5-gray?Style=flat&logo=HTML5&logoColor=E34F26)
-![Sass](https://img.shields.io/badge/-Sass-gray?Style=flat&logo=Sass&logoColor=CC6699)
-![CSS3](https://img.shields.io/badge/-CSS3-gray?Style=flat&logo=CSS3&logoColor=1572B6)
-![JavaScript](https://img.shields.io/badge/-JavaScript-gray?Style=flat&logo=JavaScript&logoColor=F7DF1E)
-
-![MariaDB](https://img.shields.io/badge/MariaDB-gray?Style=flat&logo=MariaDB&logoColor=61DAFB)
-
 
 > SSAFY 프로젝트 공통 Web Sub 2 Project 
 
