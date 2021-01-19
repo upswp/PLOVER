@@ -56,7 +56,7 @@
 
 ## 🚀 배포 플로우
 
-![image](https://user-images.githubusercontent.com/70404643/104978273-d56e8c80-5a44-11eb-81ed-0f39f77de8bf.png)
+![plover_infra_v1.1.1](https://user-images.githubusercontent.com/70404643/104989893-c85e9700-5a5e-11eb-8147-2a9e0f63ac8c.PNG)
 
 ---
 
@@ -70,5 +70,12 @@
 
 ---
 
-## 📜 LICENSE
+## 📜 PLOVER ProgressStatus
+
+| 구분                    | 이름               | 링크                                                         |
+| ----------------------- | ------------------ | ------------------------------------------------------------ |
+| **[문서]** 회의록       | 회의록 및 문서정리 | [PLOVER_doc](https://yona.plover.co.kr/projects)             |
+| **[설계]** 와이어프레임 | UI 작업            | [PLOVER_figma](https://www.figma.com/file/mgmTkzXQZF2zYTfuZL6syg/UI-디자인?node-id=1%3A2) |
+| **[설계]** RestAPI      | Swagger            | [PLOVER_swagger]                                             |
+| **[설계]** DB 스키마    |                    |                                                              |
 
