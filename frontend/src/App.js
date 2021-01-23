@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route } from 'react-router-dom';
+import { Jangsoon, Jiyoung, Suyeon } from './pages';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Route exact path="/" component={function () {
+        return (
+          <div>메인홈</div>
+        );
+      }} />
+      <Route path="/jangsoon" component={Jangsoon} />
+      <Route path="/jiyoung" component={Jiyoung} />
+      <Route path="/suyeon" component={Suyeon} />
     </div>
   );
 }
