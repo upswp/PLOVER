@@ -1,0 +1,10 @@
+.bg{
+    background: linear-gradient(to left,#d8d8d8,#f0f0f0,#f0f0f0,#d8d8d8);
+    background-size:200% 200%;
+    animation:flow 1s linear infinite;
+}
+
+@keyframes flow {
+    0% { background-position: 200%  }
+    100% { background-position: 0% }   
+}
