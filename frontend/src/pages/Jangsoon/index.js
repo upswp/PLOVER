@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton, Imgbox } from "../../components";
+import { Skeleton, Imgbox, Navbar, Navbutton } from "../../components";
 import styles from "./index.module.css";
 import bewhy from "./testdata/bewhy.jpg";
 import gamst from "./testdata/gamst.png";
@@ -69,6 +69,52 @@ function Page() {
                 <Imgbox src={miran} mt="20px" w="300px" h="180px" shape="rectRound" hover={true} />
                 <Imgbox mt="20px" w="300px" h="180px" shape="rectRound" hover={true} />
             </div>
+            {
+                /*
+                    네비바 예제
+                */
+            }
+            <div>
+                <Navbar pos="relative" mt="20px" w="100%" h="50px" bg="purple">
+                    <Imgbox src={bewhy} w="40px" h="40px" shape="circle" ml="10px" hover={true} />
+                    <span style={{ marginLeft: "10px", fontSize: "0.9em", fontWeight: "bold", color: "white" }}>bewhy_offcial</span>
+                    <i className="far fa-bell" style={{ fontSize: "1.8em", marginLeft: "auto", color: "white" }}></i>
+                    <Navbutton color="white" mr="10px" ml="20px" />
+                </Navbar>
+                <Navbar pos="relative" mt="20px" w="100%" h="50px" bg="white">
+                    <Imgbox src={bewhy} w="40px" h="40px" shape="circle" ml="10px" hover={true} />
+                    <span style={{ marginLeft: "10px", fontSize: "0.9em", fontWeight: "bold" }}>bewhy_offcial</span>
+                    <i className="far fa-bell" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
+                    <Navbutton color="black" mr="10px" ml="20px" />
+                </Navbar>
+                <Navbar pos="relative" mt="20px" w="100%" h="50px" bg="#3A76FF">
+                    <Imgbox src={bewhy} w="40px" h="40px" shape="circle" ml="10px" hover={true} />
+                    <span style={{ marginLeft: "10px", fontSize: "0.9em", fontWeight: "bold", color: "white" }}>bewhy_offcial</span>
+                    <i className="far fa-bell" style={{ fontSize: "1.8em", marginLeft: "auto", color: "white" }}></i>
+                    <Navbutton color="white" mr="10px" ml="20px" F={() => {
+                        console.log('버튼클릭 !')
+                    }} />
+                </Navbar>
+                <Navbar pos="relative" mt="20px" w="100%" h="50px" bg="red">
+                    <Imgbox src={bewhy} w="40px" h="40px" shape="circle" ml="10px" hover={true} />
+                    <span style={{ marginLeft: "10px", fontSize: "0.9em", fontWeight: "bold", color: "white" }}>bewhy_offcial</span>
+                    <i className="far fa-bell" style={{ fontSize: "1.8em", marginLeft: "auto", color: "white" }}></i>
+                    <Navbutton color="white" mr="10px" ml="20px" F={() => {
+                        console.log('버튼클릭 !')
+                    }} />
+                </Navbar>
+                <Navbar pos="relative" mt="20px" w="100%" h="50px" bg="white">
+                    <i className="fas fa-arrow-left" style={{ fontSize: "1.8em", marginLeft: "10px", color: "black" }}></i>
+                    <span style={{ marginLeft: "auto", marginRight: "auto", fontSize: "1.2em", fontWeight: "bold" }}>회원가입</span>
+                    <i className="fas fa-arrow-left" style={{ fontSize: "1.8em", marginRight: "10px", color: "white" }}></i>
+                </Navbar>
+                <Navbar pos="relative" mt="20px" w="100%" h="50px" bg="#3A76FF">
+                    <i className="fas fa-arrow-left" style={{ fontSize: "1.8em", marginLeft: "10px", color: "white" }}></i>
+                    <span style={{ marginLeft: "auto", marginRight: "auto", fontSize: "1.2em", fontWeight: "bold", color: "white" }}>로그인</span>
+                    <i className="fas fa-arrow-left" style={{ fontSize: "1.8em", marginRight: "10px", color: "#3A76FF" }}></i>
+                </Navbar>
+            </div>
+
 
         </div>
     )

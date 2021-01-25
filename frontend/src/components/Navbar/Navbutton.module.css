@@ -1,0 +1,23 @@
+.navbutton{
+    cursor: pointer;
+}
+
+.line{
+    margin:4px auto;
+    width:100%;
+    height:5px;
+    transition: all .4s;
+    border-radius: 2px;
+}
+
+.opend:nth-child(1){
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.opend:nth-child(2){
+    opacity: 0;
+}
+
+.opend:nth-child(3){
+    transform: rotate(-45deg) translate(7px, -8px);
+}

@@ -20,13 +20,8 @@ class Imgbox extends Component {
         return radius;
     }
 
-    createImg(src) {
-        console.log(src);
-        console.log(typeof src);
-    }
 
     render() {
-        this.src = this.createImg(this.props.src);
         this.radius = this.createShape(this.props.shape);
 
         return (
