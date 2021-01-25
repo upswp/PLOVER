@@ -1,10 +1,10 @@
 
 package com.plover.repository;
 
-import java.util.Optional;
-import com.web.curation.model.user.UserDto;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.plover.model.user.UserDto;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<UserDto, Long> {
     Optional<UserDto> findUserByEmailAndPassword(String email, String password);

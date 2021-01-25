@@ -1,9 +1,8 @@
 package com.plover.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.web.curation.model.Response;
-import com.web.curation.model.user.SecurityUser;
-
+import com.plover.model.Response;
+import com.plover.model.user.SecurityUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;

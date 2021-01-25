@@ -1,30 +1,25 @@
 package com.plover.service;
 
-import java.util.Optional;
-import java.util.UUID;
-
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-
+import com.plover.config.UserRole;
+import com.plover.model.Salt;
+import com.plover.model.user.UserDto;
+import com.plover.model.user.request.SignupRequest;
+import com.plover.repository.SaltRepository;
+import com.plover.repository.UserRepository;
+import com.plover.utils.RedisUtil;
+import com.plover.utils.SaltUtil;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.web.curation.config.UserRole;
-import com.web.curation.model.Salt;
-import com.web.curation.model.user.UserDto;
-import com.web.curation.model.user.request.SignupRequest;
-import com.web.curation.repository.SaltRepository;
-import com.web.curation.repository.UserRepository;
-import com.web.curation.utils.RedisUtil;
-import com.web.curation.utils.SaltUtil;
-
-import javassist.NotFoundException;
+import javax.transaction.Transactional;
+import java.util.UUID;
 
 @Service
 public class UserService {
 	final String REDIS_CHANGE_PASSWORD_PREFIX="CPW";
 	@Autowired
-	UserRepository userRepository;	
+	UserRepository userRepository;
 	
 	@Autowired
 	private EmailService emailService;
@@ -108,7 +103,7 @@ public class UserService {
         String email = redisUtil.getData(key);
         UserDto user = userRepository.findUserByEmail(email);
         if(user==null) throw new NotFoundException("멤버가 조회되지않음");
-        modifyUserRole(user,UserRole.ROLE_USER);
+        modifyUserRole(user, UserRole.ROLE_USER);
         redisUtil.deleteData(key);
     }
     

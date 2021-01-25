@@ -1,14 +1,14 @@
 package com.plover.service;
 
+import com.plover.model.user.SecurityUser;
+import com.plover.model.user.UserDto;
+import com.plover.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.web.curation.model.user.SecurityUser;
-import com.web.curation.model.user.UserDto;
-import com.web.curation.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {

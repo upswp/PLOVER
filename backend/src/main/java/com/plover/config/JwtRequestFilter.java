@@ -1,7 +1,11 @@
 package com.plover.config;
 
+import com.plover.model.user.UserDto;
+import com.plover.service.CustomUserDetailsService;
+import com.plover.utils.CookieUtil;
+import com.plover.utils.JwtUtil;
+import com.plover.utils.RedisUtil;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwt;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,12 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import com.web.curation.model.user.UserDto;
-import com.web.curation.service.CustomUserDetailsService;
-import com.web.curation.utils.CookieUtil;
-import com.web.curation.utils.JwtUtil;
-import com.web.curation.utils.RedisUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
