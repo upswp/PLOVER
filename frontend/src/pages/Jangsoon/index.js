@@ -56,7 +56,7 @@ function Page() {
                     ml: PropTypes.string, //margin-left
                     mr: PropTypes.string, //margin-right
                     pos: PropTypes.string, //position
-                    dp: PropTypes.string //display
+                    dp: PropTypes.string //display~~
             */}
             <div>
                 <div style={{
