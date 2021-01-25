@@ -1,6 +1,6 @@
 package com.plover.utils;
 
-import com.plover.model.user.UserDto;
+import com.plover.model.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -49,11 +49,11 @@ public class JwtUtil {
         return expiration.before(new Date());
     }
 
-    public String generateToken(UserDto user) {
+    public String generateToken(User user) {
         return doGenerateToken(user.getEmail(), TOKEN_VALIDATION_SECOND);
     }
 
-    public String generateRefreshToken(UserDto user) {
+    public String generateRefreshToken(User user) {
         return doGenerateToken(user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
 

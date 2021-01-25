@@ -26,7 +26,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Table(name="user")
-public class UserDto {
+public class User {
     @Id
     @GeneratedValue
     private Long uid;
@@ -69,11 +69,11 @@ public class UserDto {
     private Salt salt;
     
     //기본 생성자
-    public UserDto() {}
+    public User() {}
 
     @Builder
-	public UserDto(@NotNull @Email String email, String password, @NotNull String nickName, @NotNull String gender,
-			@NotNull String city) {
+	public User(@NotNull @Email String email, String password, @NotNull String nickName, @NotNull String gender,
+                @NotNull String city) {
     	
 		this.email = email;
 		this.password = password;

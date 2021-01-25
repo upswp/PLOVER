@@ -1,6 +1,6 @@
 package com.plover.config;
 
-import com.plover.model.user.UserDto;
+import com.plover.model.user.User;
 import com.plover.service.CustomUserDetailsService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
@@ -81,7 +81,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-                    UserDto user = new UserDto();
+                    User user = new User();
                     user.setEmail(refreshUserEmail);
                     String newToken =jwtUtil.generateToken(user);
 

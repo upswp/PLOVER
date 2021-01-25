@@ -1,12 +1,11 @@
 package com.plover.model.user;
 
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 
-public class SecurityUser extends User {
+public class SecurityUser extends org.springframework.security.core.userdetails.User {
 	private static final long serialVersionUiD = 1L;
 
-    public SecurityUser(UserDto user){
+    public SecurityUser(User user){
         super(user.getEmail(),"{noop}"+ user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole().toString()));
     }
 }

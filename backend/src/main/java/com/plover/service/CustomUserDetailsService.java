@@ -1,7 +1,7 @@
 package com.plover.service;
 
 import com.plover.model.user.SecurityUser;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.User;
 import com.plover.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		
-		UserDto user = userRepository.findUserByEmail(email);
+		User user = userRepository.findUserByEmail(email);
 		if(user == null) {
 			throw new UsernameNotFoundException(email +"사용자가 존재하지 않습니다.");
 		}

@@ -1,7 +1,7 @@
 package com.plover.controller;
 
 import com.plover.model.Response;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.User;
 import com.plover.model.user.request.*;
 import com.plover.service.UserService;
 import com.plover.utils.CookieUtil;
@@ -60,7 +60,7 @@ public class AccountController {
     public Object login(@Valid LoginRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            final UserDto user = userService.login(userRequest.getEmail(), userRequest.getPassword());
+            final User user = userService.login(userRequest.getEmail(), userRequest.getPassword());
             final String token = jwtUtil.generateToken(user);
             final String refreshJwt = jwtUtil.generateRefreshToken(user);
 
@@ -135,7 +135,7 @@ public class AccountController {
     public Response verify(@RequestBody VerifyEmailRequest verifyEmailRequest, HttpServletRequest req, HttpServletResponse res) {
         Response response;
         try {
-            UserDto user = userService.findUserByEmail(verifyEmailRequest.getEmail());
+            User user = userService.findUserByEmail(verifyEmailRequest.getEmail());
             userService.sendVerificationMail(user);
             response = new Response("success", "성공적으로 인증메일을 보냈습니다.", null);
         } catch (Exception exception) {
@@ -184,7 +184,7 @@ public class AccountController {
     public Response requestChangePassword(@RequestBody SendChangePasswordRequest SendChangePassowrd) {
         Response response;
         try {
-            UserDto user = userService.findUserByNickName(SendChangePassowrd.getNickName());
+            User user = userService.findUserByNickName(SendChangePassowrd.getNickName());
             if (!user.getEmail().equals(SendChangePassowrd.getEmail())) throw new NoSuchFieldException("");
             userService.requestChangePassword(user);
             response = new Response("success", "성공적으로 사용자의 비밀번호 변경요청을 수행했습니다.", null);
@@ -203,7 +203,7 @@ public class AccountController {
     public Response changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
         Response response;
         try{
-            UserDto user = userService.findUserByEmail(changePasswordRequest.getEmail());
+            User user = userService.findUserByEmail(changePasswordRequest.getEmail());
             userService.changePassword(user,changePasswordRequest.getPassword());
             response = new Response("success","성공적으로 사용자의 비밀번호를 변경했습니다.",null);
         }catch(Exception e){
