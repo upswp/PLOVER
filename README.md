@@ -17,6 +17,20 @@
 | 피망    | [Frontend Dev]           | 차수연 | [Github](https://github.com/pepprbell)                       |
 | 감자    | [Frontend Dev]           | 박지영 | [Github](https://lab.ssafy.com/reachgoal321)                 |
 
+### Team Communication Rule ✨
+
+- #### 팀원간의 소통은 존댓말로! 
+
+  사적인 자리에서는 친분을! 하지만 프로젝트는 우리 모두의 존중을 위해 존댓말로!
+
+- #### 프로젝트 이슈 관리는 스스로!
+
+  팀장과 CTO를 중심으로 프로젝트 이슈를 기획하고 스스로 관리하며 이슈처리를 학습!
+
+- #### 모든 대화는 한곳에서!
+
+  공적인 대화는 front와 back개발자들이 모두 알 수 있도록! 흐름은 모두가 알고가자!
+
 ---
 
 ## 👨‍👨‍👧 서비스 소개
