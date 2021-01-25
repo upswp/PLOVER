@@ -19,15 +19,15 @@
 
 ### Team Communication Rule ✨
 
-- #### 팀원간의 소통은 존댓말로! 
+- ##### 팀원간의 소통은 존댓말로! 
 
   사적인 자리에서는 친분을! 하지만 프로젝트는 우리 모두의 존중을 위해 존댓말로!
 
-- #### 프로젝트 이슈 관리는 스스로!
+- ##### 프로젝트 이슈 관리는 스스로!
 
   팀장과 CTO를 중심으로 프로젝트 이슈를 기획하고 스스로 관리하며 이슈처리를 학습!
 
-- #### 모든 대화는 한곳에서!
+- ##### 모든 대화는 한곳에서!
 
   공적인 대화는 front와 back개발자들이 모두 알 수 있도록! 흐름은 모두가 알고가자!
 
@@ -76,20 +76,29 @@
 
 ## :open_file_folder: 업데이트 내역
 
-* 21-01-18
-  * 프로젝트 개설 및 UI 작업 진행
-  * 백앤드 기술스택 조사 및 환경설정 토의
-  * Slack, Jira, gitLab 설정
-* 
+|            스프린트             | PM                                                           | FE                          | BE                                    |
+| :-----------------------------: | :----------------------------------------------------------- | --------------------------- | ------------------------------------- |
+|           PLOVER_설계           | 협업툴 배포, 프로젝트 설정 및 구축, 프로젝트 룰 설정, 문서관리 | UI 와이어프레임 작업 진행   | 인프라 구축 기획 및 설계              |
+|       PLOVER_기본기능개발       | 1차,2차 기본기능 테스트 진행, <br />1차 점검 발표자료 준비   | 기본기능 UI 개발            | 기본기능 개발                         |
+|       PLOVER_핵심기능개발       | 이슈관리 및 이전 스프린트 보고서 분석, 이후 프로젝트 스케줄 관리, 추가 기능 확장 검토 | 멘토링 라이브, 채팅 UI 개발 | 멘토링 라이브 채팅, 기능 Rest API개발 |
+|    PLOVER_기능 검토 및 TEST     |                                                              |                             |                                       |
+| PLOVER_보완작업 및 발표,UCC준비 |                                                              |                             |                                       |
+
+
 
 ---
 
 ## 📜 PLOVER ProgressStatus
 
-| 구분                    | 이름               | 링크                                                         |
-| ----------------------- | ------------------ | ------------------------------------------------------------ |
-| **[문서]** 회의록       | 회의록 및 문서정리 | [PLOVER_doc](https://yona.plover.co.kr/projects)             |
-| **[설계]** 와이어프레임 | UI 작업            | [PLOVER_figma](https://www.figma.com/file/mgmTkzXQZF2zYTfuZL6syg/UI-디자인?node-id=1%3A2) |
-| **[설계]** RestAPI      | Swagger            | [PLOVER_swagger]                                             |
-| **[설계]** DB 스키마    |                    |                                                              |
+| 구분                        | 이름                     | 링크                                                         |
+| --------------------------- | ------------------------ | ------------------------------------------------------------ |
+| **[설계]** 와이어프레임     | UI 작업                  | [PLOVER_figma](https://www.figma.com/file/mgmTkzXQZF2zYTfuZL6syg/UI-디자인?node-id=1%3A2) |
+| **[설계]** RestAPI          | Swagger                  | [PLOVER_swagger](https://dev.plover.co.kr/ssafy/swagger-ui.html) |
+| **[설계]** RestAPI 문서     | Google docs              | [PLOVER_RESTAPI_docs](https://docs.google.com/spreadsheets/d/1uSulKfJdjALKZu5AmXACP1qdH-cQ86lPN2OeFxzUpW4/edit#gid=0) |
+| **[설계]** DB 스키마        | ERDcloud                 | [PLOVER_DB_docs](https://www.erdcloud.com/d/YYekMYMonpL9eAAQr) |
+| **[빌드]** CI               | Jenkins                  | [PLOVER_jenkins](https://jenkins.plover.co.kr/)              |
+| **[문서]** Server 상태 안내 | Server_주소 및 상태 현황 | [PLOVER_Server](https://docs.google.com/spreadsheets/d/1i8d6ZK7ZGBP2UL8G0ucgrxDoQ2_QYunx09zoQ0ItbZw/edit#gid=1619502858) |
+| **[문서]** 회의록           | 회의록 및 문서정리       | [PLOVER_doc](https://yona.plover.co.kr/projects)             |
 
+- 일부 링크는 보안문제로 열람이 불가능 할 수 있습니다. 
+  요청은 (tkddnsos@gmail.com)을 통하여 연락주시면 열람권한 드리겠습니다.
