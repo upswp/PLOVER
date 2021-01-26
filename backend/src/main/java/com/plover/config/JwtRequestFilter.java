@@ -1,11 +1,12 @@
 package com.plover.config;
 
-import com.plover.model.user.User;
+import com.plover.model.user.UserDto;
 import com.plover.service.CustomUserDetailsService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import com.plover.utils.RedisUtil;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwt;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -81,7 +83,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-                    User user = new User();
+                    UserDto user = new UserDto();
                     user.setEmail(refreshUserEmail);
                     String newToken =jwtUtil.generateToken(user);
 
