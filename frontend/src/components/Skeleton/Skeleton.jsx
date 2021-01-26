@@ -6,9 +6,6 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 class Skeleton extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     buildSkeletonClass = () => {
         let result = "";
@@ -26,7 +23,7 @@ class Skeleton extends Component {
     render() {
 
         return (
-            <div className={this.buildSkeletonClass() + " " + + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
+            <div className={this.buildSkeletonClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
                 {this.props.children}
             </div>
         )
