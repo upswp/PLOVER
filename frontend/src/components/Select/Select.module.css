@@ -1,0 +1,10 @@
+.select {
+    padding: 1px 2px;
+    margin: 0 auto;
+    width: 345px;
+    height: 36px;
+}
+
+.selectShort {
+    width: 170px;
+}
