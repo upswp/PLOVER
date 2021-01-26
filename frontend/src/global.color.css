@@ -1,55 +1,64 @@
 /* global color */
-:ROOT{
-    --red:#ff1541;
-    --blue:#15a4ff;
-    --purple:#c515ff;
-    --gray:#e3e3e3;
-    --white:white;
-    --black:black;
+:root {
+  /* Color */
+  --color-red: rgb(255, 0, 0);
+  --color-blue: rgb(215, 226, 243);
+  --color-bright-purple: rgb(145, 53, 218);
+  --color-dark-purple: rgb(94, 80, 113);
+  --color-light-gray: rgb(187, 187, 187);
+  --color-white: white;
+  --color-black: black;
+
+  /* Badge Color */
+  --color-badge-skyblue: rgb(41, 182, 246);
+  --color-badge-yellow: rgb(233, 187, 26);
+  --color-badge-orange: rgb(249, 119, 0);
+  --color-badge-mint: rgb(90, 203, 149);
+  --color-badge-pink: rgb(226, 157, 227);
 }
 /* background */
-.bg_red{
-    background:var(--red);
+.bg_red {
+  background: var(--color-red);
 }
 
-.bg_blue{
-    background:var(--blue);
+.bg_blue {
+  background: var(--color-blue);
 }
 
-.bg_purple{
-    background:var(--purple);
+.bg_purple {
+  background: var(--color-bright-purplepurple);
 }
 
-.bg_gray{
-    background:var(--gray);
+.bg_gray {
+  background: var(--color-light-gray);
 }
 
-.bg_white{
-    background:var(--white);
+.bg_white {
+  background: var(--color-white);
 }
 
-.bg_black{
-    background:var(--black);
+.bg_black {
+  background: var(--color-black);
 }
 
 /* color */
 
-.color_red{
-    color:var(--red);
+.color_red {
+  color: var(--red);
 }
 
-.color_blue{
-    color:var(--blue);
+.color_blue {
+  color: var(--blue);
 }
 
-.color_purple{
-    color:var(--purple);
+.color_purple {
+  color: var(--purple);
 }
 
-.color_gray{
-    color:var(--gray);
+.color_gray {
+  color: var(--gray);
 }
 
-.color_white{
-    color:var(--white);
+.color_white {
+  color: var(--white);
 }

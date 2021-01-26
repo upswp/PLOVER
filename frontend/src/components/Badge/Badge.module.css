@@ -9,25 +9,26 @@
   border-radius: 30px;
   line-height: 20px;
   text-align: center;
+  color: var(--color-white);
 }
 
 /* ordnum ssafy 기수별 */
 .first {
-  background-color: rgb(41, 182, 246);
+  background-color: var(--color-badge-skyblue);
 }
 
 .second {
-  background-color: rgb(233, 187, 26);
+  background-color: var(--color-badge-yellow);
 }
 
 .third {
-  background-color: rgb(249, 119, 0);
+  background-color: var(--color-badge-orange);
 }
 
 .fourth {
-  background-color: rgb(90, 203, 149);
+  background-color: var(--color-badge-mint);
 }
 
 .fifth {
-  background-color: rgb(226, 157, 227);
+  background-color: var(--color-badge-pink);
 }
