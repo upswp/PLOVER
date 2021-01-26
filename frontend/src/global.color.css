@@ -44,21 +44,21 @@
 /* color */
 
 .color_red {
-  color: var(--red);
+  color: var(--color-red);
 }
 
 .color_blue {
-  color: var(--blue);
+  color: var(--color-blue);
 }
 
 .color_purple {
-  color: var(--purple);
+  color: var(--color-bright-purple);
 }
 
 .color_gray {
-  color: var(--gray);
+  color: var(--color-gray);
 }
 
 .color_white {
-  color: var(--white);
+  color: var(--color-white);
 }
