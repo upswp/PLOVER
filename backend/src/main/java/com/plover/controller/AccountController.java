@@ -213,12 +213,12 @@ response = Response.class)
 
     }
     
-    //test
-    @ApiOperation(value = "다른 페이지로 이동이 가능한지 확인",
-   		 notes = "로그인 / 비로그인 시 이동이 가능한지 확인",
-       response = Response.class)
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello ";
-    }
+//    //test
+//    @ApiOperation(value = "다른 페이지로 이동이 가능한지 확인",
+//   		 notes = "로그인 / 비로그인 시 이동이 가능한지 확인",
+//       response = Response.class)
+//    @GetMapping("/hello")
+//    public String hello() {
+//        return "hello ";
+//    }
 }
