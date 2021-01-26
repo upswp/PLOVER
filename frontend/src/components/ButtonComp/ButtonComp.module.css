@@ -1,0 +1,57 @@
+/* Button default css */
+.button {
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+  height: 40px;
+  padding: 0;
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* width */
+.small {
+  width: 3em;
+  font-size: 0.7rem;
+}
+
+.regular {
+  width: 10rem;
+  font-size: 1rem;
+}
+
+.large {
+  width: 20rem;
+  font-size: 1rem;
+}
+
+.login {
+  width: 15rem;
+  font-size: 1rem;
+}
+
+/* border */
+.base {
+  border: 2px solid purple;
+  color: purple;
+}
+
+.base:hover {
+  background-color: purple;
+  opacity: 0.8;
+  transition: all 200ms ease-in-out;
+  color: white;
+}
+
+.login-option {
+  border: none;
+  background-color: black;
+  color: white;
+  opacity: 0.5;
+}
+
+.login-option:hover {
+  background-color: black;
+  opacity: 0.8;
+  transition: all 200ms ease-in-out;
+}
