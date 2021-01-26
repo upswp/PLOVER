@@ -8,11 +8,11 @@ class ButtonComp extends Component {
   
   buildButonCompClass = () => {
     let result = "";
-    const { width, border, value } = this.props;
+    const { width, type, value } = this.props;
     let classes = ['button'];
 
     if (width) classes.push(width);
-    if (border) classes.push(border);
+    if (type) classes.push(type);
     if (value) classes.push(value);
 
     result += cx(...classes);
