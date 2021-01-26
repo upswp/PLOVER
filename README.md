@@ -19,7 +19,7 @@
 
 ### Team Communication Rule ✨
 
-- 🧷[PLOVER Business Rules]([PLOVER Business Rules · Wiki · s04-webmobile2-sub2 / PLOVER · GitLab (ssafy.com)](https://lab.ssafy.com/s04-webmobile2-sub2/s04p12b104/wikis/PLOVER-Business-Rules))
+- 🧷 [PLOVER Business Rules](https://lab.ssafy.com/s04-webmobile2-sub2/s04p12b104/wikis/PLOVER-Business-Rules)
 
 - ##### 팀원간의 소통은 존댓말로! 
 
