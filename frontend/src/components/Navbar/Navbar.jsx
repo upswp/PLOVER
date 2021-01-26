@@ -6,9 +6,6 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 class Navbar extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     buildNavbarClass = () => {
         let result = "";

@@ -53,7 +53,7 @@ class Navbutton extends Component {
     render() {
         return (
             <div
-                className={this.buildNavbuttonClass() + " " + + (this.props.className === undefined ? '' : this.props.className)}
+                className={this.buildNavbuttonClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
                 onClick={this.props.onClick}
                 ref={this.navbutton}
                 style={this.props.style}
