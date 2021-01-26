@@ -19,6 +19,8 @@
 
 ### Team Communication Rule ✨
 
+- [PLOVER Business Rules🧷]([PLOVER Business Rules · Wiki · s04-webmobile2-sub2 / PLOVER · GitLab (ssafy.com)](https://lab.ssafy.com/s04-webmobile2-sub2/s04p12b104/wikis/PLOVER-Business-Rules))
+
 - ##### 팀원간의 소통은 존댓말로! 
 
   사적인 자리에서는 친분을! 하지만 프로젝트는 우리 모두의 존중을 위해 존댓말로!
