@@ -99,6 +99,7 @@
 | **[빌드]** CI               | Jenkins                  | [PLOVER_jenkins](https://jenkins.plover.co.kr/)              |
 | **[문서]** Server 상태 안내 | Server_주소 및 상태 현황 | [PLOVER_Server](https://docs.google.com/spreadsheets/d/1i8d6ZK7ZGBP2UL8G0ucgrxDoQ2_QYunx09zoQ0ItbZw/edit#gid=1619502858) |
 | **[문서]** 회의록           | 회의록 및 문서정리       | [PLOVER_doc](https://yona.plover.co.kr/projects)             |
+| **[문서]** 스크럼보드       | Google docs              | [PLOVER_scrum](https://docs.google.com/spreadsheets/d/1F6V0bUfGx2OScIYymnvBGvIjUlAFDm6cJ9pttKPbeUk/edit?usp=sharing) |
 
 - 일부 링크는 보안문제로 열람이 불가능 할 수 있습니다. 
   요청은 (tkddnsos@gmail.com)을 통하여 연락주시면 열람권한 드리겠습니다.
