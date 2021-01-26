@@ -1,0 +1,55 @@
+/* global color */
+:ROOT{
+    --red:#ff1541;
+    --blue:#15a4ff;
+    --purple:#c515ff;
+    --gray:#e3e3e3;
+    --white:white;
+    --black:black;
+}
+/* background */
+.bg_red{
+    background:var(--red);
+}
+
+.bg_blue{
+    background:var(--blue);
+}
+
+.bg_purple{
+    background:var(--purple);
+}
+
+.bg_gray{
+    background:var(--gray);
+}
+
+.bg_white{
+    background:var(--white);
+}
+
+.bg_black{
+    background:var(--black);
+}
+
+/* color */
+
+.color_red{
+    color:var(--red);
+}
+
+.color_blue{
+    color:var(--blue);
+}
+
+.color_purple{
+    color:var(--purple);
+}
+
+.color_gray{
+    color:var(--gray);
+}
+
+.color_white{
+    color:var(--white);
+}

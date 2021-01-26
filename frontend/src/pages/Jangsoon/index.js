@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton/*, Imgbox, Navbar, Navbutton*/ } from "../../components";
+import { Skeleton, Navbar, Navbutton } from "../../components";
 import styles from "./index.module.css";
 //import bewhy from "./testdata/bewhy.jpg";
 //import gamst from "./testdata/gamst.png";
@@ -34,6 +34,26 @@ function Page() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {
+                /*
+                    Navbar 컴포넌트 예제
+                */
+            }
+            <div>
+                <Navbar color="purple" style={{ marginTop: "20px" }}>
+                    <i className="far fa-bell color_white" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
+                    <Navbutton color="white" style={{ marginLeft: "10px", marginRight: "10px" }} />
+                </Navbar>
+                <Navbar color="white">
+                    <i className="far fa-bell color_black" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
+                    <Navbutton color="black" style={{ marginLeft: "10px", marginRight: "10px" }} />
+                </Navbar>
+                <Navbar color="blue">
+                    <i className="far fa-bell color_white" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
+                    <Navbutton color="white" style={{ marginLeft: "10px", marginRight: "10px" }} />
+                </Navbar>
             </div>
 
         </div>

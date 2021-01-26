@@ -1,5 +1,6 @@
 import { Route } from 'react-router-dom';
 import { Jangsoon, Jiyoung, Suyeon } from './pages';
+import "./global.color.css";
 
 
 function App() {
