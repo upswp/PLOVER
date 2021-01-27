@@ -8,7 +8,7 @@
     -ms-overflow-style: none; 
 }
   
-/* chrome scroll 안보이게 */
+/* chrome */
 .box::-webkit-scrollbar { 
     display: none !important; 
 }
