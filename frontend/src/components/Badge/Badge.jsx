@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 class Badge extends Component {
   
-  buildButonCompClass = () => {
+  buildBadgeCompClass = () => {
     let result = "";
     const { ordnum, value } = this.props;
     let classes = ['badge'];
@@ -22,7 +22,7 @@ class Badge extends Component {
   render() {
     return (
       <>
-        <span className={this.buildButonCompClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>
+        <span className={this.buildBadgeCompClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>
         {`SSAFY ${this.props.value}기`}
         </span>
       </>

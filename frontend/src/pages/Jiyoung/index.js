@@ -1,6 +1,9 @@
 import React from "react";
 import Badge from 'src/components/Badge/Badge';
 import ButtonComp from 'src/components/ButtonComp/ButtonComp';
+import Tabs from 'src/components/Tabs/Tabs';
+
+
 
 function Page() {
     return (
@@ -25,7 +28,19 @@ function Page() {
             <Badge ordnum="third" value="3" />
             <Badge ordnum="fourth" value="4" />
             <Badge ordnum="fifth" value="5" />
-
+            <br/>
+            <br/>
+            <Tabs>
+                <div label="Tab 1">
+                <p>TAB 1 contents!!!!!!!!!!!!!!!!!!!</p>
+                </div>
+                <div label="Tab 2">
+                <p>TAB 2 contents!!!!!!!!!!!!!!!!!!!</p>
+                </div>
+                <div label="Tab 3">
+                <p>TAB 3 contents!!!!!!!!!!!!!!!!!!!</p>
+                </div>
+            </Tabs>
             
         </div>
     )
