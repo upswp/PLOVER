@@ -24,7 +24,7 @@ class Navbar extends Component {
         return (
             <div className={this.buildNavbarClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
                 style={this.props.style}>
-                { this.props.children}
+                {this.props.children}
             </div >
         );
     }

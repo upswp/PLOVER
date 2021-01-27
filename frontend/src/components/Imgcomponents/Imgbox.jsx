@@ -24,7 +24,8 @@ class Imgbox extends Component {
 
     render() {
         return (
-            <div className={this.buildImgboxClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
+            <div className={this.buildImgboxClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}
+                onClick={this.props.onClick}>
 
                 {   this.props.src ?
                     <img

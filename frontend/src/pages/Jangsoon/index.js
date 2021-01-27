@@ -1,12 +1,12 @@
 import React from "react";
-import { Skeleton, Navbar, Navbutton, Imgbox } from "../../components";
+import { Skeleton, Navbar, Navbutton, Imgbox, Cardslider } from "../../components";
 import styles from "./index.module.css";
 import bewhy from "./testdata/bewhy.jpg";
 import gamst from "./testdata/gamst.png";
 import miran from "./testdata/miran.png";
 //import restapi from "src/api/restapi";
 
-function Page() {
+function Page(props) {
 
     return (
         <div className={styles.page}>
@@ -81,7 +81,95 @@ function Page() {
                     <Navbutton color="white" style={{ marginLeft: "10px", marginRight: "10px" }} />
                 </Navbar>
             </div>
+            {
+                /*
+                    CardSlider 컴포넌트 예제
+                    box: PropTypes.object,//박스사이즈
+                    card: PropTypes.object,//카드사이즈
+                    data: PropTypes.array.isRequired,//데이터
+                    isAuto: PropTypes.bool, //자동슬라이드 여부
+                */
 
+                /* 
+                    data 정의하기
+                    img : 이미지경로
+                    badgeColor
+                    badgeValue
+                    url : 링크
+                */
+            }
+            <div style={{ width: "430px", height: "300px", marginTop: "20px", marginBottom: "150px" }}>
+                <Cardslider data={[{
+                    img: "/images/mentoring_1.png",
+                    badgeColor: "black",
+                    badgeValue: "LIVE",
+                    url: "/jiyoung",
+                    title: "앱 개발 입문",
+                    pulseColor: "red"
+                }, {
+                    img: "/images/mentoring_2.png",
+                    badgeColor: "purple",
+                    badgeValue: "CHAT",
+                    url: "/jiyoung",
+                    title: "웹풀스택과정 강의"
+                }, {
+                    img: "/images/mentoring_3.png",
+                    badgeColor: "blue",
+                    badgeValue: "MEET",
+                    url: "/jiyoung",
+                    title: "코딩의 신이 돼보자!"
+                }, {
+                    img: "/images/mentoring_4.png",
+                    badgeColor: "black",
+                    badgeValue: "LIVE",
+                    url: "/jiyoung",
+                    title: "HELLO WORLD"
+                }, {
+                    img: "/images/mentoring_5.png",
+                    badgeColor: "purple",
+                    badgeValue: "CHAT",
+                    url: "/jiyoung",
+                    title: "WEB HACKING"
+                }, {
+                    img: "/images/mentoring_5.png",
+                    badgeColor: "purple",
+                    badgeValue: "CHAT",
+                    url: "/jiyoung",
+                    title: "WEB HACKING"
+                }, {
+                    img: "/images/mentoring_5.png",
+                    badgeColor: "purple",
+                    badgeValue: "CHAT",
+                    url: "/jiyoung",
+                    title: "WEB HACKING"
+                }, {
+                    img: "/images/mentoring_5.png",
+                    badgeColor: "purple",
+                    badgeValue: "CHAT",
+                    url: "/jiyoung",
+                    title: "WEB HACKING"
+                }, {
+                    img: "/images/mentoring_5.png",
+                    badgeColor: "purple",
+                    badgeValue: "CHAT",
+                    url: "/jiyoung",
+                    title: "WEB HACKING"
+                }, {
+                    img: "/images/mentoring_5.png",
+                    badgeColor: "purple",
+                    badgeValue: "CHAT",
+                    url: "/jiyoung",
+                    title: "WEB HACKING"
+                }, {
+                    img: "/images/mentoring_5.png",
+                    badgeColor: "purple",
+                    badgeValue: "CHAT",
+                    url: "/jiyoung",
+                    title: "WEB HACKING"
+                }]}
+                    history={props.history}
+                />
+            </div>
         </div>
     )
 };
