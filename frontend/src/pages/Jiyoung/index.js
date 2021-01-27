@@ -30,6 +30,18 @@ function Page() {
             <Badge ordnum="fifth" value="5" />
             <br/>
             <br/>
+            <br/>
+            <Tabs>
+                <div label="20k 팔로워">
+                <p>팔로워~~~~~~~~~~~</p>
+                </div>
+                <div label="23 팔로잉">
+                <p>팔로잉!!!!!!!!!!!!!!!!!!!</p>
+                </div>
+            </Tabs>
+            <br/>
+            <br/>
+            <br/>
             <Tabs>
                 <div label="Tab 1">
                 <p>TAB 1 contents!!!!!!!!!!!!!!!!!!!</p>

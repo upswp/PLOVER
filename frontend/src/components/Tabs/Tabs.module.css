@@ -16,10 +16,15 @@ li {
   border-bottom: 2px solid var(--color-light-gray);
 }
 
+a {
+  text-decoration: none;
+  color: var(--color-light-gray);
+}
+
 .current {
   color: var(--color-bright-purple);
   font-weight: bold;
-  border-bottom: 2px solid var(--color-bright-purple);
+  border-color: var(--color-bright-purple);
 }
 
 .content {
