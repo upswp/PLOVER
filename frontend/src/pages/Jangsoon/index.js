@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton, Navbar, Navbutton, Imgbox, Cardslider } from "../../components";
+import { Skeleton, Navbar, Navbutton, Imgbox, Cardslider, Badgeslider } from "../../components";
 import styles from "./index.module.css";
 import bewhy from "./testdata/bewhy.jpg";
 import gamst from "./testdata/gamst.png";
@@ -57,25 +57,25 @@ function Page(props) {
             }
             <div>
                 <Navbar color="purple" style={{ marginTop: "20px" }}>
-                    <Imgbox src={bewhy} size="small" w="40px" h="40px" shape="circle" style={{ marginLeft: "10px" }} />
+                    <Imgbox src={bewhy} size="small" shape="circle" style={{ marginLeft: "10px" }} />
                     <span className="color_white" style={{ marginLeft: "10px", fontWeight: "bold" }}>bewhy_offcial</span>
                     <i className="far fa-bell color_white" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
                     <Navbutton color="white" style={{ marginLeft: "10px", marginRight: "10px" }} />
                 </Navbar>
                 <Navbar color="white" style={{ marginTop: "20px" }}>
-                    <Imgbox src={bewhy} size="small" w="40px" h="40px" shape="circle" style={{ marginLeft: "10px" }} />
+                    <Imgbox src={bewhy} size="small" shape="circle" style={{ marginLeft: "10px" }} />
                     <span className="color_black" style={{ marginLeft: "10px", fontWeight: "bold" }}>bewhy_offcial</span>
                     <i className="far fa-bell color_black" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
                     <Navbutton color="black" style={{ marginLeft: "10px", marginRight: "10px" }} />
                 </Navbar>
                 <Navbar color="blue" style={{ marginTop: "20px" }}>
-                    <Imgbox src={bewhy} size="small" w="40px" h="40px" shape="circle" style={{ marginLeft: "10px" }} />
+                    <Imgbox src={bewhy} size="small" shape="circle" style={{ marginLeft: "10px" }} />
                     <span className="color_white" style={{ marginLeft: "10px", fontWeight: "bold" }}>bewhy_offcial</span>
                     <i className="far fa-bell color_white" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
                     <Navbutton color="white" style={{ marginLeft: "10px", marginRight: "10px" }} />
                 </Navbar>
                 <Navbar color="red" style={{ marginTop: "20px" }}>
-                    <Imgbox src={bewhy} size="small" w="40px" h="40px" shape="circle" style={{ marginLeft: "10px" }} />
+                    <Imgbox src={bewhy} size="small" shape="circle" style={{ marginLeft: "10px" }} />
                     <span className="color_white" style={{ marginLeft: "10px", fontWeight: "bold" }}>bewhy_offcial</span>
                     <i className="far fa-bell color_white" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
                     <Navbutton color="white" style={{ marginLeft: "10px", marginRight: "10px" }} />
@@ -98,7 +98,7 @@ function Page(props) {
                     url : 링크
                 */
             }
-            <div style={{ width: "430px", height: "300px", marginTop: "20px", marginBottom: "150px" }}>
+            <div style={{ width: "430px", height: "240px", marginTop: "20px", marginBottom: "10px" }}>
                 <Cardslider data={[{
                     img: "/images/mentoring_1.png",
                     badgeColor: "black",
@@ -169,6 +169,107 @@ function Page(props) {
                 }]}
                     history={props.history}
                 />
+            </div>
+
+            {/*
+                뱃지 슬라이더 예제
+            */}
+            <div style={{ width: "430px", height: "200px", marginTop: "20px", marginBottom: "150px" }}>
+                <Badgeslider
+                    perCount={6}
+                    card={{
+                        width: "130px",
+                        height: "80px",
+                    }}
+                    data={[{
+                        img: "/images/bewhy.jpg",
+                        nickname: "1기 비와이",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/gangsora.png",
+                        nickname: "2기 강소라",
+                        ordnum: "2",
+                    }, {
+                        img: "/images/one.png",
+                        nickname: "3기 원빈",
+                        ordnum: "3",
+                    }, {
+                        img: "/images/swings.png",
+                        nickname: "4기 스윙스",
+                        ordnum: "4",
+                    }, {
+                        img: "/images/yeji.png",
+                        nickname: "5기 예지",
+                        ordnum: "5",
+                    }, {
+                        img: "/images/park.png",
+                        nickname: "1기 박명수",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadasddddddddddddddddddddddddddd",
+                        ordnum: "2",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "가나다라마바사아자차카타파하",
+                        ordnum: "3",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "4",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "5",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }, {
+                        img: "/images/bewhy.jpg",
+                        nickname: "sadas",
+                        ordnum: "1",
+                    }]} history={props.history} />
             </div>
         </div>
     )

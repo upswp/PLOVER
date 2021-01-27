@@ -11,7 +11,7 @@ class Select extends Component {
             short = true
         }
         return (
-            <select className={cx('select',{'selectShort':short})}>
+            <select className={cx('select', { 'selectShort': short })}>
                 <option value="">SELECT</option>
                 <option value="a">a</option>
                 <option value="b">b</option>

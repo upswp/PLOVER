@@ -177,7 +177,7 @@ Cardslider.propTypes = {
     card: PropTypes.object,//카드사이즈
     data: PropTypes.array.isRequired,//데이터
     //isPoint: PropTypes.bool, //점 존재하는가 ?
-    isAuto: PropTypes.bool, //자동슬라이드 여부
+    //isAuto: PropTypes.bool, //자동슬라이드 여부
     history: PropTypes.object.isRequired //히스토리 객체
 };
 
