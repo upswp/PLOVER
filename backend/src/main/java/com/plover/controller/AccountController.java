@@ -57,7 +57,7 @@ public class AccountController {
             notes = "post로  LoginRequest 형태의 데이터를 받아서 로그인 처리와 토큰을 발급해 준다.",
             response = Response.class
     )
-    public Object login(@Valid LoginRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
+    public Object login(@Valid @RequestBody LoginRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
         
        try {
     	final UserDto user = userService.login(userRequest.getEmail(), userRequest.getPassword());
