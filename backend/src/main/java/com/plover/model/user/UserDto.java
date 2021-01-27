@@ -43,7 +43,7 @@ import java.util.Date;
 public class UserDto {
     @Id
     @GeneratedValue
-    private Long uid;
+    private Long no;
 
     @ApiModelProperty(required = true)
     @NotNull
