@@ -4,20 +4,39 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-var offset = (new Date()).getTimezoneOffset() * 60000
-var time = (new Date(Date.now() - offset)).toISOString().slice(11,16)
-
 class InputTime extends Component {
 
+    buildInputDateClass = () => {
+        let result = "";
+        const { width, height } = this.props;
+        let classes = ['input']
+          
+        if (width) classes.push(width);
+        if (height) classes.push(height);
+  
+        result += cx(...classes);
+
+        return result;
+    };
+    
+    inputHandler = () => {
+        document.getElementById('time').valueAsDate = new Date()
+    }
+    // handleInputTime = () => {
+    //     var offset = (new Date()).getTimezoneOffset() * 60000
+    //     var time = (new Date(Date.now() - offset)).toISOString().slice(11,16)
+        
+    //     var time
+    //     selectedTime = 
+    //     return time;
+    // }
+
     render() {
-        var short = false
-        if (this.props.short === "true") {
-            short = true
-        }
         return(
-            <input type="time" className={cx('input',{'inputShort':short})} value={time}/>
+            <input type="time" id="time"
+            className={this.buildInputDateClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}/>
         )
     }
 }
 
-export { InputTime };
+export default InputTime;
