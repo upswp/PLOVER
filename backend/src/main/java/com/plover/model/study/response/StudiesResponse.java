@@ -6,12 +6,12 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class StudyResponse {
-    List<Study> studies;
+public class StudiesResponse {
+    List<StudyResponse> studies;
     boolean hasNext;
 
-    public StudyResponse(List<Study> studies, boolean hasNext) {
-        this.studies = studies;
+    public StudiesResponse(List<Study> studies, boolean hasNext) {
+        this.studies = StudyResponse.listOf(studies);
         this.hasNext = hasNext;
     }
 }

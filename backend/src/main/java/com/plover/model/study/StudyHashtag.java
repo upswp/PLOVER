@@ -1,33 +1,51 @@
 package com.plover.model.study;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
 @ToString
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="hashtag_mapping")
-public class HashtagMapping {
+public class StudyHashtag {
     @Id
     @GeneratedValue
-    private Long id;
+    private Long id; // fk 2개로 생기는 복합키의 불편함을 개선하기위해 pk한 개 생성
 
     @NotNull
-    private Long studyId;
+    @ManyToOne
+    @JoinColumn(name = "study_id") // fk컬럼명
+    private Study study;
 
     @NotNull
-    private Long hashtagId;
+    @ManyToOne
+    @JoinColumn(name = "hashtag_id") // fk컬럼명
+    private Hashtag hashtag;
 
-    public HashtagMapping(@NotNull Long studyId, @NotNull Long hashtagId) {
-        this.studyId = studyId;
-        this.hashtagId = hashtagId;
+    public static StudyHashtag associate(Study study, Hashtag hashtag) {
+        StudyHashtag studyHashtag = new StudyHashtag();
+        studyHashtag.setHashtag(hashtag);
+        studyHashtag.setStudy(study);
+
+        return studyHashtag;
+    }
+
+    public void setHashtag(Hashtag hashtag) {
+        this.hashtag = hashtag;
+    }
+
+    public void setStudy(Study study) {
+        this.study = study;
+        study.addStudyHashtag(this);
+    }
+
+    public boolean containsTag(Hashtag hashtag) {
+        return this.hashtag.isSameName(hashtag);
     }
 }
