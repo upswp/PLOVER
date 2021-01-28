@@ -103,31 +103,52 @@ class Badgeslider extends Component {
 
     scrollLeft = (x) => {
         this.box.current.scrollLeft -= x;
-        if (this.box.current.scrollLeft - x <= 0) this.setState({
-            page: {
-                ...this.state.page,
-                hidden: "left"
-            }
-        })
     }
 
     scrollRight = (x) => {
         this.box.current.scrollLeft += x;
-        if (this.box.current.scrollWidth - (this.box.current.scrollLeft + x + this.box.current.clientWidth) <= 0) this.setState({
+    }
+
+    scrollHandler = () => {
+        if (this.box.current.scrollLeft <= 0) {
+            this.setState({
+                page: {
+                    ...this.state.page,
+                    hidden: "left"
+                }
+            })
+
+            return;
+        }
+
+        if (this.box.current.scrollWidth - (this.box.current.scrollLeft + this.box.current.clientWidth) <= 0) {
+            this.setState({
+                page: {
+                    ...this.state.page,
+                    hidden: "right"
+                }
+            })
+
+            return;
+        }
+
+        this.setState({
             page: {
                 ...this.state.page,
-                hidden: "right"
+                hidden: "none"
             }
         })
     }
 
     componentDidMount() {
         this.resizeHandler();
+        this.box.current.addEventListener('scroll', this.scrollHandler);
         window.addEventListener('resize', this.resizeHandler);
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.resizeHandler);
+        this.box.current.removeEventListener('scroll', this.scrollHandler);
     }
 
     render() {
