@@ -78,4 +78,4 @@ Noticeslider.propTypes = {
     history: PropTypes.object.isRequired
 }
 
-export { Noticeslider }
+export default Noticeslider;

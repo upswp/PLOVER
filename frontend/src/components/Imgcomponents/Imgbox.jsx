@@ -45,4 +45,4 @@ Imgbox.propTypes = {
 
 
 
-export { Imgbox };
+export default Imgbox;

@@ -70,4 +70,4 @@ Navbutton.propTypes = {
     color: PropTypes.string
 };
 
-export { Navbutton };
+export default Navbutton;

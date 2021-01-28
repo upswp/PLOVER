@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styles from "./Badgeslider.module.css";
 import classNames from "classnames/bind";
-import { Imgbox } from "../Imgcomponents/Imgbox";
+import Imgbox from "../Imgcomponents/Imgbox";
 import Badge from 'src/components/Badge/Badge';
 
 const cx = classNames.bind(styles);
@@ -194,4 +194,4 @@ Badgeslider.propTypes = {
     history: PropTypes.object.isRequired
 }
 
-export { Badgeslider };
+export default Badgeslider;

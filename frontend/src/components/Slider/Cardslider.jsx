@@ -191,4 +191,4 @@ Cardslider.propTypes = {
 */
 
 
-export { Cardslider };
+export default Cardslider;

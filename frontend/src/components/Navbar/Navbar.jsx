@@ -35,4 +35,4 @@ Navbar.propTypes = {
     color: PropTypes.string
 };
 
-export { Navbar };
+export default Navbar;

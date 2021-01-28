@@ -35,4 +35,4 @@ Skeleton.propTypes = {
     size: PropTypes.string //mini tiny small mid large big auto
 };
 
-export { Skeleton };
+export default Skeleton;
