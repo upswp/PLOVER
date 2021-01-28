@@ -4,20 +4,43 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
+
+
 class Select extends Component {
+
+    buildSelectClass = () => {
+        let result = "";
+        const { width, height } = this.props;
+        let classes = ['select']
+          
+        if (width) classes.push(width);
+        if (height) classes.push(height);
+  
+        result += cx(...classes);
+
+        return result;
+    };
+
+    createOptionList = () => {
+        const options = this.props.option;
+        const optionSplit = options.split("/")
+        console.log(this.props.option)
+        console.log(optionSplit)
+        const optionList = optionSplit.map((optionSplit) =>
+          <option value={optionSplit}>{optionSplit}</option>
+        )
+
+        return optionList;
+    }
+
     render() {
-        var short = false
-        if (this.props.short === "true") {
-            short = true
-        }
         return (
-            <select className={cx('select', { 'selectShort': short })}>
-                <option value="">SELECT</option>
-                <option value="a">a</option>
-                <option value="b">b</option>
+            <select className={this.buildSelectClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>
+            <option value="">{this.props.default}</option>
+            this.createOptionList()
             </select>
         )
     }
 }
 
-export { Select };
+export default Select;
