@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton, Navbar, Navbutton, Imgbox, Cardslider, Badgeslider } from "../../components";
+import { Skeleton, Navbar, Navbutton, Imgbox, Cardslider, Badgeslider, Noticeslider } from "../../components";
 import styles from "./index.module.css";
 import bewhy from "./testdata/bewhy.jpg";
 import gamst from "./testdata/gamst.png";
@@ -174,7 +174,7 @@ function Page(props) {
             {/*
                 뱃지 슬라이더 예제
             */}
-            <div style={{ width: "430px", height: "200px", marginTop: "20px", marginBottom: "150px" }}>
+            <div style={{ width: "430px", height: "200px", marginTop: "20px", marginBottom: "30px" }}>
                 <Badgeslider
                     perCount={6}
                     card={{
@@ -270,6 +270,56 @@ function Page(props) {
                         nickname: "sadas",
                         ordnum: "1",
                     }]} history={props.history} />
+            </div>
+
+            {/*
+                공지 슬라이더 예제
+            */}
+            <div style={{ width: "430px", height: "40px", marginBottom: "10px" }}>
+                <Noticeslider data={[{
+                    gubun: "공지",
+                    title: "공지사항1 입니다.",
+                    time: "5분전",
+                    url: "/jiyoung"
+                }, {
+                    gubun: "공지",
+                    title: "공지사항2 입니다.",
+                    time: "10분전",
+                    url: "/jiyoung"
+                }, {
+                    gubun: "공지",
+                    title: "공지사항3 입니다.",
+                    time: "15분전",
+                    url: "/jiyoung"
+                }, {
+                    gubun: "공지",
+                    title: "공지사항4 입니다.",
+                    time: "20분전",
+                    url: "/jiyoung"
+                }]} style={{ height: "40px" }} duration={1000} history={props.history} />
+            </div>
+            <div style={{ width: "430px", height: "40px", marginBottom: "10px" }}>
+                <Noticeslider data={[{
+                    gubun: "공지",
+                    title: "공지사항1 입니다.",
+                    time: "5분전",
+                    url: "/jiyoung"
+                }, {
+                    gubun: "공지",
+                    title: "공지사항2 입니다.",
+                    time: "10분전",
+                    url: "/jiyoung"
+                }, {
+                    gubun: "공지",
+                    title: "공지사항3 입니다.",
+                    time: "15분전",
+                    url: "/jiyoung"
+                }, {
+                    gubun: "공지",
+                    title: "공지사항4 입니다.",
+                    time: "20분전",
+                    url: "/jiyoung"
+                }]} style={{ height: "40px" }} duration={3000} history={props.history} />
             </div>
         </div>
     )
