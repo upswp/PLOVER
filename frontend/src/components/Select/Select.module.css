@@ -1,0 +1,12 @@
+.select {
+    padding: 1px 2px;
+    margin: 0 auto;
+    width: 345px;
+    height: 40px;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.selectShort {
+    width: 170px;
+}

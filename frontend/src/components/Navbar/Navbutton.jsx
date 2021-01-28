@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types"
 import styles from "./Navbutton.module.css";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 class Navbutton extends Component {
     constructor(props) {
@@ -8,44 +11,63 @@ class Navbutton extends Component {
         this.state = {
             opend: false,
         }
+        this.navbutton = React.createRef();
     }
 
-    clickListener = () => {
-        this.setState({
-            opend: !this.state.opend
-        });
-        this.props.F && this.props.F();
+    buildNavbuttonClass = () => {
+        let result = "";
+        let classes = ['navbutton'];//navbutton는 navbutton 기본 class
+
+        result += cx(...classes);
+
+        return result;
+    };
+
+    buildNavbuttonlineClass = () => {
+        let result = "";
+        const { color } = this.props;
+        let classes = ['line'];//line는 button의 3개의 선
+
+        result += cx(...classes);
+        if (color) {
+            result += (" bg_" + color);
+        };
+
+        return result;
     }
+
+    clickHandler = () => {
+        this.setState({ opend: !this.state.opend });
+    }
+
+    componentDidMount() {
+        this.navbutton.current.addEventListener('click', this.clickHandler);
+
+    }
+
+    componentWillUnmount() {
+        this.navbutton.current.removeEventListener('click', this.clickHandler);
+    }
+
 
     render() {
         return (
             <div
-                className={styles.navbutton}
-                onClick={this.clickListener}
-                style={{
-                    width: "30px",
-                    height: "30px",
-                    marginTop: this.props.mt,
-                    marginBottom: this.props.mb,
-                    marginLeft: this.props.ml,
-                    marginRight: this.props.mr,
-                }}
+                className={this.buildNavbuttonClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
+                onClick={this.props.onClick}
+                ref={this.navbutton}
+                style={this.props.style}
             >
-                <div className={this.state.opend ? styles['line'] + " " + styles['opend'] : styles.line} style={{ background: this.props.color }}></div>
-                <div className={this.state.opend ? styles['line'] + " " + styles['opend'] : styles.line} style={{ background: this.props.color }}></div>
-                <div className={this.state.opend ? styles['line'] + " " + styles['opend'] : styles.line} style={{ background: this.props.color }}></div>
+                <div className={this.buildNavbuttonlineClass() + " " + (this.state.opend && styles.opend)}></div>
+                <div className={this.buildNavbuttonlineClass() + " " + (this.state.opend && styles.opend)}></div>
+                <div className={this.buildNavbuttonlineClass() + " " + (this.state.opend && styles.opend)}></div>
             </div>
         );
     }
 }
 
 Navbutton.propTypes = {
-    color: PropTypes.string,
-    mt: PropTypes.string, //margin-top
-    mb: PropTypes.string, //margin-bottom
-    ml: PropTypes.string, //margin-left
-    mr: PropTypes.string, //margin-right
-    F: PropTypes.func, //function
+    color: PropTypes.string
 };
 
-export { Navbutton };
+export default Navbutton;
