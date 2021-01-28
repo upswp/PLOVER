@@ -6,11 +6,7 @@ import "./global.color.css";
 function App() {
   return (
     <div>
-      <Route exact path="/" component={function () {
-        return (
-          <div>메인홈</div>
-        );
-      }} />
+      <Route exact path="/" component={Jangsoon} />
       <Route path="/jangsoon" component={Jangsoon} />
       <Route path="/jiyoung" component={Jiyoung} />
       <Route path="/suyeon" component={Suyeon} />
