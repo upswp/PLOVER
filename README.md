@@ -72,7 +72,7 @@
 
 ## 🚀 배포 플로우
 
-![plover_infra_v1.1.1](https://user-images.githubusercontent.com/70404643/104989893-c85e9700-5a5e-11eb-8147-2a9e0f63ac8c.PNG)
+![plover_infra_v1.4.0](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9sIAN%2FbtqU4CqnMc3%2F0u9j26QLt74oyVNbDNHfVk%2Fimg.png)
 
 ---
 
