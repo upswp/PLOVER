@@ -6,15 +6,25 @@ const cx = classNames.bind(styles);
 
 class Input extends Component {
 
+    buildInputClass = () => {
+        let result = "";
+        const { width, height } = this.props;
+        let classes = ['input']
+          
+        if (width) classes.push(width);
+        if (height) classes.push(height);
+  
+        result += cx(...classes);
+
+        return result;
+    };
+
     render() {
-        var short = false
-        if (this.props.short === "true") {
-            short = true
-        }
         return(
-            <input type="text" className={cx('input',{'inputShort':short})}/>
+            <input type="text" placeholder={this.props.placeholder}
+            className={this.buildInputClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}
+            />
         )
     }
 }
-
-export { Input };
+export default Input;

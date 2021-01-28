@@ -2,9 +2,15 @@
     padding: 1px 2px;
     margin: 0 auto;
     width: 337px;
-    height: 30px;
+    height: 34px;
+    border-radius: 5px;
+    border-width: 1px;
 }
 
-.inputShort {
+.short {
     width: 162px;
+}
+
+.tall {
+    height: 110px;
 }
