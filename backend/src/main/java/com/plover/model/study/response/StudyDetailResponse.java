@@ -2,12 +2,14 @@ package com.plover.model.study.response;
 
 import com.plover.model.study.Study;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Getter
+@ToString
 public class StudyDetailResponse {
     private String email;
     private String nickName;

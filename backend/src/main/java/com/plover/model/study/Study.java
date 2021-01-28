@@ -66,15 +66,33 @@ public class Study {
 
     @NotNull
     @Convert(converter = BooleanToYNConverter.class)
-    private boolean isNotice;
+    private boolean notice;
 
     @Builder
-    public Study(@NotBlank @Email String email, @NotBlank String nickName, @NotBlank String title, @NotBlank String content, @NotNull boolean isNotice) {
+    public Study(@NotBlank @Email String email, @NotBlank String nickName, @NotBlank String title, @NotBlank String content, @NotNull boolean notice) {
         this.email = email;
         this.nickName = nickName;
         this.title = title;
         this.content = content;
-        this.isNotice = isNotice;
+        this.notice = notice;
+    }
+
+    public Study update(Study requestStudy, Set<Hashtag> hashtags) {
+        updateStudyHashtags(hashtags);
+
+        this.email = requestStudy.email;
+        this.nickName = requestStudy.nickName;
+        this.title = requestStudy.title;
+        this.content = requestStudy.content;
+
+        return this;
+    }
+
+    private void updateStudyHashtags(Set<Hashtag> hashtags) {
+        this.hashtags.clear();
+        for (Hashtag hashtag : hashtags) {
+            StudyHashtag.associate(this, hashtag);
+        }
     }
 
     public Set<Hashtag> getHashtags() {
