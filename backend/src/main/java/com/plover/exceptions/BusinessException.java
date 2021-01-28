@@ -1,4 +1,4 @@
-package com.plover.exception;
+package com.plover.exceptions;
 
 import lombok.Getter;
 
