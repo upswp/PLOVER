@@ -8,15 +8,34 @@ var date = new Date().toISOString().slice(0,10)
 
 class InputDate extends Component {
 
+    buildInputDateClass = () => {
+        let result = "";
+        const { width, height } = this.props;
+        let classes = ['input']
+          
+        if (width) classes.push(width);
+        if (height) classes.push(height);
+  
+        result += cx(...classes);
+
+        return result;
+    };
+
+    handleDate = () => {
+        
+    }
+
+    applyDate = () => {
+        var date = document.getElementById('inputDate')
+        date.addEventListener('compositionend', this.handleDate)
+    }
+
     render() {
-        var short = false
-        if (this.props.short === "true") {
-            short = true
-        }
         return(
-            <input type="date" className={cx('input',{'inputShort':short})} value={date}/>
+            <input type="date" id="inputDate"
+            className={this.buildInputDateClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}/>
         )
     }
 }
 
-export { InputDate };
+export default InputDate;
