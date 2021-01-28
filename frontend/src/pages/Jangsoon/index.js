@@ -1,5 +1,5 @@
 import React from "react";
-import { Skeleton, Navbar, Navbutton, Imgbox, Cardslider, Badgeslider, Noticeslider } from "../../components";
+import { Skeleton, Navbar, Navbutton, Imgbox, Cardslider, Badgeslider, Noticeslider, PulseBadge } from "../../components";
 import styles from "./index.module.css";
 import bewhy from "./testdata/bewhy.jpg";
 import gamst from "./testdata/gamst.png";
@@ -320,6 +320,16 @@ function Page(props) {
                     time: "20분전",
                     url: "/jiyoung"
                 }]} style={{ height: "40px" }} duration={3000} history={props.history} />
+            </div>
+            {
+                /*
+                    pulse 뱃지 예제
+                */
+            }
+            <div style={{ position: "relative", width: "430px", height: "40px", marginBottom: "10px", display: "flex", flexDirection: "row" }}>
+                <PulseBadge title="LIVE" bg="black" style={{ position: "relative" }} />
+                <PulseBadge title="MEET" bg="purple" style={{ position: "relative" }} />
+                <PulseBadge title="CHAT" bg="blue" style={{ position: "relative" }} />
             </div>
         </div>
     )
