@@ -4,8 +4,6 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-var date = new Date().toISOString().slice(0,10)
-
 class InputDate extends Component {
 
     buildInputDateClass = () => {
@@ -21,18 +19,10 @@ class InputDate extends Component {
         return result;
     };
 
-    handleDate = () => {
-        
-    }
-
-    applyDate = () => {
-        var date = document.getElementById('inputDate')
-        date.addEventListener('compositionend', this.handleDate)
-    }
-
     render() {
-        return(
-            <input type="date" id="inputDate"
+        // let date = new Date().toISOString().slice(0,10) // 2021-01-29
+        return (
+            <input type="date" id="dateD"
             className={this.buildInputDateClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}/>
         )
     }
