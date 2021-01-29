@@ -1,11 +1,19 @@
 .select {
     padding: 1px 2px;
     margin: 0 auto;
-    width: 345px;
+    width: 337px;
     height: 40px;
     border-radius: 5px;
     border-width: 1px;
+    border: 1px solid #a2a2a2;
+    border-radius: 5px;
+    font-family: 'Noto Sans KR', sans-serif;
 }
+
+.select:focus {
+    border: 1px solid #202020;
+    outline: none;
+} 
 
 .selectShort {
     width: 170px;
