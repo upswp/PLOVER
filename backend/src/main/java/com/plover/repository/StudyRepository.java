@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StudyRepository extends JpaRepository<Study,Long> {
-    List<Study> findByNoticeOrderByIdDesc(boolean notice, Pageable page);
-    List<Study> findByIdLessThanAndNoticeOrderByIdDesc(Long id, boolean notice, Pageable page);
+    List<Study> findByIsNoticeOrderByIdDesc(boolean isNotice, Pageable page);
+    List<Study> findByIdLessThanAndIsNoticeOrderByIdDesc(Long id, boolean isNotice, Pageable page);
     boolean existsByIdLessThan(Long id);
     Optional<Study> findById(Long id);
 }
