@@ -65,7 +65,6 @@ public class StudyController {
             response = Response.class)
     public Object saveStudy(@Valid @RequestBody StudyRequest studyRequest) {
         Long studyId = studyService.save(studyRequest);
-        System.out.println("[스터디게시글등록]studyId: " + studyId);
         return ResponseEntity.created(URI.create("/study/article/" + studyId)).build();
     }
 
@@ -92,7 +91,6 @@ public class StudyController {
             response = Response.class)
     public Object updateStudy(@PathVariable @NotNull Long id, @RequestBody @Valid StudyRequest studyRequest) {
         StudyDetailResponse returnStudy = studyService.updateStudy(id, studyRequest);
-        System.out.println("[스터디게시글수정]returnStudy: " + returnStudy);
         final Response result = new Response("success", "스터디 게시글 정보 수정 성공", returnStudy);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

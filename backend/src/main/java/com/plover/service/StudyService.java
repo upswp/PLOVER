@@ -37,10 +37,8 @@ public class StudyService {
         // 페이지에 맞게 리스트 반환
         List<Study> studies;
         if (cursorId == 0) {
-            System.out.println("커서는 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             studies = studyRepository.findByNoticeOrderByIdDesc(false, page);
         } else {
-            System.out.println("커서는 0아님!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             studies = studyRepository.findByIdLessThanAndNoticeOrderByIdDesc(cursorId, false, page);
         }
 
