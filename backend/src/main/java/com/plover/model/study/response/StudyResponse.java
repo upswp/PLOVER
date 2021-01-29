@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Getter
+@ToString
 public class StudyResponse {
     private Long id;
 

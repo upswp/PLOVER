@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name="hashtag_mapping")
+@Table(name = "hashtag_mapping")
 public class StudyHashtag {
     @Id
     @GeneratedValue
