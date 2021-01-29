@@ -9,11 +9,11 @@ class Typo extends Component {
     buildTypoClass = () => {
         let result = "";
         const { type } = this.props;
-        let classes = ['h1']
+        let classes = ['default']
           
         if (type) classes.push(type);
   
-        result = cx(...classes);
+        result += cx(...classes);
 
         return result;
     };
@@ -21,10 +21,9 @@ class Typo extends Component {
 
     render() {
         return(
-            // <p className={this.buildTypoClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>
-            // {this.props.value}</p>
-            <p className="h1">
-            {this.props.value}</p>
+            <div className={this.buildTypoClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>
+                <p>{this.props.value}</p>
+            </div>
         )
     }
 }
