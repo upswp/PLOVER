@@ -24,8 +24,7 @@ class Select extends Component {
     createOptionList = () => {
         const options = this.props.option;
         const optionSplit = options.split("/")
-        console.log(this.props.option)
-        console.log(optionSplit)
+        
         const optionList = optionSplit.map((optionSplit) =>
           <option value={optionSplit}>{optionSplit}</option>
         )
@@ -37,7 +36,7 @@ class Select extends Component {
         return (
             <select className={this.buildSelectClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>
             <option value="">{this.props.default}</option>
-            this.createOptionList()
+            <this.createOptionList />
             </select>
         )
     }
