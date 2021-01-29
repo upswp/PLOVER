@@ -4,16 +4,30 @@ package com.plover.model.user;
 
 import com.plover.config.UserRole;
 import com.plover.model.Salt;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 
@@ -26,10 +40,10 @@ import java.util.Date;
 @Setter
 @ToString
 @Table(name="user")
-public class User {
+public class UserDto {
     @Id
     @GeneratedValue
-    private Long uid;
+    private Long no;
 
     @ApiModelProperty(required = true)
     @NotNull
@@ -69,11 +83,11 @@ public class User {
     private Salt salt;
     
     //기본 생성자
-    public User() {}
+    public UserDto() {}
 
     @Builder
-	public User(@NotNull @Email String email, String password, @NotNull String nickName, @NotNull String gender,
-                @NotNull String city) {
+	public UserDto(@NotNull @Email String email, String password, @NotNull String nickName, @NotNull String gender,
+			@NotNull String city) {
     	
 		this.email = email;
 		this.password = password;
