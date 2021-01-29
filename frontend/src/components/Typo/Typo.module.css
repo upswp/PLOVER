@@ -3,12 +3,12 @@
     font-size: 1em;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
+    margin: 5px;
 }
 
 .h1 {
     font-size: 2.5em;
     font-weight: 900;
-    margin: ;
 }
 
 .h2 {
