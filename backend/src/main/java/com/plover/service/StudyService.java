@@ -37,9 +37,9 @@ public class StudyService {
         // 페이지에 맞게 리스트 반환
         List<Study> studies;
         if (cursorId == 0) {
-            studies = studyRepository.findByNoticeOrderByIdDesc(false, page);
+            studies = studyRepository.findByIsNoticeOrderByIdDesc(false, page);
         } else {
-            studies = studyRepository.findByIdLessThanAndNoticeOrderByIdDesc(cursorId, false, page);
+            studies = studyRepository.findByIdLessThanAndIsNoticeOrderByIdDesc(cursorId, false, page);
         }
 
         final Long lastIdOfList = studies.isEmpty() ?
