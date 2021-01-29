@@ -19,18 +19,6 @@ class InputTime extends Component {
         return result;
     };
     
-    inputHandler = () => {
-        document.getElementById('time').valueAsDate = new Date()
-    }
-    // handleInputTime = () => {
-    //     var offset = (new Date()).getTimezoneOffset() * 60000
-    //     var time = (new Date(Date.now() - offset)).toISOString().slice(11,16)
-        
-    //     var time
-    //     selectedTime = 
-    //     return time;
-    // }
-
     render() {
         return(
             <input type="time" id="time"

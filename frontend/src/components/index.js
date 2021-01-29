@@ -16,3 +16,4 @@ export { default as InputTime } from './Input/InputTime';
 export { default as InputDate } from './Input/InputDate';
 export { default as Input } from './Input/Input';
 export { default as Typo } from './Typo/Typo';
+export { default as ImgAttach } from './ImgAttach/ImgAttach';
