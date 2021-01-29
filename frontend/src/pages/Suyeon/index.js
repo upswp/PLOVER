@@ -44,7 +44,7 @@ function Page() {
             <Typo ty="h2" value="h2"></Typo>
             <Typo ty="h3" value="h3"></Typo>
             <Typo ty="h4" value="h4"></Typo>
-            <Typo value="default"></Typo>
+            <Typo ty="p" value="default"></Typo>
             <Typo ty="desc" value="desc"></Typo>
             {/* 
             ImgAttach의 선택 가능한 옵션: type(2) src(배경사진) placeholder(기본문구)
@@ -52,10 +52,9 @@ function Page() {
                 profile - 너비, 높이 130px의 원형
                 mentoring - 너비 350px, 높이 250px의 직사각형
               src = "http:// ... /"
-              placeholder = "여기를 눌러 사진을 첨부해주세요"
-            */}
-            <ImgAttach></ImgAttach>
-            <ImgAttach type="mentoring" placeholder="asdf"></ImgAttach>
+            */} 
+            <ImgAttach></ImgAttach><br/><br/><br/><br/><br/>
+            <ImgAttach type="mentoring"></ImgAttach>
         </div>
     )
 };

@@ -30,29 +30,14 @@ class ImgAttach extends Component {
         return result;
     };
 
-//     thumbnail = (e) => {
-//         var reader = new FileReader()
-//         reader.onload = function(e) {
-//             var img = document.createElement("img")
-//             img.setAttribute("src",e.target.result)
-//             document.querySelector("div#imageButton").appendChild(img)
-//         }
-//         reader.readAsDataURL(e.target.files[0])
-//     }
-
-//     upload() {
-//         document.getElementById('icon_upload').click();
-//     }
-
     render() {
         return(
-            <>
+            <div className={styles.box}>
               <input type="file"
               className={this.buildInputClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}/>
-              {/* <img 
-              className={this.buildImgClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}/> */}
-              
-            </>
+              <img 
+              className={this.buildImgClass()+ " " + (this.props.classame === undefined ? '' : this.props.className)}/>
+            </div>
         )
     }
 }
