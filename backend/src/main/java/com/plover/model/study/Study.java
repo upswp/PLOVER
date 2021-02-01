@@ -84,7 +84,6 @@ public class Study {
         this.nickName = requestStudy.nickName;
         this.title = requestStudy.title;
         this.content = requestStudy.content;
-
         return this;
     }
 
