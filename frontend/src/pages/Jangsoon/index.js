@@ -15,7 +15,7 @@ function Page(props) {
     return (
         <div className={styles.page}>
             {/* 
-                스켈레톤 UI 예제 
+                스켈레톤 UI 예제 !
                 [필수 속성]
                     shape: PropTypes.string.isRequired, //값 : rect,rectRound,circle
                     size: PropTypes.string //mini tiny small mid large big , auto(100%)
