@@ -32,7 +32,6 @@ public class StudyHashtag {
         StudyHashtag studyHashtag = new StudyHashtag();
         studyHashtag.setHashtag(hashtag);
         studyHashtag.setStudy(study);
-
         return studyHashtag;
     }
 
