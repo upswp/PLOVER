@@ -17,9 +17,9 @@ function App() {
       <Route path="/suyeon" component={Suyeon} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
-      <Route path="/mregister" component={MRegister} />
-      <Route path="/mlist" component={MList} />
-      <Route path="/mdetail" component={MDetail} />
+      <Route path="/mentoring/register" component={MRegister} />
+      <Route path="/mentoring/list" component={MList} />
+      <Route path="/mentoring/detail" component={MDetail} />
     </div>
   );
 }
