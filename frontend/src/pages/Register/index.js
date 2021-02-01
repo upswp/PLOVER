@@ -2,7 +2,9 @@ import React from "react";
 
 function Page() {
   return (
-    <div></div>
+    <div>
+      <p>11231</p>
+    </div>
   )
 };
 export default Page;
