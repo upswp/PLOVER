@@ -396,7 +396,7 @@ function Page(props) {
             <Typo ty="p" value="default"></Typo>
             <Typo ty="desc" value="desc"></Typo>
 
-            <ImgAttach></ImgAttach><br/><br/><br/><br/><br/><br/>
+            <ImgAttach></ImgAttach>
             <ImgAttach type="mentoring"></ImgAttach>
         </div>
     )
