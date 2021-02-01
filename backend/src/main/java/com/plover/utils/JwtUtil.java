@@ -51,16 +51,18 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDto user) {
-        return doGenerateToken(user.getEmail(), TOKEN_VALIDATION_SECOND);
+        return doGenerateToken(user.getNo(), user.getNickName(),user.getEmail(), TOKEN_VALIDATION_SECOND);
     }
 
     public String generateRefreshToken(UserDto user) {
-        return doGenerateToken(user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
+        return doGenerateToken(user.getNo(), user.getNickName(), user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
 
-    public String doGenerateToken(String email, long expireTime) {
+    public String doGenerateToken(Long no, String nickName, String email, long expireTime) {
 
         Claims claims = Jwts.claims();
+        claims.put("no",no);
+        claims.put("nickName",nickName);
         claims.put("email", email);
 
         String jwt = Jwts.builder()
