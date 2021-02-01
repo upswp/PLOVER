@@ -1,5 +1,5 @@
 import { Route } from 'react-router-dom';
-import { Jangsoon, Jiyoung, Suyeon, Register } from './pages';
+import { Jangsoon, Jiyoung, Suyeon, Register, Login } from './pages';
 import styles from "./App.module.css"
 import "./global.color.css";
 
@@ -12,6 +12,7 @@ function App() {
       <Route path="/jiyoung" component={Jiyoung} />
       <Route path="/suyeon" component={Suyeon} />
       <Route path="/register" component={Register} />
+      <Route path="/login" component={Login} />
     </div>
   );
 }
