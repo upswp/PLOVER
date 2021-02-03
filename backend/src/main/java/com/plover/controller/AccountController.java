@@ -211,15 +211,30 @@ public class AccountController {
             response = new Response("error","사용자의 비밀번호를 변경할 수 없었습니다.",null);
         }
         return response;
-
     }
+    @GetMapping("/logout/{email}")
+    @ApiOperation(value = "로그아웃을 진행한다.",
+            notes = "로그아웃 버튼을 눌렀을 때 수행하는 기능",
+            response = Response.class)
+    public Response logout(@PathVariable String email, HttpServletRequest req, HttpServletResponse res) {
+        System.out.print(email);
+        Response response;
+        final Cookie jwtToken = cookieUtil.getCookie(req,JwtUtil.ACCESS_TOKEN_NAME);
+        final Cookie refreshToken = cookieUtil.getCookie(req,JwtUtil.REFRESH_TOKEN_NAME);
+        jwtToken.setMaxAge(0);
+        refreshToken.setMaxAge(0);
+        redisUtil.deleteData(email);
 
+        response = new Response("success", "로그아웃 성공",null);
+        return response;
+    }
 //    //test
 //    @ApiOperation(value = "다른 페이지로 이동이 가능한지 확인",
 //   		 notes = "로그인 / 비로그인 시 이동이 가능한지 확인",
 //       response = Response.class)
 //    @GetMapping("/hello")
 //    public String hello() {
+//
 //        return "hello ";
 //    }
 }

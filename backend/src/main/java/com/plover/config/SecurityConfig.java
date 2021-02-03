@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/account/checkDupNickName").permitAll()
                 .antMatchers("/account/login").permitAll()
                 .antMatchers("/account/verify/**").permitAll()
+                .antMatchers("/study/**").hasAnyRole("USER", "MANAGER", "ADMIN") //study 파트 접근 제한
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
@@ -87,4 +88,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    
 }
