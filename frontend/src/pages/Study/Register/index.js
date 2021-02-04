@@ -8,7 +8,7 @@ function Register(props) {
   let state = {};
   state.tags = tags;
   state.setTags = setTags;
-  const event = new Event();
+  const event = new Event(props.history);
   useEffect(() => {
     event.setState(state);
     event.setTarget(document.getElementById("study_register"));
