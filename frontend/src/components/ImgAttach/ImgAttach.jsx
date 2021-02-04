@@ -6,13 +6,18 @@ const cx = classNames.bind(styles);
 
 class ImgAttach extends Component {
 
+  constructor(props) {
+    super(props);
+    this.Inputfile = React.createRef();
+  }
+
   state = {
     imgUrl: "",
     imgFile: null
   };
 
   handleChangeFile = event => {
-    let reader = new FileReader(); 
+    let reader = new FileReader();
     reader.onloadend = e => {
       // 2. 읽기가 완료되면 아래코드가 실행
       const base64 = reader.result; //reader.result는 이미지를 인코딩(base64 ->이미지를 text인코딩)한 결괏값이 나온다.
@@ -29,7 +34,7 @@ class ImgAttach extends Component {
       });
     }
   };
-  
+
   handleRemove = () => {
     this.setState({
       imgUrl: "",
@@ -41,21 +46,21 @@ class ImgAttach extends Component {
     let result = "";
     const { type } = this.props;
     let classes = ['box']
-      
+
     if (type) classes.push(type);
     classes.push('boxM')
-    
+
     result += cx(...classes);
     return result;
-};
+  };
   buildInputClass = () => {
     let result = "";
     const { type } = this.props;
     let classes = ['input']
-      
+
     if (type) classes.push(type);
     classes.push('opacity')
-    
+
     result += cx(...classes);
     return result;
   };
@@ -64,7 +69,7 @@ class ImgAttach extends Component {
     let result = "";
     const { type } = this.props;
     let classes = ['profile']
-      
+
     if (type) classes.push(type);
     classes.push('absolute')
 
@@ -73,12 +78,15 @@ class ImgAttach extends Component {
   };
 
   render() {
-    return(
-      <div className={styles.box}>
+    return (
+      <div className={styles.box + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
         <input type="file" name="imgFile" id="ex_file" onChange={this.handleChangeFile}
-        className={this.props.type === undefined ? styles.input : styles.inputM}/>
-        <img src={this.state.imgUrl} onClick={this.handleRemove}
-        className={this.props.type === undefined ? styles.profile : styles.mentoring }/>
+          className={this.props.type === undefined ? styles.input : styles.inputM} ref={this.Inputfile} />
+        <img src={this.state.imgUrl ? this.state.imgUrl : "/images/default-image.png"} onClick={this.handleRemove}
+          className={this.props.type === undefined ? styles.profile : styles.mentoring} />
+        <label className={styles.attach_icon} style={{ cursor: "pointer" }} onClick={() => { this.Inputfile.current.click(); }}>
+          <i className="fas fa-camera-retro color_black" style={{ fontSize: "1.0m", height: "100%" }}></i>
+        </label>
       </div>
     )
   }
