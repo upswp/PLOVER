@@ -18,12 +18,10 @@ public class StudyHashtag {
     @GeneratedValue
     private Long id; // fk 2개로 생기는 복합키의 불편함을 개선하기위해 pk한 개 생성
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "study_id") // fk컬럼명
     private Study study;
 
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "hashtag_id") // fk컬럼명
     private Hashtag hashtag;
@@ -32,6 +30,7 @@ public class StudyHashtag {
         StudyHashtag studyHashtag = new StudyHashtag();
         studyHashtag.setHashtag(hashtag);
         studyHashtag.setStudy(study);
+
         return studyHashtag;
     }
 

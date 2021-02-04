@@ -29,8 +29,8 @@ public class StudyDetailResponse {
 
     public static StudyDetailResponse of(Study study) {
         return new StudyDetailResponse(
-                study.getEmail(),
-                study.getNickName(),
+                study.getUser().getEmail(),
+                study.getUser().getNickName(),
                 study.getTitle(),
                 study.getContent(),
                 HashtagResponse.listOf(study.getHashtags()),
