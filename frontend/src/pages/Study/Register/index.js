@@ -8,13 +8,18 @@ function Register(props) {
   let state = {};
   state.tags = tags;
   state.setTags = setTags;
-
+  const event = new Event();
   useEffect(() => {
-    const event = new Event(document.getElementById("study_register"), state);
+    event.setState(state);
+    event.setTarget(document.getElementById("study_register"));
+    event.setTitle(document.getElementById("title"));
+    event.setContent(document.getElementById("content"));
+    event.addEvent();
+
     return () => {
       event.destroy();
     };
-  }, []);
+  }, [tags]);
 
   return (
     <div id="study_register">
@@ -27,13 +32,13 @@ function Register(props) {
         <Typo ty="p">제목</Typo>
       </div>
       <div className={styles.input_text_box}>
-        <Input placeholder="제목을 입력해주세요." type="text" className={styles.input_text} />
+        <Input id="title" placeholder="제목을 입력해주세요." type="text" className={styles.input_text} />
       </div>
       <div className={styles.desc}>
         <Typo ty="p">내용</Typo>
       </div>
       <div className={styles.textarea_box}>
-        <textarea placeholder="내용을 입력해주세요." type="text" className={styles.textarea} />
+        <textarea id="content" placeholder="내용을 입력해주세요." type="text" className={styles.textarea} />
       </div>
       <div className={styles.desc}>
         <Typo ty="p">태그</Typo>
@@ -51,7 +56,7 @@ function Register(props) {
         }
       </div>}
       <div className={styles.button_box}>
-        <ButtonComp width="large" type="base" textvalue="등록하기" className={styles.button} />
+        <ButtonComp id="register_btn" width="large" type="base" textvalue="등록하기" className={styles.button} />
       </div>
     </div>
   );

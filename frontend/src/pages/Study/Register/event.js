@@ -1,9 +1,24 @@
+import restapi from "src/api/restapi";
+
 export default class Event {
-    constructor($target, $state) {
-        this.$target = $target;
-        this.$state = $state;
+    constructor() {
         //이벤트 등록
-        this.addEvent();
+    }
+
+    setState($state) {
+        this.$state = $state;
+    }
+
+    setTarget($target) {
+        this.$target = $target;
+    }
+
+    setTitle($title) {
+        this.$title = $title;
+    }
+
+    setContent($content) {
+        this.$content = $content;
     }
 
     //이벤트 위임기법을 사용한 이벤트 핸들링
@@ -16,8 +31,30 @@ export default class Event {
     }
 
     clickEventHandler(e) {
-        //console.log(e.target);
+        if (e.target.id && e.target.id === "register_btn") {
+            this.registerStudy();
+        }
     };
+
+    async registerStudy() {
+        if (!this.$content.value || !this.$title.value || this.$state.tags.length <= 0) {
+            alert("모든 입력값을 채워주세요");
+            return;
+        }
+
+        console.log("== registerStudy ==");
+        await restapi.post("/study/article", {
+            content: this.$content.value,
+            email: "rosenari88@gmail.com",
+            hashtag: this.$state.tags,
+            notice: false,
+            title: this.$title.value
+        }).then((response) => {
+            console.log(response);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
 
     keyupEventHandler(e) {
         if (e.target.id && e.target.id === "input_tag") {
@@ -37,12 +74,7 @@ export default class Event {
         //console.log(e.target);
     }
 
-    attachPhotoEventHandler(e) {
-
-    }
-
     destroy() {
-        console.log("destory");
         this.$target.removeEventListener('click', this.clickHandler);
         this.$target.removeEventListener('keyup', this.keyupHandler);
     }
