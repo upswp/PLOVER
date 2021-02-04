@@ -21,7 +21,7 @@ class Input extends Component {
 
     render() {
         return (
-            <input id={this.props.id} autocomplete="off" type={this.props.type} placeholder={this.props.placeholder}
+            <input id={this.props.id} autoComplete="off" type={this.props.type} placeholder={this.props.placeholder}
                 className={this.buildInputClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
                 style={this.props.style} />
         )
