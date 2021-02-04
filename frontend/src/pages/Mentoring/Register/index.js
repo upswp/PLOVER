@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from "./index.module.css";
 import { Navbar, Typo, ImgAttach, Input, Select, InputDate, InputTime, ButtonComp } from "src/components";
+import Event from "./event";
 
 function Register(props) {
+    useEffect(() => {
+        const event = new Event(document.getElementById("metoring_register"));
+
+
+
+        return () => {
+            event.destory();
+        };
+    }, []);
+
     return (
-        <>
+        <div id="metoring_register">
             <Navbar color="white">
                 <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
                 <span className={"color_black" + " " + styles.title}><Typo ty="h4">멘토링 등록</Typo></span>
@@ -85,7 +96,7 @@ function Register(props) {
             <div className={styles.button_box}>
                 <ButtonComp width="large" type="base" value="등록하기" className={styles.button} />
             </div>
-        </>
+        </div>
     );
 }
 
