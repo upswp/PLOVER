@@ -46,9 +46,9 @@ public class MentoringRequest {
 
     private Long fileId;
 
-    private Date createDate;
+    private LocalDateTime createdDate;
 
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
 
     public Mentoring toMentoring(){
@@ -65,10 +65,10 @@ public class MentoringRequest {
     }
 
     @Builder
-    public MentoringRequest(@NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다. ") String title, @Email @NotBlank String email,
-                            @NotBlank int type, @NotBlank Date startDate, @NotBlank Time startTime, @NotBlank Date endDate, @NotBlank Time endTime, @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content, Long fileId, Date createDate, Date updateDate) {
-        this.title = title;
+    public MentoringRequest(@NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다. ") String title, @NotBlank int type, @NotBlank Date startDate, @NotBlank Time startTime, @NotBlank Date endDate, @NotBlank Time endTime, @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content,
+                            Long fileId, LocalDateTime createdDate, LocalDateTime updateDate, @Email @NotBlank String email) {
         this.email = email;
+        this.title = title;
         this.type = type;
         this.startDate = startDate;
         this.startTime = startTime;
@@ -76,7 +76,7 @@ public class MentoringRequest {
         this.endTime = endTime;
         this.content = content;
         this.fileId = fileId;
-        this.createDate = createDate;
+        this.createdDate = createdDate;
         this.updateDate = updateDate;
     }
 }
