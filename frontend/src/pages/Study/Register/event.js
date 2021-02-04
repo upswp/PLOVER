@@ -1,8 +1,8 @@
 import restapi from "src/api/restapi";
 
 export default class Event {
-    constructor() {
-        //이벤트 등록
+    constructor($history) {
+        this.$history = $history;
     }
 
     setState($state) {
@@ -50,9 +50,17 @@ export default class Event {
             notice: false,
             title: this.$title.value
         }).then((response) => {
-            console.log(response);
+            if (response.status == 200) {
+                console.log(response);
+                alert("등록성공");
+                this.$history.push("/study/list");
+            } else {
+                console.log(response);
+                alert("등록실패");
+            }
         }).catch((err) => {
             console.log(err);
+            alert("등록실패");
         });
     }
 
