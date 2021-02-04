@@ -2,8 +2,6 @@ package com.plover.model.metoring;
 
 import com.plover.model.user.UserDto;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -55,13 +53,12 @@ public class Mentoring {
     @Column
     private Long fileId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
-    private Date createDate;
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @UpdateTimestamp
-    private Date updateDate;
+    @LastModifiedDate
+    private LocalDateTime updateDate;
 
     @Builder
     public Mentoring(Long no, int type, String title, Date startDate, Time startTime, Date endDate, Time endTime, String content, Long fileId) {
