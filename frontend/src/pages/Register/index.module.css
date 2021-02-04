@@ -1,0 +1,36 @@
+.container {
+  text-align: center; 
+}
+
+.head {
+  justify-content: center;
+  position: relative;
+  
+}
+
+.header {
+  width: 100%;
+  height: 230px;
+  background: rgb(251,229,205);
+  background: linear-gradient(
+    0deg,
+    rgba(251,229,205,1) 0%, rgba(253,227,207,1) 23%,
+    rgba(254,210,201,1) 41%, rgba(209,198,204,1) 60%, 
+    rgba(191,192,208,1) 81%, rgba(184,195,217,1) 100%);
+}
+
+.propic {
+  margin: 0 auto;
+  position: absolute;
+  top: 120px;
+}
+
+.inputdiv {
+  width: 337px;
+  margin: 0 auto;
+}
+
+.label {
+  text-align: left;
+  font-weight: bold;
+}
