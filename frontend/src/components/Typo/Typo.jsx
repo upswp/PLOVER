@@ -10,18 +10,18 @@ class Typo extends Component {
         let result = "";
         const { ty } = this.props;
         let classes = ['p']
-          
+
         if (ty) classes.push(ty);
-        
+
         result += cx(...classes);
         return result;
     };
 
 
     render() {
-        return(
+        return (
             <>
-                <p className={this.buildTypoClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>{this.props.value}</p>
+                <p className={this.buildTypoClass() + " " + (this.props.className === undefined ? '' : this.props.className)}>{this.props.children}</p>
             </>
         )
     }
