@@ -79,8 +79,8 @@ class ImgAttach extends Component {
 
   render() {
     return (
-      <div className={styles.box + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
-        <input type="file" name="imgFile" id="ex_file" onChange={this.handleChangeFile}
+      <div id={this.props.id} className={styles.box + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
+        <input id={this.props.id} type="file" name="imgFile" id="ex_file" onChange={this.handleChangeFile}
           className={this.props.type === undefined ? styles.input : styles.inputM} ref={this.Inputfile} />
         <img src={this.state.imgUrl ? this.state.imgUrl : "/images/default-image.png"} onClick={this.handleRemove}
           className={this.props.type === undefined ? styles.profile : styles.mentoring} />

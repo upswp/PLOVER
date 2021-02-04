@@ -10,7 +10,7 @@ function Register(props) {
 
 
         return () => {
-            event.destory();
+            event.destroy();
         };
     }, []);
 

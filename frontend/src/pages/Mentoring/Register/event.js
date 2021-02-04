@@ -19,7 +19,7 @@ export default class Event {
 
     }
 
-    destory() {
+    destroy() {
         window.removeEventListener('click', this.eventHandler.bind(this));
     }
 }
