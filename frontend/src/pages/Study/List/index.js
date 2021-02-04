@@ -25,25 +25,25 @@ function List(props) {
   }, [studys]);
 
   return (
-    <div id="study_list" style={{ position: "relative", width: "100%" }}>
+    <div id="study_list" className={styles.study_list}>
       <Navbar color="white">
         <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
         <span className={"color_black" + " " + styles.title}><Typo ty="h4">스터디 같이해요</Typo></span>
         <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
       </Navbar>
-      <div style={{ width: "100%", height: "40px", padding: "0px 10px", marginTop: "20px" }}>
-        <Noticeslider data={notices} style={{ height: "40px" }} duration={2000} history={props.history} />
+      <div className={styles.notice_box}>
+        <Noticeslider data={notices} className={styles.notice} duration={2000} style={{ height: "40px" }} history={props.history} />
       </div>
-      <div style={{ width: "100%", padding: "0px 10px", marginTop: "20px" }}>
+      <div className={styles.studys_box}>
         {
           studys.map((study, i) => {
             return (
-              <div key={"study_" + i} style={{ marginBottom: "14px", display: "flex", flexDirection: "row", width: "100%", height: "100px", border: "1px solid silver", borderRadius: "3px" }}>
-                <div style={{ width: "80%", height: "100%", display: "flex", flexDirection: "column", overflow: "hidden" }}>
-                  <div style={{ width: "100%", padding: "0px 15px", height: "60%", display: "flex", flexDirection: "column", justifyContent: "center", overflow: "hidden" }}>
+              <div key={"study_" + i} className={styles.study_box}>
+                <div className={styles.study_left}>
+                  <div className={styles.title_box}>
                     <Typo ty="h4">{study.title}</Typo>
                   </div>
-                  <div style={{ width: "100%", padding: "0px 15px", height: "40%", display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
+                  <div className={styles.studys}>
                     <div>
                       {study.tags.map((tag, i) => {
                         return (
@@ -53,9 +53,9 @@ function List(props) {
                     </div>
                   </div>
                 </div>
-                <div style={{ width: "20%", height: "100%", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                  <div style={{ width: "100%", height: "70%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}><Imgbox src={study.profileImg} shape="circle" style={{ width: "50px", height: "50px" }}></Imgbox></div>
-                  <div style={{ width: "100%", height: "30%", display: "flex", flexDirection: "column", justifyContent: "flex-start", alignItems: "center", fontSize: "0.7em" }} >{study.dateTime}</div>
+                <div className={styles.study_right}>
+                  <div className={styles.profilebox}><Imgbox src={study.profileImg} shape="circle" className={styles.profile}></Imgbox></div>
+                  <div className={styles.datebox}>{study.dateTime}</div>
                 </div>
               </div>
             )

@@ -49,7 +49,7 @@ class Noticeslider extends Component {
         const noticeClass = this.buildNoticeClass();
 
         return (
-            <div id={this.props.id} className={boxClass} style={this.props.style} ref={this.box}>
+            <div id={this.props.id} className={boxClass + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} ref={this.box}>
                 {
                     this.props.data.map((v, i) => {
                         return (

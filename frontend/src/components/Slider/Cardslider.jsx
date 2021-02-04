@@ -136,7 +136,7 @@ class Cardslider extends Component {
 
         return (
             <>
-                <div id={this.props.id} className={boxClass} style={this.props.box === undefined ? {} : this.props.box} ref={this.box}>
+                <div id={this.props.id} className={boxClass + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} ref={this.box}>
                     <div style={{ display: "inline-flex" }}>
                         {
                             this.props.data.map((v, i) => {
