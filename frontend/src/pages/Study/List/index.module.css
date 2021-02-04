@@ -8,6 +8,74 @@
     font-weight: bold;
 }
 
+.study_list{
+    position: relative;
+    width: 100%;
+}
+
+.notice_box{
+    width: 100%; 
+    height: 40px;
+    padding: 0px 10px;
+    margin-top: 20px;
+}
+
+.notice{
+    height: 40px;
+}
+
+.studys_box{
+    width: 100%;
+    padding: 0px 10px;
+    margin-top: 20px;
+}
+
+.study_box{
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100px;
+    border: 1px solid silver;
+    border-radius: 3px;
+}
+.study_left{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+.title_box{
+    width: 100%;
+    padding: 0px 15px;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.studys{
+    width: 100%;
+    padding: 0px 15px;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.study_right{
+    width: 20%;
+    height: 100%;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .tag{
     display: inline-block;
     padding:0px 3px;
@@ -16,4 +84,28 @@
     color:white;
     margin-right:4px;
     font-size:0.75em;
+}
+
+.profilebox{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile{
+    width: 50px; 
+    height: 50px;
+}
+
+.datebox{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 0.7em;
 }
