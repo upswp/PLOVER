@@ -10,10 +10,10 @@ class InputDate extends Component {
         let result = "";
         const { width, height } = this.props;
         let classes = ['input']
-          
+
         if (width) classes.push(width);
         if (height) classes.push(height);
-  
+
         result += cx(...classes);
 
         return result;
@@ -23,7 +23,7 @@ class InputDate extends Component {
         // let date = new Date().toISOString().slice(0,10) // 2021-01-29
         return (
             <input type="date" id="dateD"
-            className={this.buildInputDateClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}/>
+                className={this.buildInputDateClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} />
         )
     }
 }

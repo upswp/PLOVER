@@ -10,19 +10,19 @@ class InputTime extends Component {
         let result = "";
         const { width, height } = this.props;
         let classes = ['input']
-          
+
         if (width) classes.push(width);
         if (height) classes.push(height);
-  
+
         result += cx(...classes);
 
         return result;
     };
-    
+
     render() {
-        return(
+        return (
             <input type="time" id="time"
-            className={this.buildInputDateClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}/>
+                className={this.buildInputDateClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} />
         )
     }
 }

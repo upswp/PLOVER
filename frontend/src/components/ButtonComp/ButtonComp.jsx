@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 class ButtonComp extends Component {
-  
+
   buildButonCompClass = () => {
     let result = "";
     const { width, type, value } = this.props;
@@ -23,8 +23,8 @@ class ButtonComp extends Component {
   render() {
     return (
       <>
-        <button className={this.buildButonCompClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>
-        {this.props.value}
+        <button className={this.buildButonCompClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
+          {this.props.value}
         </button>
       </>
     );
