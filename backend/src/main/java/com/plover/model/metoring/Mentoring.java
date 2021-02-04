@@ -1,17 +1,14 @@
 package com.plover.model.metoring;
 
 import com.plover.model.user.UserDto;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDateTime;
 
 /**
  * @author Park Sangwoo
@@ -32,30 +29,40 @@ public class Mentoring {
     @JoinColumn(name = "user_id")
     private UserDto user;
 
+    @Column(nullable = false)
     private int type;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private Date startDate;
 
+    @Column(nullable = false)
     private Time startTime;
 
+    @Column(nullable = false)
     private Date endDate;
 
+    @Column(nullable = false)
     private Time endTime;
 
+    @Column(nullable = false)
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
-    private Date createDate;
+    @Column
+    private Long fileId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @UpdateTimestamp
-    private Date updateDate;
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdDate;
 
-    public Mentoring(int type, String title, Date startDate,
-                     Time startTime, Date endDate, Time endTime, String content) {
+    @LastModifiedDate
+    private LocalDateTime updateDate;
+
+    @Builder
+    public Mentoring(Long no, int type, String title, Date startDate, Time startTime, Date endDate, Time endTime, String content, Long fileId) {
+        this.no = no;
         this.type = type;
         this.title = title;
         this.startDate = startDate;
@@ -63,20 +70,8 @@ public class Mentoring {
         this.endDate = endDate;
         this.endTime = endTime;
         this.content = content;
+        this.fileId = fileId;
     }
 
-    public void update(int type, String title, Date startDate,
-                       Time startTime, Date endDate, Time endTime, String content){
-        this.type = type;
-        this.title = title;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.content = content;
-    }
-
-    public void setUser(UserDto user) {
-        this.user = user;
-    }
+    public void setUser(UserDto user){this.user = user;}
 }
