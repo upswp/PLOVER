@@ -20,7 +20,7 @@ export default class Event {
     };
 
     keyupEventHandler(e) {
-        if (e.target.id && e.target.id == "input_tag") {
+        if (e.target.id && e.target.id === "input_tag") {
             if (e.target.value.length <= 0) {
                 this.$state.setTags([]);
                 return;

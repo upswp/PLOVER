@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from "./Tabs.module.css";
 
-const Tabs = ({ children }) => {
+const Tabs = ({ children, id }) => {
 
   const [activeTab, setActiveTab] = useState(children[0].props.label);
 
@@ -12,7 +12,7 @@ const Tabs = ({ children }) => {
 
   return (
     <>
-      <ul id={this.props.id} className={styles.tabs}>
+      <ul id={id} className={styles.tabs}>
         {children.map((tab) => {
           const label = tab.props.label;
           return (
