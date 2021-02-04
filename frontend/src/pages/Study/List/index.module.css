@@ -1,0 +1,19 @@
+.icon{
+    font-size: 1.1em;
+    margin-left: 10px;
+}
+
+.title{
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.tag{
+    display: inline-block;
+    padding:0px 3px;
+    border-radius: 3px;
+    background: var(--color-bright-purple);
+    color:white;
+    margin-right:4px;
+    font-size:0.75em;
+}
