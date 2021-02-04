@@ -94,7 +94,7 @@ function Register(props) {
                 <textarea placeholder="내용을 입력해주세요." type="text" className={styles.textarea} />
             </div>
             <div className={styles.button_box}>
-                <ButtonComp width="large" type="base" value="등록하기" className={styles.button} />
+                <ButtonComp width="large" type="base" textvalue="등록하기" className={styles.button} />
             </div>
         </div>
     );
