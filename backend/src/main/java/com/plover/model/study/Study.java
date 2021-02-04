@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.plover.converter.BooleanToYNConverter;
 import com.plover.exceptions.ErrorCode;
 import com.plover.exceptions.InvalidValueException;
+import com.plover.model.user.UserDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,22 +29,12 @@ public class Study {
     @GeneratedValue
     private Long id;
 
-    // 본인이 쓴 글인지 대조하기위해 사용
-    @ApiModelProperty(required = true)
-    @Email
-    @NotBlank
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "user_no") // fk컬럼명
+    private UserDto user;
 
-    @ApiModelProperty(required = true)
-    @NotBlank
-    private String nickName;
-
-    @ApiModelProperty(required = true)
-    @NotBlank
     private String title;
 
-    @ApiModelProperty(required = true)
-    @NotBlank
     private String content;
 
     // manytomany보다 연결테이블을 entity로 만들어 주는 것이 좋다
@@ -64,26 +55,26 @@ public class Study {
     @UpdateTimestamp
     private Date updateDate;
 
-    @NotNull
     @Convert(converter = BooleanToYNConverter.class)
     private boolean isNotice;
 
     @Builder
-    public Study(@NotBlank @Email String email, @NotBlank String nickName, @NotBlank String title, @NotBlank String content, @NotNull boolean isNotice) {
-        this.email = email;
-        this.nickName = nickName;
+    public Study(String title, String content, boolean isNotice) {
         this.title = title;
         this.content = content;
-        this.isNotice = isNotice();
+        this.isNotice = isNotice;
+    }
+
+    // Study의 user설정
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 
     public Study update(Study requestStudy, Set<Hashtag> hashtags) {
         updateStudyHashtags(hashtags);
-
-        this.email = requestStudy.email;
-        this.nickName = requestStudy.nickName;
         this.title = requestStudy.title;
         this.content = requestStudy.content;
+
         return this;
     }
 
