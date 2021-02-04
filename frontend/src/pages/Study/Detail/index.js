@@ -27,21 +27,21 @@ function Detail(props) {
         <Typo ty="h4">알고리즘 스터디 하실분 ~</Typo>
       </div>
       <div className={styles.info_box}>
-        <div style={{ width: "20%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start" }}><Imgbox src="/images/bewhy.jpg" shape="circle" style={{ width: "50px", height: "50px" }} /></div>
-        <div style={{ width: "80%", height: "100%", display: "flex", flexDirection: "column" }}>
-          <div style={{ width: "100%", height: "50%", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}><p style={{ fontWeight: "bold" }}>bewhy_offcial</p></div>
-          <div style={{ width: "100%", height: "50%", display: "flex", flexDirection: "column", justifyContent: "flex-start" }}><p style={{ fontSize: "0.7em", height: "30px", lineHeight: "30px", color: "#555" }}>2021. 01. 18. &nbsp;&nbsp;00:32</p></div>
+        <div className={styles.profileImgbox}><Imgbox src="/images/bewhy.jpg" shape="circle" className={styles.profileImg} /></div>
+        <div className={styles.profileTextbox}>
+          <div className={styles.profileTextbox_top}><p className={styles.profileText}>bewhy_offcial</p></div>
+          <div className={styles.profileTextbox_bottom}><p className={styles.datetime}>2021. 01. 18. &nbsp;&nbsp;00:32</p></div>
         </div>
       </div>
       <div className={styles.border}>
         <hr />
       </div>
       <div style={{ width: "100%", padding: "0px 10px" }}>
-        <p style={{ height: "40px", lineHeight: "40px" }}>알고리즘 스터디 하실 분 모집합니다.</p>
-        <p style={{ height: "40px", lineHeight: "40px" }} > 신체 건강하고 혈액형 O형이신 분</p>
-        <p style={{ height: "40px", lineHeight: "40px" }} > 해외여행에 결격 사유가 없으신 분</p>
-        <p style={{ height: "40px", lineHeight: "40px" }} > 가족, 친구 등 지인과의 연락이 드무신 분 우대합니다.</p>
-        <p style={{ height: "40px", lineHeight: "40px" }} > 채팅주세요.</p>
+        <p style={{ lineHeight: "40px", minHeight: "40px" }}>알고리즘 스터디 하실 분 모집합니다.</p>
+        <p style={{ lineHeight: "40px", minHeight: "40px" }} > 신체 건강하고 혈액형 O형이신 분</p>
+        <p style={{ lineHeight: "40px", minHeight: "40px" }} > 해외여행에 결격 사유가 없으신 분</p>
+        <p style={{ lineHeight: "40px", minHeight: "40px" }} > 가족, 친구 등 지인과의 연락이 드무신 분 우대합니다.</p>
+        <p style={{ lineHeight: "40px", minHeight: "40px" }} > 채팅주세요.</p>
 
       </div>
       <div className={styles.border}>
@@ -49,7 +49,7 @@ function Detail(props) {
       </div>
       {
         <div id="tags" className={styles.tags}>
-          <span style={{ fontWeight: "bold", marginRight: "10px" }}>태그</span>
+          <span className={styles.tag_desc}>태그</span>
           {
             tags.map((v, i) => {
               return (
