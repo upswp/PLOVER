@@ -40,12 +40,12 @@ function Page() {
               제목 속성: h1 (40px, 두께 900), h2 (40px, 두께 700), h3 (40px, 두께 500), h4 (40px, 두께 500),
               본문 속성: default(본문 16px, 두께 400) desc(작은 설명 12px, 두께 300)
              */}
-      <Typo ty="h1" value="h1"></Typo>
-      <Typo ty="h2" value="h2"></Typo>
-      <Typo ty="h3" value="h3"></Typo>
-      <Typo ty="h4" value="h4"></Typo>
-      <Typo ty="p" value="default"></Typo>
-      <Typo ty="desc" value="desc"></Typo>
+      <Typo ty="h1">h1</Typo>
+      <Typo ty="h2">h2</Typo>
+      <Typo ty="h3">h3</Typo>
+      <Typo ty="h4">h4</Typo>
+      <Typo ty="p">default</Typo>
+      <Typo ty="desc">desc</Typo>
       {/* 
             ImgAttach의 선택 가능한 옵션: type(2) src(배경사진) placeholder(기본문구)
               type = "profile(기본값) mentoring"
