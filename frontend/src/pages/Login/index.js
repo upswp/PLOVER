@@ -3,12 +3,15 @@ import styles from './index.module.css';
 import ButtonComp from 'src/components/ButtonComp/ButtonComp';
 import Typo from 'src/components/Typo/Typo';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 const Login = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
-
+  const [loginCheck, setLoginCheck] = useState(false);
+  
+  
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
   };
@@ -29,7 +32,8 @@ const Login = (props) => {
     ).then(res => {
       console.log(res);
       if (res.data.response === "success") {
-        alert(`hello! ${email}`)
+        alert(`hello! ${email}`);
+        setLoginCheck(true);
       } else {
         alert('ID와 PW가 일치하지 않습니다.^0^')
       }
@@ -41,6 +45,7 @@ const Login = (props) => {
 
   return (
     <div className={styles.login}>
+      {loginCheck && <Redirect to="/study/list" />}
       <h1 className={styles.login__title}>PLOVER</h1>
       <form className={styles.login__form} onSubmit={onSubmitHandler}>
         <input className={styles.login__input} value={email} type="text" placeholder="ID" autoCapitalize="off" onChange={onEmailHandler}/>
