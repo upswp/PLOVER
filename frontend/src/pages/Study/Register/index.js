@@ -51,7 +51,7 @@ function Register(props) {
         }
       </div>}
       <div className={styles.button_box}>
-        <ButtonComp width="large" type="base" value="등록하기" className={styles.button} />
+        <ButtonComp width="large" type="base" textvalue="등록하기" className={styles.button} />
       </div>
     </div>
   );

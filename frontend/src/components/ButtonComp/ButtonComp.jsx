@@ -8,12 +8,12 @@ class ButtonComp extends Component {
 
   buildButonCompClass = () => {
     let result = "";
-    const { width, type, value } = this.props;
+    const { width, type, textvalue } = this.props;
     let classes = ['button'];
 
     if (width) classes.push(width);
     if (type) classes.push(type);
-    if (value) classes.push(value);
+    if (textvalue) classes.push(textvalue);
 
     result += cx(...classes);
 
@@ -24,7 +24,7 @@ class ButtonComp extends Component {
     return (
       <>
         <button id={this.props.id} className={this.buildButonCompClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
-          {this.props.value}
+          {this.props.textvalue}
         </button>
       </>
     );
