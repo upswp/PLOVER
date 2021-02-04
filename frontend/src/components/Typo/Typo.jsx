@@ -21,7 +21,7 @@ class Typo extends Component {
     render() {
         return (
             <>
-                <p className={this.buildTypoClass() + " " + (this.props.className === undefined ? '' : this.props.className)}>{this.props.children}</p>
+                <p id={this.props.id} className={this.buildTypoClass() + " " + (this.props.className === undefined ? '' : this.props.className)}>{this.props.children}</p>
             </>
         )
     }

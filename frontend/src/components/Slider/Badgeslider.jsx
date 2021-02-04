@@ -54,7 +54,7 @@ class Badgeslider extends Component {
             }
         }
         return (
-            <div className={cardboxClass} key={key}>
+            <div id={this.props.id} className={cardboxClass} key={key}>
                 {
                     temp.map((v, i) => {
                         if (v[0] === 0) {

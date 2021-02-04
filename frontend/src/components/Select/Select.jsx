@@ -23,7 +23,7 @@ class Select extends Component {
 
     render() {
         return (
-            <select className={this.buildSelectClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
+            <select id={this.props.id} className={this.buildSelectClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
                 style={this.props.style}>
                 {this.props.children}
             </select>

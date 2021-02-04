@@ -22,7 +22,7 @@ class InputDate extends Component {
     render() {
         // let date = new Date().toISOString().slice(0,10) // 2021-01-29
         return (
-            <input type="date" id="dateD"
+            <input id={this.props.id} type="date" id="dateD"
                 className={this.buildInputDateClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} />
         )
     }

@@ -1,10 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import styles from "./index.module.css";
+import { Navbar, Typo, Input, ButtonComp } from "src/components";
+import Event from "./event";
 
-function Page() {
+function Register(props) {
+  let [tags, setTags] = useState([]);
+  let state = {};
+  state.tags = tags;
+  state.setTags = setTags;
+
+  useEffect(() => {
+    const event = new Event(document.getElementById("study_register"), state);
+    return () => {
+      event.destroy();
+    };
+  }, []);
+
   return (
-    <div>
-      <p>test</p>
+    <div id="study_register">
+      <Navbar color="white">
+        <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
+        <span className={"color_black" + " " + styles.title}><Typo ty="h4">스터디 등록</Typo></span>
+        <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
+      </Navbar>
+      <div className={styles.desc}>
+        <Typo ty="p">제목</Typo>
+      </div>
+      <div className={styles.input_text_box}>
+        <Input placeholder="제목을 입력해주세요." type="text" className={styles.input_text} />
+      </div>
+      <div className={styles.desc}>
+        <Typo ty="p">내용</Typo>
+      </div>
+      <div className={styles.textarea_box}>
+        <textarea placeholder="내용을 입력해주세요." type="text" className={styles.textarea} />
+      </div>
+      <div className={styles.desc}>
+        <Typo ty="p">태그</Typo>
+      </div>
+      <div className={styles.input_text_box}>
+        <Input id="input_tag" placeholder="태그를 입력해주세요. ex) Tag1 Tag2" type="text" className={styles.input_text} />
+      </div>
+      {tags.length > 0 && <div id="tags" className={styles.desc}>
+        {
+          tags.map((v, i) => {
+            return (
+              <span className={styles.tag} key={"tag_" + i}>{v}</span>
+            )
+          })
+        }
+      </div>}
+      <div className={styles.button_box}>
+        <ButtonComp width="large" type="base" value="등록하기" className={styles.button} />
+      </div>
     </div>
-  )
-};
-export default Page;
+  );
+}
+
+export default Register;

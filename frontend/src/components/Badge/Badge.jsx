@@ -5,7 +5,7 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 class Badge extends Component {
-  
+
   buildBadgeCompClass = () => {
     let result = "";
     const { ordnum, value } = this.props;
@@ -22,8 +22,8 @@ class Badge extends Component {
   render() {
     return (
       <>
-        <span className={this.buildBadgeCompClass()+ " " + (this.props.className === undefined ? '' : this.props.className)}>
-        {`SSAFY ${this.props.value}기`}
+        <span id={this.props.id} className={this.buildBadgeCompClass() + " " + (this.props.className === undefined ? '' : this.props.className)}>
+          {`SSAFY ${this.props.value}기`}
         </span>
       </>
     );
