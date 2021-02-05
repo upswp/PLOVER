@@ -3,5 +3,6 @@ export { default as Jiyoung } from "./Jiyoung";
 export { default as Suyeon } from "./Suyeon";
 export { default as Register } from "./Register";
 export { default as Login } from "./Login";
+export { default as Home } from "./Home";
 export { MRegister, MList, MDetail } from "./Mentoring";
 export { SRegister, SList, SDetail } from "./Study";
