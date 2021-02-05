@@ -32,6 +32,13 @@ export default class Event {
         return parseInt(arr[arr.length - 1]);
     }
 
+    getDate(datetime) {
+        console.log(datetime);
+        let result = datetime.toString().split("T")[0] + " " + datetime.toString().split("T")[1].split(".")[0];
+
+        return result;
+    }
+
     async getStudy() {
         console.log("== getStudy ==");
         let index = this.getIndex();

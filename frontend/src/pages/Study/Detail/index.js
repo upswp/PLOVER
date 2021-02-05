@@ -44,13 +44,13 @@ function Detail(props) {
         </div>
         <div className={styles.profileTextbox}>
           <div className={styles.profileTextbox_top}><p className={styles.profileText}>{state.study.nickName !== undefined && state.study.nickName}</p></div>
-          <div className={styles.profileTextbox_bottom}><p className={styles.datetime}>{(state.study.createDate + "").split("T")[0] + " " + (state.study.createDate + "").split("T")[1].split(".")[0]}</p></div>
+          <div className={styles.profileTextbox_bottom}><p className={styles.datetime}>{state.study.createDate !== undefined && event.getDate(state.study.createDate)}</p></div>
         </div>
       </div>
       <div className={styles.border}>
         <hr />
       </div>
-      <div style={{ width: "100%", padding: "0px 10px" }} id="content" dangerouslySetInnerHTML={{ __html: state.study.content }}>
+      <div style={{ width: "100%", padding: "0px 10px" }} id="content" dangerouslySetInnerHTML={{ __html: state.study.content !== undefined && state.study.content }}>
       </div>
       <div className={styles.border}>
         <hr />
