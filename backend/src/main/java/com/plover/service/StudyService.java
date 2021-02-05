@@ -33,6 +33,28 @@ public class StudyService {
     @Autowired
     HashtagRepository hashtagRepository;
 
+    // keyword를 포함하는 제목을 가진 스터디 게시글 목록을 페이징해서 받아옴
+    public StudiesResponse getStudiesByKeyword(String keyword, Long cursorId) {
+        Pageable page = PageRequest.of(0, Constant.PAGE_SIZE.getValue());
+        // 페이지에 맞게 리스트 반환
+        List<Study> studies;
+        if (cursorId == 0) {
+            studies = studyRepository.findByIsNoticeAndTitleContainingOrderByIdDesc(false, keyword, page);
+        } else {
+            studies = studyRepository.findByIdLessThanAndIsNoticeAndTitleContainingOrderByIdDesc(cursorId, false, keyword, page);
+        }
+
+        final Long lastIdOfList = studies.isEmpty() ? null : studies.get(studies.size() - 1).getId();
+
+        return new StudiesResponse(studies, searchHasNext(lastIdOfList,keyword));
+    }
+
+    private Boolean searchHasNext(Long lastIdOfList, String keyword) {
+        if (lastIdOfList == null) return false;
+        // 마지막 인덱스보다 작은 것이 있으면 true, 없으면 false
+        return studyRepository.existsByisNoticeAndIdLessThanAndTitleContaining(false,lastIdOfList,keyword);
+    }
+
     // 스터디 게시글 목록을 최신순으로 페이징해서 받아옴
     @Transactional(readOnly = true)
     public StudiesResponse getStudiesOrderByRecent(Long cursorId) {
@@ -42,13 +64,13 @@ public class StudyService {
         if (cursorId == 0) {
             studies = studyRepository.findByIsNoticeOrderByIdDesc(false, page);
         } else {
-            studies = studyRepository.findByIdLessThanAndIsNoticeOrderByIdDesc(cursorId, false, page);
+            studies = studyRepository.findByIdLessThanAndIsNoticeOrderByIdDesc(cursorId, false , page);
         }
 
         final Long lastIdOfList = studies.isEmpty() ?
                 null : studies.get(studies.size() - 1).getId();
 
-        return new StudiesResponse(studies, hasNext(lastIdOfList));
+        return new StudiesResponse(studies, hasNext(lastIdOfList,false));
     }
 
     // 스터디 공지사항 목록을 최신순으로 페이징해서 받아옴
@@ -65,13 +87,13 @@ public class StudyService {
 
         final Long lastIdOfList = studies.isEmpty() ?
                 null : studies.get(studies.size() - 1).getId();
-        return new StudiesResponse(studies, hasNext(lastIdOfList));
+        return new StudiesResponse(studies, hasNext(lastIdOfList,true));
     }
 
-    private Boolean hasNext(Long lastIdOfList) {
+    private Boolean hasNext(Long lastIdOfList, boolean isNotice) {
         if (lastIdOfList == null) return false;
         // 마지막 인덱스보다 작은 것이 있으면 true, 없으면 false
-        return studyRepository.existsByIdLessThan(lastIdOfList);
+        return studyRepository.existsByIsNoticeAndIdLessThan(isNotice,lastIdOfList);
     }
 
     // 스터디 게시글 상세보기
@@ -100,7 +122,7 @@ public class StudyService {
     private void saveHashtags(List<Hashtag> hashtags, Set<String> requestHashtag) {
         Hashtag hashtag;
         for (String hashtagName : requestHashtag) {
-            if (hashtags.stream().noneMatch(h->h.getName().equals(hashtagName))) {
+            if (hashtags.stream().noneMatch(h -> h.getName().equals(hashtagName))) {
                 hashtag = new Hashtag(hashtagName);
                 hashtagRepository.save(hashtag);
                 // 연관시켜주기위해 추가
@@ -137,7 +159,7 @@ public class StudyService {
 
     // 스터디 게시글 삭제
     @Transactional
-    public void deleteStudy(Long id){
+    public void deleteStudy(Long id) {
         studyRepository.deleteById(id);
     }
 }
