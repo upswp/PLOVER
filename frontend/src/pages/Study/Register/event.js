@@ -1,8 +1,8 @@
 import restapi from "src/api/restapi";
 
 export default class Event {
-    constructor() {
-        //이벤트 등록
+    constructor($history) {
+        this.$history = $history;
     }
 
     setState($state) {
@@ -36,23 +36,42 @@ export default class Event {
         }
     };
 
+    setLineToPtag(content) {
+        let result = "<p style=\"line-height:40px;min-height:40px;\">"
+            + content.replace(/\n/g, "</p>\n<p style=\"line-height:40px;min-height:40px;\">")
+            + "</p>";
+        return result;
+    }
+
     async registerStudy() {
         if (!this.$content.value || !this.$title.value || this.$state.tags.length <= 0) {
             alert("모든 입력값을 채워주세요");
             return;
         }
 
+        let content = this.setLineToPtag(this.$content.value);
+
+        console.log(content);
+
         console.log("== registerStudy ==");
         await restapi.post("/study/article", {
-            content: this.$content.value,
+            content: content,
             email: "rosenari88@gmail.com",
             hashtag: this.$state.tags,
             notice: false,
             title: this.$title.value
         }).then((response) => {
-            console.log(response);
+            if (response.status == 200) {
+                console.log(response);
+                alert("등록성공");
+                this.$history.push("/study/list");
+            } else {
+                console.log(response);
+                alert("등록실패");
+            }
         }).catch((err) => {
             console.log(err);
+            alert("등록실패");
         });
     }
 

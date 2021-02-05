@@ -1,7 +1,7 @@
 import { Route } from 'react-router-dom';
 import {
   Jangsoon, Jiyoung, Suyeon,
-  Register, Login,
+  Register, Login, Home,
   MRegister, MList, MDetail,
   SRegister, SList, SDetail,
 } from './pages';
@@ -18,6 +18,7 @@ function App() {
       <Route path="/suyeon" component={Suyeon} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
+      <Route path="/home" component={Home} />
       <Route path="/mentoring/register" component={MRegister} />
       <Route path="/mentoring/list" component={MList} />
       <Route path="/mentoring/detail" component={MDetail} />

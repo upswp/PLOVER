@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./index.module.css";
-import { Navbar, Typo, Noticeslider, Imgbox } from "src/components";
+import { Navbar, Typo, Noticeslider, Skeleton } from "src/components";
 import Event from "./event";
 
 function List(props) {
   const [notices, setNotices] = useState([]);
-  const [studys, setStudys] = useState([]);
+  const [studies, setStudies] = useState([]);
+  const [lastIndex, setLastIndex] = useState(0);
   let state = {};
   //공지
   state.notices = notices;
   state.setNotices = setNotices;
+  state.lastIndex = lastIndex;
   //스터디목록
-  state.studys = studys;
-  state.setStudys = setStudys;
+  state.studies = studies;
+  state.setStudies = setStudies;
+  state.setLastIndex = setLastIndex;
+
   const event = new Event();
   useEffect(() => {
     event.setTarget(document.getElementById("study_list"));
@@ -22,7 +26,7 @@ function List(props) {
     return () => {
       event.destroy();
     };
-  }, [studys]);
+  }, [studies]);
 
   return (
     <div id="study_list" className={styles.study_list}>
@@ -36,26 +40,29 @@ function List(props) {
       </div>
       <div className={styles.studys_box}>
         {
-          studys.map((study, i) => {
+          studies.map((study, i) => {
             return (
-              <div key={"study_" + i} className={styles.study_box}>
+              <div key={"study_" + i} className={styles.study_box} data-id={study.id}>
                 <div className={styles.study_left}>
-                  <div className={styles.title_box}>
+                  <div className={styles.title_box} onClick={() => { props.history.push(`/study/detail/${study.id}`) }}>
                     <Typo ty="h4">{study.title}</Typo>
                   </div>
                   <div className={styles.studys}>
                     <div>
-                      {study.tags.map((tag, i) => {
+                      {study.hashtags.map((tag, i) => {
                         return (
-                          <span key={"tag_" + i} className={styles.tag}>{tag}</span>
+                          <span key={"tag_" + i} className={styles.tag}>{tag.name}</span>
                         )
                       })}
                     </div>
                   </div>
                 </div>
                 <div className={styles.study_right}>
-                  <div className={styles.profilebox}><Imgbox src={study.profileImg} shape="circle" className={styles.profile}></Imgbox></div>
-                  <div className={styles.datebox}>{study.dateTime}</div>
+                  <div className={styles.profilebox}>
+                    {/*<Imgbox src={study.profileImg} shape="circle" className={styles.profile}></Imgbox>*/}
+                    <Skeleton shape="circle" className={styles.profile} />
+                  </div>
+                  <div className={styles.datebox}>하루전</div>
                 </div>
               </div>
             )
