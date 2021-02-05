@@ -1,3 +1,5 @@
+import restapi from "src/api/restapi"
+
 export default class Event {
     constructor() {
 
@@ -11,32 +13,49 @@ export default class Event {
         this.$state = $state;
     }
 
-    getNotice() {
-        this.$state.setNotices([{
-            gubun: "공지",
-            title: "공지사항1 입니다.",
-            time: "5분전",
-            url: "/jiyoung"
-        }, {
-            gubun: "공지",
-            title: "공지사항2 입니다.",
-            time: "10분전",
-            url: "/jiyoung"
-        }, {
-            gubun: "공지",
-            title: "공지사항3 입니다.",
-            time: "15분전",
-            url: "/jiyoung"
-        }, {
-            gubun: "공지",
-            title: "공지사항4 입니다.",
-            time: "20분전",
-            url: "/jiyoung"
-        }]);
+    async getNotice() {
+
+        console.log("== getNotice ==");
+        await restapi.get("/study/notice/0").then((response) => {
+            if (response.status == 200) {
+                console.log(response);
+                this.$state.setNotices(response.data.data.studies);
+            } else {
+                console.log(response);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
-    getStudys() {
-        this.$state.setStudys([...this.$state.studys,
+    async getStudies() {
+
+        if (this.$state.lastIndex === -1) {
+            console.log("게시글 더이상 없음");
+            return;
+        }
+
+        console.log("== getStudies ==");
+        await restapi.get(`/study/article/최신순/${this.$state.lastIndex}`).then((response) => {
+            if (response.status == 200) {
+                this.$state.setStudies([...this.$state.studies,
+                ...response.data.data.studies
+                ]);
+
+                if (!response.data.data.hasNext) {
+                    this.$state.setLastIndex(-1);
+                    return;
+                }
+
+                this.$state.setLastIndex(response.data.data.studies[response.data.data.studies.length - 1].id);
+            } else {
+                console.log(response);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+        /*
+        this.$state.setStudies([...this.$state.studies,
         {
             title: "안녕하세요. 랩레슨 멘토링합니다.",
             tags: ["#bewhy", "#가라사대", "#영원히비와", "#씨잼"],
@@ -58,7 +77,7 @@ export default class Event {
             profileImg: "/images/yeji.png",
             dateTime: "4시간전",
         }
-        ])
+        ])*/
     }
 
     //이벤트 위임기법을 사용한 이벤트 핸들링
@@ -66,15 +85,19 @@ export default class Event {
         this.clickHandler = this.clickEventHandler.bind(this);
         this.$target.addEventListener('click', this.clickHandler);
         this.getNotice();
+
         this.addObserver();
     }
 
     addObserver() {
+
         this.$io = new IntersectionObserver((entries, observer) => {
             Array.from(entries).forEach((entry) => {
                 if (!entry.isIntersecting) return;
 
-                this.getStudys();
+                //console.log(this.$state.lastIndex);
+
+                this.getStudies();
 
                 observer.unobserve(entry.target);
             });
