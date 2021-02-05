@@ -1,9 +1,20 @@
+import restapi from "src/api/restapi";
+
 export default class Event {
-    constructor($target, $state) {
+    constructor($history) {
+        this.$history = $history;
+    }
+
+    setTarget($target) {
         this.$target = $target;
+    }
+
+    setState($state) {
         this.$state = $state;
-        //이벤트 등록
-        this.addEvent();
+    }
+
+    setHistory($history) {
+        this.$history = $history;
     }
 
     //이벤트 위임기법을 사용한 이벤트 핸들링
@@ -13,6 +24,27 @@ export default class Event {
 
         this.$target.addEventListener('click', this.clickHandler);
         this.$target.addEventListener('keyup', this.keyupHandler);
+    }
+
+    getIndex() {
+        let pathname = this.$history.location.pathname;
+        let arr = pathname.split("/");
+        return parseInt(arr[arr.length - 1]);
+    }
+
+    async getStudy() {
+        console.log("== getStudy ==");
+        let index = this.getIndex();
+        await restapi.get(`/study/article/${index}`).then((response) => {
+            if (response.status == 200) {
+                this.$state.setStudy(response.data.data);
+                this.$state.setTags(response.data.data.hashtags);
+            } else {
+                console.log(response);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     clickEventHandler(e) {

@@ -53,15 +53,15 @@ class Noticeslider extends Component {
                 {
                     this.props.data.map((v, i) => {
                         return (
-                            <div className={noticeClass} key={"notice_" + i} onClick={() => { this.props.history.push(v.url) }} style={this.props.style.height ? { height: this.props.style.height } : {}}>
+                            <div className={noticeClass} key={"notice_" + i} onClick={() => { this.props.history.push(`/study/detail/${v.id}`) }} style={this.props.style.height ? { height: this.props.style.height } : {}}>
                                 <div style={{ width: "50px", height: "100%", fontSize: "0.7em", lineHeight: "3" }}>
-                                    {v.gubun}
+                                    공지
                                 </div>
                                 <div style={{ flex: "1", height: "100%", fontSize: "0.7em", fontWeight: "bold", lineHeight: "3", textAlign: "left", paddingLeft: "20px", overflow: "hidden" }}>
                                     {v.title}
                                 </div>
                                 <div style={{ width: "50px", height: "100%", fontSize: "0.7em", lineHeight: "3" }}>
-                                    {v.time}
+                                    {/*v.time*/} 하루전
                                 </div>
                             </div>
                         )
