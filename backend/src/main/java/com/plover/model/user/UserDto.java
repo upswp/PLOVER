@@ -45,15 +45,12 @@ public class UserDto {
     @GeneratedValue
     private Long no;
 
-    @ApiModelProperty(required = true)
     @NotNull
     @Email
     private String email;
-    
-    @ApiModelProperty(required = true)
+
     private String password;
-    
-    @ApiModelProperty(required = true)
+
     @NotNull
     private String nickName;
     
@@ -64,15 +61,15 @@ public class UserDto {
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date updateDate;
-    
-    //기본크기가 255이므로 나중에 char나 boolean 또는 byte로 바꾸면 좋을거 같습니다.
-    @ApiModelProperty(required = true)
+
     @NotNull
-    private String gender;
-    
-    @ApiModelProperty(required = true)
+    private String campus;
+
+    @Column(columnDefinition = "varchar(255) default 'images/default-image.png'")
+    private String profileImageUrl;
+
     @NotNull
-    private String city;
+    private String generation;
     
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
@@ -86,13 +83,18 @@ public class UserDto {
     public UserDto() {}
 
     @Builder
-	public UserDto(@NotNull @Email String email, String password, @NotNull String nickName, @NotNull String gender,
-			@NotNull String city) {
-    	
-		this.email = email;
-		this.password = password;
-		this.nickName = nickName;
-		this.gender = gender;
-		this.city = city;
-	}
+    public UserDto(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation) {
+        this.email = email;
+        this.nickName = nickName;
+        this.campus = campus;
+        this.profileImageUrl = profileImageUrl;
+        this.generation = generation;
+    }
+    @Builder
+    public UserDto(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, @NotNull String generation) {
+        this.email = email;
+        this.nickName = nickName;
+        this.campus = campus;
+        this.generation = generation;
+    }
 }

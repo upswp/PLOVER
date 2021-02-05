@@ -77,10 +77,17 @@ public class UserService {
 		 UserDto user = UserDto.builder()
 				 .email(request.getEmail())
 				 .nickName(request.getNickName())
-				 .city(request.getCity())
-				 .gender(request.getGender())
+				 .campus(request.getCampus())
+				 .generation(request.getGeneration())
 				 .build();
-		
+
+		 if(request.getProfileImageUrl()!="" && request.getProfileImageUrl()!=null){
+			user.setProfileImageUrl(request.getProfileImageUrl());
+		 }
+		 else{
+		 	user.setProfileImageUrl("images/default-image.png");
+		 }
+
 		 user.setSalt(new Salt(salt));
 		 user.setPassword(saltUtil.encodePassword(salt, password));
 		 userRepository.save(user);
