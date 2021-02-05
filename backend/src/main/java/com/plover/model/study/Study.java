@@ -35,6 +35,7 @@ public class Study {
 
     private String title;
 
+    @Lob
     private String content;
 
     // manytomany보다 연결테이블을 entity로 만들어 주는 것이 좋다

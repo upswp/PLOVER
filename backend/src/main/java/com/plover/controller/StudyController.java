@@ -40,6 +40,24 @@ public class StudyController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/search/{cursorid}")
+    @ApiOperation(value = "제목에 키워드가 포함되어있는 스터디 게시글 목록을 반환",
+    notes = "제목에 키워드가 포함되어있는 게시글 목록을 반환한다.",
+    response = Response.class)
+    public Object getStudiesByKeyword(@PathVariable Long cursorid, @RequestParam @NotNull String keyword){
+        ResponseEntity response = null;
+        try{
+            StudiesResponse studiesResponse = studyService.getStudiesByKeyword(keyword, cursorid);
+            final Response result = new Response("success","스터디 게시글 검색 성공",studiesResponse);
+            response = new ResponseEntity<>(result,HttpStatus.OK);
+        }catch (Exception e){
+            final Response result = new Response("success","스터디 게시글 검색 실패",null);
+            response = new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+        }
+        return  response;
+    }
+
+
     @GetMapping("/article/{order}/{cursorid}")
     @ApiOperation(value = "페이징 된 스터디 게시글 목록, 다음 페이지 유무여부 반환",
             notes = "조회한 게시글의 마지막 번호와 정렬(최신순, 조회순)을 받아 스터디 일반게시글의 목록을 반환한다.",
