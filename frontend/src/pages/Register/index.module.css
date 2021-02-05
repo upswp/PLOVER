@@ -5,7 +5,7 @@
 .head {
   justify-content: center;
   position: relative;
-  
+  margin-bottom: 30px;
 }
 
 .header {
@@ -23,6 +23,7 @@
   margin: 0 auto;
   position: absolute;
   top: 120px;
+  left: 150px
 }
 
 .inputdiv {
@@ -33,4 +34,11 @@
 .label {
   text-align: left;
   font-weight: bold;
+  margin-top: 12px;
+  margin-bottom: 2px;
+}
+
+.button {
+  width: 100%;
+  margin-top: 20px;
 }
