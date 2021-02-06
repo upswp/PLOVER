@@ -16,6 +16,5 @@ public class EmailService {
         message.setSubject(sub);
         message.setText(text);
         emailSender.send(message);
-        System.out.println("이메일 전송 주소 : "+to);
     }
 }
