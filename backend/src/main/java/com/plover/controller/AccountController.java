@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import java.util.Arrays;
 
 @ApiResponses(value = {
         @ApiResponse(code = 401, message = "Unauthorized", response = Response.class),
@@ -212,29 +213,30 @@ public class AccountController {
         }
         return response;
     }
-    @GetMapping("/logout/{email}")
+    @GetMapping("/logout")
     @ApiOperation(value = "로그아웃을 진행한다.",
             notes = "로그아웃 버튼을 눌렀을 때 수행하는 기능",
             response = Response.class)
-    public Response logout(@PathVariable String email, HttpServletRequest req, HttpServletResponse res) {
-        System.out.print(email);
-        Response response;
-        final Cookie jwtToken = cookieUtil.getCookie(req,JwtUtil.ACCESS_TOKEN_NAME);
-        final Cookie refreshToken = cookieUtil.getCookie(req,JwtUtil.REFRESH_TOKEN_NAME);
-        jwtToken.setMaxAge(0);
-        refreshToken.setMaxAge(0);
-        redisUtil.deleteData(email);
+    public Object logout(HttpServletRequest req, HttpServletResponse res) {
 
-        response = new Response("success", "로그아웃 성공",null);
-        return response;
+        Cookie refreshToken = cookieUtil.getCookie(req, JwtUtil.REFRESH_TOKEN_NAME);
+        redisUtil.deleteData(refreshToken.getValue());
+
+        Cookie accessToken = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, null);
+        accessToken.setMaxAge(0);
+        accessToken.setPath("/");
+        refreshToken = new Cookie(JwtUtil.REFRESH_TOKEN_NAME, null);
+        refreshToken.setMaxAge(0);
+        refreshToken.setPath("/");
+
+        res.addCookie(accessToken);
+        res.addCookie(refreshToken);
+        if(res==null){
+            return new ResponseEntity<>(new Response("error", "이미 로그아웃된 사용자 입니다.", null),HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(new Response("success", "로그아웃 성공", null),HttpStatus.OK);
+        }
+
     }
-//    //test
-//    @ApiOperation(value = "다른 페이지로 이동이 가능한지 확인",
-//   		 notes = "로그인 / 비로그인 시 이동이 가능한지 확인",
-//       response = Response.class)
-//    @GetMapping("/hello")
-//    public String hello() {
-//
-//        return "hello ";
-//    }
 }

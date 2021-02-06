@@ -6,6 +6,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -18,8 +19,8 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    public final static long TOKEN_VALIDATION_SECOND = 1000L * 10;
-    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2;
+    public final static long TOKEN_VALIDATION_SECOND = 1000L * 60L * 30;//30분
+    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2;//약 3일
 
     final static public String ACCESS_TOKEN_NAME = "accessToken";
     final static public String REFRESH_TOKEN_NAME = "refreshToken";
@@ -80,5 +81,4 @@ public class JwtUtil {
 
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
 }
