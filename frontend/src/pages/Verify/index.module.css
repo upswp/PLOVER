@@ -1,0 +1,14 @@
+.container {
+  text-align: center;
+}
+
+.icon {
+  font-size: 1.1em;
+  margin-left: 15px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.title {
+  margin: 0 auto;
+}
