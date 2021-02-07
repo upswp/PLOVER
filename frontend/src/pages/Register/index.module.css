@@ -2,6 +2,23 @@
   text-align: center; 
 }
 
+.nav {
+  background-color: rgba(0,0,0,0);
+  position: absolute;
+  width: 100%;
+}
+
+.icon {
+  font-size: 1.1em;
+  margin-left: 15px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.title {
+  margin: 0 auto;
+}
+
 .head {
   justify-content: center;
   position: relative;
@@ -20,10 +37,10 @@
 }
 
 .propic {
-  margin: 0 auto;
   position: absolute;
   top: 120px;
-  left: 150px
+  margin-left: 150px;
+  margin-right: 150px;
 }
 
 .inputdiv {
