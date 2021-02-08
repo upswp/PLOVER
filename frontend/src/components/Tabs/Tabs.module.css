@@ -14,6 +14,7 @@
 li {
   padding: 1em 1em;
   border-bottom: 2px solid var(--color-light-gray);
+  width: 33%;
 }
 
 a {
