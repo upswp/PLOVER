@@ -38,6 +38,7 @@ class Navbutton extends Component {
 
     clickHandler = () => {
         this.setState({ opend: !this.state.opend });
+        this.props.setShowMenu(!this.props.showMenu);
     }
 
     componentDidMount() {
