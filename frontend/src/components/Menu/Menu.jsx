@@ -1,28 +1,22 @@
 import React, {useState} from 'react';
+import Navbutton from '../Navbar/Navbutton';
 import styles from './Menu.module.css';
 import {MenuItems} from './MenuItems';
 
-import user1 from "./testdata/user1.jpg";
-import Imgbox from 'src/components/Imgcomponents/Imgbox';
 
-const Menu = (props) => {
+const Menu = ({setShowMenu, showMenu}) => {
 
-  const [toggleState, setToggleState] = useState(false);
-
-  const toggleButtonHandler = (event) => {
-    setToggleState(!toggleState);
-  };
 
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
         <div className={styles.menu_top}>
           <h1 className={styles.appname}>PLOVER</h1>
-          <div>
-            <button className={styles.toggleButton} onClick={toggleButtonHandler}><i class="fas fa-bars"></i></button>
+          <div className={styles.navButtonBox}>
+            <Navbutton setShowMenu={setShowMenu} showMenu={showMenu}/>
           </div>
         </div>
-        <ul className={toggleState === true ? 'menu_sp' : 'menu_sp open'}>
+        <ul className={styles.itemList}>
           {
             MenuItems.map((item, index) => {
               return (

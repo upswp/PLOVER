@@ -12,7 +12,7 @@
   height: 100%;
   right: 0;
   top: 0;
-  z-index: 999;
+  z-index: 400;
 }
 
 .menu {
@@ -43,6 +43,11 @@
   font-size: 1.5rem;
 }
 
+.navButtonBox {
+  z-index: 999;
+  background-color: white;
+}
+
 .toggleButton {
   background-color: var(--color-dark-purple);
   color: var(--color-white);
@@ -51,8 +56,12 @@
   line-height: 40px;
 }
 
-ul {
+.itemList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
+  margin-top: 10px;
 }
 
 .items {
@@ -60,20 +69,27 @@ ul {
   border: none;
   cursor: pointer;
   border: 2px solid transparent;
-  border-radius: 15%;
-  margin: 0 20px;
+  border-radius: 10px;
+  width: 100%;
+  padding: 5px;
 }
 
-.items:hover {
+.item {
+  display: block;
+  width: 95%;
+  margin: auto;
+  height: 50px;
+  color: inherit;
+  text-align: center;
+  line-height: 50px;
+}
+
+.item:hover {
   border-color: var(--color-white);
   background-color: rgba(255, 255, 255, 0.541);
   color: var(--color-dark-purple);
   font-weight: 700;
-}
-
-.item {
-  color: inherit;
-  text-align: center;
+  border-radius: 10px;
 }
 
 .apptitle {
@@ -82,12 +98,4 @@ ul {
   padding-top: 2em;
   padding-bottom: 1em;
   text-align: center;
-}
-
-.menu_sp {
-  display: none;
-}
-
-.menu_sp.open {
-  display: block;
 }

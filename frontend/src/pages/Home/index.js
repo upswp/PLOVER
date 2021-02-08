@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Imgbox from 'src/components/Imgcomponents/Imgbox';
 import Navbar from 'src/components/Navbar/Navbar';
 import Navbutton from 'src/components/Navbar/Navbutton';
 import Cardslider from 'src/components/Slider/Cardslider';
 import user1 from "./testdata/user1.jpg";
-import styles from './index.module.css';
+// import styles from './index.module.css';
+import Menu from 'src/components/Menu/Menu';
 
 const Home = (props) => {
-
+  const [showMenu, setShowMenu] = useState(false);
+  
   return (
     <>
       <Navbar color="white" style={{ marginTop: "20px" }}>
         <Imgbox src={user1} size="small" shape="circle" style={{ marginLeft: "10px" }} />
-        <span className="color_black" style={{ marginLeft: "10px", fontWeight: "bold" }}>P_front_developer</span>
-        <i className="far fa-bell color_black" style={{ fontSize: "1.8em", marginLeft: "auto" }}></i>
-        <Navbutton color="black" style={{ marginLeft: "10px", marginRight: "10px" }} />
+        <span className="color_black" style={{ marginLeft: "10px", fontWeight: "bold" }}>jiyoung_321</span>
+        <i className="far fa-bell color_black" style={{ fontSize: "1.8rem", marginLeft: "auto" }}></i>
+        <Navbutton color="black" style={{ marginLeft: "10px", marginRight: "10px" }} setShowMenu={setShowMenu} showMenu={showMenu} />
       </Navbar>
+      { showMenu ? <Menu setShowMenu={setShowMenu} showMenu={showMenu} /> : null }
+      
       <br/>
       <p>Mentoring 갠찬으시겠어요?</p>
       <br/>
