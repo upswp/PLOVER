@@ -9,6 +9,9 @@ function Page() {
     return (
         <div>
             지영페이지
+            <h1>------------------</h1>
+            
+            <h1>------------------</h1>
             <p>fontawesome_test</p>
             <button><i className="fas fa-play-circle"></i></button>
             <button><i className="fas fa-bars"></i></button>
