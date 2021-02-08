@@ -2,13 +2,14 @@ package com.plover.model.metoring;
 
 import com.plover.model.user.UserDto;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDateTime;
+
+import java.util.Date;
 
 /**
  * @author Park Sangwoo
@@ -26,26 +27,26 @@ public class Mentoring {
     private Long no;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_no")
     private UserDto user;
 
     @Column(nullable = false)
-    private int type;
+    private String type;
 
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
-    private Date startDate;
+    private String startDate;
 
     @Column(nullable = false)
-    private Time startTime;
+    private String startTime;
 
     @Column(nullable = false)
-    private Date endDate;
+    private String endDate;
 
     @Column(nullable = false)
-    private Time endTime;
+    private String endTime;
 
     @Column(nullable = false)
     private String content;
@@ -53,16 +54,16 @@ public class Mentoring {
     @Column
     private Long fileId;
 
-    @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdDate;
+    @Temporal(TemporalType.DATE)
+    @CreationTimestamp
+    private Date createDate;
 
-    @LastModifiedDate
-    private LocalDateTime updateDate;
+    @Temporal(TemporalType.DATE)
+    @UpdateTimestamp
+    private Date updateDate;
 
     @Builder
-    public Mentoring(Long no, int type, String title, Date startDate, Time startTime, Date endDate, Time endTime, String content, Long fileId) {
-        this.no = no;
+    public Mentoring(String type, String title, String startDate, String startTime, String endDate, String endTime, String content, Long fileId) {
         this.type = type;
         this.title = title;
         this.startDate = startDate;
@@ -72,6 +73,9 @@ public class Mentoring {
         this.content = content;
         this.fileId = fileId;
     }
+
+
+
 
     public void setUser(UserDto user){this.user = user;}
 }

@@ -6,9 +6,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -26,30 +23,25 @@ public class MentoringRequest {
     private String email;
 
     @NotBlank
-    private int type;
+    private String type;
 
     @NotBlank
-    private Date startDate;
+    private String startDate;
 
     @NotBlank
-    private Time startTime;
+    private String startTime;
 
     @NotBlank
-    private Date endDate;
+    private String endDate;
 
     @NotBlank
-    private Time endTime;
+    private String endTime;
 
     @NotBlank
     @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.")
     private String content;
 
     private Long fileId;
-
-    private LocalDateTime createdDate;
-
-    private LocalDateTime updateDate;
-
 
     public Mentoring toMentoring(){
         return Mentoring.builder()
@@ -65,10 +57,11 @@ public class MentoringRequest {
     }
 
     @Builder
-    public MentoringRequest(@NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다. ") String title, @NotBlank int type, @NotBlank Date startDate, @NotBlank Time startTime, @NotBlank Date endDate, @NotBlank Time endTime, @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content,
-                            Long fileId, LocalDateTime createdDate, LocalDateTime updateDate, @Email @NotBlank String email) {
-        this.email = email;
+
+    public MentoringRequest(@NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다. ") String title, @Email @NotBlank String email, @NotBlank String type, @NotBlank String startDate, @NotBlank String startTime, @NotBlank String endDate, @NotBlank String endTime,
+                            @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content, Long fileId) {
         this.title = title;
+        this.email = email;
         this.type = type;
         this.startDate = startDate;
         this.startTime = startTime;
@@ -76,7 +69,5 @@ public class MentoringRequest {
         this.endTime = endTime;
         this.content = content;
         this.fileId = fileId;
-        this.createdDate = createdDate;
-        this.updateDate = updateDate;
     }
 }

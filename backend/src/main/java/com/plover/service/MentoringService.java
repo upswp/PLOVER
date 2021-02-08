@@ -35,7 +35,6 @@ public class MentoringService {
                 .title(mentoring.getTitle())
                 .content(mentoring.getContent())
                 .fileId(mentoring.getFileId())
-                .createdDate(mentoring.getCreatedDate())
                 .build();
         return mentoringRequest;
     }
