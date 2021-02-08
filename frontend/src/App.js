@@ -4,7 +4,7 @@ import {
   Register, Verify, Login, Home,
   MRegister, MList, MDetail,
   SRegister, SList, SDetail,
-  Search
+  Search, Follow
 } from './pages';
 import styles from "./App.module.css"
 import "./global.color.css";
@@ -28,6 +28,7 @@ function App() {
       <Route path="/study/list" component={SList} />
       <Route path="/study/detail" component={SDetail} />
       <Route path="/search" component={Search} />
+      <Route path="/follow" component={Follow} />
     </div>
   );
 }
