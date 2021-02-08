@@ -1,23 +1,23 @@
 .input {
-    padding: 1px 10px;
-    margin: 0 auto;
-    width: 337px;
-    height: 34px;
-    border: 1px solid #a2a2a2;
-    border-radius: 5px;
-    font-family: 'Noto Sans KR', sans-serif;
-    background: white;
+  padding: 1px 10px;
+  margin: 0 auto;
+  width: 337px;
+  height: 34px;
+  border: 1px solid #a2a2a2;
+  border-radius: 5px;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: white;
 }
 
 .input:focus {
-    border: 1px solid #202020;
-    outline: none;
+  border: 1px solid #202020;
+  outline: none;
 } 
 
 .short {
-    width: 162px;
+  width: 162px;
 }
 
 .tall {
-    height: 110px;
+  height: 110px;
 }

@@ -6,25 +6,25 @@ const cx = classNames.bind(styles);
 
 class Typo extends Component {
 
-    buildTypoClass = () => {
-        let result = "";
-        const { ty } = this.props;
-        let classes = ['p']
+  buildTypoClass = () => {
+    let result = "";
+    const { ty } = this.props;
+    let classes = ['p']
 
-        if (ty) classes.push(ty);
+    if (ty) classes.push(ty);
 
-        result += cx(...classes);
-        return result;
-    };
+    result += cx(...classes);
+    return result;
+  };
 
 
-    render() {
-        return (
-            <>
-                <p id={this.props.id} className={this.buildTypoClass() + " " + (this.props.className === undefined ? '' : this.props.className)}>{this.props.children}</p>
-            </>
-        )
-    }
+  render() {
+    return (
+      <>
+        <p id={this.props.id} className={this.buildTypoClass() + " " + (this.props.className === undefined ? '' : this.props.className)}>{this.props.children}</p>
+      </>
+    )
+  }
 }
 
 export default Typo;
