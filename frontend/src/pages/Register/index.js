@@ -21,7 +21,7 @@ function Register(props) {
     event.setDupNickname(document.getElementById('dupNickname'))
     event.setGeneration(document.getElementById('generation'))
     event.setCampus(document.getElementById('campus'))
-    event.setTarget(document.getElementById('register_btn'))
+    event.setRegister(document.getElementById('register'))
     event.addEvent()
     
     return () => {
@@ -30,56 +30,60 @@ function Register(props) {
   })
 
   return (
-        <div className={styles.container}>
-          <div className={styles.head}>
-          <Navbar className={styles.nav}>
-            <i className={"fas fa-chevron-left color_black" + " " + styles.icon}
-            onClick={() => { props.history.push('/login') }}></i>
-            <span className={"color_black" + " " + styles.title}><Typo ty="h4">회원가입</Typo></span>
-            <i></i>
-          </Navbar>
+    <div className={styles.container}>
+      <div className={styles.head}>
+      <Navbar className={styles.nav}>
+        <i className={"fas fa-chevron-left color_black" + " " + styles.icon}
+        onClick={() => { props.history.push('/login') }}></i>
+        <span className={"color_black" + " " + styles.title}><Typo ty="h4">회원가입</Typo></span>
+        <i></i>
+      </Navbar>
 
-          <div className={styles.header}></div>
-          <ImgAttach id="propic" className={styles.propic}></ImgAttach>
-          </div>
-    
-          <div className={styles.inputdiv}>
-          <Typo ty="desc" className={styles.label}>이메일</Typo>
-          <Input id="email" type="email" placeholder="이메일을 입력하세요"></Input>
-          <button id="dupEmail">중복확인</button>
-    
-          <Typo ty="desc" className={styles.label}>패스워드</Typo>
-          <Input id="password" type="password" placeholder="패스워드를 입력하세요"></Input>
-    
-          <Typo ty="desc" className={styles.label}>패스워드 확인</Typo>
-          <Input id="passwordConfirm" type="password" placeholder="패스워드 확인"></Input>
+      <div className={styles.header}></div>
+      <ImgAttach id="propic" className={styles.propic}></ImgAttach>
+      </div>
 
-          <Typo ty="desc" className={styles.label}>닉네임</Typo>
-          <Input id="nickname" placeholder="닉네임을 입력하세요"></Input>
-          <button id="dupNickname">중복확인</button>
-    
-          <Typo ty="desc" className={styles.label}>기수</Typo>
-          <Select id="generation">
-            <option value="">기수를 선택하세요</option>
-            <option value="1기">1기</option>
-            <option value="2기">2기</option>
-            <option value="3기">3기</option>
-            <option value="4기">4기</option>
-            <option value="5기">5기</option>
-          </Select>
+      <div className={styles.inputdiv}>
+      <Typo className={styles.label} ty="desc">이메일</Typo>
+      <div className={styles.div}>
+      <Input className={styles.dupinput} id="email" type="email" placeholder="이메일을 입력하세요"></Input>
+      <ButtonComp className={styles.dup} width="regular" type="base" textvalue="중복확인" id="dupEmail"></ButtonComp>
+      </div>
 
-          <Typo ty="desc" className={styles.label}>캠퍼스 선택</Typo>
-          <Select id="campus">
-            <option value="">지역을 선택하세요</option>
-            <option value="서울 캠퍼스">서울 캠퍼스</option>
-            <option value="대전 캠퍼스">대전 캠퍼스</option>
-            <option value="광주 캠퍼스">광주 캠퍼스</option>
-            <option value="구미 캠퍼스">구미 캠퍼스</option>
-          </Select>
-    
-          <ButtonComp id="register_btn" className={styles.button} width="large" type="base" textvalue="회원가입"></ButtonComp>
-          </div>
-        </div>
+      <Typo ty="desc" className={styles.label}>패스워드</Typo>
+      <Input id="password" type="password" placeholder="패스워드를 입력하세요"></Input>
+
+      <Typo ty="desc" className={styles.label}>패스워드 확인</Typo>
+      <Input id="passwordConfirm" type="password" placeholder="패스워드 확인"></Input>
+
+      <Typo ty="desc" className={styles.label}>닉네임</Typo>
+      <div className={styles.div}>
+      <Input className={styles.dupinput} id="nickname" placeholder="닉네임을 입력하세요"></Input>
+      <ButtonComp className={styles.dup} width="regular" type="base" textvalue="중복확인" id="dupNickname"></ButtonComp>
+      </div>
+
+      <Typo ty="desc" className={styles.label}>기수</Typo>
+      <Select id="generation">
+        <option value="">기수를 선택하세요</option>
+        <option value="1기">1기</option>
+        <option value="2기">2기</option>
+        <option value="3기">3기</option>
+        <option value="4기">4기</option>
+        <option value="5기">5기</option>
+      </Select>
+
+      <Typo ty="desc" className={styles.label}>캠퍼스 선택</Typo>
+      <Select id="campus">
+        <option value="">지역을 선택하세요</option>
+        <option value="서울 캠퍼스">서울 캠퍼스</option>
+        <option value="대전 캠퍼스">대전 캠퍼스</option>
+        <option value="광주 캠퍼스">광주 캠퍼스</option>
+        <option value="구미 캠퍼스">구미 캠퍼스</option>
+      </Select>
+
+      <ButtonComp id="register" className={styles.button} width="large" type="base" textvalue="회원가입"></ButtonComp>
+      </div>
+    </div>
   )
 };
 export default Register;
