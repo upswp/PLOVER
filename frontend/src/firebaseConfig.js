@@ -42,7 +42,8 @@ import axios from 'axios'
                         })
                           .then(async function (token) {
                           //여기에 이제 토큰을 전달할 axios 넣어야함
-                            await axios.post('https://dev.plover.co.kr/ssafy/getFCMToken', {fcmToken: token })
+                            // await axios.post('https://dev.plover.co.kr/ssafy/getFCMToken', {fcmToken: token })
+                            console.log(token);
                             messaging.onMessage(payload => {
                                 const title = payload.notification.title
                                 const options = {
