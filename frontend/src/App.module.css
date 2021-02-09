@@ -1,11 +1,11 @@
 .App {
-  width:430px;
-  margin:0 auto;
-  font-family: 'Noto Sans KR', sans-serif;
+  width: 430px;
+  margin: 0 auto;
+  font-family: "Roboto", sans-serif;
 }
 
 @media screen and (max-width: 480px) {
-    .App{
-      width:100%;
-    }
+  .App {
+    width: 100%;
+  }
 }
