@@ -8,6 +8,185 @@ import styles from './index.module.css';
 import Menu from 'src/components/Menu/Menu';
 import Badgeslider from 'src/components/Slider/Badgeslider';
 import Noticeslider from 'src/components/Slider/Noticeslider';
+import restapi from 'src/api/restapi';
+
+const mentoringClassList = [
+  {
+    img: "/images/mentoring_1.png",
+    badgeColor: "black",
+    badgeValue: "LIVE",
+    url: "/jiyoung",
+    title: "앱 개발 입문",
+    pulseColor: "red"
+  }, 
+  {
+    img: "/images/mentoring_2.png",
+    badgeColor: "purple",
+    badgeValue: "CHAT",
+    url: "/jiyoung",
+    title: "웹풀스택과정 강의"
+  }, 
+  {
+    img: "/images/mentoring_3.png",
+    badgeColor: "blue",
+    badgeValue: "MEET",
+    url: "/jiyoung",
+    title: "코딩의 신이 돼보자!"
+  }, 
+  {
+    img: "/images/mentoring_4.png",
+    badgeColor: "black",
+    badgeValue: "LIVE",
+    url: "/jiyoung",
+    title: "HELLO WORLD"
+  }, 
+  {
+    img: "/images/mentoring_5.png",
+    badgeColor: "purple",
+    badgeValue: "CHAT",
+    url: "/jiyoung",
+    title: "WEB HACKING"
+  }, 
+  {
+    img: "/images/mentoring_5.png",
+    badgeColor: "purple",
+    badgeValue: "CHAT",
+    url: "/jiyoung",
+    title: "WEB HACKING"
+  }
+]
+
+const friendRecommendSlider = [{
+  img: "/images/bewhy.jpg",
+  nickname: "1기 비와이",
+  ordnum: "1",
+}, 
+{
+  img: "/images/gangsora.png",
+  nickname: "2기 강소라",
+  ordnum: "2",
+}, 
+{
+  img: "/images/one.png",
+  nickname: "3기 원빈",
+  ordnum: "3",
+}, 
+{
+  img: "/images/swings.png",
+  nickname: "4기 스윙스",
+  ordnum: "4",
+}, 
+{
+  img: "/images/yeji.png",
+  nickname: "5기 예지",
+  ordnum: "5",
+}, 
+{
+  img: "/images/park.png",
+  nickname: "1기 박명수",
+  ordnum: "1",
+}, 
+{
+  img: "/images/bewhy.jpg",
+  nickname: "sadasddddddddddddddddddddddddddd",
+  ordnum: "2",
+}, 
+{
+  img: "/images/bewhy.jpg",
+  nickname: "가나다라마바사아자차카타파하",
+  ordnum: "3",
+}, 
+{
+  img: "/images/bewhy.jpg",
+  nickname: "sadas",
+  ordnum: "4",
+}, 
+{
+  img: "/images/bewhy.jpg",
+  nickname: "sadas",
+  ordnum: "5",
+}, 
+{
+  img: "/images/bewhy.jpg",
+  nickname: "sadas",
+  ordnum: "1",
+}, 
+{
+  img: "/images/bewhy.jpg",
+  nickname: "sadas",
+  ordnum: "1",
+}]
+
+const studyNoticeList = [
+  {
+    gubun: "공지",
+    title: "공지사항1 입니다.",
+    time: "5분전",
+    url: "/jiyoung"
+  }, {
+    gubun: "공지",
+    title: "공지사항2 입니다.",
+    time: "10분전",
+    url: "/jiyoung"
+  }, {
+    gubun: "공지",
+    title: "공지사항3 입니다.",
+    time: "15분전",
+    url: "/jiyoung"
+  }, {
+    gubun: "공지",
+    title: "공지사항4 입니다.",
+    time: "20분전",
+    url: "/jiyoung"
+  }]
+
+const studyArticleList = [
+  {
+    "id": 1,
+    "title": "디비테스트",
+    "hashtags": [
+      {
+        "id": 1,
+        "name": "디비"
+      }
+    ],
+    "date": "17시간전",
+    "user": {
+      "profileImg": "https://picsum.photos/200/200",
+      "userId": "tory_922"
+    }
+  },
+  {
+    "id": 2,
+    "title": "디비테스트",
+    "hashtags": [
+      {
+        "id": 1,
+        "name": "디비"
+      }
+    ],
+    "date": "17시간전",
+    "user": {
+      "profileImg": "https://picsum.photos/200/200",
+      "userId": "tory_922"
+    }
+  },
+  {
+    "id": 3,
+    "title": "디비테스트",
+    "hashtags": [
+      {
+        "id": 1,
+        "name": "디비"
+      }
+    ],
+    "date": "17시간전",
+    "user": {
+      "profileImg": "https://picsum.photos/200/200",
+      "userId": "tory_922"
+    }
+  }
+]
 
 const Home = (props) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -23,51 +202,7 @@ const Home = (props) => {
       { showMenu ? <Menu setShowMenu={setShowMenu} showMenu={showMenu} /> : null }
       <h1 className={styles.mentoring_title}>Mentoring 갠찬으시겠어요? 😁😎</h1>
       <div style={{ width: "430px", height: "240px", marginTop: "20px", marginBottom: "10px", marginLeft: "15px" }}>
-        <Cardslider data={[
-          {
-            img: "/images/mentoring_1.png",
-            badgeColor: "black",
-            badgeValue: "LIVE",
-            url: "/jiyoung",
-            title: "앱 개발 입문",
-            pulseColor: "red"
-          }, 
-          {
-            img: "/images/mentoring_2.png",
-            badgeColor: "purple",
-            badgeValue: "CHAT",
-            url: "/jiyoung",
-            title: "웹풀스택과정 강의"
-          }, 
-          {
-            img: "/images/mentoring_3.png",
-            badgeColor: "blue",
-            badgeValue: "MEET",
-            url: "/jiyoung",
-            title: "코딩의 신이 돼보자!"
-          }, 
-          {
-            img: "/images/mentoring_4.png",
-            badgeColor: "black",
-            badgeValue: "LIVE",
-            url: "/jiyoung",
-            title: "HELLO WORLD"
-          }, 
-          {
-            img: "/images/mentoring_5.png",
-            badgeColor: "purple",
-            badgeValue: "CHAT",
-            url: "/jiyoung",
-            title: "WEB HACKING"
-          }, 
-          {
-            img: "/images/mentoring_5.png",
-            badgeColor: "purple",
-            badgeValue: "CHAT",
-            url: "/jiyoung",
-            title: "WEB HACKING"
-          }
-        ]}
+        <Cardslider data={mentoringClassList}
           history={props.history}
         />
       </div>
@@ -79,92 +214,14 @@ const Home = (props) => {
             width: "130px",
             height: "80px",
           }}
-          data={[{
-            img: "/images/bewhy.jpg",
-            nickname: "1기 비와이",
-            ordnum: "1",
-          }, 
-          {
-            img: "/images/gangsora.png",
-            nickname: "2기 강소라",
-            ordnum: "2",
-          }, 
-          {
-            img: "/images/one.png",
-            nickname: "3기 원빈",
-            ordnum: "3",
-          }, 
-          {
-            img: "/images/swings.png",
-            nickname: "4기 스윙스",
-            ordnum: "4",
-          }, 
-          {
-            img: "/images/yeji.png",
-            nickname: "5기 예지",
-            ordnum: "5",
-          }, 
-          {
-            img: "/images/park.png",
-            nickname: "1기 박명수",
-            ordnum: "1",
-          }, 
-          {
-            img: "/images/bewhy.jpg",
-            nickname: "sadasddddddddddddddddddddddddddd",
-            ordnum: "2",
-          }, 
-          {
-            img: "/images/bewhy.jpg",
-            nickname: "가나다라마바사아자차카타파하",
-            ordnum: "3",
-          }, 
-          {
-            img: "/images/bewhy.jpg",
-            nickname: "sadas",
-            ordnum: "4",
-          }, 
-          {
-            img: "/images/bewhy.jpg",
-            nickname: "sadas",
-            ordnum: "5",
-          }, 
-          {
-            img: "/images/bewhy.jpg",
-            nickname: "sadas",
-            ordnum: "1",
-          }, 
-          {
-            img: "/images/bewhy.jpg",
-            nickname: "sadas",
-            ordnum: "1",
-          }]} history={props.history} />
+          data={friendRecommendSlider} history={props.history} />
       </div>
       <h1 className={styles.study_title}>스터디 같이해요😍</h1>
       <div style={{ width: "400px", height: "40px", marginBottom: "10px", marginLeft: "15px" }}>
-        <Noticeslider data={[
-          {
-            gubun: "공지",
-            title: "공지사항1 입니다.",
-            time: "5분전",
-            url: "/jiyoung"
-          }, {
-            gubun: "공지",
-            title: "공지사항2 입니다.",
-            time: "10분전",
-            url: "/jiyoung"
-          }, {
-            gubun: "공지",
-            title: "공지사항3 입니다.",
-            time: "15분전",
-            url: "/jiyoung"
-          }, {
-            gubun: "공지",
-            title: "공지사항4 입니다.",
-            time: "20분전",
-            url: "/jiyoung"
-          }]} style={{ height: "40px" }} duration={3000} history={props.history} />
+        <Noticeslider data={studyNoticeList} style={{ height: "40px" }} duration={3000} history={props.history} />
       </div>
+      
+
       
     </>
   );

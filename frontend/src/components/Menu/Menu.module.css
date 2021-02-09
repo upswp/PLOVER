@@ -18,7 +18,7 @@
 .menu {
   background-color: var(--color-dark-purple);
   width: 400px;
-  height: 500px;
+  height: 100vh;
   position: relative;
   right: -30px;
   display: flex;
