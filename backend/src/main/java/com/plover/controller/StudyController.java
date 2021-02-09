@@ -6,6 +6,7 @@ import com.plover.model.study.request.StudyInsertRequest;
 import com.plover.model.study.request.StudyRequest;
 import com.plover.model.study.response.StudiesResponse;
 import com.plover.model.study.response.StudyDetailResponse;
+import com.plover.model.study.response.StudyNoticesResponse;
 import com.plover.model.user.UserDto;
 import com.plover.service.StudyService;
 import com.plover.service.UserService;
@@ -19,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -30,8 +30,6 @@ import javax.validation.constraints.Pattern;
         @ApiResponse(code = 404, message = "Not Found", response = Response.class),
         @ApiResponse(code = 500, message = "Failure", response = Response.class)})
 
-//개발 모드에서는 모두 허용
-//@CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("study")
 public class StudyController {
@@ -91,8 +89,8 @@ public class StudyController {
     public Object getNotices(@PathVariable Long cursorid) {
         ResponseEntity response = null;
         try {
-            StudiesResponse studiesResponse = studyService.getNoticesOrderByRecent(cursorid);
-            final Response result = new Response("success", "스터디 공지사항 목록 조회 성공", studiesResponse);
+            StudyNoticesResponse studiesNoticesResponse = studyService.getNoticesOrderByRecent(cursorid);
+            final Response result = new Response("success", "스터디 공지사항 목록 조회 성공", studiesNoticesResponse);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             final Response result = new Response("error", "스터디 공지사항 목록 조회 실패", e.getMessage());

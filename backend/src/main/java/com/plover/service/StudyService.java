@@ -11,7 +11,7 @@ import com.plover.model.study.request.StudyInsertRequest;
 import com.plover.model.study.request.StudyRequest;
 import com.plover.model.study.response.StudiesResponse;
 import com.plover.model.study.response.StudyDetailResponse;
-import com.plover.model.study.response.StudyResponse;
+import com.plover.model.study.response.StudyNoticesResponse;
 import com.plover.model.user.UserDto;
 import com.plover.repository.HashtagRepository;
 import com.plover.repository.StudyRepository;
@@ -21,7 +21,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -75,7 +74,7 @@ public class StudyService {
 
     // 스터디 공지사항 목록을 최신순으로 페이징해서 받아옴
     @Transactional(readOnly = true)
-    public StudiesResponse getNoticesOrderByRecent(Long cursorId) {
+    public StudyNoticesResponse getNoticesOrderByRecent(Long cursorId) {
         Pageable page = PageRequest.of(0, Constant.PAGE_SIZE.getValue());
         // 페이지에 맞게 리스트 반환
         List<Study> studies;
@@ -87,7 +86,7 @@ public class StudyService {
 
         final Long lastIdOfList = studies.isEmpty() ?
                 null : studies.get(studies.size() - 1).getId();
-        return new StudiesResponse(studies, hasNext(lastIdOfList,true));
+        return new StudyNoticesResponse(studies, hasNext(lastIdOfList,true));
     }
 
     private Boolean hasNext(Long lastIdOfList, boolean isNotice) {
