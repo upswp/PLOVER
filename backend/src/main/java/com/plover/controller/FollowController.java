@@ -48,7 +48,7 @@ public class FollowController {
     public Object getFollowing(HttpServletRequest request, @PathVariable @NotNull Long cursorId) {
         ResponseEntity response = null;
         try {
-            Long no = jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+            Long no = Long.parseLong(jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue()));
             FollowUsersResponse followUsersResponse = followService.getFollowingUsers(cursorId,no);
             final Response result = new Response("success", "팔로잉 목록 조회가 완료되었습니다.", followUsersResponse);
             response = new ResponseEntity<>(result, HttpStatus.OK);
@@ -66,7 +66,7 @@ public class FollowController {
     public Object getFollower(HttpServletRequest request, @PathVariable @NotNull Long cursorId) {
         ResponseEntity response = null;
         try {
-            Long no = jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+            Long no = Long.parseLong(jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue()));
             FollowUsersResponse followUsersResponse = followService.getFollowerUsers(cursorId,no);
             final Response result = new Response("success", "팔로워 목록 조회가 완료되었습니다.", followUsersResponse);
             response = new ResponseEntity<>(result, HttpStatus.OK);
