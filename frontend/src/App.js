@@ -4,6 +4,7 @@ import {
   Register, Verify, Login, Home,
   MRegister, MList, MDetail,
   SRegister, SList, SDetail,
+  LManage, LView,
   Search, Follow
 } from './pages';
 import styles from "./App.module.css"
@@ -27,6 +28,8 @@ function App() {
       <Route path="/study/register" component={SRegister} />
       <Route path="/study/list" component={SList} />
       <Route path="/study/detail" component={SDetail} />
+      <Route path="/live/manage" component={LManage} />
+      <Route path="/live/view" component={LView} />
       <Route path="/search" component={Search} />
       <Route path="/follow" component={Follow} />
     </div>
