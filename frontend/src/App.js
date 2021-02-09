@@ -8,7 +8,7 @@ import {
 } from './pages';
 import styles from "./App.module.css"
 import "./global.color.css";
-
+import "./firebaseConfig";
 
 function App() {
   return (
