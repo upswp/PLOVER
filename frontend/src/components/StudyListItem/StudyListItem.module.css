@@ -1,0 +1,35 @@
+.study_list_item {
+  background-color: var(--color-light-blue);
+  width: 400px;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  margin: 0.6em 1em;
+  border-radius: 10px;
+}
+
+.profile {
+  width: 60px;
+  height: 60px;
+  margin-left: 1em;
+  margin-right: 0.5em;
+}
+
+.study_info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.6em;
+  padding-right: 1.9em;
+}
+
+.study_username {
+  font-size: 0.9rem;
+}
+
+.study_time {
+  font-size: 0.7rem;
+}
+
+.study_title {
+  font-size: 0.8rem;
+}
