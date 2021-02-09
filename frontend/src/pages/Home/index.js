@@ -8,7 +8,8 @@ import styles from './index.module.css';
 import Menu from 'src/components/Menu/Menu';
 import Badgeslider from 'src/components/Slider/Badgeslider';
 import Noticeslider from 'src/components/Slider/Noticeslider';
-import restapi from 'src/api/restapi';
+// import restapi from 'src/api/restapi';
+import StudyList from 'src/components/StudyList/StudyList';
 
 const mentoringClassList = [
   {
@@ -143,14 +144,14 @@ const studyNoticeList = [
 const studyArticleList = [
   {
     "id": 1,
-    "title": "디비테스트",
+    "title": "대전/CS/스터디 팀원 충원합니다!",
     "hashtags": [
       {
         "id": 1,
         "name": "디비"
       }
     ],
-    "date": "17시간전",
+    "date": "하루전",
     "user": {
       "profileImg": "https://picsum.photos/200/200",
       "userId": "tory_922"
@@ -158,7 +159,7 @@ const studyArticleList = [
   },
   {
     "id": 2,
-    "title": "디비테스트",
+    "title": "리액트 스터디원 모집!",
     "hashtags": [
       {
         "id": 1,
@@ -168,22 +169,22 @@ const studyArticleList = [
     "date": "17시간전",
     "user": {
       "profileImg": "https://picsum.photos/200/200",
-      "userId": "tory_922"
+      "userId": "jang_su"
     }
   },
   {
     "id": 3,
-    "title": "디비테스트",
+    "title": "vanilla JS 스터디 모집합니다.",
     "hashtags": [
       {
         "id": 1,
         "name": "디비"
       }
     ],
-    "date": "17시간전",
+    "date": "12시간전",
     "user": {
       "profileImg": "https://picsum.photos/200/200",
-      "userId": "tory_922"
+      "userId": "jiyoung321"
     }
   }
 ]
@@ -220,7 +221,7 @@ const Home = (props) => {
       <div style={{ width: "400px", height: "40px", marginBottom: "10px", marginLeft: "15px" }}>
         <Noticeslider data={studyNoticeList} style={{ height: "40px" }} duration={3000} history={props.history} />
       </div>
-      
+      <StudyList data={studyArticleList}/>
 
       
     </>
