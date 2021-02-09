@@ -4,8 +4,7 @@ import com.plover.model.study.Study;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Getter
@@ -16,9 +15,9 @@ public class StudyDetailResponse {
     private String title;
     private String content;
     private Set<HashtagResponse> hashtags;
-    private Date createDate;
+    private LocalDateTime createDate;
 
-    public StudyDetailResponse(String email, String nickName, String title, String content, Set<HashtagResponse> hashtags, Date createDate) {
+    public StudyDetailResponse(String email, String nickName, String title, String content, Set<HashtagResponse> hashtags, LocalDateTime createDate) {
         this.email = email;
         this.nickName = nickName;
         this.title = title;
