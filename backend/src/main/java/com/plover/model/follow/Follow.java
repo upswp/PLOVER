@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name="follow",
         uniqueConstraints={
                 @UniqueConstraint(
-                        columnNames={"from_user_id","to_user_id"}
+                        columnNames={"from_user_no","to_user_no"}
                 )
         })
 public class Follow {
@@ -23,11 +23,11 @@ public class Follow {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "from_user_id")
+    @JoinColumn(name = "from_user_no")
     private UserDto fromUser;
 
     @ManyToOne
-    @JoinColumn(name = "to_user_id")
+    @JoinColumn(name = "to_user_no")
     private UserDto toUser;
 
     @Temporal(TemporalType.TIMESTAMP)
