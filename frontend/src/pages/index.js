@@ -7,5 +7,6 @@ export { default as Login } from "./Login";
 export { default as Home } from "./Home";
 export { MRegister, MList, MDetail } from "./Mentoring";
 export { SRegister, SList, SDetail } from "./Study";
+export { LManage, LView } from "./Live";
 export { default as Search } from "./Search";
 export { default as Follow } from "./Follow";
