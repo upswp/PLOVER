@@ -6,6 +6,8 @@ public enum ErrorCode {
 
     STUDY_NOT_FOUND(400,"ST_001","해당 스터디 게시글을 찾을 수 없습니다."),
 
+    FOLLOW_NOT_FOUND(400,"FL_001","해당 팔로우를 찾을 수 없습니다."),
+
     TAG_DUPLICATED(400, "TA_001", "이미 존재하는 태그입니다."),
     TAG_NOT_FOUND(400, "TA_002", "태그를 찾을 수 없습니다."),
 
