@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface NotificationRepository extends JpaRepository<Notification,Long> {
-   List<Notification> findByToUserNoOrderByCreateDateDesc(long toNo);
+   List<Notification> findByToUserNoOrderByCreateDateDesc(long toUserNo);
+
+    void deleteByNo(Long no);
 //   List<Notification> findNotificationsByToNo(long toNo);
 
 }
