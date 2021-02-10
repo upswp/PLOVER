@@ -21,7 +21,7 @@ public class NotificationService {
     public void deleteFCMToken(final String userNo){
         redisUtil.deleteData(FCM+userNo);
     }
-    public void addNotification(final Notification notification){
+    public void setNotification(final Notification notification){
         //DB에 noti 저장
         notificationRepository.save(notification);
     }
@@ -31,10 +31,7 @@ public class NotificationService {
             System.out.println(nt.toString());
         }
     }
-    public void setNotification(){
-
-    }
-    public void deleteNotification(final String notiNo){
-        //DB에 저장된 notification 삭제
+    public void deleteNotification(final Long no){
+        notificationRepository.deleteByNo(no);
     }
 }

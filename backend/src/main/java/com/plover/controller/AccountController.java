@@ -139,7 +139,8 @@ public class AccountController {
         try {
             UserDto user = userService.findUserByEmail(verifyEmailRequest.getEmail());
             userService.sendVerificationMail(user);
-            response = new Response("success", "성공적으로 인증메일을 보냈습니다.", null);
+            response = new Response(
+                    "success", "성공적으로 인증메일을 보냈습니다.", null);
         } catch (Exception exception) {
             response = new Response("error", "인증메일을 보내는데 문제가 발생했습니다.", exception);
         }
@@ -220,17 +221,22 @@ public class AccountController {
     public Object logout(HttpServletRequest req, HttpServletResponse res) {
 
         Cookie refreshToken = cookieUtil.getCookie(req, JwtUtil.REFRESH_TOKEN_NAME);
-        redisUtil.deleteData(refreshToken.getValue());
+        Cookie accessToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
 
-        Cookie accessToken = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, null);
+        redisUtil.deleteData(refreshToken.getValue());
+        redisUtil.deleteData("FCM_TOKEN_"+jwtUtil.getNo(accessToken.getValue()));
+
+        accessToken = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, null);
         accessToken.setMaxAge(0);
         accessToken.setPath("/");
+
         refreshToken = new Cookie(JwtUtil.REFRESH_TOKEN_NAME, null);
         refreshToken.setMaxAge(0);
         refreshToken.setPath("/");
 
         res.addCookie(accessToken);
         res.addCookie(refreshToken);
+
         if(res==null){
             return new ResponseEntity<>(new Response("error", "이미 로그아웃된 사용자 입니다.", null),HttpStatus.BAD_REQUEST);
         }
