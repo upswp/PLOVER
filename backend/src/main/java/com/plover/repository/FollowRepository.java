@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FollowRepository extends JpaRepository<Follow,Long> {
     // 팔로잉
@@ -15,5 +16,10 @@ public interface FollowRepository extends JpaRepository<Follow,Long> {
     List<Follow> findByToUserNoOrderByIdDesc(Long no, Pageable page);
     List<Follow> findByIdLessThanAndToUserNoOrderByIdDesc(Long cursorId, Long no, Pageable page);
 
-    Boolean existsByIdLessThan(Long lastIdOfList);
+    Boolean existsByIdLessThanAndFromUserNo(Long lastIdOfList, Long no);
+    Boolean existsByIdLessThanAndToUserNo(Long lastIdOfList, Long no);
+
+    Boolean existsByFromUserNoAndToUserNo(Long fromUserNo, Long toUserNo);
+
+    Optional<Follow> findByFromUserNoAndToUserNo(Long fromUserNo, Long toUserNo);
 }
