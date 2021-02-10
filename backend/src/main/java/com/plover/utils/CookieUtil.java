@@ -25,14 +25,4 @@ public class CookieUtil {
         }
         return null;
     }
-    public HttpServletResponse setCookieExpire(HttpServletRequest request, HttpServletResponse response){
-        final Cookie[] cookies = request.getCookies();
-        if(cookies==null) return null;
-        for (Cookie cookie: cookies) {
-         cookie.setMaxAge(0);
-         response.addCookie(cookie);
-        }
-        System.out.println(request.getCookies());
-        return response;
-    }
 }

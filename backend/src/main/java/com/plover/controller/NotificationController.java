@@ -41,7 +41,7 @@ public class NotificationController {
         //쿠키에 정상적으로 발급된 토큰이 있으면
         if(!jwtUtil.isTokenExpired(accessToken.getValue())){
             //FCM 토큰을 redis에 등록한다.
-            notificationService.registerFCMToken(jwtUtil.getNo(accessToken.getValue()), token);
+            notificationService.registerFCMToken(Integer.toString(jwtUtil.getNo(accessToken.getValue())), token);
             return new ResponseEntity<>(new Response("success", "FCM 토큰 등록 성공", null), HttpStatus.OK);
         }
         else{
