@@ -22,7 +22,8 @@ class InputTime extends Component {
   render() {
     return (
       <input id={this.props.id} type="time" id="time"
-        className={this.buildInputDateClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} />
+        className={this.buildInputDateClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
+        style={this.props.style} onChange={this.props.onchange} onKeyPress={this.props.onkeypress} />
     )
   }
 }

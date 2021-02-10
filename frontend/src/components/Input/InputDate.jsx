@@ -23,7 +23,8 @@ class InputDate extends Component {
     // let date = new Date().toISOString().slice(0,10) // 2021-01-29
     return (
       <input id={this.props.id} type="date" id="dateD"
-        className={this.buildInputDateClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} />
+        className={this.buildInputDateClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
+        style={this.props.style} onChange={this.props.onchange} onKeyPress={this.props.onkeypress}/>
     )
   }
 }
