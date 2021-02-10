@@ -1,18 +1,4 @@
 import firebase from 'firebase';
-import axios from 'axios'
-
-// Your web app's Firebase configuration
-// var config = {
-//   apiKey: "AIzaSyC9k8y9PN9gCOQRM9lUx071p7-zCaRD6jo",
-//   authDomain: "plover-e73ae.firebaseapp.com",
-//   databaseURL: "https://plover-e73ae-default-rtdb.firebaseio.com",
-//   projectId: "plover-e73ae",
-//   storageBucket: "plover-e73ae.appspot.com",
-//   messagingSenderId: "966814748963",
-//   appId: "1:966814748963:web:ad6fdd53ce79fda72fbc96"
-// };
-//   // Initialize Firebase
-//   firebase.initializeApp(config);
 
   const firebaseModule = (function () {
     async function init() {
