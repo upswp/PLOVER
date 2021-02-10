@@ -45,8 +45,8 @@ public class JwtUtil {
     public String getEmail(String token) {
         return extractAllClaims(token).get("email", String.class);
     }
-    public String getNo(String token) {
-        return extractAllClaims(token).get("no", String.class);
+    public Integer getNo(String token) {
+        return extractAllClaims(token).get("no", Integer.class);
     }
     public String getNickName(String token) {
         return extractAllClaims(token).get("nickName", String.class);
@@ -65,7 +65,7 @@ public class JwtUtil {
         return doGenerateToken(user.getNo(), user.getNickName(), user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
 
-    public String doGenerateToken(Long no, String nickName, String email, long expireTime) {
+    public String doGenerateToken(long no, String nickName, String email, long expireTime) {
 
         Claims claims = Jwts.claims();
         claims.put("no",no);
