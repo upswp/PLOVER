@@ -4,13 +4,13 @@ import ButtonComp from 'src/components/ButtonComp/ButtonComp';
 import Typo from 'src/components/Typo/Typo';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import firebase from 'firebase';
 
 const Login = (props) => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
   const [loginCheck, setLoginCheck] = useState(false);
-  
   
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
@@ -32,7 +32,18 @@ const Login = (props) => {
     ).then(res => {
       console.log(res);
       if (res.data.response === "success") {
-        alert(`hello! ${email}`);
+        //FCM 토큰 코드 추가
+        let massage = firebase.messaging();
+        console.log(massage.getToken());
+        axios.post(`https://dev.plover.co.kr/ssafy//notification/registerFCMToken`, { 'token': massage.getToken() })
+          .then(res => { 
+            alert(`hello! ${email}`);
+            console.log("FCM 토큰 전달 결과는 : ",res);
+          })
+          .catch(err => { 
+            console.log(err);
+          });
+        //FCM토큰 코드 끝
         setLoginCheck(true);
       } else {
         alert('ID와 PW가 일치하지 않습니다.^0^')
