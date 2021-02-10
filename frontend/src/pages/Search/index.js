@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Navbar, Tabs, Input
 //     // Skeleton, Cardslider, Badgeslider, Noticeslider, PulseBadge
 //     // , Badge, ButtonComp, Input, ImgAttach, Select, ButtonComp, 
@@ -10,31 +11,39 @@ import Event from "./event";
 
 function Search (props) {
 
+  const history = useHistory()
+
   const event = new Event(props.history)
+
   useEffect(() => {
     event.setKeyword(document.getElementById('propic'))
-    // event.setList(documen)
+    // event.setList(document)
   })
 
 
   const [keyword, setKeyword] = useState('');
   
   const onKeywordHandler = (event) => {
-    setKeyword(document.getElementById('keyword'));
-    console.log(document.getElementById('keyword'))
+    console.log(event.currentTarget.value)
+    setKeyword(event.currentTarget.value)
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      getList()
+    }
+  }
+
   const getList = () => {
-    console.log(this.state.value)
+    console.log(keyword)
     axios.get('https://dev.plover.co.kr/ssafy/study/search/0',{
       params: {
-        keyword: this.state.value
+        keyword: keyword
       }
     })
     .then ((res) => {
-      const posts = res
+      const posts = res.data
       console.log(posts)
-      console.log(res.data)
     })
     .catch ((err) => {
       console.log(err)
@@ -45,8 +54,10 @@ function Search (props) {
     <div className={styles.container}>
       <div className={styles.head}>
       <Navbar className={styles.nav}>
+        <div className={styles.redirect} onClick={() => { history.back() }}></div>
         <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
-        <span className={"color_black" + " " + styles.title}><Input id="keyword" placeholder="검색" onChange={onKeywordHandler}></Input>
+        <span className={"color_black" + " " + styles.title}>
+          <Input id="keyword" placeholder="검색" onchange={onKeywordHandler} onkeypress={handleKeyPress}></Input>
         <button onClick={getList}>검색</button></span>
         {/* <i className={"fas fa-search"}></i> */}
       </Navbar>
