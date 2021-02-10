@@ -8,7 +8,7 @@ function View(props) {
         <div id="live_view" className={styles.live_view}>
             <Navbar color="white">
                 <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
-                <span className={"color_black" + " " + styles.title}>라이브방송 관리</span>
+                <span className={"color_black" + " " + styles.title}>라이브방송 보기</span>
                 <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
             </Navbar>
             <div className={styles.live_box}>
