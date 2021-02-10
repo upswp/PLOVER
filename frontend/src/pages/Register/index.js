@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom'
 import {
   Input, ImgAttach, Select, ButtonComp, Typo, Navbar, 
 //     // Skeleton, Cardslider, Badgeslider, Noticeslider, PulseBadge
@@ -9,6 +10,21 @@ import styles from "./index.module.css";
 import Event from "./event";
 
 function Register(props) {
+
+  const history = useHistory()
+
+  const [password, setPassword] = useState('')
+  const [passConfirm, setPassConfirm] = useState('')
+
+  
+  const onPassHandler = (event) => {
+    if (event.target.id === "password") {
+      setPassword(event.currentTarget.value)
+    }
+    if (event.target.id === "passwordConfirm") {
+      setPassConfirm(event.currentTarget.value)
+    }
+  };
   
   const event = new Event(props.history)
   useEffect(() => {
@@ -29,12 +45,37 @@ function Register(props) {
     }
   })
 
+  function PassConfirm() {
+    const pass = document.getElementById('password')
+    const confirm = document.getElementById('passwordConfirm')
+    if (pass && confirm != null) {
+      if (pass.value === '' || confirm.value === '') {
+        return (
+          <Typo ty="desc">&nbsp;</Typo>
+        )
+      }
+      if (pass.value === confirm.value) {
+        return (
+          <Typo ty="desc" className={styles.yes}>비밀번호가 일치합니다.</Typo>
+        )
+      }
+      if (pass.value !== confirm.value) {
+        return (
+          <Typo ty="desc" className={styles.no}>비밀번호가 일치하지 않습니다.</Typo>
+        )
+      }
+    }
+    return (
+      <Typo ty="desc">&nbsp;</Typo>
+    )
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.head}>
       <Navbar className={styles.nav}>
-        <i className={"fas fa-chevron-left color_black" + " " + styles.icon}
-        onClick={() => { props.history.push('/login') }}></i>
+        <div className={styles.redirect} onClick={() => { history.push("/login") }}></div>
+        <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
         <span className={"color_black" + " " + styles.title}><Typo ty="h4">회원가입</Typo></span>
         <i></i>
       </Navbar>
@@ -51,10 +92,11 @@ function Register(props) {
       </div>
 
       <Typo ty="desc" className={styles.label}>패스워드</Typo>
-      <Input id="password" type="password" placeholder="패스워드를 입력하세요"></Input>
+      <Input id="password" type="password" placeholder="패스워드를 입력하세요" onchange={onPassHandler}></Input>
 
       <Typo ty="desc" className={styles.label}>패스워드 확인</Typo>
-      <Input id="passwordConfirm" type="password" placeholder="패스워드 확인"></Input>
+      <Input id="passwordConfirm" type="password" placeholder="패스워드 확인" onchange={onPassHandler}></Input>
+      <PassConfirm></PassConfirm>
 
       <Typo ty="desc" className={styles.label}>닉네임</Typo>
       <div className={styles.div}>
@@ -81,44 +123,13 @@ function Register(props) {
         <option value="구미 캠퍼스">구미 캠퍼스</option>
       </Select>
 
-      <ButtonComp id="register" className={styles.button} width="large" type="base" textvalue="회원가입"></ButtonComp>
+      <ButtonComp id="register" className={styles.button} width="large" type="base" textvalue="회원가입"
+      onClick={() => {this.props.history.push({
+        pathname: "/verify",
+        state: {email: this.email}
+      })}}></ButtonComp>
       </div>
     </div>
   )
 };
 export default Register;
-
-
-  // let [email, setEmail] = useState("")
-  // let [password, setPassword] = useState('')
-  // let [confirmPassword, setConfirmPassword] = useState('')
-  // let [nickname, setNickname] = useState('')
-  // let [gen, setGen] = useState('')
-  // let [campus, setCampus] = useState('')
-
-  // const onPasswordHandler = (e) => {
-  //   setPassword(e.currentTarget.value)
-  // }
-
-  // const onConfirmPasswordHandler = (e) => {
-  //   setConfirmPassword(e.currentTarget.value)
-  //   if (setPassword === setConfirmPassword) {
-  //     console.log(setPassword)
-  //     console.log(setConfirmPassword)
-  //   }
-  // }
-
-  // const onNicknameHandler = (e) => {
-  //   setNickname(e.currentTarget.value)
-  //   axios.get(`http://dev.plover.co.kr/ssafy/account/`, {nickname})
-  //   .then(res => {
-  //     console.log(res)
-  //     if (res.data.response === 'success') {
-  //       console.log(nickname)
-  //     }
-  //   })
-  // }
-  
-  // const onSubmitHandler = (e) => {
-  //   e.preventDefault()
-  // }

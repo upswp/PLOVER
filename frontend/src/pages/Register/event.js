@@ -48,12 +48,10 @@ export default class Event {
 
   addEvent() {
     this.clickHandler = this.clickEventHandler.bind(this)
-    this.keyupHandler = this.keyupEventHandler.bind(this)
 
     this.$register.addEventListener('click', this.clickHandler)
     this.$dupEmail.addEventListener('click', this.clickHandler)
     this.$dupNickname.addEventListener('click', this.clickHandler)
-    this.$passwordConfirm.addEventListener('keyup', this.keyupHandler)
   }
 
   // 등록 버튼 클릭시 register() 발동
@@ -66,12 +64,6 @@ export default class Event {
     }
     if (e.target.id && e.target.id === "dupNickname") {
       this.dupNickname()
-    }
-  }
-
-  keyupEventHandler(e) {
-    if (e.target.id && e.target.id === "passwordConfirm") {
-      this.passConfirm()
     }
   }
 
@@ -110,17 +102,6 @@ export default class Event {
         }
       }
     })
-  }
-
-  passConfirm() {
-    if (this.$password.value != this.$passwordConfirm.value) {
-      return (
-        <p>비밀번호 확인이 일치하지 않습니다.</p>
-      )
-    }
-    else {
-      return
-    }
   }
 
   async dupNickname() {
@@ -194,10 +175,5 @@ export default class Event {
     this.$register.removeEventListener('click', this.clickHandler)
     this.$dupEmail.removeEventListener('click', this.clickHandler)
     this.$dupNickname.removeEventListener('click', this.clickHandler)
-    // this.$target.removeEventListener('keyup', this.keyupHandler)
   }
-  
-  // keyupEventHandler(e) {
-  //   if (e.target.id && e.target.id === )
-  // }
 }
