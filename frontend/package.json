@@ -10,11 +10,13 @@
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "firebase": "^8.2.6",
+    "kurento-utils": "^6.15.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "socket.io-client": "^3.1.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
