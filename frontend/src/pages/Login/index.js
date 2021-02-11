@@ -37,13 +37,11 @@ const Login = (props) => {
         let massage = firebase.messaging();
         let fcmtoken;
         massage.getToken().then(token => { 
-          console.log("토큰 값은 : ", token);
           fcmtoken = token;
         });
         axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, {'token' : fcmtoken})
           .then(res => { 
             alert(`hello! ${email}`);
-            console.log("FCM 토큰 전달 결과는 : ",res);
           })
           .catch(err => { 
             console.log(err);
