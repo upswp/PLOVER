@@ -1,8 +1,10 @@
 package com.plover.controller;
 
 import com.plover.model.Response;
+import com.plover.model.notification.Response.NotificationResponse;
 import com.plover.model.user.UserDto;
 import com.plover.model.user.request.*;
+import com.plover.service.FCMService;
 import com.plover.service.UserService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 @ApiResponses(value = {
         @ApiResponse(code = 401, message = "Unauthorized", response = Response.class),
@@ -48,6 +51,8 @@ public class AccountController {
     private CookieUtil cookieUtil;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private FCMService fcmService;
 
 
 
@@ -243,6 +248,20 @@ public class AccountController {
         else {
             return new ResponseEntity<>(new Response("success", "로그아웃 성공", null),HttpStatus.OK);
         }
+    }
+    @GetMapping("/fcmtest")
+    @ApiOperation(value = "fcmtest",
+            notes = "fcmtest",
+            response = Response.class)
+    public Object fcmtest() throws ExecutionException, InterruptedException {
+        ResponseEntity response = null;
+        fcmService.send(new NotificationResponse(redisUtil.getData("FCM_TOKEN_3")
+        , "title", "messageddd", "mail.png","gggg"));
 
+        final Response result = new Response("success", "전송해봤다.", null);
+        //TODO : HttpStatus 변경하기
+        response = new ResponseEntity<>(result , HttpStatus.NOT_ACCEPTABLE);
+
+        return response;
     }
 }
