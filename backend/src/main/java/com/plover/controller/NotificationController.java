@@ -2,10 +2,13 @@ package com.plover.controller;
 
 
 import com.plover.model.Response;
+import com.plover.service.FCMService;
 import com.plover.service.NotificationService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("notification")
 public class NotificationController {
-
+    private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
     @Autowired
     private CookieUtil cookieUtil;
     @Autowired
@@ -37,7 +40,7 @@ public class NotificationController {
     public ResponseEntity registerFCMToken(@RequestBody String token, HttpServletRequest httpServletRequest) {
         //쿠키에서 엑세스 토큰을 가지고 와서
         Cookie accessToken = cookieUtil.getCookie(httpServletRequest, JwtUtil.ACCESS_TOKEN_NAME);
-
+        logger.info(token);
         //쿠키에 정상적으로 발급된 토큰이 있으면
         if(!jwtUtil.isTokenExpired(accessToken.getValue())){
             //FCM 토큰을 redis에 등록한다.
