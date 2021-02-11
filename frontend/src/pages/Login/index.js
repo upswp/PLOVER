@@ -32,18 +32,22 @@ const Login = (props) => {
     ).then(res => {
       console.log(res);
       if (res.data.response === "success") {
+      
         //FCM 토큰 코드 추가
         let massage = firebase.messaging();
-        console.log(massage.getToken());
-        axios.post(`https://dev.plover.co.kr/ssafy//notification/registerFCMToken`, { 'token': massage.getToken() })
+        let fcmtoken;
+        massage.getToken().then(token => { 
+          fcmtoken = token;
+        });
+        axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, {'token' : fcmtoken})
           .then(res => { 
             alert(`hello! ${email}`);
-            console.log("FCM 토큰 전달 결과는 : ",res);
           })
           .catch(err => { 
             console.log(err);
           });
         //FCM토큰 코드 끝
+
         setLoginCheck(true);
       } else {
         alert('ID와 PW가 일치하지 않습니다.^0^')
