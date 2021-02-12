@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import styles from './index.module.css';
 import { Navbar, PulseBadge, Skeleton, Input, ButtonComp } from "src/components";
+import Broadcast from "src/lib/broadcast";
+import queryString from "query-string";
+
+let broadcast = new Broadcast();
 
 function Manage(props) {
+
+    const [chat, addChat] = useState([]);
+    const [viewNum, setViewNum] = useState(0);
+    const query = queryString.parse(props.location.search);
+
+    useLayoutEffect(() => {
+        console.log("useEffect");
+        broadcast.createSocketClient(query.b_addr, query.nickname);
+        broadcast.setVideo(document.getElementById("live_screen"));
+        broadcast.setChat(chat);
+        broadcast.setAddChat(addChat);
+        broadcast.setViewNum(setViewNum);
+        broadcast.createSocketEvent();
+
+        return () => {
+            broadcast.stop();
+        };
+    }, []);
+
+    useEffect(() => {
+        console.log(chat);
+        broadcast.setChat(chat);
+    }, [chat]);
 
     return (
         <div id="live_manange" className={styles.live_manage}>
@@ -18,12 +45,14 @@ function Manage(props) {
                 </div>
                 <div className={styles.viewrate_box}>
                     <i className={"fas fa-user-alt " + styles.viewicon}></i>
-                    <span className={styles.viewtext}>100명</span>
+                    <span className={styles.viewtext}>{`${viewNum}명`}</span>
                 </div>
             </div>
             <div className={styles.configbox}>
                 <div className={styles.configbox_left}>
-                    <button className={styles.live_btn}>라이브시작</button>
+                    <button className={styles.live_btn} onClick={() => {
+                        broadcast.live();
+                    }}>라이브시작</button>
                     <button className={styles.share_btn}>화면공유</button>
                 </div>
                 <div className={styles.configbox_right}>
@@ -45,24 +74,30 @@ function Manage(props) {
             </div>
 
             <div className={styles.chatting}>
-                <div className={styles.chatting_box}>
-                    <span className={"color_purple " + styles.chatting_join_text}>5기 김영현님이 입장하셨습니다.</span>
-                </div>
-                <div className={styles.chatting_box}>
-                    <span className={styles.chatting_nickname}>5기 김영현</span>
-                    <span className={styles.chatting_text}>안녕하세요</span>
-                </div>
-                <div className={styles.chatting_box}>
-                    <span className={"color_purple " + styles.chatting_join_text}>4기 임장순님이 입장하셨습니다.</span>
-                </div>
-                <div style={{ width: "100%", lineHeight: "25px" }}>
-                    <span className={styles.chatting_nickname}>4기 임장순</span>
-                    <span className={styles.chatting_text}>반가워요 강의 잘들을게요</span>
-                </div>
+                {
+                    Array.from(chat).map((v, i) => {
+                        if (v.type === "chat") {
+                            return (
+                                <div key={`chat_${i}`} className={styles.chatting_box}>
+                                    <span className={styles.chatting_nickname}>{v.nickname}</span>
+                                    <span className={styles.chatting_text}>{v.message}</span>
+                                </div>
+                            );
+                        } else if (v.type === "join") {
+                            return (
+                                <div key={`join_${i}`} className={styles.chatting_box}>
+                                    <span className={"color_purple " + styles.chatting_join_text}>{v.message}</span>
+                                </div>
+                            );
+                        }
+                    })
+                }
             </div>
             <div className={styles.chatting_form}>
-                <Input className={styles.chatting_input} placeholder="채팅메시지를 입력해주세요." />
-                <ButtonComp width="small" type="base" className={styles.chatting_btn} textvalue="전송" />
+                <Input className={styles.chatting_input} placeholder="채팅메시지를 입력해주세요." id="chatinput" />
+                <ButtonComp width="small" type="base" className={styles.chatting_btn} textvalue="전송" onClick={() => {
+                    broadcast.sendChat(document.getElementById("chatinput").value);
+                }} />
             </div>
         </div >
     );
