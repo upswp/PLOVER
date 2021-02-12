@@ -85,7 +85,6 @@ io.sockets.on('connection', client => {
     });
 
     client.on('chat', (message) => {
-
         io.sockets.in(clientInfo.b_addr).emit('chat', {
             nickname: clientInfo.nickname,
             message
@@ -98,8 +97,11 @@ io.sockets.on('connection', client => {
     });
 
     client.on('disconnect', () => {
+        io.sockets.in(clientInfo.b_addr).emit('chat', `${clientInfo.nickname}님이 방에서 나가셨습니다. `);
         stop(clientInfo);
         console.log(`${clientId} is disconnected`);
+        if(lives[clientInfo.b_addr]&& lives[clientInfo.b_addr].viewers && Object.keys(lives[clientInfo.b_addr].viewers).length > 0) io.sockets.in(clientInfo.b_addr).emit('viewnum', `${Object.keys(lives[clientInfo.b_addr].viewers).length}`);
+        else io.sockets.in(clientInfo.b_addr).emit('viewnum', `0`);
     });
 
 });
@@ -120,7 +122,7 @@ let createRoom = (client, clientInfo) => {
             pipeline: null,
             webRtcEndpoint: null
         },//BJ
-        viewers: []//시청자
+        viewers: {}//시청자
     }
 }
 
@@ -132,8 +134,11 @@ let joinRoom = (client, clientInfo) => {
         webRtcEndpoint: null,
         client: null
     }
+        if(lives[clientInfo.b_addr]) io.sockets.in(clientInfo.b_addr).emit('viewnum', `${Object.keys(lives[clientInfo.b_addr].viewers).length}`);
+    //console.log(JSON.stringify(lives[clientInfo.b_addr].viewers));
     io.sockets.in(clientInfo.b_addr).emit('chat', `${clientInfo.nickname}님이 방에 입장하셨습니다.`);
 }
+
 
 let openLive = (clientInfo, client, sdpOffer) => {
     clearCandidatesQueue(clientInfo.clientId);
@@ -348,6 +353,7 @@ let onIceCandidate = (clientInfo, _candidate) => {
 }
 
 let stop = (clientInfo) => {
+    console.log(JSON.stringify(clientInfo));
     if (lives[clientInfo.b_addr] && lives[clientInfo.b_addr].anchor
         && lives[clientInfo.b_addr].anchor.clientId !== null && lives[clientInfo.b_addr].anchor.clientId === clientInfo.clientId) {
         for (let key in lives[clientInfo.b_addr].viewers) {
