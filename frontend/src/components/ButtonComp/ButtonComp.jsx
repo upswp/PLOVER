@@ -23,7 +23,7 @@ class ButtonComp extends Component {
   render() {
     return (
       <>
-        <button id={this.props.id} className={this.buildButonCompClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
+        <button id={this.props.id} className={this.buildButonCompClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} onClick={this.props.onClick}>
           {this.props.textvalue}
         </button>
       </>

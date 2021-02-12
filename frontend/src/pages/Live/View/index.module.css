@@ -82,6 +82,21 @@ body > div,body > div > div {
     font-size: 1.1em;
 }
 
+.view_start{
+    position: absolute;
+    bottom:7px;
+    left: 7px;
+    width: 80px;
+    height: 22px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 3px;
+    font-size:0.8em;
+    background: linear-gradient(#00ac2d, #39d561);
+    color:white;
+    cursor: pointer;
+}
+
 .viewicon{
     font-size: 0.7em;
     color: gray;
