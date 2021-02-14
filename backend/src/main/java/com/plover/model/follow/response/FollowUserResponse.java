@@ -1,6 +1,6 @@
 package com.plover.model.follow.response;
 
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -15,14 +15,14 @@ public class FollowUserResponse {
         this.nickname = nickname;
     }
 
-    public static FollowUserResponse of(UserDto followUser) {
+    public static FollowUserResponse of(Users followUser) {
         return new FollowUserResponse(followUser.getNickName());
     }
 
-    public static List<FollowUserResponse> listOf(List<UserDto> followUsers) {
+    public static List<FollowUserResponse> listOf(List<Users> followUsers) {
         List<FollowUserResponse> followUserResponses = new ArrayList<>();
 
-        for (UserDto followUser : followUsers) {
+        for (Users followUser : followUsers) {
             followUserResponses.add(of(followUser));
         }
         return followUserResponses;

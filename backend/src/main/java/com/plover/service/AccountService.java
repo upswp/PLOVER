@@ -5,8 +5,8 @@ import java.util.UUID;
 import javax.transaction.Transactional;
 
 import com.plover.config.UserRole;
-import com.plover.model.Salt;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Salt;
+import com.plover.model.user.Users;
 import com.plover.model.user.request.SignupRequest;
 import com.plover.repository.SaltRepository;
 import com.plover.repository.UserRepository;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import javassist.NotFoundException;
 
 @Service
-public class UserService {
+public class AccountService {
 	final String REDIS_CHANGE_PASSWORD_PREFIX="CPW";
 	@Autowired
 	UserRepository userRepository;
@@ -36,13 +36,13 @@ public class UserService {
     private RedisUtil redisUtil;
 
 	 //이메일 인증에서 사용할 메서드
-	 UserDto getUserByEmail(String email) {
+	 Users getUserByEmail(String email) {
 		return null;
 	 }
 	 
 	 //로그인 메서드
-	 public UserDto login(String email, String password) throws Exception{
-		UserDto user = findUserByEmail(email);
+	 public Users login(String email, String password) throws Exception{
+		Users user = findUserByEmail(email);
 		
 		//user정보가 없음
 		if(user==null) { 
@@ -74,7 +74,7 @@ public class UserService {
 		 String password = request.getPassword();
 		 String salt = saltUtil.genSalt();
 		
-		 UserDto user = UserDto.builder()
+		 Users user = Users.builder()
 				 .email(request.getEmail())
 				 .nickName(request.getNickName())
 				 .campus(request.getCampus())
@@ -102,21 +102,21 @@ public class UserService {
     	return userRepository.existsByNickName(nickName);
     }
     
-    public UserDto findUserByEmail(String email) throws NotFoundException {
-        UserDto user = userRepository.findUserByEmail(email);
+    public Users findUserByEmail(String email) throws NotFoundException {
+        Users user = userRepository.findUserByEmail(email);
         if(user == null) throw new NotFoundException("유저가 조회되지 않음");
         return user;
     }
     
     public void verifyEmail(String key) throws NotFoundException {
         String email = redisUtil.getData(key);
-        UserDto user = userRepository.findUserByEmail(email);
+        Users user = userRepository.findUserByEmail(email);
         if(user==null) throw new NotFoundException("멤버가 조회되지않음");
         modifyUserRole(user, UserRole.ROLE_USER);
         redisUtil.deleteData(key);
     }
     
-    public void sendVerificationMail(UserDto user) throws NotFoundException {
+    public void sendVerificationMail(Users user) throws NotFoundException {
         String VERIFICATION_LINK = "https://dev.plover.co.kr/ssafy/account/verify/";
         if(user==null) throw new NotFoundException("멤버가 조회되지 않음");
         UUID uuid = UUID.randomUUID();
@@ -124,7 +124,7 @@ public class UserService {
         emailService.sendMail(user.getEmail(),"[PLOVER] 회원가입 인증메일입니다.",VERIFICATION_LINK+uuid.toString());
     }
 
-    public void modifyUserRole(UserDto user, UserRole userRole){
+    public void modifyUserRole(Users user, UserRole userRole){
             user.setRole(userRole);
             userRepository.save(user);
     }
@@ -134,7 +134,7 @@ public class UserService {
         return !userId.equals("");
     }
 
-    public void changePassword(UserDto user,String password) throws NotFoundException{
+    public void changePassword(Users user, String password) throws NotFoundException{
         if(user == null) throw new NotFoundException("changePassword(),멤버가 조회되지 않음");
         String salt = saltUtil.genSalt();
         user.setSalt(new Salt(salt));
@@ -143,7 +143,7 @@ public class UserService {
     }
 
 
-    public void requestChangePassword(UserDto user) throws NotFoundException{
+    public void requestChangePassword(Users user) throws NotFoundException{
         String CHANGE_PASSWORD_LINK = "https://dev.plover.co.kr/ssafy/account/password/";
         if(user == null) 
         	throw new NotFoundException("멤버가 조회되지 않음.");
@@ -154,8 +154,8 @@ public class UserService {
         emailService.sendMail(user.getEmail(),"[PLOVER] 사용자 비밀번호 안내 메일",CHANGE_PASSWORD_LINK+key);
     }
     
-    public UserDto findUserByNickName(String nickName)throws NotFoundException {
-    	 UserDto user = userRepository.findUserByNickName(nickName);
+    public Users findUserByNickName(String nickName)throws NotFoundException {
+    	 Users user = userRepository.findUserByNickName(nickName);
          if(user == null) throw new NotFoundException("유저가 조회되지 않음");
          return user;
     }

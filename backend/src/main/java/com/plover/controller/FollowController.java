@@ -4,9 +4,9 @@ import com.plover.exceptions.EntityNotFoundException;
 import com.plover.model.Response;
 import com.plover.model.follow.request.FollowRequest;
 import com.plover.model.follow.response.FollowUsersResponse;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.service.FollowService;
-import com.plover.service.UserService;
+import com.plover.service.AccountService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
@@ -31,13 +31,13 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("follow")
 public class FollowController {
     private FollowService followService;
-    private UserService userService;
+    private AccountService accountService;
     private JwtUtil jwtUtil;
     private CookieUtil cookieUtil;
 
-    public FollowController(FollowService followService, UserService userService, JwtUtil jwtUtil, CookieUtil cookieUtil) {
+    public FollowController(FollowService followService, AccountService accountService, JwtUtil jwtUtil, CookieUtil cookieUtil) {
         this.followService = followService;
-        this.userService = userService;
+        this.accountService = accountService;
         this.jwtUtil = jwtUtil;
         this.cookieUtil = cookieUtil;
     }
@@ -144,8 +144,8 @@ public class FollowController {
             String fromUserEmail = jwtUtil.getEmail(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (fromUserEmail != null) {
                 //TODO:userService에 findUserByNo 추가 후 email-> No로 변경
-                UserDto fromUser = userService.findUserByEmail(fromUserEmail);
-                UserDto toUser = userService.findUserByEmail(followRequest.getToUserEmail());
+                Users fromUser = accountService.findUserByEmail(fromUserEmail);
+                Users toUser = accountService.findUserByEmail(followRequest.getToUserEmail());
                 followService.save(fromUser, toUser);
                 final Response result = new Response("success", "팔로우를 성공하였습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.OK);

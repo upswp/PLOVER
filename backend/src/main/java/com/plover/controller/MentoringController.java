@@ -3,10 +3,10 @@ package com.plover.controller;
 
 import com.plover.model.Response;
 import com.plover.model.metoring.request.MentoringRequest;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.service.FileService;
 import com.plover.service.MentoringService;
-import com.plover.service.UserService;
+import com.plover.service.AccountService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +19,11 @@ import javax.validation.Valid;
 public class MentoringController {
 
     private MentoringService mentoringService;
-    private UserService userService;
+    private AccountService accountService;
     private FileService fileService;
 
-    public MentoringController(MentoringService mentoringService, FileService fileService, UserService userService){
-        this.userService = userService;
+    public MentoringController(MentoringService mentoringService, FileService fileService, AccountService accountService){
+        this.accountService = accountService;
         this.fileService = fileService;
         this.mentoringService = mentoringService;
     }
@@ -33,7 +33,7 @@ public class MentoringController {
     public Object saveMentoring(@Valid @RequestBody MentoringRequest mentoringRequest){
         ResponseEntity response = null;
         try{
-            UserDto user = userService.findUserByEmail(mentoringRequest.getEmail());
+            Users user = accountService.findUserByEmail(mentoringRequest.getEmail());
             Long mentoringId = mentoringService.save(user,mentoringRequest);
             final Response result = new Response("success","멘토링 게시글을 등록이 성공하였습니다.",mentoringId);
             response = new ResponseEntity<>(result,HttpStatus.OK);

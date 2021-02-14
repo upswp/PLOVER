@@ -2,10 +2,10 @@ package com.plover.controller;
 
 import com.plover.model.Response;
 import com.plover.model.notification.Response.NotificationResponse;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.model.user.request.*;
 import com.plover.service.FCMService;
-import com.plover.service.UserService;
+import com.plover.service.AccountService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import com.plover.utils.RedisUtil;
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 @ApiResponses(value = {
@@ -46,7 +45,7 @@ public class AccountController {
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
-    private UserService userService;
+    private AccountService accountService;
     @Autowired
     private CookieUtil cookieUtil;
     @Autowired
@@ -67,7 +66,7 @@ public class AccountController {
     public Object login(@Valid @RequestBody LoginRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            final UserDto user = userService.login(userRequest.getEmail(), userRequest.getPassword());
+            final Users user = accountService.login(userRequest.getEmail(), userRequest.getPassword());
             final String token = jwtUtil.generateToken(user);
             final String refreshJwt = jwtUtil.generateRefreshToken(user);
 
@@ -90,7 +89,7 @@ public class AccountController {
             response = Response.class)
     public Object checkDupEmail(@Valid @Email @RequestParam String email) {
         ResponseEntity response = null;
-        if (!userService.existsByEmail(email)) {
+        if (!accountService.existsByEmail(email)) {
             final Response result = new Response("success", "사용 가능", null);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         } else {
@@ -106,7 +105,7 @@ public class AccountController {
             response = Response.class)
     public Object checkDupNickName(@Valid @NotNull  @RequestParam String nickName) {
         ResponseEntity response = null;
-        if (!userService.existsByNickName(nickName)) {
+        if (!accountService.existsByNickName(nickName)) {
             final Response result = new Response("success", "사용 가능", null);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         } else {
@@ -124,7 +123,7 @@ public class AccountController {
 
         ResponseEntity<Response> response = null;
         try {
-            userService.signup(userRequest);
+            accountService.signup(userRequest);
             final Response result = new Response("success","회원가입 성공", null);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e) {
@@ -142,8 +141,8 @@ public class AccountController {
     public Response verify(@RequestBody VerifyEmailRequest verifyEmailRequest, HttpServletRequest req, HttpServletResponse res) {
         Response response;
         try {
-            UserDto user = userService.findUserByEmail(verifyEmailRequest.getEmail());
-            userService.sendVerificationMail(user);
+            Users user = accountService.findUserByEmail(verifyEmailRequest.getEmail());
+            accountService.sendVerificationMail(user);
             response = new Response(
                     "success", "성공적으로 인증메일을 보냈습니다.", null);
         } catch (Exception exception) {
@@ -159,7 +158,7 @@ public class AccountController {
     public Response getVerify(@PathVariable String key) {
         Response response;
         try {
-            userService.verifyEmail(key);
+            accountService.verifyEmail(key);
             response = new Response("success", "성공적으로 인증메일을 확인했습니다.", null);
 
         } catch (Exception e) {
@@ -175,7 +174,7 @@ public class AccountController {
     public Response isPasswordUUIdValidate(@PathVariable String key) {
         Response response;
         try {
-            if (userService.isPasswordUuidValidate(key))
+            if (accountService.isPasswordUuidValidate(key))
                 response = new Response("success", "정상적인 접근입니다.", null);
             else
                 response = new Response("error", "유효하지 않은 Key값입니다.", null);
@@ -192,9 +191,9 @@ public class AccountController {
     public Response requestChangePassword(@RequestBody SendChangePasswordRequest SendChangePassowrd) {
         Response response;
         try {
-            UserDto user = userService.findUserByNickName(SendChangePassowrd.getNickName());
+            Users user = accountService.findUserByNickName(SendChangePassowrd.getNickName());
             if (!user.getEmail().equals(SendChangePassowrd.getEmail())) throw new NoSuchFieldException("");
-            userService.requestChangePassword(user);
+            accountService.requestChangePassword(user);
             response = new Response("success", "성공적으로 사용자의 비밀번호 변경요청을 수행했습니다.", null);
         } catch (NoSuchFieldException e) {
             response = new Response("error", "사용자 정보를 조회할 수 없습니다.", null);
@@ -211,8 +210,8 @@ public class AccountController {
     public Response changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
         Response response;
         try{
-            UserDto user = userService.findUserByEmail(changePasswordRequest.getEmail());
-            userService.changePassword(user,changePasswordRequest.getPassword());
+            Users user = accountService.findUserByEmail(changePasswordRequest.getEmail());
+            accountService.changePassword(user,changePasswordRequest.getPassword());
             response = new Response("success","성공적으로 사용자의 비밀번호를 변경했습니다.",null);
         }catch(Exception e){
             response = new Response("error","사용자의 비밀번호를 변경할 수 없었습니다.",null);

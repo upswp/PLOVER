@@ -1,6 +1,6 @@
 package com.plover.repository;
 
-import com.plover.model.Salt;
+import com.plover.model.user.Salt;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

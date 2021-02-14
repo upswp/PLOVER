@@ -1,4 +1,4 @@
-package com.plover.model;
+package com.plover.model.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
