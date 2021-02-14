@@ -10,14 +10,18 @@ function Manage(props) {
 
     const [chat, addChat] = useState([]);
     const [viewNum, setViewNum] = useState(0);
+    const [mainScreen, setMainScreen] = useState("video1");
     const query = queryString.parse(props.location.search);
 
     useLayoutEffect(() => {
         console.log("useEffect");
         broadcast.createSocketClient(query.b_addr, query.nickname);
         broadcast.setVideo(document.getElementById("live_screen"));
+        broadcast.setVideo2(document.getElementById("live_screen2"));
         broadcast.setChat(chat);
         broadcast.setAddChat(addChat);
+        broadcast.mainScreen(mainScreen);
+        broadcast.setMainScreen(setMainScreen);
         broadcast.setViewNum(setViewNum);
         broadcast.createSocketEvent();
 
@@ -31,6 +35,10 @@ function Manage(props) {
         broadcast.setChat(chat);
     }, [chat]);
 
+    useEffect(() => {
+        broadcast.mainScreen(mainScreen);
+    }, [mainScreen]);
+
     return (
         <div id="live_manange" className={styles.live_manage}>
             <Navbar color="white">
@@ -39,7 +47,16 @@ function Manage(props) {
                 <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
             </Navbar>
             <div className={styles.live_box}>
-                <video id="live_screen" className={styles.live_screen} autoPlay />
+                <video id="live_screen" loop className={mainScreen === "video1" ? styles.live_screen : styles.live_screen2} autoPlay onClick={() => {
+                    if (mainScreen === "video2") {
+                        setMainScreen("video1");
+                    }
+                }} />
+                <video id="live_screen2" className={mainScreen === "video2" ? styles.live_screen : styles.live_screen2} autoPlay onClick={() => {
+                    if (mainScreen === "video1") {
+                        setMainScreen("video2");
+                    }
+                }} />
                 <div className={styles.badge_box}>
                     <PulseBadge className={styles.badge} title="준비중" bg="black" />
                 </div>
@@ -51,12 +68,10 @@ function Manage(props) {
             <div className={styles.configbox}>
                 <div className={styles.configbox_left}>
                     <button className={styles.live_btn} onClick={() => {
-                        broadcast.live();
+                        broadcast.live();//
                     }}>라이브시작</button>
-                    <button className={styles.share_btn}>화면공유</button>
                 </div>
                 <div className={styles.configbox_right}>
-                    <button className={styles.resol_btn}>해상도설정</button>
                 </div>
             </div>
             <div className={styles.infobox}>

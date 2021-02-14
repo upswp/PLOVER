@@ -42,6 +42,19 @@ body > div,body > div > div {
     height:300px;
 }
 
+.live_screen2{
+    position: absolute;
+    left:5px;
+    bottom:5px;
+    background: rgb(156, 156, 156);
+    border: 0px solid #444;
+    border-radius: 2px;
+    width:80px;
+    height:50px;
+    z-index: 999;
+    cursor:pointer;
+}
+
 .badge_box{
     position: absolute;
     top: 4px;
@@ -86,6 +99,20 @@ body > div,body > div > div {
     position: absolute;
     bottom:7px;
     left: 7px;
+    width: 80px;
+    height: 22px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 3px;
+    font-size:0.8em;
+    background: linear-gradient(#00ac2d, #39d561);
+    color:white;
+    cursor: pointer;
+}
+.view_start2{
+    position: absolute;
+    bottom:7px;
+    left: 90px;
     width: 80px;
     height: 22px;
     line-height: 24px;

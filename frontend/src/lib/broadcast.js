@@ -8,8 +8,10 @@ class Broadcast {
 
         //비디오 element를 저장할 변수 초기화
         this.$video = null;
+        this.$video2 = null;
         //Peer객체를 저장할 변수 초기화
         this.$webRtcPeer = null;
+        this.$webRtcPeer2 = null;
         //턴서버설정
         this.$iceServers = [
             {
@@ -36,6 +38,10 @@ class Broadcast {
         this.$video = $video;
     }
 
+    setVideo2($video) {
+        this.$video2 = $video;
+    }
+
     setChat($chat) {
         this.$chat = $chat;
     }
@@ -46,6 +52,14 @@ class Broadcast {
 
     setAddChat(addChat) {
         this.addChat = addChat;
+    }
+
+    mainScreen($mainScreen) {
+        this.$mainScreen = $mainScreen;
+    }
+
+    setMainScreen($setMainScreen) {
+        this.setMainScreen = $setMainScreen;
     }
 
     //소켓클라이언트에 이벤트리스너 달기
@@ -60,14 +74,23 @@ class Broadcast {
                 case 'openliveResponse':
                     this.liveResponse(parseMsg);
                     break;
+                case 'shareScreenResponse':
+                    this.shareScreenResponse(parseMsg);
+                    break;
                 case 'watchliveResponse':
                     this.viewResponse(parseMsg);
+                    break;
+                case 'watchScreenResponse':
+                    this.watchScreenResponse(parseMsg);
                     break;
                 case 'stopCommunication':
                     this.dispose();
                     break;
                 case 'iceCandidate':
                     this.$webRtcPeer.addIceCandidate(parseMsg.candidate)
+                    break;
+                case 'iceCandidate2':
+                    this.$webRtcPeer2.addIceCandidate(parseMsg.candidate)
                     break;
                 default:
                     console.error('Unrecognized message', parseMsg);
@@ -119,6 +142,16 @@ class Broadcast {
         }
     }
 
+    shareScreenResponse(message) {
+        if (message.response != 'accepted') {
+            let errorMsg = message.message ? message.message : 'Unknow error';
+            console.warn('Call not accepted for the following reason: ' + errorMsg);
+            this.dispose();
+        } else {
+            this.$webRtcPeer2.processAnswer(message.sdpAnswer);
+        }
+    }
+
     //라이브 청취하는 사람이 sdpOffer를 보낸이후
     //App server로 부터
     //sdpAnswer를 전달받는다.
@@ -132,13 +165,53 @@ class Broadcast {
         }
     }
 
+    watchScreenResponse(message) {
+        if (message.response != 'accepted') {
+            let errorMsg = message.message ? message.message : 'Unknow error';
+            console.warn('Call not accepted for the following reason: ' + errorMsg);
+            this.dispose();
+        } else {
+            console.log("watchScreenResponse accecpt");
+            this.$webRtcPeer2.processAnswer(message.sdpAnswer);
+        }
+    }
+
+    setFullScreen() {
+        if (this.$mainScreen === "video1") {
+            if (this.$video.requestFullscreen) {
+                this.$video.requestFullscreen();
+            } else if (this.$video.mozRequestFullScreen) {
+                this.$video.mozRequestFullScreen();
+            } else if (this.$video.webkitRequestFullscreen) {
+                this.$video.webkitRequestFullscreen();
+            }
+        } else {
+            if (this.$video2.requestFullscreen) {
+                this.$video2.requestFullscreen();
+            } else if (this.$video2.mozRequestFullScreen) {
+                this.$video2.mozRequestFullScreen();
+            } else if (this.$video2.webkitRequestFullscreen) {
+                this.$video2.webkitRequestFullscreen();
+            }
+        }
+    }
+
     //방송시작을 누르면 실행되는 메서드
-    live() {
+    async live() {
         //Peer객체가 없다면
         if (!this.$webRtcPeer) {
 
+            await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+                .then(function (stream) {
+                    this.$video.srcObject = stream;
+                    this.$stream = stream;
+                }.bind(this), function (err) {
+                    console.log(err);
+                });
+
             let options = {
-                localVideo: this.$video,
+                //localVideo: this.$video,
+                videoStream: this.$stream,
                 onicecandidate: this.onIceCandidate.bind(this),
                 configuration: {
                     iceServers: this.$iceServers
@@ -160,6 +233,47 @@ class Broadcast {
         }
     }
 
+    shareScreen() {
+        if (!this.$webRtcPeer2) {
+
+            let self = this;
+
+            navigator.mediaDevices.getDisplayMedia({ audio: false, video: true })
+                .then(function (stream) {
+                    this.$video2.srcObject = stream;
+                    this.$stream2 = stream;
+
+                    stream.getVideoTracks()[0].addEventListener('ended', () => {
+                        console.log('영상공유 끊킴');
+                    });
+
+                    let options = {
+                        //localVideo: this.$video2,
+                        videoStream: this.$stream2,
+                        onicecandidate: this.onIceCandidate2.bind(this),
+                        configuration: {
+                            iceServers: this.$iceServers
+                        }
+                    }
+
+                    //발표자의 경우 송신용 Peer를 생성한다.
+                    this.$webRtcPeer2 = kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options, function (error) {
+                        if (error) {
+                            console.log(error);
+                            self.stop();
+                            return;
+                        }
+
+                        //sdpOffer를 생성하여 App서버로 전송
+                        this.generateOffer(self.onOfferScreen.bind(self));
+                    });
+
+                }.bind(this), function (err) {
+                    console.log(err);
+                });
+        }
+    }
+
     //sdpOffer를 받아 App서버로 전송하는 메서드
     onOfferLiver(error, offerSdp) {
         if (error) {
@@ -173,9 +287,24 @@ class Broadcast {
             sdpOffer: offerSdp
         };
         this.sendMessage(message);
+        this.shareScreen();
     }
 
-    //방송청취자가 페이지에 들어오면 실행되는 메서드
+    onOfferScreen(error, offerSdp) {
+        if (error) {
+            console.log(error);
+            this.stop();
+            return;
+        }
+
+        let message = {
+            id: 'shareScreen',
+            sdpOffer: offerSdp
+        };
+        this.sendMessage(message);
+    }
+
+    //방송청취자가 방송시청클릭시 실행되는 메서드
     viewer() {
         //Peer객체가 없다면
         if (!this.$webRtcPeer) {
@@ -203,6 +332,33 @@ class Broadcast {
         }
     }
 
+    viewScreen() {
+        //Peer객체가 없다면
+        if (!this.$webRtcPeer2) {
+
+            let options = {
+                remoteVideo: this.$video2,
+                onicecandidate: this.onIceCandidate2.bind(this),
+                configuration: {
+                    iceServers: this.$iceServers
+                }
+            }
+
+            let self = this;
+            //수신용 Peer를 생성한다.
+            this.$webRtcPeer2 = kurentoUtils.WebRtcPeer.WebRtcPeerRecvonly(options, function (error) {
+                if (error) {
+                    console.log(error);
+                    self.stop();
+                    return;
+                }
+
+                //sdpOffer를 생성하여 App서버로 전송
+                this.generateOffer(self.onOfferViewScreen.bind(self));
+            });
+        }
+    }
+
     //sdpOffer를 받아 App서버로 전송하는 메서드
     onOfferViewer(error, offerSdp) {
         if (error) {
@@ -213,6 +369,21 @@ class Broadcast {
 
         let message = {
             id: 'watchLive',
+            sdpOffer: offerSdp
+        }
+        this.sendMessage(message);
+        this.viewScreen();
+    }
+
+    onOfferViewScreen(error, offerSdp) {
+        if (error) {
+            console.log(error);
+            this.stop();
+            return;
+        }
+
+        let message = {
+            id: 'watchScreen',
             sdpOffer: offerSdp
         }
         this.sendMessage(message);
@@ -236,6 +407,16 @@ class Broadcast {
 
         let message = {
             id: 'onIceCandidate',
+            candidate: candidate
+        }
+        this.sendMessage(message);
+    }
+
+    onIceCandidate2(candidate) {
+        console.log('Local candidate' + JSON.stringify(candidate));
+
+        let message = {
+            id: 'onIceCandidate2',
             candidate: candidate
         }
         this.sendMessage(message);

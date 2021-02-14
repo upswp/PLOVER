@@ -10,15 +10,19 @@ function View(props) {
 
     const [chat, addChat] = useState([]);
     const [viewNum, setViewNum] = useState(0);
+    const [mainScreen, setMainScreen] = useState("video1");
     const query = queryString.parse(props.location.search);
 
     useLayoutEffect(() => {
         console.log("useEffect");
         broadcast.createSocketClient(query.b_addr, query.nickname);
         broadcast.setVideo(document.getElementById("live_screen"));
+        broadcast.setVideo2(document.getElementById("live_screen2"));//
         broadcast.setChat(chat);
         broadcast.setAddChat(addChat);
         broadcast.setViewNum(setViewNum);
+        broadcast.mainScreen(mainScreen);
+        broadcast.setMainScreen(setMainScreen);
         broadcast.createSocketEvent();
         //broadcast.viewer();
 
@@ -32,6 +36,10 @@ function View(props) {
         broadcast.setChat(chat);
     }, [chat]);
 
+    useEffect(() => {
+        broadcast.mainScreen(mainScreen);
+    }, [mainScreen]);
+
     return (
         <div id="live_view" className={styles.live_view}>
             <Navbar color="white">
@@ -40,7 +48,16 @@ function View(props) {
                 <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
             </Navbar>
             <div className={styles.live_box}>
-                <video id="live_screen" loop className={styles.live_screen} autoPlay />
+                <video id="live_screen" loop className={mainScreen === "video1" ? styles.live_screen : styles.live_screen2} autoPlay onClick={() => {
+                    if (mainScreen === "video2") {
+                        setMainScreen("video1");
+                    }
+                }} />
+                <video id="live_screen2" className={mainScreen === "video2" ? styles.live_screen : styles.live_screen2} autoPlay onClick={() => {
+                    if (mainScreen === "video1") {
+                        setMainScreen("video2");
+                    }
+                }} />
                 <div className={styles.badge_box}>
                     <PulseBadge className={styles.badge} title="준비중" bg="black" />
                 </div>
@@ -48,11 +65,19 @@ function View(props) {
                     <i className={"fas fa-user-alt " + styles.viewicon}></i>
                     <span className={styles.viewtext}>{`${viewNum}명`}</span>
                 </div>
-                <div className={styles.fullscreen}>
+                <div className={styles.fullscreen} onClick={() => {
+                    broadcast.setFullScreen();
+                }}>
                     <i className={"fas fa-expand " + styles.fullscreen_icon}></i>
                 </div>
-                <div className={styles.view_start} onClick={() => { broadcast.viewer() }}>
-                    방송시청
+            </div>
+            <div className={styles.configbox}>
+                <div className={styles.configbox_left}>
+                    <button className={styles.live_btn} onClick={() => {
+                        broadcast.viewer();//
+                    }}>방송시청</button>
+                </div>
+                <div className={styles.configbox_right}>
                 </div>
             </div>
             <div className={styles.infobox}>
