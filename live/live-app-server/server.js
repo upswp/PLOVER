@@ -59,11 +59,17 @@ io.sockets.on('connection', client => {
                 //방송시작
                 openLive(clientInfo, client, message.sdpOffer);
                 break;
+            case 'shareScreen':
+                shareScreen(clientInfo, client, message.sdpOffer);
+                break;
             case 'watchLive':
                 //방참가
                 joinRoom(client, clientInfo);
                 //방송보기
                 watchLive(clientInfo, client, message.sdpOffer);
+                break;
+            case 'watchScreen':
+                watchScreen(clientInfo, client, message.sdpOffer);
                 break;
             case 'stop':
                 //그만방송 또는 보기
@@ -100,7 +106,7 @@ io.sockets.on('connection', client => {
         io.sockets.in(clientInfo.b_addr).emit('chat', `${clientInfo.nickname}님이 방에서 나가셨습니다. `);
         stop(clientInfo);
         console.log(`${clientId} is disconnected`);
-        if(lives[clientInfo.b_addr]&& lives[clientInfo.b_addr].viewers && Object.keys(lives[clientInfo.b_addr].viewers).length > 0) io.sockets.in(clientInfo.b_addr).emit('viewnum', `${Object.keys(lives[clientInfo.b_addr].viewers).length}`);
+        if (lives[clientInfo.b_addr] && lives[clientInfo.b_addr].viewers && Object.keys(lives[clientInfo.b_addr].viewers).length > 0) io.sockets.in(clientInfo.b_addr).emit('viewnum', `${Object.keys(lives[clientInfo.b_addr].viewers).length}`);
         else io.sockets.in(clientInfo.b_addr).emit('viewnum', `0`);
     });
 
@@ -119,8 +125,10 @@ let createRoom = (client, clientInfo) => {
             status: false,//방송상태
             nickname: clientInfo.nickname,
             clientId: clientInfo.clientId,
-            pipeline: null,
-            webRtcEndpoint: null
+            pipeline: null, //카메라파이프라인
+            pipeline2: null, //화면공유파이프라인
+            webRtcEndpoint: null, //카메라 엔드포인트
+            webRtcEndpoint2: null //화면공유 엔트포인트
         },//BJ
         viewers: {}//시청자
     }
@@ -131,10 +139,11 @@ let joinRoom = (client, clientInfo) => {
     lives[clientInfo.b_addr].viewers[clientInfo.clientId] = {
         nickname: clientInfo.nickname,
         clientId: clientInfo.clientId,
-        webRtcEndpoint: null,
+        webRtcEndpoint: null, //카메라수신용
+        webRtcEndpoint2: null, //화면공유수신용
         client: null
     }
-        if(lives[clientInfo.b_addr]) io.sockets.in(clientInfo.b_addr).emit('viewnum', `${Object.keys(lives[clientInfo.b_addr].viewers).length}`);
+    if (lives[clientInfo.b_addr]) io.sockets.in(clientInfo.b_addr).emit('viewnum', `${Object.keys(lives[clientInfo.b_addr].viewers).length}`);
     //console.log(JSON.stringify(lives[clientInfo.b_addr].viewers));
     io.sockets.in(clientInfo.b_addr).emit('chat', `${clientInfo.nickname}님이 방에 입장하셨습니다.`);
 }
@@ -142,11 +151,6 @@ let joinRoom = (client, clientInfo) => {
 
 let openLive = (clientInfo, client, sdpOffer) => {
     clearCandidatesQueue(clientInfo.clientId);
-
-    //누군가 방송중인경우
-    if (lives[clientInfo.b_addr].anchor.status) {
-        return handler("Another user is currently broadcasting live");
-    }
 
     let handler = (error, sdpAnswer) => {
 
@@ -164,6 +168,11 @@ let openLive = (clientInfo, client, sdpOffer) => {
             response: 'accepted',
             sdpAnswer: sdpAnswer
         }));
+    }
+
+    //누군가 방송중인경우
+    if (lives[clientInfo.b_addr].anchor.status) {
+        return handler("Another user is currently broadcasting live");
     }
 
     return new Promise((resolve, reject) => {
@@ -246,13 +255,114 @@ let openLive = (clientInfo, client, sdpOffer) => {
         })
 }
 
-let watchLive = (clientInfo, client, sdpOffer) => {
+let shareScreen = (clientInfo, client, sdpOffer) => {
     clearCandidatesQueue(clientInfo.clientId);
 
-    //방송자가 없거나 방송중이 아닌경우
-    if (!lives[clientInfo.b_addr] || !lives[clientInfo.b_addr].anchor || !lives[clientInfo.b_addr].anchor.status) {
-        return handler("live is not found");
+    let handler = (error, sdpAnswer) => {
+
+        if (error) {
+            console.log(error);
+            return client.emit('message', JSON.stringify({
+                id: 'shareScreenResponse',
+                response: 'rejected',
+                message: error
+            }));
+        }
+
+        client.emit('message', JSON.stringify({
+            id: 'shareScreenResponse',
+            response: 'accepted',
+            sdpAnswer: sdpAnswer
+        }));
     }
+
+    //누군가 방송중인경우
+    if (lives[clientInfo.b_addr].anchor.status) {
+        return handler("Another user is currently broadcasting live");
+    }
+
+    return new Promise((resolve, reject) => {
+        if (kurentoClient !== null) {
+            resolve(kurentoClient);
+        }
+
+        //미디어 서버와 통신하는 kurentoClient 객체생성
+        kurento(media_server_uri, (error, _kurentoClient) => {
+            if (error) {
+                console.log(`Could not found media server ${media_server_uri}`);
+                reject(error);
+            }
+
+            kurentoClient = _kurentoClient;
+            resolve(kurentoClient);
+        });
+
+    })
+        .then((kurentoClient) => {
+
+            return new Promise((resolve, reject) => {
+                //미디어 서버와 연결되는 파이프라인 생성
+                kurentoClient.create('MediaPipeline', (error, pipeline) => {
+                    if (error) {
+                        reject(error);
+                    }
+
+                    lives[clientInfo.b_addr].anchor.pipeline2 = pipeline;
+                    //console.log(pipeline);
+                    resolve(pipeline);
+                });
+            });
+        })
+        .then((pipeline) => {
+            console.log(pipeline);
+            //WebRtcEndpoint 생성 :미디어서버로 WEBRTC흐름을 보내고 받기위한 요소
+            pipeline.create('WebRtcEndpoint', (error, webRtcEndpoint) => {
+                if (error) {
+                    throw new Error(error);
+                }
+
+                lives[clientInfo.b_addr].anchor.webRtcEndpoint2 = webRtcEndpoint;
+
+                if (candidatesQueue[clientInfo.clientId]) {
+                    while (candidatesQueue[clientInfo.clientId].length) {
+                        let candidate = candidatesQueue[clientInfo.clientId].shift();
+                        webRtcEndpoint.addIceCandidate(candidate);
+                    }
+                }
+
+                webRtcEndpoint.on('OnIceCandidate', function (event) {
+                    let candidate = kurento.getComplexType('IceCandidate')(event.candidate);
+                    client.emit('message', JSON.stringify({
+                        id: 'iceCandidate',
+                        candidate: candidate
+                    }));
+                });
+
+                webRtcEndpoint.processOffer(sdpOffer, function (error, sdpAnswer) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+
+                    handler(null, sdpAnswer);
+                });
+
+                webRtcEndpoint.gatherCandidates(function (error) {
+                    if (error) {
+                        throw new Error(error);
+                    }
+                });
+
+                //방송상태 온
+                lives[clientInfo.b_addr].anchor.status = true;
+            });
+        })
+        .catch((err) => {
+            handler(err);
+        })
+}
+
+let watchLive = (clientInfo, client, sdpOffer) => {
+    clearCandidatesQueue(clientInfo.clientId);
 
     let handler = (error, sdpAnswer) => {
 
@@ -270,6 +380,11 @@ let watchLive = (clientInfo, client, sdpOffer) => {
             response: 'accepted',
             sdpAnswer: sdpAnswer
         }));
+    }
+
+    //방송자가 없거나 방송중이 아닌경우
+    if (!lives[clientInfo.b_addr] || !lives[clientInfo.b_addr].anchor || !lives[clientInfo.b_addr].anchor.status) {
+        return handler("live is not found");
     }
 
     return new Promise((resolve, reject) => {
@@ -302,6 +417,84 @@ let watchLive = (clientInfo, client, sdpOffer) => {
                 }
 
                 lives[clientInfo.b_addr].anchor.webRtcEndpoint.connect(webRtcEndpoint, function (error) {
+                    if (error) {
+                        reject(error);
+                    }
+
+                    handler(null, sdpAnswer);
+
+                    webRtcEndpoint.gatherCandidates(function (error) {
+                        if (error) {
+                            return handler(error);
+                        }
+                    });
+                });
+            });
+
+        });
+
+    })
+        .catch((err) => {
+            handler(err);
+        })
+}
+
+let watchScreen = (clientInfo, client, sdpOffer) => {
+    clearCandidatesQueue(clientInfo.clientId);
+
+    let handler = (error, sdpAnswer) => {
+
+        if (error) {
+            console.log(error);
+            return client.emit('message', JSON.stringify({
+                id: 'watchScreenResponse',
+                response: 'rejected',
+                message: error
+            }));
+        }
+
+        client.emit('message', JSON.stringify({
+            id: 'watchScreenResponse',
+            response: 'accepted',
+            sdpAnswer: sdpAnswer
+        }));
+    }
+
+    //방송자가 없거나 방송중이 아닌경우
+    if (!lives[clientInfo.b_addr] || !lives[clientInfo.b_addr].anchor || !lives[clientInfo.b_addr].anchor.status) {
+        return handler("live is not found");
+    }
+
+    return new Promise((resolve, reject) => {
+        lives[clientInfo.b_addr].anchor.pipeline.create('WebRtcEndpoint', (error, webRtcEndpoint) => {
+            if (error) {
+                reject(error);
+            }
+
+            lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint2 = webRtcEndpoint;
+            lives[clientInfo.b_addr].viewers[clientInfo.clientId].client = client;
+
+            if (candidatesQueue[clientInfo.clientId]) {
+                while (candidatesQueue[clientInfo.clientId].length) {
+                    let candidate = candidatesQueue[clientInfo.clientId].shift();
+                    webRtcEndpoint.addIceCandidate(candidate);
+                }
+            }
+
+            webRtcEndpoint.on('OnIceCandidate', function (event) {
+                let candidate = kurento.getComplexType('IceCandidate')(event.candidate);
+                client.emit('message', JSON.stringify({
+                    id: 'iceCandidate',
+                    candidate: candidate
+                }));
+            });
+
+            webRtcEndpoint.processOffer(sdpOffer, function (error, sdpAnswer) {
+                if (error) {
+                    reject(error);
+                }
+
+                lives[clientInfo.b_addr].anchor.webRtcEndpoint2.connect(webRtcEndpoint, function (error) {
                     if (error) {
                         reject(error);
                     }
@@ -365,10 +558,15 @@ let stop = (clientInfo) => {
             }
         }
         lives[clientInfo.b_addr].anchor.pipeline.release();
+        lives[clientInfo.b_addr].anchor.pipeline2.release();
+
         lives[clientInfo.b_addr].anchor = null;
         lives[clientInfo.b_addr].viewers.length = 0;
     } else if (lives[clientInfo.b_addr] && lives[clientInfo.b_addr].viewers[clientInfo.clientId]) {
+
         lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint.release();
+        lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint2.release();
+
         delete lives[clientInfo.b_addr].viewers[clientInfo.clientId];
     }
 
