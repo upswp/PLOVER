@@ -35,17 +35,18 @@ const Login = (props) => {
       
         //FCM 토큰 코드 추가
         let massage = firebase.messaging();
-        let token;
         massage.getToken().then(fcmtoken => { 
-          token = fcmtoken;
-        });
-        axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, token)
-          .then(res => { 
-            alert(`hello! ${email}`);
+          console.log("fcm 토큰 값 : ", fcmtoken);
+          axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, {
+            token : fcmtoken
           })
-          .catch(err => { 
-            console.log(err);
-          });
+            .then(res => { 
+              alert(`hello! ${email}`);
+            })
+            .catch(err => { 
+              console.log(err);
+            });  
+        });
         //FCM토큰 코드 끝
 
         setLoginCheck(true);
