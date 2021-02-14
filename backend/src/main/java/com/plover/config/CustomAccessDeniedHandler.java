@@ -1,6 +1,7 @@
 package com.plover.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.plover.model.Response;
 import com.plover.model.user.SecurityUser;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
+// 접근 권한에 관한 Security
+// 접근 권한이 없을때 막는 역할 HTTP Status 403
+// 추가로 소스 리뷰 필요.
 @Slf4j
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
@@ -36,7 +40,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         if(hasRole(authorities,UserRole.ROLE_NOT_PERMITTED.name())){
             response.setMessage("사용자 인증메일 확인을 받지 않았습니다.");
-            System.out.println("이거맞아?");
         }
 
         PrintWriter out = httpServletResponse.getWriter();

@@ -1,6 +1,7 @@
 package com.plover.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.plover.model.Response;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+// 인증 입장 포인트
+// 로그인이 필요한 곳에 접근했을 경우 해당 클래스 작동.
+// 추가적으로 코드리뷰 필요.
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

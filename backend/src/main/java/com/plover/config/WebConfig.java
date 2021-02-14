@@ -11,7 +11,13 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowCredentials(true)
-                .allowedOrigins("*")
+                .allowedOrigins(
+                        "http://localhost:3000",
+                        "http://localhost:8080",
+                        "https://dev.plover.co.kr",
+                        "http://dev.plover.co.kr",
+                        "https://plover.co.kr",
+                        "http://plover.co.kr")
                 .allowedMethods("*")
                 .allowedHeaders("*");
     }

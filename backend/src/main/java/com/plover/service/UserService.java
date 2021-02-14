@@ -1,19 +1,21 @@
 package com.plover.service;
 
+import java.util.UUID;
+
+import javax.transaction.Transactional;
+
 import com.plover.config.UserRole;
 import com.plover.model.Salt;
-import com.plover.model.user.User;
+import com.plover.model.user.UserDto;
 import com.plover.model.user.request.SignupRequest;
 import com.plover.repository.SaltRepository;
 import com.plover.repository.UserRepository;
 import com.plover.utils.RedisUtil;
 import com.plover.utils.SaltUtil;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.UUID;
+import javassist.NotFoundException;
 
 @Service
 public class UserService {
@@ -34,13 +36,13 @@ public class UserService {
     private RedisUtil redisUtil;
 
 	 //이메일 인증에서 사용할 메서드
-	 User getUserByEmail(String email) {
+	 UserDto getUserByEmail(String email) {
 		return null;
 	 }
 	 
 	 //로그인 메서드
-	 public User login(String email, String password) throws Exception{
-		User user = findUserByEmail(email);
+	 public UserDto login(String email, String password) throws Exception{
+		UserDto user = findUserByEmail(email);
 		
 		//user정보가 없음
 		if(user==null) { 
@@ -72,13 +74,20 @@ public class UserService {
 		 String password = request.getPassword();
 		 String salt = saltUtil.genSalt();
 		
-		 User user = User.builder()
+		 UserDto user = UserDto.builder()
 				 .email(request.getEmail())
 				 .nickName(request.getNickName())
-				 .city(request.getCity())
-				 .gender(request.getGender())
+				 .campus(request.getCampus())
+				 .generation(request.getGeneration())
 				 .build();
-		
+
+		 if(request.getProfileImageUrl()!="" && request.getProfileImageUrl()!=null){
+			user.setProfileImageUrl(request.getProfileImageUrl());
+		 }
+		 else{
+		 	user.setProfileImageUrl("images/default-image.png");
+		 }
+
 		 user.setSalt(new Salt(salt));
 		 user.setPassword(saltUtil.encodePassword(salt, password));
 		 userRepository.save(user);
@@ -93,21 +102,21 @@ public class UserService {
     	return userRepository.existsByNickName(nickName);
     }
     
-    public User findUserByEmail(String email) throws NotFoundException {
-        User user = userRepository.findUserByEmail(email);
+    public UserDto findUserByEmail(String email) throws NotFoundException {
+        UserDto user = userRepository.findUserByEmail(email);
         if(user == null) throw new NotFoundException("유저가 조회되지 않음");
         return user;
     }
     
     public void verifyEmail(String key) throws NotFoundException {
         String email = redisUtil.getData(key);
-        User user = userRepository.findUserByEmail(email);
+        UserDto user = userRepository.findUserByEmail(email);
         if(user==null) throw new NotFoundException("멤버가 조회되지않음");
         modifyUserRole(user, UserRole.ROLE_USER);
         redisUtil.deleteData(key);
     }
     
-    public void sendVerificationMail(User user) throws NotFoundException {
+    public void sendVerificationMail(UserDto user) throws NotFoundException {
         String VERIFICATION_LINK = "https://dev.plover.co.kr/ssafy/account/verify/";
         if(user==null) throw new NotFoundException("멤버가 조회되지 않음");
         UUID uuid = UUID.randomUUID();
@@ -115,7 +124,7 @@ public class UserService {
         emailService.sendMail(user.getEmail(),"[PLOVER] 회원가입 인증메일입니다.",VERIFICATION_LINK+uuid.toString());
     }
 
-    public void modifyUserRole(User user, UserRole userRole){
+    public void modifyUserRole(UserDto user, UserRole userRole){
             user.setRole(userRole);
             userRepository.save(user);
     }
@@ -125,7 +134,7 @@ public class UserService {
         return !userId.equals("");
     }
 
-    public void changePassword(User user, String password) throws NotFoundException{
+    public void changePassword(UserDto user,String password) throws NotFoundException{
         if(user == null) throw new NotFoundException("changePassword(),멤버가 조회되지 않음");
         String salt = saltUtil.genSalt();
         user.setSalt(new Salt(salt));
@@ -134,7 +143,7 @@ public class UserService {
     }
 
 
-    public void requestChangePassword(User user) throws NotFoundException{
+    public void requestChangePassword(UserDto user) throws NotFoundException{
         String CHANGE_PASSWORD_LINK = "https://dev.plover.co.kr/ssafy/account/password/";
         if(user == null) 
         	throw new NotFoundException("멤버가 조회되지 않음.");
@@ -145,8 +154,8 @@ public class UserService {
         emailService.sendMail(user.getEmail(),"[PLOVER] 사용자 비밀번호 안내 메일",CHANGE_PASSWORD_LINK+key);
     }
     
-    public User findUserByNickName(String nickName)throws NotFoundException {
-    	 User user = userRepository.findUserByNickName(nickName);
+    public UserDto findUserByNickName(String nickName)throws NotFoundException {
+    	 UserDto user = userRepository.findUserByNickName(nickName);
          if(user == null) throw new NotFoundException("유저가 조회되지 않음");
          return user;
     }

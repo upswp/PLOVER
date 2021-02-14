@@ -1,14 +1,16 @@
 package com.plover.utils;
 
-import com.plover.model.user.User;
+import com.plover.model.user.UserDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -17,8 +19,8 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    public final static long TOKEN_VALIDATION_SECOND = 1000L * 10;
-    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2;
+    public final static long TOKEN_VALIDATION_SECOND = 1000L * 60L * 30;//30분
+    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2;//약 3일
 
     final static public String ACCESS_TOKEN_NAME = "accessToken";
     final static public String REFRESH_TOKEN_NAME = "refreshToken";
@@ -43,23 +45,31 @@ public class JwtUtil {
     public String getEmail(String token) {
         return extractAllClaims(token).get("email", String.class);
     }
+    public Integer getNo(String token) {
+        return extractAllClaims(token).get("no", Integer.class);
+    }
+    public String getNickName(String token) {
+        return extractAllClaims(token).get("nickName", String.class);
+    }
 
     public Boolean isTokenExpired(String token) {
         final Date expiration = extractAllClaims(token).getExpiration();
         return expiration.before(new Date());
     }
 
-    public String generateToken(User user) {
-        return doGenerateToken(user.getEmail(), TOKEN_VALIDATION_SECOND);
+    public String generateToken(UserDto user) {
+        return doGenerateToken(user.getNo(), user.getNickName(),user.getEmail(), TOKEN_VALIDATION_SECOND);
     }
 
-    public String generateRefreshToken(User user) {
-        return doGenerateToken(user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
+    public String generateRefreshToken(UserDto user) {
+        return doGenerateToken(user.getNo(), user.getNickName(), user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
 
-    public String doGenerateToken(String email, long expireTime) {
+    public String doGenerateToken(long no, String nickName, String email, long expireTime) {
 
         Claims claims = Jwts.claims();
+        claims.put("no",no);
+        claims.put("nickName",nickName);
         claims.put("email", email);
 
         String jwt = Jwts.builder()
@@ -77,5 +87,4 @@ public class JwtUtil {
 
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
 }

@@ -19,6 +19,8 @@
 
 ### Team Communication Rule ✨
 
+- 🧷 [PLOVER Business Rules](https://lab.ssafy.com/s04-webmobile2-sub3/s04p13b104/wikis/PLOVER-Business-Rules)
+
 - ##### 팀원간의 소통은 존댓말로! 
 
   사적인 자리에서는 친분을! 하지만 프로젝트는 우리 모두의 존중을 위해 존댓말로!
@@ -70,7 +72,7 @@
 
 ## 🚀 배포 플로우
 
-![plover_infra_v1.1.1](https://user-images.githubusercontent.com/70404643/104989893-c85e9700-5a5e-11eb-8147-2a9e0f63ac8c.PNG)
+![plover_infra_v1.4.0](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9sIAN%2FbtqU4CqnMc3%2F0u9j26QLt74oyVNbDNHfVk%2Fimg.png)
 
 ---
 
@@ -99,6 +101,7 @@
 | **[빌드]** CI               | Jenkins                  | [PLOVER_jenkins](https://jenkins.plover.co.kr/)              |
 | **[문서]** Server 상태 안내 | Server_주소 및 상태 현황 | [PLOVER_Server](https://docs.google.com/spreadsheets/d/1i8d6ZK7ZGBP2UL8G0ucgrxDoQ2_QYunx09zoQ0ItbZw/edit#gid=1619502858) |
 | **[문서]** 회의록           | 회의록 및 문서정리       | [PLOVER_doc](https://yona.plover.co.kr/projects)             |
+| **[문서]** 스크럼보드       | Google docs              | [PLOVER_scrum](https://docs.google.com/spreadsheets/d/1F6V0bUfGx2OScIYymnvBGvIjUlAFDm6cJ9pttKPbeUk/edit?usp=sharing) |
 
 - 일부 링크는 보안문제로 열람이 불가능 할 수 있습니다. 
   요청은 (tkddnsos@gmail.com)을 통하여 연락주시면 열람권한 드리겠습니다.

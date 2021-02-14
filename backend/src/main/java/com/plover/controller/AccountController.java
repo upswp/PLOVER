@@ -1,8 +1,10 @@
 package com.plover.controller;
 
 import com.plover.model.Response;
-import com.plover.model.user.User;
+import com.plover.model.notification.Response.NotificationResponse;
+import com.plover.model.user.UserDto;
 import com.plover.model.user.request.*;
+import com.plover.service.FCMService;
 import com.plover.service.UserService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
@@ -22,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 @ApiResponses(value = {
         @ApiResponse(code = 401, message = "Unauthorized", response = Response.class),
@@ -47,6 +51,8 @@ public class AccountController {
     private CookieUtil cookieUtil;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private FCMService fcmService;
 
 
 
@@ -54,13 +60,14 @@ public class AccountController {
     @PostMapping("/login")
     @ApiOperation(
             value = "로그인",
-            notes = "post로  LoginRequest 형태의 데이터를 받아서 로그인 처리와 토큰을 발급해 준다.",
+            notes = "post로  LoginRequest 형태의 데이터를 받아서 로그인 처리와 토큰을 발급해 준다. " +
+                    "해당 토큰에는 no, nickname, email 정보가 들어있다. 확인은 : https://jwt.io/",
             response = Response.class
     )
-    public Object login(@Valid LoginRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
+    public Object login(@Valid @RequestBody LoginRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            final User user = userService.login(userRequest.getEmail(), userRequest.getPassword());
+            final UserDto user = userService.login(userRequest.getEmail(), userRequest.getPassword());
             final String token = jwtUtil.generateToken(user);
             final String refreshJwt = jwtUtil.generateRefreshToken(user);
 
@@ -135,9 +142,10 @@ public class AccountController {
     public Response verify(@RequestBody VerifyEmailRequest verifyEmailRequest, HttpServletRequest req, HttpServletResponse res) {
         Response response;
         try {
-            User user = userService.findUserByEmail(verifyEmailRequest.getEmail());
+            UserDto user = userService.findUserByEmail(verifyEmailRequest.getEmail());
             userService.sendVerificationMail(user);
-            response = new Response("success", "성공적으로 인증메일을 보냈습니다.", null);
+            response = new Response(
+                    "success", "성공적으로 인증메일을 보냈습니다.", null);
         } catch (Exception exception) {
             response = new Response("error", "인증메일을 보내는데 문제가 발생했습니다.", exception);
         }
@@ -184,7 +192,7 @@ public class AccountController {
     public Response requestChangePassword(@RequestBody SendChangePasswordRequest SendChangePassowrd) {
         Response response;
         try {
-            User user = userService.findUserByNickName(SendChangePassowrd.getNickName());
+            UserDto user = userService.findUserByNickName(SendChangePassowrd.getNickName());
             if (!user.getEmail().equals(SendChangePassowrd.getEmail())) throw new NoSuchFieldException("");
             userService.requestChangePassword(user);
             response = new Response("success", "성공적으로 사용자의 비밀번호 변경요청을 수행했습니다.", null);
@@ -203,22 +211,57 @@ public class AccountController {
     public Response changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
         Response response;
         try{
-            User user = userService.findUserByEmail(changePasswordRequest.getEmail());
+            UserDto user = userService.findUserByEmail(changePasswordRequest.getEmail());
             userService.changePassword(user,changePasswordRequest.getPassword());
             response = new Response("success","성공적으로 사용자의 비밀번호를 변경했습니다.",null);
         }catch(Exception e){
             response = new Response("error","사용자의 비밀번호를 변경할 수 없었습니다.",null);
         }
         return response;
-
     }
-
-    //test
-    @ApiOperation(value = "다른 페이지로 이동이 가능한지 확인",
-            notes = "로그인 / 비로그인 시 이동이 가능한지 확인",
+    @GetMapping("/logout")
+    @ApiOperation(value = "로그아웃을 진행한다.",
+            notes = "로그아웃 버튼을 눌렀을 때 수행하는 기능",
             response = Response.class)
-    @GetMapping("/hello")
-    public String hello() {
-        return "hello ";
+    public Object logout(HttpServletRequest req, HttpServletResponse res) {
+
+        Cookie refreshToken = cookieUtil.getCookie(req, JwtUtil.REFRESH_TOKEN_NAME);
+        Cookie accessToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
+
+        redisUtil.deleteData(refreshToken.getValue());
+        redisUtil.deleteData("FCM_TOKEN_"+jwtUtil.getNo(accessToken.getValue()));
+
+        accessToken = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, null);
+        accessToken.setMaxAge(0);
+        accessToken.setPath("/");
+
+        refreshToken = new Cookie(JwtUtil.REFRESH_TOKEN_NAME, null);
+        refreshToken.setMaxAge(0);
+        refreshToken.setPath("/");
+
+        res.addCookie(accessToken);
+        res.addCookie(refreshToken);
+
+        if(res==null){
+            return new ResponseEntity<>(new Response("error", "이미 로그아웃된 사용자 입니다.", null),HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(new Response("success", "로그아웃 성공", null),HttpStatus.OK);
+        }
+    }
+    @GetMapping("/fcmtest")
+    @ApiOperation(value = "fcmtest",
+            notes = "fcmtest",
+            response = Response.class)
+    public Object fcmtest() throws ExecutionException, InterruptedException {
+        ResponseEntity response = null;
+        fcmService.send(new NotificationResponse(redisUtil.getData("FCM_TOKEN_3")
+        , "title", "messageddd", "mail.png","gggg"));
+
+        final Response result = new Response("success", "전송해봤다.", null);
+        //TODO : HttpStatus 변경하기
+        response = new ResponseEntity<>(result , HttpStatus.NOT_ACCEPTABLE);
+
+        return response;
     }
 }
