@@ -70,7 +70,10 @@ public class UserDto {
 
     @NotNull
     private String generation;
-    
+
+    private String description;
+
+
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.ROLE_NOT_PERMITTED;
