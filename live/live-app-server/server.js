@@ -250,7 +250,7 @@ let openLive = (clientInfo, client, sdpOffer) => {
                 });
 
                 //방송상태 온
-                lives[clientInfo.b_addr].anchor.status = true;
+                //lives[clientInfo.b_addr].anchor.status = true;
             });
         })
         .catch((err) => {
@@ -336,7 +336,7 @@ let shareScreen = (clientInfo, client, sdpOffer) => {
                 webRtcEndpoint.on('OnIceCandidate', function (event) {
                     let candidate = kurento.getComplexType('IceCandidate')(event.candidate);
                     client.emit('message', JSON.stringify({
-                        id: 'iceCandidate',
+                        id: 'iceCandidate2',
                         candidate: candidate
                     }));
                 });
@@ -469,7 +469,7 @@ let watchScreen = (clientInfo, client, sdpOffer) => {
     }
 
     return new Promise((resolve, reject) => {
-        lives[clientInfo.b_addr].anchor.pipeline.create('WebRtcEndpoint', (error, webRtcEndpoint) => {
+        lives[clientInfo.b_addr].anchor.pipeline2.create('WebRtcEndpoint', (error, webRtcEndpoint) => {
             if (error) {
                 reject(error);
             }
@@ -487,7 +487,7 @@ let watchScreen = (clientInfo, client, sdpOffer) => {
             webRtcEndpoint.on('OnIceCandidate', function (event) {
                 let candidate = kurento.getComplexType('IceCandidate')(event.candidate);
                 client.emit('message', JSON.stringify({
-                    id: 'iceCandidate',
+                    id: 'iceCandidate2',
                     candidate: candidate
                 }));
             });
@@ -583,15 +583,15 @@ let stop = (clientInfo) => {
                 }));
             }
         }
-        lives[clientInfo.b_addr].anchor.pipeline.release();
-        lives[clientInfo.b_addr].anchor.pipeline2.release();
+        if(lives[clientInfo.b_addr].anchor.pipeline) lives[clientInfo.b_addr].anchor.pipeline.release();
+        if(lives[clientInfo.b_addr].anchor.pipeline2) lives[clientInfo.b_addr].anchor.pipeline2.release();
 
         lives[clientInfo.b_addr].anchor = null;
         lives[clientInfo.b_addr].viewers.length = 0;
     } else if (lives[clientInfo.b_addr] && lives[clientInfo.b_addr].viewers[clientInfo.clientId]) {
 
-        lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint.release();
-        lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint2.release();
+        if(lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint) lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint.release();
+        if(lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint2) lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint2.release();
 
         delete lives[clientInfo.b_addr].viewers[clientInfo.clientId];
     }
