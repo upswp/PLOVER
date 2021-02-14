@@ -78,6 +78,9 @@ io.sockets.on('connection', client => {
             case 'onIceCandidate':
                 onIceCandidate(clientInfo, message.candidate);
                 break;
+            case 'onIceCandidate2':
+                onIceCandidate2(clientInfo, message.candidate);
+                break;
             default:
                 //잘못보낸 요청
                 client.emit('message', JSON.stringify({
@@ -544,6 +547,29 @@ let onIceCandidate = (clientInfo, _candidate) => {
         candidatesQueue[clientInfo.clientId].push(candidate);
     }
 }
+
+let onIceCandidate2 = (clientInfo, _candidate) => {
+    let candidate = kurento.getComplexType('IceCandidate')(_candidate);
+
+    if (lives[clientInfo.b_addr] && lives[clientInfo.b_addr].anchor && lives[clientInfo.b_addr].anchor.clientId === clientInfo.clientId
+        && lives[clientInfo.b_addr].anchor.webRtcEndpoint2) {
+        //console.info('Sending BJ candidate');
+        lives[clientInfo.b_addr].anchor.webRtcEndpoint2.addIceCandidate(candidate);
+    }
+
+    else if (lives[clientInfo.b_addr] && lives[clientInfo.b_addr].viewers[clientInfo.clientId] && lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint2) {
+        //console.info('Sending viewer candidate');
+        lives[clientInfo.b_addr].viewers[clientInfo.clientId].webRtcEndpoint2.addIceCandidate(candidate);
+    }
+    else {
+        //console.info('Queueing candidate');
+        if (!candidatesQueue[clientInfo.clientId]) {
+            candidatesQueue[clientInfo.clientId] = [];
+        }
+        candidatesQueue[clientInfo.clientId].push(candidate);
+    }
+}
+
 
 let stop = (clientInfo) => {
     console.log(JSON.stringify(clientInfo));
