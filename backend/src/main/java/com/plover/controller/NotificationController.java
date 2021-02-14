@@ -2,6 +2,7 @@ package com.plover.controller;
 
 
 import com.plover.model.Response;
+import com.plover.model.notification.request.FcmRequest;
 import com.plover.service.FCMService;
 import com.plover.service.NotificationService;
 import com.plover.utils.CookieUtil;
@@ -37,14 +38,14 @@ public class NotificationController {
             response = Response.class
     )
     @PostMapping("/registerFCMToken")
-    public ResponseEntity registerFCMToken(@RequestBody String token, HttpServletRequest httpServletRequest) {
+    public ResponseEntity registerFCMToken(@RequestBody FcmRequest fcmRequest, HttpServletRequest httpServletRequest) {
         //쿠키에서 엑세스 토큰을 가지고 와서
         Cookie accessToken = cookieUtil.getCookie(httpServletRequest, JwtUtil.ACCESS_TOKEN_NAME);
-        logger.info(token);
+        logger.info(fcmRequest.getToken());
         //쿠키에 정상적으로 발급된 토큰이 있으면
         if(!jwtUtil.isTokenExpired(accessToken.getValue())){
             //FCM 토큰을 redis에 등록한다.
-            notificationService.registerFCMToken(Integer.toString(jwtUtil.getNo(accessToken.getValue())), token);
+            notificationService.registerFCMToken(Integer.toString(jwtUtil.getNo(accessToken.getValue())), fcmRequest.getToken());
             return new ResponseEntity<>(new Response("success", "FCM 토큰 등록 성공", null), HttpStatus.OK);
         }
         else{
