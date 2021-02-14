@@ -39,7 +39,8 @@ const Login = (props) => {
         massage.getToken().then(fcmtoken => { 
           token = fcmtoken;
         });
-        axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, token)
+        console.log("fcm 토큰 값 : ", token);
+        axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, { token })
           .then(res => { 
             alert(`hello! ${email}`);
           })
