@@ -3,7 +3,6 @@
 package com.plover.model.user;
 
 import com.plover.config.UserRole;
-import com.plover.model.Salt;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,8 +24,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
-
-import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
 

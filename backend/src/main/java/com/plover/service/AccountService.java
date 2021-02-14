@@ -5,7 +5,7 @@ import java.util.UUID;
 import javax.transaction.Transactional;
 
 import com.plover.config.UserRole;
-import com.plover.model.Salt;
+import com.plover.model.user.Salt;
 import com.plover.model.user.Users;
 import com.plover.model.user.request.SignupRequest;
 import com.plover.repository.SaltRepository;
