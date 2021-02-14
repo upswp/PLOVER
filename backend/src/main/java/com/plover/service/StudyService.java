@@ -12,7 +12,7 @@ import com.plover.model.study.request.StudyRequest;
 import com.plover.model.study.response.StudiesResponse;
 import com.plover.model.study.response.StudyDetailResponse;
 import com.plover.model.study.response.StudyNoticesResponse;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.repository.HashtagRepository;
 import com.plover.repository.StudyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +104,7 @@ public class StudyService {
 
     // 스터디 게시글 등록
     @Transactional
-    public Long save(UserDto user, StudyInsertRequest studyInsertRequest) {
+    public Long save(Users user, StudyInsertRequest studyInsertRequest) {
         Study study = studyInsertRequest.toStudy();
         study.setUser(user);
         studyRepository.save(study);

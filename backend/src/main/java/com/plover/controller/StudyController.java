@@ -7,9 +7,9 @@ import com.plover.model.study.request.StudyRequest;
 import com.plover.model.study.response.StudiesResponse;
 import com.plover.model.study.response.StudyDetailResponse;
 import com.plover.model.study.response.StudyNoticesResponse;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.service.StudyService;
-import com.plover.service.UserService;
+import com.plover.service.AccountService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -36,7 +36,7 @@ public class StudyController {
     @Autowired
     private StudyService studyService;
     @Autowired
-    private UserService userService;
+    private AccountService accountService;
 
     @GetMapping("/search/{cursorid}")
     @ApiOperation(value = "제목에 키워드가 포함되어있는 스터디 게시글 목록을 반환",
@@ -107,7 +107,7 @@ public class StudyController {
     public Object saveStudy(@Valid @RequestBody StudyInsertRequest studyInsertRequest) {
         ResponseEntity response = null;
         try {
-            UserDto user = userService.findUserByEmail(studyInsertRequest.getEmail());
+            Users user = accountService.findUserByEmail(studyInsertRequest.getEmail());
             Long studyId = studyService.save(user, studyInsertRequest);
             final Response result = new Response("sucess", "스터디 게시글을 등록이 완료되었습니다.", studyId);
             response = new ResponseEntity<>(result, HttpStatus.OK);
@@ -142,7 +142,7 @@ public class StudyController {
     public Object updateStudy(@PathVariable @NotNull Long id, @RequestBody @Valid StudyRequest studyRequest) {
         ResponseEntity response = null;
         try {
-            UserDto user = userService.findUserByEmail(studyRequest.getEmail());
+            Users user = accountService.findUserByEmail(studyRequest.getEmail());
             if (user.getNo() == studyService.findById(id).getUser().getNo()) {
                 StudyDetailResponse returnStudy = studyService.updateStudy(id, studyRequest);
                 final Response result = new Response("success", "스터디 게시글 정보 수정 성공", returnStudy);
@@ -168,7 +168,7 @@ public class StudyController {
     public Object deleteStudy(@PathVariable @NotNull Long id, @RequestBody @Valid StudyDeleteRequest studyDeleteRequest) {
         ResponseEntity response = null;
         try {
-            UserDto user = userService.findUserByEmail(studyDeleteRequest.getEmail());
+            Users user = accountService.findUserByEmail(studyDeleteRequest.getEmail());
             if (user.getNo() == studyService.findById(id).getUser().getNo()) {
                 studyService.deleteStudy(id);
                 final Response result = new Response("success", "스터디 게시글 정보 삭제 성공", null);

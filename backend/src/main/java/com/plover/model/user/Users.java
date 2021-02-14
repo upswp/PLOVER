@@ -40,7 +40,7 @@ import java.util.Date;
 @Setter
 @ToString
 @Table(name="user")
-public class UserDto {
+public class Users {
     @Id
     @GeneratedValue
     private Long no;
@@ -83,10 +83,10 @@ public class UserDto {
     private Salt salt;
     
     //기본 생성자
-    public UserDto() {}
+    public Users() {}
 
     @Builder
-    public UserDto(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation) {
+    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation) {
         this.email = email;
         this.nickName = nickName;
         this.campus = campus;
@@ -94,7 +94,7 @@ public class UserDto {
         this.generation = generation;
     }
     @Builder
-    public UserDto(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, @NotNull String generation) {
+    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, @NotNull String generation) {
         this.email = email;
         this.nickName = nickName;
         this.campus = campus;

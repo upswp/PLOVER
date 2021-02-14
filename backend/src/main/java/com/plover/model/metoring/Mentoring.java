@@ -1,11 +1,9 @@
 package com.plover.model.metoring;
 
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 
@@ -28,7 +26,7 @@ public class Mentoring {
 
     @ManyToOne
     @JoinColumn(name = "user_no")
-    private UserDto user;
+    private Users user;
 
     @Column(nullable = false)
     private String type;
@@ -77,5 +75,5 @@ public class Mentoring {
 
 
 
-    public void setUser(UserDto user){this.user = user;}
+    public void setUser(Users user){this.user = user;}
 }

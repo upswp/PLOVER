@@ -2,12 +2,10 @@ package com.plover.service;
 
 import com.plover.model.metoring.Mentoring;
 import com.plover.model.metoring.request.MentoringRequest;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.repository.MentoringRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Cacheable;
 import javax.transaction.Transactional;
 
 @Service
@@ -20,7 +18,7 @@ public class MentoringService {
     }
 
     @Transactional
-    public Long save(UserDto user, MentoringRequest mentoringRequest){
+    public Long save(Users user, MentoringRequest mentoringRequest){
         Mentoring mentoring = mentoringRequest.toMentoring();
         mentoring.setUser(user);
         mentoringRepository.save(mentoring);

@@ -1,6 +1,6 @@
 package com.plover.model.follow;
 
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -24,18 +24,18 @@ public class Follow {
 
     @ManyToOne
     @JoinColumn(name = "from_user_no")
-    private UserDto fromUser;
+    private Users fromUser;
 
     @ManyToOne
     @JoinColumn(name = "to_user_no")
-    private UserDto toUser;
+    private Users toUser;
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date createDate;
 
     @Builder
-    public Follow(UserDto fromUser, UserDto toUser) {
+    public Follow(Users fromUser, Users toUser) {
         this.fromUser = fromUser;
         this.toUser = toUser;
     }

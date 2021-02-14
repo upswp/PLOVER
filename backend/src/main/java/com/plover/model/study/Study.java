@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.plover.converter.BooleanToYNConverter;
 import com.plover.exceptions.ErrorCode;
 import com.plover.exceptions.InvalidValueException;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,7 +27,7 @@ public class Study {
 
     @ManyToOne
     @JoinColumn(name = "user_no") // fk컬럼명
-    private UserDto user;
+    private Users user;
 
     private String title;
 
@@ -61,7 +61,7 @@ public class Study {
     }
 
     // Study의 user설정
-    public void setUser(UserDto user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

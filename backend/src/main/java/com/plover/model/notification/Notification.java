@@ -1,6 +1,6 @@
 package com.plover.model.notification;
 
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +24,12 @@ public class Notification {
     //누가 보냈냐 => user no
     @ManyToOne
     @JoinColumn(name = "from_user_no")
-    private UserDto fromUser;
+    private Users fromUser;
 
     //누가 받냐 => user no
     @ManyToOne
     @JoinColumn(name = "to_user_no")
-    private UserDto toUser;
+    private Users toUser;
 
     @NotBlank
     private String title;

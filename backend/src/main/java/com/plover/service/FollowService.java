@@ -5,7 +5,7 @@ import com.plover.exceptions.EntityNotFoundException;
 import com.plover.exceptions.ErrorCode;
 import com.plover.model.follow.Follow;
 import com.plover.model.follow.response.FollowUsersResponse;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.repository.FollowRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +31,7 @@ public class FollowService {
     }
 
     // 팔로잉/팔로워 저장
-    public void save(UserDto fromUser, UserDto toUser) {
+    public void save(Users fromUser, Users toUser) {
         Follow follow = Follow.builder().fromUser(fromUser).toUser(toUser).build();
         followRepository.save(follow);
     }
@@ -46,7 +46,7 @@ public class FollowService {
         } else {
             follows = followRepository.findByIdLessThanAndFromUserNoOrderByIdDesc(cursorId, no, page);
         }
-        List<UserDto> followings = new ArrayList<>();
+        List<Users> followings = new ArrayList<>();
         for (Follow follow : follows) {
             followings.add(follow.getToUser());
         }
@@ -72,7 +72,7 @@ public class FollowService {
         } else {
             follows = followRepository.findByIdLessThanAndToUserNoOrderByIdDesc(cursorId, no, page);
         }
-        List<UserDto> followers = new ArrayList<>();
+        List<Users> followers = new ArrayList<>();
         for (Follow follow : follows) {
             followers.add(follow.getFromUser());
         }
