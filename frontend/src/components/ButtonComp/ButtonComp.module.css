@@ -10,6 +10,12 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.button:disabled {
+  background-color: rgba(145, 53, 218, 0.2);
+  border-color: rgba(145, 53, 218, 0.2);
+  color: rgba(145, 53, 218, 0.5);
+}
+
 /* width */
 .small {
   width: 3em;

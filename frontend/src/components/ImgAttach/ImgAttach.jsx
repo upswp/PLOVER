@@ -19,18 +19,17 @@ class ImgAttach extends Component {
   handleChangeFile = event => {
     let reader = new FileReader();
     reader.onloadend = e => {
-      // 2. 읽기가 완료되면 아래코드가 실행
-      const base64 = reader.result; //reader.result는 이미지를 인코딩(base64 ->이미지를 text인코딩)한 결괏값이 나온다.
+      const base64 = reader.result;
       if (base64) {
         this.setState({
-          imgUrl: base64.toString() // 파일 base64 상태 업데이트
+          imgUrl: base64.toString()
         });
       }
     };
     if (event.target.files[0]) {
-      reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다. 저장후 onloadend 트리거
+      reader.readAsDataURL(event.target.files[0]);
       this.setState({
-        imgFile: event.target.files[0] // 파일 상태 업데이트 업로드 하는것은 파일이기 때문에 관리 필요
+        imgFile: event.target.files[0] 
       });
     }
   };
