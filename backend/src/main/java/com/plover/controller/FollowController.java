@@ -5,6 +5,7 @@ import com.plover.model.Response;
 import com.plover.model.follow.request.FollowRequest;
 import com.plover.model.follow.response.FollowUsersResponse;
 import com.plover.model.user.Users;
+import com.plover.service.FCMService;
 import com.plover.service.FollowService;
 import com.plover.service.UserService;
 import com.plover.utils.CookieUtil;
@@ -33,12 +34,14 @@ public class FollowController {
     private UserService userService;
     private JwtUtil jwtUtil;
     private CookieUtil cookieUtil;
+    private FCMService fcmService;
 
-    public FollowController(FollowService followService, UserService userService, JwtUtil jwtUtil, CookieUtil cookieUtil) {
+    public FollowController(FollowService followService, UserService userService, JwtUtil jwtUtil, CookieUtil cookieUtil, FCMService fcmService) {
         this.followService = followService;
         this.userService = userService;
         this.jwtUtil = jwtUtil;
         this.cookieUtil = cookieUtil;
+        this.fcmService = fcmService;
     }
 
     @GetMapping("/following/{toUserNo}")
@@ -142,10 +145,10 @@ public class FollowController {
         try {
             Long fromUserNo = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (fromUserNo != null) {
-                //TODO:userService에 findUserByNo 추가 후 email-> No로 변경
                 Users fromUser = userService.findUserByNo(fromUserNo);
                 Users toUser = userService.findUserByNo(followRequest.getToUserNo());
                 followService.save(fromUser, toUser);
+                fcmService.send(fcmService.setNotification("follow",toUser,request));
                 final Response result = new Response("success", "팔로우를 성공하였습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.OK);
             } else {
@@ -153,7 +156,7 @@ public class FollowController {
                 response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
-            final Response result = new Response("error", "팔로우를 실패했습니다.", null);
+            final Response result = new Response("error", e.getMessage(), null);
             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
         return response;

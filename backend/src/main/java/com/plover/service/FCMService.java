@@ -4,9 +4,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.WebpushConfig;
 import com.google.firebase.messaging.WebpushNotification;
-import com.plover.model.notification.Notification;
 import com.plover.model.notification.Response.NotificationResponse;
-import com.plover.model.notification.request.NotificationRequest;
 import com.plover.model.user.Users;
 import com.plover.repository.UserRepository;
 import com.plover.utils.CookieUtil;
@@ -15,11 +13,9 @@ import com.plover.utils.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -45,14 +41,14 @@ public class FCMService {
         switch (type) {
             case "follow" :
                 //받는 사람 FCM 토큰 redis에서 가지고 오기
-                token = redisUtil.getData("FCM_TOKEN"+toUser.getNo());
+                token = redisUtil.getData("FCM_TOKEN_"+toUser.getNo());
                 //보내는 사람 닉네임 가지고 오기
                 sender = jwtUtil.getNickName(cookieUtil.getCookie(res, JwtUtil.ACCESS_TOKEN_NAME).getValue());
                 //받는 사람 닉네임 가지고 오기
-                receiver = jwtUtil.getNickName(toUser.getNickName());
+                receiver = toUser.getNickName();
                  notificationResponse = NotificationResponse.builder()
                         .token(token)
-                        .title(sender+"님 PLOVER가 알림을 받아왔어요.")
+                        .title(receiver+"님 PLOVER가 알림을 받아왔어요.")
                         .message(sender+"님이 팔로우를 시작하셨습니다!")
                         .icon("plover.png")
                         .click_action("goto follow page")//TODO : 경로 넣고 action 설정하기 (차후에 해야함)
