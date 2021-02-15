@@ -2,7 +2,7 @@ import { Route } from 'react-router-dom';
 import {
   Jangsoon, Jiyoung, Suyeon,
   Register, Verify, Login, Home,
-  MRegister, MList, MDetail,
+  MRegister, MList, MDetail, MEdit,
   SRegister, SList, SDetail,
   LManage, LView,
   Search, Follow
@@ -25,6 +25,7 @@ function App() {
       <Route path="/mentoring/register" component={MRegister} />
       <Route path="/mentoring/list" component={MList} />
       <Route path="/mentoring/detail" component={MDetail} />
+      <Route path="/mentoring/edit" component={MEdit} />
       <Route path="/study/register" component={SRegister} />
       <Route path="/study/list" component={SList} />
       <Route path="/study/detail" component={SDetail} />
