@@ -6,13 +6,12 @@ import com.plover.model.follow.request.FollowRequest;
 import com.plover.model.follow.response.FollowUsersResponse;
 import com.plover.model.user.Users;
 import com.plover.service.FollowService;
-import com.plover.service.AccountService;
+import com.plover.service.UserService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,13 +30,13 @@ import javax.validation.constraints.NotNull;
 @RequestMapping("follow")
 public class FollowController {
     private FollowService followService;
-    private AccountService accountService;
+    private UserService userService;
     private JwtUtil jwtUtil;
     private CookieUtil cookieUtil;
 
-    public FollowController(FollowService followService, AccountService accountService, JwtUtil jwtUtil, CookieUtil cookieUtil) {
+    public FollowController(FollowService followService, UserService userService, JwtUtil jwtUtil, CookieUtil cookieUtil) {
         this.followService = followService;
-        this.accountService = accountService;
+        this.userService = userService;
         this.jwtUtil = jwtUtil;
         this.cookieUtil = cookieUtil;
     }
@@ -135,17 +134,17 @@ public class FollowController {
     }
 
     @PostMapping
-    @ApiOperation(value = "팔로잉/팔로워를 저장(request에서 email만 입력하면됨)",
-            notes = "로그인한 사용자의 email과 팔로우한 사용자의 email을 전달받아 팔로잉/팔로워를 저장한다. (로그인 필수)",
+    @ApiOperation(value = "팔로잉/팔로워를 저장",
+            notes = "로그인한 사용자의 no와 팔로우한 사용자의 no를 전달받아 팔로잉/팔로워를 저장한다. (로그인 필수)",
             response = Response.class)
     public Object saveFollow(HttpServletRequest request, @Valid @RequestBody FollowRequest followRequest) {
         ResponseEntity response = null;
         try {
-            String fromUserEmail = jwtUtil.getEmail(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
-            if (fromUserEmail != null) {
+            Long fromUserNo = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+            if (fromUserNo != null) {
                 //TODO:userService에 findUserByNo 추가 후 email-> No로 변경
-                Users fromUser = accountService.findUserByEmail(fromUserEmail);
-                Users toUser = accountService.findUserByEmail(followRequest.getToUserEmail());
+                Users fromUser = userService.findUserByNo(fromUserNo);
+                Users toUser = userService.findUserByNo(followRequest.getToUserNo());
                 followService.save(fromUser, toUser);
                 final Response result = new Response("success", "팔로우를 성공하였습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.OK);
@@ -153,9 +152,6 @@ public class FollowController {
                 final Response result = new Response("error", "유효하지 않은 토큰 값입니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
-        } catch (NotFoundException e) {
-            final Response result = new Response("error", e.getMessage(), null);
-            response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
             final Response result = new Response("error", "팔로우를 실패했습니다.", null);
             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
@@ -164,8 +160,8 @@ public class FollowController {
     }
 
     @DeleteMapping
-    @ApiOperation(value = "팔로잉/팔로워 삭제(request객체의 email추후 삭제예정)",
-            notes = "로그인한 사용자의 email과 팔로우를 해제한 사용자의 email을 전달받아 팔로잉/팔로워를 삭제한다.",
+    @ApiOperation(value = "팔로잉/팔로워 삭제",
+            notes = "로그인한 사용자의 no와 팔로우를 해제한 사용자의 no을 전달받아 팔로잉/팔로워를 삭제한다.(로그인 필수)",
             response = Response.class)
     public Object deleteFollow(HttpServletRequest request, @Valid @RequestBody FollowRequest followRequest) {
         ResponseEntity response = null;

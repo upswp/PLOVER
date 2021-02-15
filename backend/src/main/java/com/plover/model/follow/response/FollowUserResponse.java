@@ -12,12 +12,15 @@ public class FollowUserResponse {
     private String nickname;
     private String profileImageUrl;
 
-    public FollowUserResponse(String nickname) {
+    public FollowUserResponse(Long no, String nickname, String profileImageUrl) {
+        this.no = no;
         this.nickname = nickname;
+        this.profileImageUrl = profileImageUrl;
     }
 
+
     public static FollowUserResponse of(Users followUser) {
-        return new FollowUserResponse(followUser.getNickName());
+        return new FollowUserResponse(followUser.getNo(),followUser.getNickName(),followUser.getProfileImageUrl());
     }
 
     public static List<FollowUserResponse> listOf(List<Users> followUsers) {
