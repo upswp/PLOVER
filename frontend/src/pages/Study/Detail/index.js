@@ -30,9 +30,15 @@ function Detail(props) {
   return (
     <div id="study_detail">
       <Navbar color="white">
-        <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
+        <span onClick={() => {
+          console.log("backbtn")
+          props.history.goBack();
+        }}><i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i></span>
         <span className={"color_black" + " " + styles.title}><Typo ty="h4">스터디 상세보기</Typo></span>
-        <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
+        <span onClick={() => {
+        }}>
+          <i className={"fas fa-pen color_white" + " " + styles.right_icon}></i>
+        </span>
       </Navbar>
       <div className={styles.study_title}>
         <Typo ty="h4">{state.study.title !== undefined && state.study.title}</Typo>
