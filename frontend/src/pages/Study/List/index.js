@@ -1,39 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import styles from "./index.module.css";
 import { Navbar, Typo, Noticeslider, Skeleton } from "src/components";
 import Event from "./event";
+
+let event = new Event();
 
 function List(props) {
   const [notices, setNotices] = useState([]);
   const [studies, setStudies] = useState([]);
   const [lastIndex, setLastIndex] = useState(0);
-  let state = {};
-  //공지
-  state.notices = notices;
-  state.setNotices = setNotices;
-  state.lastIndex = lastIndex;
-  //스터디목록
-  state.studies = studies;
-  state.setStudies = setStudies;
-  state.setLastIndex = setLastIndex;
 
-  const event = new Event();
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (!event) event = new Event();
+
     event.setTarget(document.getElementById("study_list"));
-    event.setState(state);
+    event.notices(notices);
+    event.setNotices(setNotices);
+    event.setStudies(setStudies);
+    event.setLastIndex(setLastIndex);
+
+    return () => {
+      event = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    event.studies(studies);
+    event.lastIndex(lastIndex);
     event.addEvent();
 
     return () => {
-      event.destroy();
+      if (event !== null) event.destroy();
     };
-  }, [studies]);
+  }, [lastIndex]);
 
   return (
     <div id="study_list" className={styles.study_list}>
       <Navbar color="white">
-        <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
+        <span onClick={() => {
+
+        }}>
+          <i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i>
+        </span>
         <span className={"color_black" + " " + styles.title}><Typo ty="h4">스터디 같이해요</Typo></span>
-        <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
+        <span onClick={() => {
+          props.history.push("/study/register");
+        }}>
+          <i className={"fas fa-pen color_black " + styles.write_icon} style={{ cursor: "pointer" }}></i>
+        </span>
       </Navbar>
       <div className={styles.notice_box}>
         <Noticeslider data={notices} className={styles.notice} duration={2000} style={{ height: "40px" }} history={props.history} />
@@ -45,7 +59,7 @@ function List(props) {
               <div key={"study_" + i} className={styles.study_box} data-id={study.id}>
                 <div className={styles.study_left}>
                   <div className={styles.title_box} onClick={() => { props.history.push(`/study/detail/${study.id}`) }}>
-                    <Typo ty="h4">{study.title}</Typo>
+                    {study.title}
                   </div>
                   <div className={styles.studys}>
                     <div>
@@ -62,14 +76,15 @@ function List(props) {
                     {/*<Imgbox src={study.profileImg} shape="circle" className={styles.profile}></Imgbox>*/}
                     <Skeleton shape="circle" className={styles.profile} />
                   </div>
-                  <div className={styles.datebox}>하루전</div>
+                  <div className={styles.nicknamebox}><span className={styles.nickname}>닉네임</span></div>
+                  <div className={styles.datebox}>{study.date}</div>
                 </div>
               </div>
             )
           })
         }
       </div>
-      <p id="footer"></p>
+      <p id="footer" style={{ height: "20px" }}></p>
     </div>
   );
 }
