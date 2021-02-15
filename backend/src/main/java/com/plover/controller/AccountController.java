@@ -14,16 +14,27 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @ApiResponses(value = {
@@ -39,7 +50,8 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("account")
 public class AccountController {
 
-
+    @Value("${file.path}")
+    String localFilePath;
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
@@ -115,13 +127,32 @@ public class AccountController {
         }
         return response;
     }
-    @PostMapping("/signup")
+    @PostMapping(value = "/signup", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @ApiOperation(value = "회원가입",
             notes = "회원가입 때 받아야하는 데이터 형태인 SignupRequest로 데이터를 받아서 가입을 진행한다.",
             response = Response.class)
-    public Object signup(@RequestBody @Valid SignupRequest userRequest) {
-
+    public Object signup(@RequestPart(value = "file[]", required = false) List<MultipartFile> images, @RequestPart SignupRequest userRequest) {
         ResponseEntity<Response> response = null;
+
+        //유저 대표 이미지 저장
+        if(images != null){
+            UUID uuid = UUID.randomUUID();
+            for (MultipartFile mf : images) {
+                long time = System.currentTimeMillis();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+                String filename = uuid + "-" + formatter.format(time) + mf.getOriginalFilename();
+                Path filePath = Paths.get(localFilePath + filename);
+                try {
+                    Files.write(filePath, mf.getBytes());
+                    userRequest.setProfileImageUrl(filePath.toString());
+                }
+                catch (IOException e){
+                    final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+                }
+            }
+        }//파일 저장 끝
+
         try {
             accountService.signup(userRequest);
             final Response result = new Response("success","회원가입 성공", null);
@@ -261,6 +292,40 @@ public class AccountController {
         //TODO : HttpStatus 변경하기
         response = new ResponseEntity<>(result , HttpStatus.NOT_ACCEPTABLE);
 
+        return response;
+    }
+    @PostMapping(value = "/filetest", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @ApiOperation(value = "file업로드 테스트",
+            notes = "회원가입 때 이미지를 업로드 해보자",
+            response = Response.class)
+    public Object signup(@RequestPart(value = "file", required = false) MultipartFile image) {
+        ResponseEntity<Response> response = null;
+        //유저 대표 이미지 저장
+        if(image != null){
+            UUID uuid = UUID.randomUUID();
+
+                long time = System.currentTimeMillis();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+                String filename = uuid + "-" + formatter.format(time) + image.getOriginalFilename();
+                Path filePath = Paths.get(localFilePath+filename);
+                try {
+                    Files.write(filePath, image.getBytes());
+//                    userRequest.setProfileImageUrl(filePath.toString());
+                }
+                catch (IOException e){
+                    final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+                }
+
+        }//파일 저장 끝
+
+        try {
+            final Response result = new Response("success","회원가입 성공", null);
+            response = new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e) {
+            final Response result = new Response("success","회원가입 중 오류 발생", e.getMessage());
+            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
         return response;
     }
 }
