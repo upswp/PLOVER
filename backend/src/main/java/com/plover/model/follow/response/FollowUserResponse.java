@@ -8,8 +8,9 @@ import java.util.List;
 
 @Getter
 public class FollowUserResponse {
+    private Long no;
     private String nickname;
-    //TODO : 프로필사진경로 추가
+    private String profileImageUrl;
 
     public FollowUserResponse(String nickname) {
         this.nickname = nickname;
