@@ -1,0 +1,144 @@
+.icon{
+    font-size: 1.1em;
+    margin-left: 10px;
+}
+
+.write_icon{
+    font-size: 1.1em;
+    margin-right: 10px;
+}
+
+.title{
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.mentoring_list{
+    position: relative;
+    width: 100%;
+}
+
+.mentoring_box{
+    width: 100%;
+    padding: 0px 10px;
+    margin-top: 20px;
+}
+
+.mentoring_img_box{
+    position: relative;
+    width:100%;
+    height:180px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.mentoring_img{
+    width:100%;
+}
+
+.m_box{
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 80px;
+    border: 0px solid gray;
+    border-radius: 3px;
+}
+.m_left{
+    position: relative;
+    width: 84%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+.title_box{
+    width: 100%;
+    padding: 0px 2px;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    cursor:pointer;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.datetime{
+    width: 100%;
+    padding: 0px 2px;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    cursor:pointer;
+    font-size: 0.7em;
+    color:rgb(92, 92, 92);
+}
+
+.personnel{
+    width: 100%;
+    padding: 0px 2px;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    cursor:pointer;
+    font-size: 0.7em;
+    color:rgb(92, 92, 92);
+}
+
+.m_right{
+    position: relative;
+    width: 16%;
+    height: 100%;
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profilebox{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction:column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.profile{
+    width: 50px; 
+    height: 50px;
+}
+
+.nicknamebox{
+    bottom:5px;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7em;
+}
+
+.nickname{
+    padding: 1px 2px;
+    width: auto;
+    height: 15px;
+    line-height: 15px;
+    border-radius: 2px;
+    color:var(--color-badge-skyblue);
+    font-weight: bold;
+    opacity: 1.0;
+}
