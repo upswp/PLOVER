@@ -12,6 +12,10 @@ import java.util.List;
 @ToString
 @ApiModel(description = "멘토링 객체 공통")
 public class MentoringResponse {
+    private String nickName;
+
+    private String profileImageUrl;
+
     private Long id;
 
     private String mentoringImageUrl;
@@ -42,6 +46,8 @@ public class MentoringResponse {
 
     public static MentoringResponse of(MentoringEntity mentoringEntity){
         return new MentoringResponse(
+                mentoringEntity.getUser().getNickName(),
+                mentoringEntity.getUser().getProfileImageUrl(),
                 mentoringEntity.getId(),
                 mentoringEntity.getMentoringImageUrl(),
                 mentoringEntity.getTitle(),
@@ -59,10 +65,9 @@ public class MentoringResponse {
         );
     }
 
-    public MentoringResponse(Long id, String mentoringImageUrl, String title, String startDate,
-                             String startTime, String endDate, String endTime, String content,
-                             String type, String address, String state, Integer currentPersonnel,
-                             Integer maxPersonnel, String place) {
+    public MentoringResponse(String nickName, String profileImageUrl, Long id, String mentoringImageUrl, String title, String startDate, String startTime, String endDate, String endTime, String content, String type, String address, String state, Integer currentPersonnel, Integer maxPersonnel, String place) {
+        this.nickName = nickName;
+        this.profileImageUrl = profileImageUrl;
         this.id = id;
         this.mentoringImageUrl = mentoringImageUrl;
         this.title = title;
