@@ -14,8 +14,9 @@ public class ChatMentoringDetailResPonse extends DetailResponse {
     private String type;
 
     public ChatMentoringDetailResPonse(String email, String nickName, String title, String content,
-                                       String startTime, String endTime, String startDate, String endDate, String type) {
-        super(email, nickName, title, content, startTime, endTime, startDate, endDate);
+                                       String startTime, String endTime, String startDate, String endDate,
+                                       String mentoringImageUrl, String type) {
+        super(email, nickName, title, content, startTime, endTime, startDate, endDate, mentoringImageUrl);
         this.type = type;
     }
 
@@ -29,7 +30,8 @@ public class ChatMentoringDetailResPonse extends DetailResponse {
                 mentoringEntity.getStartTime(),
                 mentoringEntity.getStartDate(),
                 mentoringEntity.getEndDate(),
-                mentoringEntity.getEndDate()
+                mentoringEntity.getEndDate(),
+                mentoringEntity.getMentoringImageUrl()
         );
     }
 }

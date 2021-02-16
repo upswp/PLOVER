@@ -15,9 +15,11 @@ public class DetailResponse {
     private String endTime;
     private String startDate;
     private String endDate;
+    private String mentoringImageUrl;
 
     public DetailResponse(String email, String nickName, String title,
-                          String content, String startTime, String endTime, String startDate, String endDate) {
+                          String content, String startTime, String endTime,
+                          String startDate, String endDate, String mentoringImageUrl) {
         this.email = email;
         this.nickName = nickName;
         this.title = title;
@@ -26,5 +28,6 @@ public class DetailResponse {
         this.endTime = endTime;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.mentoringImageUrl = mentoringImageUrl;
     }
 }
