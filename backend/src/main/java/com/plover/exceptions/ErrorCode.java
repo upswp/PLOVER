@@ -5,6 +5,7 @@ public enum ErrorCode {
     INVALID_INPUT_VALUE(400, "C_002", "적절하지 않은 요청 값입니다."),
 
     STUDY_NOT_FOUND(400,"ST_001","해당 스터디 게시글을 찾을 수 없습니다."),
+    MENTORING_NOT_FOUND(400,"MT_001","해당 멘토링 게시글을 찾을 수 없습니다."),
 
     FOLLOW_NOT_FOUND(400,"FL_001","해당 팔로우를 찾을 수 없습니다."),
 
