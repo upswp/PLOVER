@@ -1,4 +1,5 @@
 package com.plover.service;
+
 import com.plover.config.Constant;
 import com.plover.exceptions.EntityNotFoundException;
 import com.plover.exceptions.ErrorCode;
@@ -15,6 +16,8 @@ import com.plover.model.mentoring.meet.request.MeetMentoringUpdateRequest;
 import com.plover.model.mentoring.meet.response.MeetMentoringDetailResPonse;
 import com.plover.model.user.Users;
 import com.plover.repository.MentoringRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -62,11 +65,16 @@ public class MentoringService {
 
     /*멘토링 등록*/
 
+    private static final Logger logger = LoggerFactory.getLogger(MentoringService.class);
     @Transactional
     public Long saveChat(Users user, ChatMentoringInsertRequest mentoringRequest){
+        logger.error("3");
         MentoringEntity mentoring = mentoringRequest.toChat();
+        logger.error("4");
         mentoring.setUser(user);
+        logger.error("5");
         mentoringRepository.save(mentoring);
+        logger.error("6");
         return mentoring.getId();
     }
 

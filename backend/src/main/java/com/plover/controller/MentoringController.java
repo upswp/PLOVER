@@ -13,12 +13,14 @@ import com.plover.model.mentoring.meet.request.MeetMentoringInsertRequest;
 import com.plover.model.mentoring.meet.request.MeetMentoringUpdateRequest;
 import com.plover.model.mentoring.meet.response.MeetMentoringDetailResPonse;
 import com.plover.model.user.Users;
-import com.plover.service.MentoringService;
 import com.plover.service.AccountService;
+import com.plover.service.MentoringService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,8 @@ import java.util.UUID;
 @RequestMapping("mentoring")
 public class MentoringController {
 
+    private static final Logger logger = LoggerFactory.getLogger(MentoringController.class);
+
     @Value("${file.path}")
     String localFilePath;
     private MentoringService mentoringService;
@@ -54,7 +58,7 @@ public class MentoringController {
         this.cookieUtil = cookieUtil;
     }
 
-    @GetMapping("/article/{cursorid}")
+    @GetMapping("/{cursorid}")
     @ApiOperation(value = "페이징 된 멘토링 게시글 목록, 다음 페이지 유무여부 반환",
             notes = "조회한 게시글의 마지막 번호와 정렬(최신순)을 받아 멘토링 일반게시글의 목록을 반환한다.",
             response = Response.class)
@@ -62,8 +66,8 @@ public class MentoringController {
         ResponseEntity response = null;
         try {
             ListResponse mentoringResponse = mentoringService.getMentoringOrderByRecent(cursorid);
-                final Response result = new Response("success", "멘토링 게시글 최신순 목록 조회 성공", mentoringResponse);
-                response = new ResponseEntity<>(result, HttpStatus.OK);
+            final Response result = new Response("success", "멘토링 게시글 최신순 목록 조회 성공", mentoringResponse);
+            response = new ResponseEntity<>(result, HttpStatus.OK);
         } catch (Exception e) {
             final Response result = new Response("error", "멘토링 게시글 목록 조회 실패", e.getMessage());
             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
@@ -72,9 +76,9 @@ public class MentoringController {
         return response;
     }
 
-    @PostMapping("/article/chat")
+    @PostMapping("/chat")
     @ApiOperation(value = "채팅 멘토링 게시글 등록", notes = "채팅 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveChatMentoring(@RequestPart(value = "file", required = false) MultipartFile image, HttpServletRequest request, @Valid @RequestBody ChatMentoringInsertRequest chatMentoringInsertRequest) {
+    public Object saveChatMentoring(@RequestPart(value = "file", required = false) MultipartFile image, HttpServletRequest request, @Valid @RequestPart("mentoring") ChatMentoringInsertRequest chatMentoringInsertRequest) {
         ResponseEntity response = null;
         //멘토링 대표 이미지 저장
         if(image != null){
@@ -85,10 +89,10 @@ public class MentoringController {
             Path filePath = Paths.get(localFilePath + filename);
             try {
                 Files.write(filePath, image.getBytes());
-                chatMentoringInsertRequest.setMentoringImageUrl(filePath.toString());
+                chatMentoringInsertRequest.setMentoringImageUrl("images/"+filename);
             }
             catch (IOException e){
-                final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                final Response result = new Response("success","멘토링 이미지 저장 중 오류 발생", e.getMessage());
                 return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
         }//파일 저장 끝
@@ -111,9 +115,9 @@ public class MentoringController {
         return response;
     }
 
-    @PostMapping("/article/live")
+    @PostMapping("/live")
     @ApiOperation(value = "실시간 라이브 멘토링 게시글 등록", notes = "실시간 라이브 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveLiveMentoring(@RequestPart(value = "file", required = false) MultipartFile image,HttpServletRequest request, @Valid @RequestBody LiveMentoringInsertRequest liveMentoringInsertRequest) {
+    public Object saveLiveMentoring(@RequestPart(value = "file", required = false) MultipartFile image,HttpServletRequest request, @Valid @RequestPart("mentoring") LiveMentoringInsertRequest liveMentoringInsertRequest) {
         ResponseEntity response = null;
 
         //멘토링 대표 이미지 저장
@@ -125,10 +129,10 @@ public class MentoringController {
             Path filePath = Paths.get(localFilePath + filename);
             try {
                 Files.write(filePath, image.getBytes());
-                liveMentoringInsertRequest.setMentoringImageUrl(filePath.toString());
+                liveMentoringInsertRequest.setMentoringImageUrl("images/"+filename);
             }
             catch (IOException e){
-                final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                final Response result = new Response("success","멘토링 이미지 저장 중 오류 발생", e.getMessage());
                 return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
         }//파일 저장 끝
@@ -150,9 +154,9 @@ public class MentoringController {
         return response;
     }
 
-    @PostMapping("/article/meet")
+    @PostMapping("/meet")
     @ApiOperation(value = "만남 멘토링 게시글 등록", notes = "만남 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveMeetMentoring(@RequestPart(value = "file", required = false) MultipartFile image,HttpServletRequest request, @Valid @RequestBody MeetMentoringInsertRequest meetMentoringInsertRequest) {
+    public Object saveMeetMentoring(@RequestPart(value = "file", required = false) MultipartFile image,HttpServletRequest request, @Valid @RequestPart("mentoring") MeetMentoringInsertRequest meetMentoringInsertRequest) {
         ResponseEntity response = null;
 
         //멘토링 대표 이미지 저장
@@ -164,10 +168,10 @@ public class MentoringController {
             Path filePath = Paths.get(localFilePath + filename);
             try {
                 Files.write(filePath, image.getBytes());
-                meetMentoringInsertRequest.setMentoringImageUrl(filePath.toString());
+                meetMentoringInsertRequest.setMentoringImageUrl("images/"+filename);
             }
             catch (IOException e){
-                final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                final Response result = new Response("success","멘토링 이미지 저장 중 오류 발생", e.getMessage());
                 return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
         }//파일 저장 끝
@@ -189,7 +193,7 @@ public class MentoringController {
         return response;
     }
 
-    @GetMapping("/article/chat/{id}")
+    @GetMapping("/chat/{id}")
     @ApiOperation(value = "채팅 멘토링 게시글 한 개의 정보 반환(상세보기)",
             notes = "채팅 게시글의 아이디를 전달 받아 해당 게시글의 정보를 반환한다.",
             response = Response.class)
@@ -206,7 +210,7 @@ public class MentoringController {
         return response;
     }
 
-    @GetMapping("/article/live/{id}")
+    @GetMapping("/live/{id}")
     @ApiOperation(value = "라이브 멘토링 게시글 한 개의 정보 반환(상세보기)",
             notes = "라이브 게시글의 아이디를 전달 받아 해당 게시글의 정보를 반환한다.",
             response = Response.class)
@@ -223,7 +227,7 @@ public class MentoringController {
         return response;
     }
 
-    @GetMapping("/article/meet/{id}")
+    @GetMapping("/meet/{id}")
     @ApiOperation(value = "채팅 멘토링 게시글 한 개의 정보 반환(상세보기)",
             notes = "채팅 게시글의 아이디를 전달 받아 해당 게시글의 정보를 반환한다.",
             response = Response.class)
@@ -240,7 +244,7 @@ public class MentoringController {
         return response;
     }
 
-    @PutMapping("/article/chat/{id}")
+    @PutMapping("/chat/{id}")
     @ApiOperation(value = "채팅 멘토링 게시글 한 개의 정보 수정",
             notes = "수정하려는 정보와 채팅 멘토링의 아이디를 전달 받아 해당 게시글의 정보를 수정한다.",
             response = Response.class)
@@ -266,7 +270,7 @@ public class MentoringController {
         return response;
     }
 
-    @PutMapping("/article/live/{id}")
+    @PutMapping("/live/{id}")
     @ApiOperation(value = "실시간 라이브 멘토링 게시글 한 개의 정보 수정",
             notes = "수정하려는 정보와 실시간 라이브 멘토링의 아이디를 전달 받아 해당 게시글의 정보를 수정한다.",
             response = Response.class)
@@ -292,7 +296,7 @@ public class MentoringController {
         return response;
     }
 
-    @PutMapping("/article/meet/{id}")
+    @PutMapping("/meet/{id}")
     @ApiOperation(value = "만남 멘토링 게시글 한 개의 정보 수정",
             notes = "수정하려는 정보와 만남 멘토링의 아이디를 전달 받아 해당 게시글의 정보를 수정한다.",
             response = Response.class)
@@ -318,7 +322,7 @@ public class MentoringController {
         return response;
     }
 
-    @DeleteMapping("/article/{id}")
+    @DeleteMapping("/{id}")
     @ApiOperation(value = "멘토링 게시글 한 개 삭제",
             notes = "삭제를 시도하려는 사람의 이메일과 스터디 게시글의 아이디를 전달 받아 해당 게시글을 삭제한다.",
             response = Response.class)

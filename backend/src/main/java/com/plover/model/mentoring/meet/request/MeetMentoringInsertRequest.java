@@ -53,6 +53,7 @@ public class MeetMentoringInsertRequest extends InsertRequest {
                 .startTime(getStartTime())
                 .endTime(getEndTime())
                 .content(getContent())
+                .mentoringImageUrl(getMentoringImageUrl())
                 .build();
     }
 }
