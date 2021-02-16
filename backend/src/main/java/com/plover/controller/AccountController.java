@@ -131,7 +131,7 @@ public class AccountController {
     @ApiOperation(value = "회원가입",
             notes = "회원가입 때 받아야하는 데이터 형태인 SignupRequest로 데이터를 받아서 가입을 진행한다.",
             response = Response.class)
-    public Object signup(@RequestPart(value = "file", required = false) MultipartFile image, @RequestPart(value = "user") SignupRequest userRequest) {
+    public Object signup(@RequestPart(value = "file", required = false) MultipartFile image, @RequestPart("user") SignupRequest userRequest) {
         ResponseEntity<Response> response = null;
         //유저 대표 이미지 저장
         if(image != null){
