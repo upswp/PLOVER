@@ -11,7 +11,6 @@ function Register(props) {
   const history = useHistory()
 
   const [img, setImg] = useState(null)
-  const [imgUrl, setImgUrl] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passConfirm, setPassConfirm] = useState('')
@@ -56,7 +55,6 @@ function Register(props) {
     reader.onloadend = (e) => {
         document.getElementById('imgView').setAttribute('src', e.target.result)
       }
-    // console.log(img)
   }
   const handleRemove = () => {
     setImg(null)
@@ -113,6 +111,11 @@ function Register(props) {
         }
       }
     })
+    .catch((err) => {
+      if (err.response.status === 406) {
+        alert('중복된 이메일입니다.')
+      }
+    })
   }
 
   const validEmail = (str) => {
@@ -155,6 +158,11 @@ function Register(props) {
         }
       }
     })
+    .catch((err) => {
+      if (err.response.status === 406) {
+        alert('중복된 닉네임입니다.')
+      }
+    })
   }
   async function register() {
     if (!email || !password || !passConfirm || !nickname ||
@@ -180,7 +188,7 @@ function Register(props) {
     const userData = {
       email: email,
       password: password,
-      nickname: nickname,
+      nickName: nickname,
       generation: generation,
       campus: campus,
       description: description,
@@ -207,9 +215,6 @@ function Register(props) {
       console.log(err)
       alert('실패')
     })
-  }
-
-  function showImg(event) {
   }
 
   return (
