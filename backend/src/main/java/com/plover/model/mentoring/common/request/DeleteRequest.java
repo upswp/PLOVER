@@ -1,4 +1,4 @@
-package com.plover.model.metoring.common.request;
+package com.plover.model.mentoring.common.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

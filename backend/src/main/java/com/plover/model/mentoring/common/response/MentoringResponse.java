@@ -1,6 +1,6 @@
-package com.plover.model.metoring.common.response;
+package com.plover.model.mentoring.common.response;
 
-import com.plover.model.metoring.MentoringEntity;
+import com.plover.model.mentoring.MentoringEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.ToString;

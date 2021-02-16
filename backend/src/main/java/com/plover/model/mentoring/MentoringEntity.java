@@ -1,6 +1,6 @@
-package com.plover.model.metoring;
+package com.plover.model.mentoring;
 
-import com.plover.model.metoring.common.BaseTimeEntity;
+import com.plover.model.mentoring.common.BaseTimeEntity;
 import com.plover.model.user.Users;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
