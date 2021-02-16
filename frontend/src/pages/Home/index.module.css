@@ -2,21 +2,21 @@
   font-family: "Roboto", sans-serif;
 }
 
-.mentoring_title {
+.mentoring__title {
   margin-top: 2.5em;
   margin-left: 1em;
   font-size: 1rem;
   font-weight: 900;
 }
 
-.friend_reco_title {
+.friend__reco__title {
   margin-top: 2em;
   margin-left: 1em;
   font-size: 1rem;
   font-weight: 900;
 }
 
-.study_title {
+.study__title {
   margin-top: 2em;
   margin-bottom: 1em;
   margin-left: 1em;

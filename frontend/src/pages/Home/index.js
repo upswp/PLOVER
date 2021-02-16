@@ -194,34 +194,35 @@ const Home = (props) => {
   
   return (
     <>
-      <Navbar color="white" style={{ marginTop: "20px" }}>
-        <Imgbox src={user1} size="small" shape="circle" style={{ marginLeft: "15px" }} />
+      <Navbar color="white" style={{ marginTop: "20px", width: "95%", marginLeft: "auto", marginRight: "auto"}}>
+        <Imgbox src={user1} size="small" shape="circle" style={{ marginLeft: "0px" }} />
         <span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize:"0.9rem"}}>hello, jiyoung_321</span>
         <i className="far fa-bell color_black" style={{ fontSize: "1.8rem", marginLeft: "auto", marginBottom: "3px" }}></i>
         <Navbutton color="black" style={{ marginLeft: "15px", marginRight: "5px", marginBottom: "3px"}} setShowMenu={setShowMenu} showMenu={showMenu} />
       </Navbar>
       { showMenu ? <Menu setShowMenu={setShowMenu} showMenu={showMenu} /> : null }
-      <h1 className={styles.mentoring_title}>Mentoring 갠찬으시겠어요? 😁😎</h1>
-      <div style={{ width: "430px", height: "240px", marginTop: "20px", marginBottom: "10px", marginLeft: "15px" }}>
+      <h1 className={styles.mentoring__title}>Mentoring 갠찬으시겠어요? 😁😎</h1>
+      <div style={{ width: "100%", height: "240px", marginTop: "20px", marginBottom: "10px", marginLeft: "1em" }}>
         <Cardslider data={mentoringClassList}
           history={props.history}
         />
       </div>
-      <h1 className={styles.friend_reco_title}>친구추천🙌</h1>
-      <div style={{ width: "430px", height: "200px", marginTop: "20px", marginBottom: "30px", marginLeft: "5px" }}>
+      <h1 className={styles.friend__reco__title}>친구추천🙌</h1>
+      <div style={{ width: "430px", height: "200px", marginTop: "20px", marginBottom: "30px", marginLeft: "0.5em" }}>
         <Badgeslider
           perCount={6}
           card={{
-            width: "130px",
+            width: "120px",
             height: "80px",
           }}
           data={friendRecommendSlider} history={props.history} />
       </div>
-      <h1 className={styles.study_title}>스터디 같이해요😍</h1>
-      <div style={{ width: "400px", height: "40px", marginBottom: "10px", marginLeft: "15px" }}>
+      <h1 className={styles.study__title}>스터디 같이해요😍</h1>
+      <div style={{ height: "40px", marginBottom: "10px", marginLeft: "0.8em", marginRight: "0.8em" }}>
         <Noticeslider data={studyNoticeList} style={{ height: "40px" }} duration={3000} history={props.history} />
       </div>
       <StudyList data={studyArticleList}/>
+      
 
       
     </>
