@@ -5,6 +5,7 @@ export { default as Register } from "./Register";
 export { default as Verify } from "./Verify";
 export { default as Login } from "./Login";
 export { default as Home } from "./Home";
+export { default as Profile } from "./Profile";
 export { MRegister, MList, MDetail } from "./Mentoring";
 export { SRegister, SList, SDetail } from "./Study";
 export { LManage, LView } from "./Live";
