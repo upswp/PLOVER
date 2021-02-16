@@ -19,7 +19,6 @@ import javax.validation.constraints.Pattern;
 @Valid
 @ToString
 public class SignupRequest {
-	
 	@ApiModelProperty(required = true)
     @Email
     private String email;
@@ -41,18 +40,18 @@ public class SignupRequest {
 
     @NotNull
     private String generation;
-   
-    
-    public SignupRequest() {}
+
+    @NotNull
+    private String description;
     
     @Builder
-
-    public SignupRequest(@Email String email, @NotNull @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d$@$!%*#?&]{8,}$") String password, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation) {
+    public SignupRequest(@Email String email, @NotNull @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d$@$!%*#?&]{8,}$") String password, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation, @NotNull String description) {
         this.email = email;
         this.password = password;
         this.nickName = nickName;
         this.campus = campus;
         this.profileImageUrl = profileImageUrl;
         this.generation = generation;
+        this.description = description;
     }
 }
