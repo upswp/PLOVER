@@ -43,19 +43,19 @@ public class MentoringResponse {
     public static MentoringResponse of(MentoringEntity mentoringEntity){
         return new MentoringResponse(
                 mentoringEntity.getId(),
+                mentoringEntity.getMentoringImageUrl(),
                 mentoringEntity.getTitle(),
                 mentoringEntity.getStartDate(),
                 mentoringEntity.getStartTime(),
                 mentoringEntity.getEndDate(),
-                mentoringEntity.getStartTime(),
+                mentoringEntity.getEndTime(),
                 mentoringEntity.getContent(),
-                mentoringEntity.getEndDate(),
+                mentoringEntity.getType(),
                 mentoringEntity.getAddress(),
                 mentoringEntity.getState(),
-                mentoringEntity.getPlace(),
                 mentoringEntity.getCurrentPersonnel(),
                 mentoringEntity.getMaxPersonnel(),
-                mentoringEntity.getMentoringImageUrl()
+                mentoringEntity.getPlace()
         );
     }
 
