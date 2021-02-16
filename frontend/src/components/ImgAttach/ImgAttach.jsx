@@ -9,12 +9,12 @@ class ImgAttach extends Component {
   constructor(props) {
     super(props);
     this.Inputfile = React.createRef();
+    this.state = {
+      imgUrl: "",
+      imgFile: null
+    };
+    if (props.imgUrl) this.state = { ...this.state, imgUrl: props.imgUrl };
   }
-
-  state = {
-    imgUrl: "",
-    imgFile: null
-  };
 
   handleChangeFile = event => {
     let reader = new FileReader();
@@ -29,7 +29,7 @@ class ImgAttach extends Component {
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0]);
       this.setState({
-        imgFile: event.target.files[0] 
+        imgFile: event.target.files[0]
       });
     }
   };

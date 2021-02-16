@@ -24,7 +24,7 @@ class InputDate extends Component {
     return (
       <input id={this.props.id} type="date" id="dateD"
         className={this.buildInputDateClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
-        style={this.props.style} onChange={this.props.onchange} onKeyPress={this.props.onkeypress}/>
+        style={this.props.style} onChange={this.props.onchange} onKeyPress={this.props.onkeypress} defaultValue={this.props.value} />
     )
   }
 }
