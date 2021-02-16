@@ -8,17 +8,18 @@ import java.util.List;
 
 @Getter
 public class UserResponse {
-    private String nickname;
+    private String nickName;
     private String generation;
-    //TODO : 프로필사진경로 추가
+    private String profileImageUrl;
 
-    public UserResponse(String nickname, String generation) {
-        this.nickname = nickname;
+    public UserResponse(String nickName, String generation, String profileImageUrl) {
+        this.nickName = nickName;
         this.generation = generation;
+        this.profileImageUrl = profileImageUrl;
     }
 
     public static UserResponse of(Users user){
-        return new UserResponse(user.getNickName(),user.getGeneration());
+        return new UserResponse(user.getNickName(),user.getGeneration(),user.getProfileImageUrl());
     }
 
     public static List<UserResponse> lisfOf(List<Users> users){
