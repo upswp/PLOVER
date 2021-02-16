@@ -50,7 +50,7 @@ public class Users {
     @NotNull
     private String campus;
 
-    @Column(columnDefinition = "varchar(255) default 'images/default-image.png'")
+    @ColumnDefault("images/default-image.png")
     private String profileImageUrl;
 
     @NotNull
