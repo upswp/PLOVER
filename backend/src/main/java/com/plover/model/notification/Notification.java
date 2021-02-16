@@ -42,4 +42,18 @@ public class Notification {
     @CreationTimestamp
     private Date createDate;
 
+    public Notification(@NotBlank String title, @NotBlank String message, @NotBlank String url, int status) {
+        this.title = title;
+        this.message = message;
+        this.url = url;
+        this.status = status;
+    }
+
+    public void setFromUser(Users user){
+        this.fromUser = user;
+    }
+
+    public void setToUser(Users user){
+        this.toUser = user;
+    }
 }
