@@ -81,11 +81,4 @@ public class Users {
         this.generation = generation;
         this.description = description;
     }
-    @Builder
-    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, @NotNull String generation) {
-        this.email = email;
-        this.nickName = nickName;
-        this.campus = campus;
-        this.generation = generation;
-    }
 }
