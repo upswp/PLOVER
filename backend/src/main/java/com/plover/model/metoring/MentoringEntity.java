@@ -47,6 +47,9 @@ public class MentoringEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(columnDefinition = "varchar(255) default 'images/mentoring/default-image.png'")
+    private String mentoringImageUrl;
+
     //현재인원
     private Integer currentPersonnel;
 
@@ -65,7 +68,8 @@ public class MentoringEntity extends BaseTimeEntity {
     public void setUser(Users user){this.user = user;}
 
     @Builder
-    public MentoringEntity(String type, String title, String startDate, String startTime, String endDate, String endTime, String content, Integer currentPersonnel,
+    public MentoringEntity(String type, String title, String startDate, String startTime, String endDate,
+                           String endTime, String content, String mentoringImageUrl, Integer currentPersonnel,
                            Integer maxPersonnel, String place, String address, String state) {
         this.type = type;
         this.title = title;
@@ -74,6 +78,7 @@ public class MentoringEntity extends BaseTimeEntity {
         this.endDate = endDate;
         this.endTime = endTime;
         this.content = content;
+        this.mentoringImageUrl = mentoringImageUrl;
         this.currentPersonnel = currentPersonnel;
         this.maxPersonnel = maxPersonnel;
         this.place = place;
@@ -88,6 +93,7 @@ public class MentoringEntity extends BaseTimeEntity {
         this.endDate = updateMentoringEntity.endDate;
         this.endTime = updateMentoringEntity.endTime;
         this.content = updateMentoringEntity.content;
+        this.mentoringImageUrl=updateMentoringEntity.mentoringImageUrl;
 
         return this;
     }
@@ -101,6 +107,7 @@ public class MentoringEntity extends BaseTimeEntity {
         this.content = updateMentoringEntity.content;
         this.address = updateMentoringEntity.content;
         this.state = updateMentoringEntity.state;
+        this.mentoringImageUrl = updateMentoringEntity.mentoringImageUrl;
 
         return this;
     }
@@ -115,6 +122,7 @@ public class MentoringEntity extends BaseTimeEntity {
         this.place = updateMentoringEntity.place;
         this.currentPersonnel = updateMentoringEntity.currentPersonnel;
         this.maxPersonnel = updateMentoringEntity.maxPersonnel;
+        this.mentoringImageUrl = updateMentoringEntity.mentoringImageUrl;
 
         return this;
     }
