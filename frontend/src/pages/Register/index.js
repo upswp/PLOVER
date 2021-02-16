@@ -45,18 +45,18 @@ function Register(props) {
   const onDescriptionHandler = (event) => {
     setDescription(event.currentTarget.value);
   };
-  
+
   const handleChangeFile = (event) => {
     console.log(event.target.files[0])
     setImg(event.target.files[0])
+
     const reader = new FileReader()
-    reader.onloadend = () => {
-      setImgUrl(reader.result.toString())
-      console.log(imgUrl)
-    }
-    // reader.readAsDataURL(img)
-    console.log(img)
-    console.log(imgUrl)
+
+    reader.readAsDataURL(event.target.files[0])
+    reader.onloadend = (e) => {
+        document.getElementById('imgView').setAttribute('src', e.target.result)
+      }
+    // console.log(img)
   }
   const handleRemove = () => {
     setImg(null)
@@ -157,11 +157,6 @@ function Register(props) {
     })
   }
   async function register() {
-    // console.log(this.$propic.value)
-    // if (this.$propic.value === undefined) {
-    //   this.$propic.value='/images/default-image.png'
-    // }
-    // console.log(this.$propic.value)
     if (!email || !password || !passConfirm || !nickname ||
       !generation || !campus || !description === true) {
         alert('모든 입력값을 채워주세요.')
@@ -194,10 +189,7 @@ function Register(props) {
     console.log(userData)
     formData.append('file', img)
     formData.append('user', new Blob([JSON.stringify(userData)], {type: 'application/json'}))
-    // 이전 async 실행이 완료되길 기다렸다가 await 실행
-    await axios.post("https://dev.plover.co.kr/ssafy/account/signup", {
-      formData
-    })
+    await axios.post("https://dev.plover.co.kr/ssafy/account/signup", formData)
     .then((res) => {
       if (res.status == 200) {
         console.log(res)
@@ -217,6 +209,9 @@ function Register(props) {
     })
   }
 
+  function showImg(event) {
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.head}>
@@ -231,7 +226,7 @@ function Register(props) {
         <div className={styles.header}>
           <div className={styles.box}>
             <input id="propic" type="file" name="Inputfile" onChange={handleChangeFile} className={styles.input}/>
-            <img src={img ? img : "/images/default-image.png"} onClick={handleRemove} alt="" className={styles.profile}/>
+            <img id="imgView" src={img ? img : "/images/default-image.png"} onClick={handleRemove} alt="" className={styles.profile}/>
             <label className={styles.attach_icon}>
             <i className="fas fa-camera-retro color_black" style={{ fontSize: "1.0m", height: "100%" }}></i>
             </label>
