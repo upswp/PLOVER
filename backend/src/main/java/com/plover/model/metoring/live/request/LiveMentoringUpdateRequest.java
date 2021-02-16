@@ -24,11 +24,9 @@ public class LiveMentoringUpdateRequest extends UpdateRequest {
     @NotBlank
     private String state;
 
-    public LiveMentoringUpdateRequest(@NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다. ") String title, @Email @NotBlank String email,
-                                      @NotBlank String startDate, @NotBlank String startTime, @NotBlank String endDate, @NotBlank String endTime,
-                                      @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content, @NotBlank String type,
-                                      @NotBlank String address, @NotBlank String state) {
-        super(title, email, startDate, startTime, endDate, endTime, content);
+    public LiveMentoringUpdateRequest(@NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다. ") String title, @Email @NotBlank String email, @NotBlank String startDate, @NotBlank String startTime, @NotBlank String endDate, @NotBlank String endTime, @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content,
+                                      String mentoringImageUrl, @NotBlank String type, @NotBlank String address, @NotBlank String state) {
+        super(title, email, startDate, startTime, endDate, endTime, content, mentoringImageUrl);
         this.type = type;
         this.address = address;
         this.state = state;
@@ -45,6 +43,7 @@ public class LiveMentoringUpdateRequest extends UpdateRequest {
                 .startTime(getStartTime())
                 .endTime(getEndTime())
                 .content(getContent())
+                .mentoringImageUrl(getMentoringImageUrl())
                 .build();
     }
 }

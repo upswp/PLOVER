@@ -29,9 +29,12 @@ public class MeetMentoringInsertRequest extends InsertRequest {
     @NotBlank
     private String place;
 
-    public MeetMentoringInsertRequest(@Email(message = "이메일 형식이 아닙니다.") @NotBlank(message = "반드시 입력해주세요") String email, @NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다.") String title, @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content,
-                                      @NotBlank String startDate, @NotBlank String startTime, @NotBlank String endDate, @NotBlank String endTime, @NotBlank String type, @NotNull int currentPersonnel, @NotNull int maxPersonnel, @NotBlank String place) {
-        super(email, title, content, startDate, startTime, endDate, endTime);
+    public MeetMentoringInsertRequest(@Email(message = "이메일 형식이 아닙니다.") @NotBlank(message = "반드시 입력해주세요") String email,
+                                      @NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다.") String title,
+                                      @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content,
+                                      @NotBlank String startDate, @NotBlank String startTime, @NotBlank String endDate,
+                                      @NotBlank String endTime, String mentoringImageUrl, @NotBlank String type, @NotNull int currentPersonnel, @NotNull int maxPersonnel, @NotBlank String place) {
+        super(email, title, content, startDate, startTime, endDate, endTime, mentoringImageUrl);
         this.type = type;
         this.currentPersonnel = currentPersonnel;
         this.maxPersonnel = maxPersonnel;
