@@ -13,6 +13,8 @@ import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -49,7 +51,7 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("account")
 public class AccountController {
-
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
     @Value("${file.path}")
     String localFilePath;
     @Autowired
@@ -151,6 +153,7 @@ public class AccountController {
             }//파일 저장 끝
 
         try {
+            logger.info(userRequest.toString());
             accountService.signup(userRequest);
             final Response result = new Response("success","회원가입 성공", null);
             response = new ResponseEntity<>(result, HttpStatus.OK);
