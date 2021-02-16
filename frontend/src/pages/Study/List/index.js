@@ -73,7 +73,7 @@ function List(props) {
                 </div>
                 <div className={styles.study_right}>
                   <div className={styles.profilebox}>
-                    {<Imgbox src={study.profileImageUrl} shape="circle" className={styles.profile}></Imgbox>}
+                    {<Imgbox src={`/${study.profileImageUrl}`} shape="circle" className={styles.profile}></Imgbox>}
                     {/*<Skeleton shape="circle" className={styles.profile} />*/}
                   </div>
                   <div className={styles.nicknamebox}><span className={styles.nickname}>{study.nickname}</span></div>
