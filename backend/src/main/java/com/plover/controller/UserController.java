@@ -2,6 +2,7 @@ package com.plover.controller;
 
 import com.plover.exceptions.EntityNotFoundException;
 import com.plover.model.Response;
+import com.plover.model.user.request.DescriptionRequest;
 import com.plover.model.user.response.ProfileResponse;
 import com.plover.model.user.response.UsersResponse;
 import com.plover.service.FollowService;
@@ -12,11 +13,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @ApiResponses(value = {
@@ -66,13 +65,31 @@ public class UserController {
             profileResponse.setFollowerNum(followService.getFollowerNum(no));
             profileResponse.setFollowingNum(followService.getFollowingNum(no));
             profileResponse.setArticleNum(mentoringService.getMentoringNum(no));
-            final Response result = new Response("success", "프로필유저정보 반환 성공", profileResponse);
+            final Response result = new Response("success", "프로필 유저정보 반환 성공", profileResponse);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         }catch (EntityNotFoundException e) {
             final Response result = new Response("error", e.getMessage(), null);
             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }catch (Exception e){
-            final Response result = new Response("error", "프로필유저정보 반환 실패", null);
+            final Response result = new Response("error", "프로필 유저정보 반환 실패", null);
+            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+        return response;
+    }
+
+    @PutMapping("/{no}")
+    @ApiOperation(value = "유저 자기소개 수정",
+            notes = "유저 자기소개 정보를 수정한다",
+            response = Response.class)
+    public Object updateUserDescription(@PathVariable @NotNull Long no, @RequestBody @Valid DescriptionRequest descriptionRequest) {
+        ResponseEntity response = null;
+        try{
+            // TODO : request에서 no받아오도록 조정
+            userService.updateUserDescription(no, descriptionRequest);
+            final Response result = new Response("success", "자기소개 수정 성공", null);
+            response = new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e){
+            final Response result = new Response("error", "자기소개 수정 실패", null);
             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
         return response;

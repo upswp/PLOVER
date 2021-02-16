@@ -11,6 +11,7 @@ import com.plover.repository.UserRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,12 +28,11 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
     }
 
-    // 유저프로필 수정(우선순위 하)
     // 해당 사용자의 소개내용 입력(수정)
-    public Long updateUserDescription(DescriptionRequest descriptionRequest){
-        Users user = findUserByNo(descriptionRequest.getNo());
+    @Transactional
+    public void updateUserDescription(Long no, DescriptionRequest descriptionRequest){
+        Users user = findUserByNo(no);
         user.setDescription(descriptionRequest.getDescription());
-        return user.getNo();
     }
 
     // 친구 추천으로 random형태의 유저 목록 반환(12명)

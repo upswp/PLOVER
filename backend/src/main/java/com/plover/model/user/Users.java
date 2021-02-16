@@ -80,11 +80,4 @@ public class Users {
         this.profileImageUrl = profileImageUrl;
         this.generation = generation;
     }
-    @Builder
-    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, @NotNull String generation) {
-        this.email = email;
-        this.nickName = nickName;
-        this.campus = campus;
-        this.generation = generation;
-    }
 }
