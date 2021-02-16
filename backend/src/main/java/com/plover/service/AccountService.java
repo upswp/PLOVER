@@ -82,8 +82,12 @@ public class AccountService {
 				 .profileImageUrl(request.getProfileImageUrl())
 				 .description(request.getDescription())
 				 .build();
-
 		 user.setSalt(new Salt(salt));
+
+		 if(request.getProfileImageUrl().equals("") || request.getProfileImageUrl()==null){
+		 	user.setProfileImageUrl("images/default-image.png");
+		 }
+
 		 user.setPassword(saltUtil.encodePassword(salt, password));
 		 userRepository.save(user);
 		 return true;
