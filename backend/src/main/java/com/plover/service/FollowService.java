@@ -22,12 +22,24 @@ public class FollowService {
         this.followRepository = followRepository;
     }
 
+    // 로그인한 사용자(FromUser)가 프로필사용자(ToUser)를 팔로우하고있는지 확인
     public Boolean existsFollowing(Long fromUserNo, Long toUserNo) {
         return followRepository.existsByFromUserNoAndToUserNo(fromUserNo, toUserNo);
     }
 
+    // 프로필사용자(ToUser)가 로그인한 사용자(FromUser)를 팔로우하고있는지 확인
     public Boolean existsFollower(Long fromUserNo, Long toUserNo) {
         return followRepository.existsByFromUserNoAndToUserNo(toUserNo, fromUserNo);
+    }
+
+    // 팔로워 수 조회
+    public Long getFollowerNum(Long no){
+        return followRepository.countByToUserNo(no);
+    }
+
+    // 팔로잉 수 조회
+    public Long getFollowingNum(long no){
+        return followRepository.countByFromUserNo(no);
     }
 
     // 팔로잉/팔로워 저장
