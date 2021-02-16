@@ -1,27 +1,35 @@
 package com.plover.controller;
+
 import com.plover.model.Response;
 import com.plover.model.metoring.chat.request.ChatMentoringInsertRequest;
 import com.plover.model.metoring.chat.request.ChatMentoringUpdateRequest;
 import com.plover.model.metoring.chat.response.ChatMentoringDetailResPonse;
 import com.plover.model.metoring.common.request.DeleteRequest;
+import com.plover.model.metoring.common.response.ListResponse;
+import com.plover.model.metoring.common.response.MentoringResponse;
 import com.plover.model.metoring.live.request.LiveMentoringInsertRequest;
 import com.plover.model.metoring.live.request.LiveMentoringUpdateRequest;
 import com.plover.model.metoring.live.response.LiveMentoringDetailResPonse;
 import com.plover.model.metoring.meet.request.MeetMentoringInsertRequest;
 import com.plover.model.metoring.meet.request.MeetMentoringUpdateRequest;
 import com.plover.model.metoring.meet.response.MeetMentoringDetailResPonse;
+import com.plover.model.study.response.StudiesResponse;
 import com.plover.model.user.Users;
-import com.plover.service.FileService;
 import com.plover.service.MentoringService;
 import com.plover.service.AccountService;
+import com.plover.utils.CookieUtil;
+import com.plover.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @RestController
 @RequestMapping("mentoring")
@@ -29,39 +37,73 @@ public class MentoringController {
 
     private MentoringService mentoringService;
     private AccountService accountService;
+    private JwtUtil jwtUtil;
+    private CookieUtil cookieUtil;
 
-    public MentoringController(MentoringService mentoringService, FileService fileService, AccountService accountService){
-        this.accountService = accountService;
+    public MentoringController(MentoringService mentoringService, AccountService accountService, JwtUtil jwtUtil, CookieUtil cookieUtil) {
         this.mentoringService = mentoringService;
+        this.accountService = accountService;
+        this.jwtUtil = jwtUtil;
+        this.cookieUtil = cookieUtil;
+    }
+
+    @GetMapping("/article/{cursorid}")
+    @ApiOperation(value = "페이징 된 멘토링 게시글 목록, 다음 페이지 유무여부 반환",
+            notes = "조회한 게시글의 마지막 번호와 정렬(최신순)을 받아 멘토링 일반게시글의 목록을 반환한다.",
+            response = Response.class)
+    public Object getStudies(@PathVariable Long cursorid) {
+        ResponseEntity response = null;
+        try {
+            ListResponse mentoringResponse = mentoringService.getMentoringOrderByRecent(cursorid);
+                final Response result = new Response("success", "멘토링 게시글 최신순 목록 조회 성공", mentoringResponse);
+                response = new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception e) {
+            final Response result = new Response("error", "멘토링 게시글 목록 조회 실패", e.getMessage());
+            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
     }
 
     @PostMapping("/article/chat")
     @ApiOperation(value = "채팅 멘토링 게시글 등록", notes = "채팅 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveChatMentoring(@Valid @RequestBody ChatMentoringInsertRequest chatMentoringInsertRequest){
+    public Object saveChatMentoring(HttpServletRequest request, @Valid @RequestBody ChatMentoringInsertRequest chatMentoringInsertRequest) {
         ResponseEntity response = null;
-        try{
-            Users user = accountService.findUserByEmail(chatMentoringInsertRequest.getEmail());
-            Long mentoringId = mentoringService.saveChat(user,chatMentoringInsertRequest);
-            final Response result = new Response("success","채팅 멘토링 게시글을 등록이 성공하였습니다.",mentoringId);
-            response = new ResponseEntity<>(result,HttpStatus.OK);
-        }catch (Exception e){
-             final Response result = new Response( "error",  "채팅 멘토링 게시글을 등록할 수 없습니다.", null);
-             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        try {
+            Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+            if (no != null) {
+                Users user = accountService.findUserByEmail(chatMentoringInsertRequest.getEmail());
+                Long mentoringId = mentoringService.saveChat(user, chatMentoringInsertRequest);
+                final Response result = new Response("success", "채팅 멘토링 게시글을 등록이 성공하였습니다.", mentoringId);
+                response = new ResponseEntity<>(result, HttpStatus.OK);
+            } else {
+                final Response result = new Response("error", "유효하지 않은 토큰 값입니다.", null);
+                response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            final Response result = new Response("error", "채팅 멘토링 게시글을 등록할 수 없습니다.", null);
+            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
         return response;
     }
 
     @PostMapping("/article/live")
     @ApiOperation(value = "실시간 라이브 멘토링 게시글 등록", notes = "실시간 라이브 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveLiveMentoring(@Valid @RequestBody LiveMentoringInsertRequest liveMentoringInsertRequest){
+    public Object saveLiveMentoring(HttpServletRequest request, @Valid @RequestBody LiveMentoringInsertRequest liveMentoringInsertRequest) {
         ResponseEntity response = null;
-        try{
-            Users user = accountService.findUserByEmail(liveMentoringInsertRequest.getEmail());
-            Long mentoringId = mentoringService.saveLive(user,liveMentoringInsertRequest);
-            final Response result = new Response("success","실시간 라이브 멘토링 게시글을 등록이 성공하였습니다.",mentoringId);
-            response = new ResponseEntity<>(result,HttpStatus.OK);
-        }catch (Exception e){
-            final Response result = new Response( "error",  "실시간 라이브 멘토링 게시글을 등록할 수 없습니다.", null);
+        try {
+            Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+            if (no != null) {
+                Users user = accountService.findUserByEmail(liveMentoringInsertRequest.getEmail());
+                Long mentoringId = mentoringService.saveLive(user, liveMentoringInsertRequest);
+                final Response result = new Response("success", "실시간 라이브 멘토링 게시글을 등록이 성공하였습니다.", mentoringId);
+                response = new ResponseEntity<>(result, HttpStatus.OK);
+            } else {
+                final Response result = new Response("error", "유효하지 않은 토큰 값입니다.", null);
+                response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            final Response result = new Response("error", "실시간 라이브 멘토링 게시글을 등록할 수 없습니다.", null);
             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
         return response;
@@ -69,15 +111,21 @@ public class MentoringController {
 
     @PostMapping("/article/meet")
     @ApiOperation(value = "만남 멘토링 게시글 등록", notes = "만남 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveMeetMentoring(@Valid @RequestBody MeetMentoringInsertRequest meetMentoringInsertRequest){
+    public Object saveMeetMentoring(HttpServletRequest request, @Valid @RequestBody MeetMentoringInsertRequest meetMentoringInsertRequest) {
         ResponseEntity response = null;
-        try{
-            Users user = accountService.findUserByEmail(meetMentoringInsertRequest.getEmail());
-            Long mentoringId = mentoringService.saveMeet(user,meetMentoringInsertRequest);
-            final Response result = new Response("success","만남 멘토링 게시글을 등록이 성공하였습니다.",mentoringId);
-            response = new ResponseEntity<>(result,HttpStatus.OK);
-        }catch (Exception e){
-            final Response result = new Response( "error",  "만남 멘토링 게시글을 등록할 수 없습니다.", null);
+        try {
+            Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+            if (no != null) {
+                Users user = accountService.findUserByEmail(meetMentoringInsertRequest.getEmail());
+                Long mentoringId = mentoringService.saveMeet(user, meetMentoringInsertRequest);
+                final Response result = new Response("success", "만남 멘토링 게시글을 등록이 성공하였습니다.", mentoringId);
+                response = new ResponseEntity<>(result, HttpStatus.OK);
+            } else {
+                final Response result = new Response("error", "유효하지 않은 토큰 값입니다.", null);
+                response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            final Response result = new Response("error", "만남 멘토링 게시글을 등록할 수 없습니다.", null);
             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
         return response;
@@ -150,7 +198,7 @@ public class MentoringController {
                 final Response result = new Response("error", "스터디 게시글 정보를 수정할 수 있는 권한이 없습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
             }
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             final Response result = new Response("error", e.getMessage(), null);
             response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
@@ -176,7 +224,7 @@ public class MentoringController {
                 final Response result = new Response("error", "스터디 게시글 정보를 수정할 수 있는 권한이 없습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
             }
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             final Response result = new Response("error", e.getMessage(), null);
             response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
@@ -202,7 +250,7 @@ public class MentoringController {
                 final Response result = new Response("error", "스터디 게시글 정보를 수정할 수 있는 권한이 없습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
             }
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             final Response result = new Response("error", e.getMessage(), null);
             response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
@@ -224,14 +272,14 @@ public class MentoringController {
                 mentoringService.deleteMentoring(id);
                 final Response result = new Response("success", "멘토링 게시글 정보 삭제 성공", null);
                 response = new ResponseEntity<>(result, HttpStatus.OK);
-            }else {
+            } else {
                 final Response result = new Response("error", "멘토링 게시글 정보를 삭제할 수 있는 권한이 없습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
             }
-        }catch (NotFoundException e){
+        } catch (NotFoundException e) {
             final Response result = new Response("error", e.getMessage(), null);
             response = new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
-        }catch (Exception e){
+        } catch (Exception e) {
             final Response result = new Response("error", "멘토링 게시글 정보 삭제 실패", null);
             response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
