@@ -3,7 +3,6 @@ package com.plover.controller;
 
 import com.plover.model.Response;
 import com.plover.model.notification.request.FcmRequest;
-import com.plover.service.FCMService;
 import com.plover.service.NotificationService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;

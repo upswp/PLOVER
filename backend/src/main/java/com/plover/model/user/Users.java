@@ -50,7 +50,7 @@ public class Users {
     @NotNull
     private String campus;
 
-    @Column(columnDefinition = "varchar(255) default 'images/default-image.png'")
+    @ColumnDefault("images/default-image.png")
     private String profileImageUrl;
 
     @NotNull
@@ -73,18 +73,12 @@ public class Users {
     public Users() {}
 
     @Builder
-    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation) {
+    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation, String description) {
         this.email = email;
         this.nickName = nickName;
         this.campus = campus;
         this.profileImageUrl = profileImageUrl;
         this.generation = generation;
-    }
-    @Builder
-    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, @NotNull String generation) {
-        this.email = email;
-        this.nickName = nickName;
-        this.campus = campus;
-        this.generation = generation;
+        this.description = description;
     }
 }

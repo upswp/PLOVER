@@ -4,9 +4,11 @@ import com.plover.exceptions.EntityNotFoundException;
 import com.plover.model.Response;
 import com.plover.model.follow.request.FollowRequest;
 import com.plover.model.follow.response.FollowUsersResponse;
+import com.plover.model.notification.Response.NotificationResponse;
 import com.plover.model.user.Users;
 import com.plover.service.FCMService;
 import com.plover.service.FollowService;
+import com.plover.service.NotificationService;
 import com.plover.service.UserService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
@@ -35,13 +37,15 @@ public class FollowController {
     private JwtUtil jwtUtil;
     private CookieUtil cookieUtil;
     private FCMService fcmService;
+    private NotificationService notificationService;
 
-    public FollowController(FollowService followService, UserService userService, JwtUtil jwtUtil, CookieUtil cookieUtil, FCMService fcmService) {
+    public FollowController(FollowService followService, UserService userService, JwtUtil jwtUtil, CookieUtil cookieUtil, FCMService fcmService, NotificationService notificationService) {
         this.followService = followService;
         this.userService = userService;
         this.jwtUtil = jwtUtil;
         this.cookieUtil = cookieUtil;
         this.fcmService = fcmService;
+        this.notificationService = notificationService;
     }
 
     @GetMapping("/following/{toUserNo}")
@@ -148,7 +152,11 @@ public class FollowController {
                 Users fromUser = userService.findUserByNo(fromUserNo);
                 Users toUser = userService.findUserByNo(followRequest.getToUserNo());
                 followService.save(fromUser, toUser);
-                fcmService.send(fcmService.setNotification("follow",toUser,request));
+
+                NotificationResponse notificationResponse = fcmService.setNotification("follow",toUser,request);
+                fcmService.send(notificationResponse);
+                notificationService.postRealTimeDataBase(notificationResponse,toUser.getNickName());
+
                 final Response result = new Response("success", "팔로우를 성공하였습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.OK);
             } else {

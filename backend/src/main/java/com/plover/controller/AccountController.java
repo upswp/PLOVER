@@ -13,6 +13,8 @@ import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -49,7 +51,7 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @RequestMapping("account")
 public class AccountController {
-
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
     @Value("${file.path}")
     String localFilePath;
     @Autowired
@@ -131,7 +133,7 @@ public class AccountController {
     @ApiOperation(value = "회원가입",
             notes = "회원가입 때 받아야하는 데이터 형태인 SignupRequest로 데이터를 받아서 가입을 진행한다.",
             response = Response.class)
-    public Object signup(@RequestPart(value = "file", required = false) MultipartFile image, @RequestPart(value = "user") SignupRequest userRequest) {
+    public Object signup(@RequestPart(value = "file", required = false) MultipartFile image, @RequestPart("user") SignupRequest userRequest) {
         ResponseEntity<Response> response = null;
         //유저 대표 이미지 저장
         if(image != null){
@@ -151,6 +153,7 @@ public class AccountController {
             }//파일 저장 끝
 
         try {
+            logger.info(userRequest.toString());
             accountService.signup(userRequest);
             final Response result = new Response("success","회원가입 성공", null);
             response = new ResponseEntity<>(result, HttpStatus.OK);
@@ -275,54 +278,5 @@ public class AccountController {
         else {
             return new ResponseEntity<>(new Response("success", "로그아웃 성공", null),HttpStatus.OK);
         }
-    }
-    @GetMapping("/fcmtest")
-    @ApiOperation(value = "fcmtest",
-            notes = "fcmtest",
-            response = Response.class)
-    public Object fcmtest() throws ExecutionException, InterruptedException {
-        ResponseEntity response = null;
-        fcmService.send(new NotificationResponse(redisUtil.getData("FCM_TOKEN_3")
-        , "title", "messageddd", "mail.png","gggg"));
-
-        final Response result = new Response("success", "전송해봤다.", null);
-        //TODO : HttpStatus 변경하기
-        response = new ResponseEntity<>(result , HttpStatus.NOT_ACCEPTABLE);
-
-        return response;
-    }
-    @PostMapping(value = "/filetest")
-    @ApiOperation(value = "file업로드 테스트",
-            notes = "회원가입 때 이미지를 업로드 해보자",
-            response = Response.class)
-    public Object filetest(@RequestPart(value = "file", required = false) MultipartFile image) {
-        ResponseEntity<Response> response = null;
-        //유저 대표 이미지 저장
-        if(image != null){
-            UUID uuids = UUID.randomUUID();
-
-                long time = System.currentTimeMillis();
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
-                String filename = uuids + "-" + formatter.format(time) + image.getOriginalFilename();
-                Path filePath = Paths.get(localFilePath+filename);
-                try {
-                    Files.write(filePath, image.getBytes());
-//                    userRequest.setProfileImageUrl(filePath.toString());
-                }
-                catch (IOException e){
-                    final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
-                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-                }
-
-        }//파일 저장 끝
-
-        try {
-            final Response result = new Response("success","회원가입 성공", null);
-            response = new ResponseEntity<>(result, HttpStatus.OK);
-        }catch (Exception e) {
-            final Response result = new Response("success","회원가입 중 오류 발생", e.getMessage());
-            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-        }
-        return response;
     }
 }
