@@ -30,7 +30,7 @@ function Register(props) {
         }}>
           <i className={"fas fa-chevron-left color_black" + " " + styles.icon} style={{ cursor: "pointer" }}></i>
         </span>
-        <span className={"color_black" + " " + styles.title}><Typo ty="h4"><FadeIn delay={400}>스터디 등록</FadeIn></Typo></span>
+        <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">스터디 등록</Typo></FadeIn></span>
         <i className={"fas fa-pen color_white" + " " + styles.right_icon}></i>
       </Navbar>
       <FadeIn delay={200}>
