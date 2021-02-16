@@ -279,35 +279,4 @@ public class AccountController {
             return new ResponseEntity<>(new Response("success", "로그아웃 성공", null),HttpStatus.OK);
         }
     }
-//    @GetMapping("/fcmtest")
-//    @ApiOperation(value = "fcmtest",
-//            notes = "fcmtest",
-//            response = Response.class)
-//    public Object fcmtest() throws ExecutionException, InterruptedException {
-//        ResponseEntity response = null;
-//        fcmService.send(new NotificationResponse(redisUtil.getData("FCM_TOKEN_3")
-//        , "title", "messageddd", "mail.png","gggg"));
-//
-//        final Response result = new Response("success", "전송해봤다.", null);
-//        //TODO : HttpStatus 변경하기
-//        response = new ResponseEntity<>(result , HttpStatus.NOT_ACCEPTABLE);
-//
-//        return response;
-//    }
-    @PostMapping(value = "/signuptest")
-    @ApiOperation(value = "회원가입",
-            notes = "회원가입 때 받아야하는 데이터 형태인 SignupRequest로 데이터를 받아서 가입을 진행한다.",
-            response = Response.class)
-    public Object signuptest(@RequestBody SignupRequest userRequest) {
-        ResponseEntity<Response> response = null;
-        try {
-            accountService.signup(userRequest);
-            final Response result = new Response("success","회원가입 성공", null);
-            response = new ResponseEntity<>(result, HttpStatus.OK);
-        }catch (Exception e) {
-            final Response result = new Response("success","회원가입 중 오류 발생", e.getMessage());
-            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-        }
-        return response;
-    }
 }
