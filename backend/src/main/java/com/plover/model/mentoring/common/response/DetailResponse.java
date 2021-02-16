@@ -1,9 +1,6 @@
-package com.plover.model.metoring.common.response;
+package com.plover.model.mentoring.common.response;
 
-import com.plover.model.metoring.MentoringEntity;
 import io.swagger.annotations.ApiModel;
-
-import java.util.Date;
 
 @ApiModel(description = "멘토링 상세보기 공통")
 public class DetailResponse {

@@ -1,11 +1,9 @@
-package com.plover.model.metoring.live.response;
+package com.plover.model.mentoring.live.response;
 
-import com.plover.model.metoring.MentoringEntity;
-import com.plover.model.metoring.common.response.DetailResponse;
+import com.plover.model.mentoring.MentoringEntity;
+import com.plover.model.mentoring.common.response.DetailResponse;
 import lombok.Getter;
 import lombok.ToString;
-
-import javax.validation.constraints.NotBlank;
 
 @Getter
 @ToString

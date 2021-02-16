@@ -1,7 +1,7 @@
-package com.plover.model.metoring.meet.request;
+package com.plover.model.mentoring.meet.request;
 
-import com.plover.model.metoring.MentoringEntity;
-import com.plover.model.metoring.common.request.InsertRequest;
+import com.plover.model.mentoring.MentoringEntity;
+import com.plover.model.mentoring.common.request.InsertRequest;
 import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
 import lombok.Getter;

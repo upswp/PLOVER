@@ -1,6 +1,6 @@
 package com.plover.repository;
 
-import com.plover.model.metoring.MentoringEntity;
+import com.plover.model.mentoring.MentoringEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 

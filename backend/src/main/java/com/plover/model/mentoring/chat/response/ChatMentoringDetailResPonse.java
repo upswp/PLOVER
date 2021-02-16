@@ -1,12 +1,9 @@
-package com.plover.model.metoring.chat.response;
+package com.plover.model.mentoring.chat.response;
 
-import com.plover.model.metoring.MentoringEntity;
-import com.plover.model.metoring.common.BaseTimeEntity;
-import com.plover.model.metoring.common.response.DetailResponse;
+import com.plover.model.mentoring.MentoringEntity;
+import com.plover.model.mentoring.common.response.DetailResponse;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.Date;
 
 @Getter
 @ToString

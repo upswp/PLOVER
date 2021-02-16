@@ -1,7 +1,7 @@
-package com.plover.model.metoring.live.request;
+package com.plover.model.mentoring.live.request;
 
-import com.plover.model.metoring.MentoringEntity;
-import com.plover.model.metoring.common.request.UpdateRequest;
+import com.plover.model.mentoring.MentoringEntity;
+import com.plover.model.mentoring.common.request.InsertRequest;
 import io.swagger.annotations.ApiModel;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,8 +13,9 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@ApiModel(description = "라이브 멘토링 수정 모델")
-public class LiveMentoringUpdateRequest extends UpdateRequest {
+@ApiModel(description = "라이브 멘토링 등록 모델")
+public class LiveMentoringInsertRequest extends InsertRequest {
+
     @NotBlank
     private String type;
 
@@ -24,9 +25,9 @@ public class LiveMentoringUpdateRequest extends UpdateRequest {
     @NotBlank
     private String state;
 
-    public LiveMentoringUpdateRequest(@NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다. ") String title, @Email @NotBlank String email, @NotBlank String startDate, @NotBlank String startTime, @NotBlank String endDate, @NotBlank String endTime, @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content,
-                                      String mentoringImageUrl, @NotBlank String type, @NotBlank String address, @NotBlank String state) {
-        super(title, email, startDate, startTime, endDate, endTime, content, mentoringImageUrl);
+    public LiveMentoringInsertRequest(@Email(message = "이메일 형식이 아닙니다.") @NotBlank(message = "반드시 입력해주세요") String email, @NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다.") String title, @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content, @NotBlank String startDate, @NotBlank String startTime, @NotBlank String endDate,
+                                      @NotBlank String endTime, String mentoringImageUrl, @NotBlank String type, @NotBlank String address, @NotBlank String state) {
+        super(email, title, content, startDate, startTime, endDate, endTime, mentoringImageUrl);
         this.type = type;
         this.address = address;
         this.state = state;

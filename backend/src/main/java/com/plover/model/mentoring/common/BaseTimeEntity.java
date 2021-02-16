@@ -1,4 +1,4 @@
-package com.plover.model.metoring.common;
+package com.plover.model.mentoring.common;
 
 import lombok.Getter;
 import lombok.Setter;
