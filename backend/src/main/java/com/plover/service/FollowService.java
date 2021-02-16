@@ -38,7 +38,7 @@ public class FollowService {
     }
 
     // 팔로잉 수 조회
-    public Long getFollowingNum(long no){
+    public Long getFollowingNum(Long no){
         return followRepository.countByFromUserNo(no);
     }
 

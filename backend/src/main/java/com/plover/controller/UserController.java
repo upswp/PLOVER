@@ -5,6 +5,7 @@ import com.plover.model.Response;
 import com.plover.model.user.response.ProfileResponse;
 import com.plover.model.user.response.UsersResponse;
 import com.plover.service.FollowService;
+import com.plover.service.MentoringService;
 import com.plover.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -29,10 +30,12 @@ import javax.validation.constraints.NotNull;
 public class UserController {
     private UserService userService;
     private FollowService followService;
+    private MentoringService mentoringService;
 
-    public UserController(UserService userService, FollowService followService){
+    public UserController(UserService userService, FollowService followService, MentoringService mentoringService){
         this.userService = userService;
         this.followService = followService;
+        this.mentoringService = mentoringService;
     }
 
     @GetMapping("/random")
@@ -62,6 +65,7 @@ public class UserController {
             ProfileResponse profileResponse = userService.getUserProfile(no);
             profileResponse.setFollowerNum(followService.getFollowerNum(no));
             profileResponse.setFollowingNum(followService.getFollowingNum(no));
+            profileResponse.setArticleNum(mentoringService.getMentoringNum(no));
             final Response result = new Response("success", "프로필유저정보 반환 성공", profileResponse);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         }catch (EntityNotFoundException e) {
