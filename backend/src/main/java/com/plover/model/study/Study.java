@@ -4,17 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.plover.converter.BooleanToYNConverter;
 import com.plover.exceptions.ErrorCode;
 import com.plover.exceptions.InvalidValueException;
-import com.plover.model.user.UserDto;
-import io.swagger.annotations.ApiModelProperty;
+import com.plover.model.user.Users;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,7 +27,7 @@ public class Study {
 
     @ManyToOne
     @JoinColumn(name = "user_no") // fk컬럼명
-    private UserDto user;
+    private Users user;
 
     private String title;
 
@@ -48,13 +44,11 @@ public class Study {
     @OneToMany(mappedBy = "study",cascade = CascadeType.PERSIST,orphanRemoval=true,fetch = FetchType.EAGER)
     private Set<StudyHashtag> hashtags = new HashSet<>();
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private Date createDate;
+    private LocalDateTime createDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
     @Convert(converter = BooleanToYNConverter.class)
     private boolean isNotice;
@@ -67,7 +61,7 @@ public class Study {
     }
 
     // Study의 user설정
-    public void setUser(UserDto user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 

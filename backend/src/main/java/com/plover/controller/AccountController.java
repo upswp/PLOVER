@@ -1,9 +1,11 @@
 package com.plover.controller;
 
 import com.plover.model.Response;
-import com.plover.model.user.UserDto;
+import com.plover.model.notification.Response.NotificationResponse;
+import com.plover.model.user.Users;
 import com.plover.model.user.request.*;
-import com.plover.service.UserService;
+import com.plover.service.FCMService;
+import com.plover.service.AccountService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import com.plover.utils.RedisUtil;
@@ -12,17 +14,28 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
-import java.util.Arrays;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @ApiResponses(value = {
         @ApiResponse(code = 401, message = "Unauthorized", response = Response.class),
@@ -37,17 +50,20 @@ import java.util.Arrays;
 @RequestMapping("account")
 public class AccountController {
 
-
+    @Value("${file.path}")
+    String localFilePath;
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
-    private UserService userService;
+    private AccountService accountService;
     @Autowired
     private CookieUtil cookieUtil;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private FCMService fcmService;
 
 
 
@@ -62,7 +78,7 @@ public class AccountController {
     public Object login(@Valid @RequestBody LoginRequest userRequest, HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            final UserDto user = userService.login(userRequest.getEmail(), userRequest.getPassword());
+            final Users user = accountService.login(userRequest.getEmail(), userRequest.getPassword());
             final String token = jwtUtil.generateToken(user);
             final String refreshJwt = jwtUtil.generateRefreshToken(user);
 
@@ -85,7 +101,7 @@ public class AccountController {
             response = Response.class)
     public Object checkDupEmail(@Valid @Email @RequestParam String email) {
         ResponseEntity response = null;
-        if (!userService.existsByEmail(email)) {
+        if (!accountService.existsByEmail(email)) {
             final Response result = new Response("success", "사용 가능", null);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         } else {
@@ -101,7 +117,7 @@ public class AccountController {
             response = Response.class)
     public Object checkDupNickName(@Valid @NotNull  @RequestParam String nickName) {
         ResponseEntity response = null;
-        if (!userService.existsByNickName(nickName)) {
+        if (!accountService.existsByNickName(nickName)) {
             final Response result = new Response("success", "사용 가능", null);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         } else {
@@ -111,15 +127,32 @@ public class AccountController {
         }
         return response;
     }
-    @PostMapping("/signup")
+    @PostMapping(value = "/signup", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     @ApiOperation(value = "회원가입",
             notes = "회원가입 때 받아야하는 데이터 형태인 SignupRequest로 데이터를 받아서 가입을 진행한다.",
             response = Response.class)
-    public Object signup(@RequestBody @Valid SignupRequest userRequest) {
-
+    public Object signup(@RequestPart(value = "file", required = false) MultipartFile image, @RequestPart(value = "user") SignupRequest userRequest) {
         ResponseEntity<Response> response = null;
+
+        //유저 대표 이미지 저장
+        if(image != null){
+            UUID uuid = UUID.randomUUID();
+                long time = System.currentTimeMillis();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+                String filename = uuid + "-" + formatter.format(time) + image.getOriginalFilename();
+                Path filePath = Paths.get(localFilePath + filename);
+                try {
+                    Files.write(filePath, image.getBytes());
+                    userRequest.setProfileImageUrl(filePath.toString());
+                }
+                catch (IOException e){
+                    final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+                }
+            }//파일 저장 끝
+
         try {
-            userService.signup(userRequest);
+            accountService.signup(userRequest);
             final Response result = new Response("success","회원가입 성공", null);
             response = new ResponseEntity<>(result, HttpStatus.OK);
         }catch (Exception e) {
@@ -137,9 +170,10 @@ public class AccountController {
     public Response verify(@RequestBody VerifyEmailRequest verifyEmailRequest, HttpServletRequest req, HttpServletResponse res) {
         Response response;
         try {
-            UserDto user = userService.findUserByEmail(verifyEmailRequest.getEmail());
-            userService.sendVerificationMail(user);
-            response = new Response("success", "성공적으로 인증메일을 보냈습니다.", null);
+            Users user = accountService.findUserByEmail(verifyEmailRequest.getEmail());
+            accountService.sendVerificationMail(user);
+            response = new Response(
+                    "success", "성공적으로 인증메일을 보냈습니다.", null);
         } catch (Exception exception) {
             response = new Response("error", "인증메일을 보내는데 문제가 발생했습니다.", exception);
         }
@@ -153,7 +187,7 @@ public class AccountController {
     public Response getVerify(@PathVariable String key) {
         Response response;
         try {
-            userService.verifyEmail(key);
+            accountService.verifyEmail(key);
             response = new Response("success", "성공적으로 인증메일을 확인했습니다.", null);
 
         } catch (Exception e) {
@@ -169,7 +203,7 @@ public class AccountController {
     public Response isPasswordUUIdValidate(@PathVariable String key) {
         Response response;
         try {
-            if (userService.isPasswordUuidValidate(key))
+            if (accountService.isPasswordUuidValidate(key))
                 response = new Response("success", "정상적인 접근입니다.", null);
             else
                 response = new Response("error", "유효하지 않은 Key값입니다.", null);
@@ -186,9 +220,9 @@ public class AccountController {
     public Response requestChangePassword(@RequestBody SendChangePasswordRequest SendChangePassowrd) {
         Response response;
         try {
-            UserDto user = userService.findUserByNickName(SendChangePassowrd.getNickName());
+            Users user = accountService.findUserByNickName(SendChangePassowrd.getNickName());
             if (!user.getEmail().equals(SendChangePassowrd.getEmail())) throw new NoSuchFieldException("");
-            userService.requestChangePassword(user);
+            accountService.requestChangePassword(user);
             response = new Response("success", "성공적으로 사용자의 비밀번호 변경요청을 수행했습니다.", null);
         } catch (NoSuchFieldException e) {
             response = new Response("error", "사용자 정보를 조회할 수 없습니다.", null);
@@ -205,8 +239,8 @@ public class AccountController {
     public Response changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
         Response response;
         try{
-            UserDto user = userService.findUserByEmail(changePasswordRequest.getEmail());
-            userService.changePassword(user,changePasswordRequest.getPassword());
+            Users user = accountService.findUserByEmail(changePasswordRequest.getEmail());
+            accountService.changePassword(user,changePasswordRequest.getPassword());
             response = new Response("success","성공적으로 사용자의 비밀번호를 변경했습니다.",null);
         }catch(Exception e){
             response = new Response("error","사용자의 비밀번호를 변경할 수 없었습니다.",null);
@@ -220,23 +254,76 @@ public class AccountController {
     public Object logout(HttpServletRequest req, HttpServletResponse res) {
 
         Cookie refreshToken = cookieUtil.getCookie(req, JwtUtil.REFRESH_TOKEN_NAME);
-        redisUtil.deleteData(refreshToken.getValue());
+        Cookie accessToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
 
-        Cookie accessToken = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, null);
+        redisUtil.deleteData(refreshToken.getValue());
+        redisUtil.deleteData("FCM_TOKEN_"+jwtUtil.getNo(accessToken.getValue()));
+
+        accessToken = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, null);
         accessToken.setMaxAge(0);
         accessToken.setPath("/");
+
         refreshToken = new Cookie(JwtUtil.REFRESH_TOKEN_NAME, null);
         refreshToken.setMaxAge(0);
         refreshToken.setPath("/");
 
         res.addCookie(accessToken);
         res.addCookie(refreshToken);
+
         if(res==null){
             return new ResponseEntity<>(new Response("error", "이미 로그아웃된 사용자 입니다.", null),HttpStatus.BAD_REQUEST);
         }
         else {
             return new ResponseEntity<>(new Response("success", "로그아웃 성공", null),HttpStatus.OK);
         }
-
     }
+    @GetMapping("/fcmtest")
+    @ApiOperation(value = "fcmtest",
+            notes = "fcmtest",
+            response = Response.class)
+    public Object fcmtest() throws ExecutionException, InterruptedException {
+        ResponseEntity response = null;
+        fcmService.send(new NotificationResponse(redisUtil.getData("FCM_TOKEN_3")
+        , "title", "messageddd", "mail.png","gggg"));
+
+        final Response result = new Response("success", "전송해봤다.", null);
+        //TODO : HttpStatus 변경하기
+        response = new ResponseEntity<>(result , HttpStatus.NOT_ACCEPTABLE);
+
+        return response;
+    }
+//    @PostMapping(value = "/filetest", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+//    @ApiOperation(value = "file업로드 테스트",
+//            notes = "회원가입 때 이미지를 업로드 해보자",
+//            response = Response.class)
+//    public Object signup(@RequestPart(value = "file", required = false) MultipartFile image) {
+//        ResponseEntity<Response> response = null;
+//        //유저 대표 이미지 저장
+//        if(image != null){
+//            UUID uuids = UUID.randomUUID();
+//
+//                long time = System.currentTimeMillis();
+//                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+//                String filename = uuids + "-" + formatter.format(time) + image.getOriginalFilename();
+//                Path filePath = Paths.get(localFilePath+filename);
+//                try {
+//                    Files.write(filePath, image.getBytes());
+////                    userRequest.setProfileImageUrl(filePath.toString());
+//                }
+//                catch (IOException e){
+//                    final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+//                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+//                }
+//
+//        }//파일 저장 끝
+//
+//        try {
+//            final Response result = new Response("success","회원가입 성공", null);
+//            response = new ResponseEntity<>(result, HttpStatus.OK);
+//        }catch (Exception e) {
+//            final Response result = new Response("success","회원가입 중 오류 발생", e.getMessage());
+//            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+//        }
+//        return response;
+//    }
 }

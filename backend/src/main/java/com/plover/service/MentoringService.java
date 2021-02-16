@@ -1,29 +1,21 @@
 package com.plover.service;
-
-import com.google.common.collect.Sets;
 import com.plover.exceptions.EntityNotFoundException;
 import com.plover.exceptions.ErrorCode;
 import com.plover.model.metoring.MentoringEntity;
 import com.plover.model.metoring.chat.request.ChatMentoringInsertRequest;
 import com.plover.model.metoring.chat.request.ChatMentoringUpdateRequest;
 import com.plover.model.metoring.chat.response.ChatMentoringDetailResPonse;
-import com.plover.model.metoring.chat.response.ChatMetoringResponse;
 import com.plover.model.metoring.live.request.LiveMentoringInsertRequest;
 import com.plover.model.metoring.live.request.LiveMentoringUpdateRequest;
 import com.plover.model.metoring.live.response.LiveMentoringDetailResPonse;
 import com.plover.model.metoring.meet.request.MeetMentoringInsertRequest;
 import com.plover.model.metoring.meet.request.MeetMentoringUpdateRequest;
 import com.plover.model.metoring.meet.response.MeetMentoringDetailResPonse;
-import com.plover.model.study.Hashtag;
-import com.plover.model.study.Study;
-import com.plover.model.study.request.StudyRequest;
-import com.plover.model.study.response.StudyDetailResponse;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.repository.MentoringRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class MentoringService {
@@ -37,7 +29,7 @@ public class MentoringService {
     /*멘토링 등록*/
 
     @Transactional
-    public Long saveChat(UserDto user, ChatMentoringInsertRequest mentoringRequest){
+    public Long saveChat(Users user, ChatMentoringInsertRequest mentoringRequest){
         MentoringEntity mentoring = mentoringRequest.toChat();
         mentoring.setUser(user);
         mentoringRepository.save(mentoring);
@@ -45,7 +37,7 @@ public class MentoringService {
     }
 
     @Transactional
-    public Long saveLive(UserDto user, LiveMentoringInsertRequest mentoringRequest){
+    public Long saveLive(Users user, LiveMentoringInsertRequest mentoringRequest){
         MentoringEntity mentoring = mentoringRequest.toLive();
         mentoring.setUser(user);
         mentoringRepository.save(mentoring);
@@ -53,7 +45,7 @@ public class MentoringService {
     }
 
     @Transactional
-    public Long saveMeet(UserDto user, MeetMentoringInsertRequest mentoringRequest){
+    public Long saveMeet(Users user, MeetMentoringInsertRequest mentoringRequest){
         MentoringEntity mentoring = mentoringRequest.toMeet();
         mentoring.setUser(user);
         mentoringRepository.save(mentoring);

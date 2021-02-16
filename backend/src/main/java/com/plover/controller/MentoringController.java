@@ -1,6 +1,4 @@
 package com.plover.controller;
-
-
 import com.plover.model.Response;
 import com.plover.model.metoring.chat.request.ChatMentoringInsertRequest;
 import com.plover.model.metoring.chat.request.ChatMentoringUpdateRequest;
@@ -12,10 +10,10 @@ import com.plover.model.metoring.live.response.LiveMentoringDetailResPonse;
 import com.plover.model.metoring.meet.request.MeetMentoringInsertRequest;
 import com.plover.model.metoring.meet.request.MeetMentoringUpdateRequest;
 import com.plover.model.metoring.meet.response.MeetMentoringDetailResPonse;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import com.plover.service.FileService;
 import com.plover.service.MentoringService;
-import com.plover.service.UserService;
+import com.plover.service.AccountService;
 import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -30,12 +28,10 @@ import javax.validation.constraints.NotNull;
 public class MentoringController {
 
     private MentoringService mentoringService;
-    private UserService userService;
-    private FileService fileService;
+    private AccountService accountService;
 
-    public MentoringController(MentoringService mentoringService, FileService fileService, UserService userService){
-        this.userService = userService;
-        this.fileService = fileService;
+    public MentoringController(MentoringService mentoringService, FileService fileService, AccountService accountService){
+        this.accountService = accountService;
         this.mentoringService = mentoringService;
     }
 
@@ -44,7 +40,7 @@ public class MentoringController {
     public Object saveChatMentoring(@Valid @RequestBody ChatMentoringInsertRequest chatMentoringInsertRequest){
         ResponseEntity response = null;
         try{
-            UserDto user = userService.findUserByEmail(chatMentoringInsertRequest.getEmail());
+            Users user = accountService.findUserByEmail(chatMentoringInsertRequest.getEmail());
             Long mentoringId = mentoringService.saveChat(user,chatMentoringInsertRequest);
             final Response result = new Response("success","채팅 멘토링 게시글을 등록이 성공하였습니다.",mentoringId);
             response = new ResponseEntity<>(result,HttpStatus.OK);
@@ -60,7 +56,7 @@ public class MentoringController {
     public Object saveLiveMentoring(@Valid @RequestBody LiveMentoringInsertRequest liveMentoringInsertRequest){
         ResponseEntity response = null;
         try{
-            UserDto user = userService.findUserByEmail(liveMentoringInsertRequest.getEmail());
+            Users user = accountService.findUserByEmail(liveMentoringInsertRequest.getEmail());
             Long mentoringId = mentoringService.saveLive(user,liveMentoringInsertRequest);
             final Response result = new Response("success","실시간 라이브 멘토링 게시글을 등록이 성공하였습니다.",mentoringId);
             response = new ResponseEntity<>(result,HttpStatus.OK);
@@ -76,7 +72,7 @@ public class MentoringController {
     public Object saveMeetMentoring(@Valid @RequestBody MeetMentoringInsertRequest meetMentoringInsertRequest){
         ResponseEntity response = null;
         try{
-            UserDto user = userService.findUserByEmail(meetMentoringInsertRequest.getEmail());
+            Users user = accountService.findUserByEmail(meetMentoringInsertRequest.getEmail());
             Long mentoringId = mentoringService.saveMeet(user,meetMentoringInsertRequest);
             final Response result = new Response("success","만남 멘토링 게시글을 등록이 성공하였습니다.",mentoringId);
             response = new ResponseEntity<>(result,HttpStatus.OK);
@@ -145,7 +141,7 @@ public class MentoringController {
     public Object updateChatMentoring(@PathVariable @NotNull Long id, @RequestBody @Valid ChatMentoringUpdateRequest chatMentoringUpdateRequest) {
         ResponseEntity response = null;
         try {
-            UserDto user = userService.findUserByEmail(chatMentoringUpdateRequest.getEmail());
+            Users user = accountService.findUserByEmail(chatMentoringUpdateRequest.getEmail());
             if (user.getNo() == mentoringService.findById(id).getUser().getNo()) {
                 ChatMentoringDetailResPonse returnChatMentoring = mentoringService.updateChatMentoring(id, chatMentoringUpdateRequest);
                 final Response result = new Response("success", "스터디 게시글 정보 수정 성공", returnChatMentoring);
@@ -171,7 +167,7 @@ public class MentoringController {
     public Object updateLiveMentoring(@PathVariable @NotNull Long id, @RequestBody @Valid LiveMentoringUpdateRequest liveMentoringUpdateRequest) {
         ResponseEntity response = null;
         try {
-            UserDto user = userService.findUserByEmail(liveMentoringUpdateRequest.getEmail());
+            Users user = accountService.findUserByEmail(liveMentoringUpdateRequest.getEmail());
             if (user.getNo() == mentoringService.findById(id).getUser().getNo()) {
                 LiveMentoringDetailResPonse returnLiveMentoring = mentoringService.updateLiveMentoring(id, liveMentoringUpdateRequest);
                 final Response result = new Response("success", "스터디 게시글 정보 수정 성공", returnLiveMentoring);
@@ -197,7 +193,7 @@ public class MentoringController {
     public Object updateMeetMentoring(@PathVariable @NotNull Long id, @RequestBody @Valid MeetMentoringUpdateRequest meetMentoringUpdateRequest) {
         ResponseEntity response = null;
         try {
-            UserDto user = userService.findUserByEmail(meetMentoringUpdateRequest.getEmail());
+            Users user = accountService.findUserByEmail(meetMentoringUpdateRequest.getEmail());
             if (user.getNo() == mentoringService.findById(id).getUser().getNo()) {
                 MeetMentoringDetailResPonse returnMeetMentoring = mentoringService.updateMeetMentoring(id, meetMentoringUpdateRequest);
                 final Response result = new Response("success", "스터디 게시글 정보 수정 성공", returnMeetMentoring);
@@ -223,7 +219,7 @@ public class MentoringController {
     public Object deleteStudy(@PathVariable @NotNull Long id, @RequestBody @Valid DeleteRequest deleteRequest) {
         ResponseEntity response = null;
         try {
-            UserDto user = userService.findUserByEmail(deleteRequest.getEmail());
+            Users user = accountService.findUserByEmail(deleteRequest.getEmail());
             if (user.getNo() == mentoringService.findById(id).getUser().getNo()) {
                 mentoringService.deleteMentoring(id);
                 final Response result = new Response("success", "멘토링 게시글 정보 삭제 성공", null);

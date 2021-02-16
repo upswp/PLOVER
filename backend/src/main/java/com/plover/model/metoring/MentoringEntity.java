@@ -1,7 +1,7 @@
 package com.plover.model.metoring;
 
 import com.plover.model.metoring.common.BaseTimeEntity;
-import com.plover.model.user.UserDto;
+import com.plover.model.user.Users;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 
@@ -24,7 +24,7 @@ public class MentoringEntity extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_no")
-    private UserDto user;
+    private Users user;
 
     @Column(nullable = false)
     private String type;
@@ -62,7 +62,7 @@ public class MentoringEntity extends BaseTimeEntity {
     //라이브 상태
     private String state;
 
-    public void setUser(UserDto user){this.user = user;}
+    public void setUser(Users user){this.user = user;}
 
     @Builder
     public MentoringEntity(String type, String title, String startDate, String startTime, String endDate, String endTime, String content, Integer currentPersonnel,
