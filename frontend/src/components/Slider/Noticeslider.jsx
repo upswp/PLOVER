@@ -61,7 +61,7 @@ class Noticeslider extends Component {
                                     {v.title}
                                 </div>
                                 <div style={{ width: "50px", height: "100%", fontSize: "0.7em", lineHeight: "3" }}>
-                                    {/*v.time*/} 하루전
+                                    {v.date}
                                 </div>
                             </div>
                         )

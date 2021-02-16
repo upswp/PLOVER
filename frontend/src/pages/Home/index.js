@@ -58,34 +58,12 @@ const mentoringClassList = [
   }
 ]
 
-const studyNoticeList = [
-  {
-    gubun: "공지",
-    title: "공지사항1 입니다.",
-    time: "5분전",
-    url: "/jiyoung"
-  }, {
-    gubun: "공지",
-    title: "공지사항2 입니다.",
-    time: "10분전",
-    url: "/jiyoung"
-  }, {
-    gubun: "공지",
-    title: "공지사항3 입니다.",
-    time: "15분전",
-    url: "/jiyoung"
-  }, {
-    gubun: "공지",
-    title: "공지사항4 입니다.",
-    time: "20분전",
-    url: "/jiyoung"
-  }]
-
 
 const Home = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [recommendedFriendList, setRecommendedFriendList] = useState([]);
-  const [studyArticleList, setStudyArticleList] = useState([]); 
+  const [studyArticleList, setStudyArticleList] = useState([]);
+  const [studyNoticeList, setStudyNoticeList] = useState([]); 
   
   useEffect(() => {
     // axios.get('https://dev.plover.co.kr/ssafy/user/random')
@@ -100,6 +78,11 @@ const Home = (props) => {
       setStudyArticleList(response.data.data.studies)
     })
     .catch(() => {})
+
+    restapi.get('study/notice/0')
+    .then((response) => {
+      setStudyNoticeList(response.data.data.studies)
+    })
   }, [])
 
   return (
