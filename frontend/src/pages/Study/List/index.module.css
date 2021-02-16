@@ -30,12 +30,19 @@
 }
 
 .studys_box{
+    position: relative;
     width: 100%;
     padding: 0px 10px;
     margin-top: 20px;
 }
 
+@keyframes flow{
+    0% { background-position: 200%  }
+    100% { background-position: 0% }
+}
+
 .study_box{
+    position: relative;
     margin-bottom: 14px;
     display: flex;
     flex-direction: row;
@@ -43,7 +50,10 @@
     height: 100px;
     border: 1px solid gray;
     border-radius: 3px;
+    overflow: hidden;
 }
+
+
 .study_left{
     position: relative;
     width: 80%;
@@ -143,6 +153,8 @@
     line-height:17px;
     font-size: 0.7em;
     text-align: center;
-    background: var(--color-bright-purple);
     border-radius: 0px 2px 0px 5px;
+    background: linear-gradient(to left,#b053fc,#c681ff,#9135da,#c681ff,#b053fc);
+    background-size: 200% 200%;
+    animation: flow 2s linear infinite;
 }

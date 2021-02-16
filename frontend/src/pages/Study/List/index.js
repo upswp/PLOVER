@@ -43,7 +43,7 @@ function List(props) {
         }}>
           <i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i>
         </span>
-        <span className={"color_black" + " " + styles.title}><Typo ty="h4"><FadeIn delay={400}>스터디 같이해요</FadeIn></Typo></span>
+        <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">스터디 같이해요</Typo></FadeIn></span>
         <span onClick={() => {
           props.history.push("/study/register");
         }}>
