@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from "./index.module.css";
 import { Navbar, Typo, ImgAttach, Input, Select, InputDate, InputTime, ButtonComp } from "src/components";
 import restapi from "src/api/restapi";
+import FadeIn from 'react-fade-in';
 
 function Register(props) {
     const imgattach = useRef();
@@ -61,177 +62,185 @@ function Register(props) {
     return (
         <div id="metoring_register">
             <Navbar color="white">
-                <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
-                <span className={"color_black" + " " + styles.title}><Typo ty="h4">멘토링 등록</Typo></span>
-                <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
+                <span onClick={() => {
+                    props.history.goBack();
+                }} style={{ cursor: "pointer" }}>
+                    <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
+                </span>
+                <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">멘토링 등록</Typo></FadeIn></span>
+                <span>
+                    <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
+                </span>
             </Navbar>
-            <div className={styles.img_box}>
-                <ImgAttach ref={imgattach} type="mentoring" className={styles.img}></ImgAttach>
-            </div>
-            <div className={styles.desc}>
-                <Typo ty="p">제목</Typo>
-            </div>
-            <div className={styles.input_text_box}>
-                <Input placeholder="제목을 입력해주세요." type="text" className={styles.input_text} value={title} id="title" />
-            </div>
-            <div className={styles.desc}>
-                <Typo ty="p">유형</Typo>
-            </div>
-            <div className={styles.select_box}>
-                <Select className={styles.select} id="type">
-                    <option value="no">유형을 선택해주세요.</option>
-                    <option value="live">실시간 라이브</option>
-                    <option value="chat">채팅</option>
-                    <option value="meeting">스터디 모임</option>
-                </Select>
-            </div>
-            <div className={styles.desc} style={{ display: type === "meet" ? "" : "none" }}>
-                <Typo ty="p">장소/모집인원</Typo>
-            </div>
-            <div className={styles.input_datetime_box} style={{ display: type === "meet" ? "" : "none" }}>
-                <div className={styles.input_datetime_item}>
-                    <Input className={styles.input_datetime} placeholder="장소를 입력하세요." id="place" />
+            <FadeIn delay={200}>
+                <div className={styles.img_box}>
+                    <ImgAttach ref={imgattach} type="mentoring" className={styles.img}></ImgAttach>
                 </div>
-                <div className={styles.input_datetime_item}>
-                    <Input className={styles.input_datetime} placeholder="모집인원을 입력하세요" id="personnel" />
+                <div className={styles.desc}>
+                    <Typo ty="p">제목</Typo>
                 </div>
-            </div>
-            <div className={styles.desc}>
-                <Typo ty="p">시작 날짜/시간</Typo>
-            </div>
-            <div className={styles.input_datetime_box}>
-                <div className={styles.input_datetime_item}>
-                    <InputDate className={styles.input_datetime} id="startdate" />
+                <div className={styles.input_text_box}>
+                    <Input placeholder="제목을 입력해주세요." type="text" className={styles.input_text} value={title} id="title" />
                 </div>
-                <div className={styles.input_datetime_item}>
-                    <InputTime className={styles.input_datetime} id="starttime" />
+                <div className={styles.desc}>
+                    <Typo ty="p">유형</Typo>
                 </div>
-            </div>
-            <div className={styles.desc}>
-                <Typo ty="p">종료 날짜/시간</Typo>
-            </div>
-            <div className={styles.input_datetime_box}>
-                <div className={styles.input_datetime_item}>
-                    <InputDate className={styles.input_datetime} id="enddate" />
+                <div className={styles.select_box}>
+                    <Select className={styles.select} id="type">
+                        <option value="no">유형을 선택해주세요.</option>
+                        <option value="live">실시간 라이브</option>
+                        <option value="chat">채팅</option>
+                        <option value="meet">스터디 모임</option>
+                    </Select>
                 </div>
-                <div className={styles.input_datetime_item}>
-                    <InputTime className={styles.input_datetime} id="endtime" />
+                <div className={styles.desc} style={{ display: type === "meet" ? "" : "none" }}>
+                    <Typo ty="p">장소/모집인원</Typo>
                 </div>
-            </div>
-            <div className={styles.desc}>
-                <Typo ty="p">내용</Typo>
-            </div>
-            <div className={styles.textarea_box}>
-                <textarea placeholder="내용을 입력해주세요." id="content" type="text" className={styles.textarea} />
-            </div>
-            <div className={styles.button_box}>
-                <ButtonComp width="large" type="base" textvalue="등록하기" className={styles.button} onClick={() => {
-                    //제목검사
-                    if (title === "") {
-                        alert("제목을 입력해주세요.");
-                        return;
-                    }
-                    //유형검사
-                    if (type === "") {
-                        alert("유형을 선택해주세요.");
-                        return;
-                    }
-                    //시작날짜 검사
-                    if (startDate === "") {
-                        alert("시작날짜를 선택해주세요.");
-                        return;
-                    }
+                <div className={styles.input_datetime_box} style={{ display: type === "meet" ? "" : "none" }}>
+                    <div className={styles.input_datetime_item}>
+                        <Input className={styles.input_datetime} placeholder="장소를 입력하세요." id="place" />
+                    </div>
+                    <div className={styles.input_datetime_item}>
+                        <Input className={styles.input_datetime} placeholder="모집인원을 입력하세요" id="personnel" />
+                    </div>
+                </div>
+                <div className={styles.desc}>
+                    <Typo ty="p">시작 날짜/시간</Typo>
+                </div>
+                <div className={styles.input_datetime_box}>
+                    <div className={styles.input_datetime_item}>
+                        <InputDate className={styles.input_datetime} id="startdate" />
+                    </div>
+                    <div className={styles.input_datetime_item}>
+                        <InputTime className={styles.input_datetime} id="starttime" />
+                    </div>
+                </div>
+                <div className={styles.desc}>
+                    <Typo ty="p">종료 날짜/시간</Typo>
+                </div>
+                <div className={styles.input_datetime_box}>
+                    <div className={styles.input_datetime_item}>
+                        <InputDate className={styles.input_datetime} id="enddate" />
+                    </div>
+                    <div className={styles.input_datetime_item}>
+                        <InputTime className={styles.input_datetime} id="endtime" />
+                    </div>
+                </div>
+                <div className={styles.desc}>
+                    <Typo ty="p">내용</Typo>
+                </div>
+                <div className={styles.textarea_box}>
+                    <textarea placeholder="내용을 입력해주세요." id="content" type="text" className={styles.textarea} />
+                </div>
+                <div className={styles.button_box}>
+                    <ButtonComp width="large" type="base" textvalue="등록하기" className={styles.button} onClick={() => {
+                        //제목검사
+                        if (title === "") {
+                            alert("제목을 입력해주세요.");
+                            return;
+                        }
+                        //유형검사
+                        if (type === "") {
+                            alert("유형을 선택해주세요.");
+                            return;
+                        }
+                        //시작날짜 검사
+                        if (startDate === "") {
+                            alert("시작날짜를 선택해주세요.");
+                            return;
+                        }
 
-                    //시작시간 검사
-                    if (startTime === "") {
-                        alert("시작시간을 선택해주세요.");
-                        return;
-                    }
+                        //시작시간 검사
+                        if (startTime === "") {
+                            alert("시작시간을 선택해주세요.");
+                            return;
+                        }
 
-                    //종료날짜 검사
-                    if (endDate === "") {
-                        alert("종료날짜를 선택해주세요.");
-                        return;
-                    }
+                        //종료날짜 검사
+                        if (endDate === "") {
+                            alert("종료날짜를 선택해주세요.");
+                            return;
+                        }
 
-                    //종료시간 검사
-                    if (endTime === "") {
-                        alert("종료시간을 선택해주세요.");
-                        return;
-                    }
+                        //종료시간 검사
+                        if (endTime === "") {
+                            alert("종료시간을 선택해주세요.");
+                            return;
+                        }
 
-                    //장소 검사(타입이 만남일 경우에만)
-                    if (type === "meet" && place === "") {
-                        alert("장소를 입력해주세요.");
-                        return;
-                    }
+                        //장소 검사(타입이 만남일 경우에만)
+                        if (type === "meet" && place === "") {
+                            alert("장소를 입력해주세요.");
+                            return;
+                        }
 
-                    //인원 검사(타입이 만남일 경우에만)
-                    if (type === "meet" && personnel === "") {
-                        alert("모집인원을 입력해주세요.");
-                        return;
-                    }
+                        //인원 검사(타입이 만남일 경우에만)
+                        if (type === "meet" && personnel === "") {
+                            alert("모집인원을 입력해주세요.");
+                            return;
+                        }
 
-                    //이미지 검사
-                    if (!imgattach.current.state.imgFile) {
-                        alert("이미지를 등록해주세요.");
-                        return;
-                    }
+                        //이미지 검사
+                        if (!imgattach.current.state.imgFile) {
+                            alert("이미지를 등록해주세요.");
+                            return;
+                        }
 
-                    //내용검사
-                    if (document.getElementById("content").value === "") {
-                        alert("내용을 입력해주세요.");
-                        return;
-                    }
-                    /*
-                    console.log(`제목 : ${title}`);
-                    console.log(`유형 : ${type}`);
-                    console.log(`시작날짜 : ${startDate}`);
-                    console.log(`시작시간 : ${startTime}`);
-                    console.log(`종료날짜 : ${endDate}`);
-                    console.log(`종료시간 : ${endTime}`);
-                    console.log(`내용 : ${setLineToPtag(document.getElementById("content").value)}`);
-                    console.log(`장소 : ${place}`);
-                    console.log(`모집인원 : ${personnel}`);
-                    */
+                        //내용검사
+                        if (document.getElementById("content").value === "") {
+                            alert("내용을 입력해주세요.");
+                            return;
+                        }
+                        /*
+                        console.log(`제목 : ${title}`);
+                        console.log(`유형 : ${type}`);
+                        console.log(`시작날짜 : ${startDate}`);
+                        console.log(`시작시간 : ${startTime}`);
+                        console.log(`종료날짜 : ${endDate}`);
+                        console.log(`종료시간 : ${endTime}`);
+                        console.log(`내용 : ${setLineToPtag(document.getElementById("content").value)}`);
+                        console.log(`장소 : ${place}`);
+                        console.log(`모집인원 : ${personnel}`);
+                        */
 
-                    const mentoring = {
-                        title: title,
-                        type: type,
-                        startDate: startDate,
-                        startTime: startTime,
-                        endDate: endDate,
-                        endTime: endTime,
-                        content: setLineToPtag(document.getElementById("content").value),
-                        place: place,
-                        currentPersonnel: 0,
-                        maxPersonnel: Number(personnel)
-                    };
+                        const mentoring = {
+                            title: title,
+                            type: type,
+                            startDate: startDate,
+                            startTime: startTime,
+                            endDate: endDate,
+                            endTime: endTime,
+                            content: setLineToPtag(document.getElementById("content").value),
+                            place: place,
+                            currentPersonnel: 0,
+                            maxPersonnel: Number(personnel)
+                        };
 
-                    let formData = new FormData();
+                        let formData = new FormData();
 
-                    formData.append('file', imgattach.current.state.imgFile);
-                    formData.append('mentoring', new Blob([JSON.stringify(mentoring)], { type: 'application/json' }));
+                        formData.append('file', imgattach.current.state.imgFile);
+                        formData.append('mentoring', new Blob([JSON.stringify(mentoring)], { type: 'application/json' }));
 
-                    restapi.post(`/mentoring`, formData)
-                        .then((res) => {
-                            if (res.status == 200) {
-                                console.log(res)
-                                alert("등록 성공");
-                                props.history.push('/mentoring/list');
-                            }
-                            else {
-                                console.log(res);
+                        restapi.post(`/mentoring`, formData)
+                            .then((res) => {
+                                if (res.status == 200) {
+                                    console.log(res)
+                                    alert("등록 성공");
+                                    props.history.push('/mentoring/list');
+                                }
+                                else {
+                                    console.log(res);
+                                    alert('등록 실패');
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(err);
                                 alert('등록 실패');
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                            alert('등록 실패');
-                        })
+                            })
 
-                }} />
-            </div>
+                    }} />
+                </div>
+            </FadeIn>
         </div>
     );
 }

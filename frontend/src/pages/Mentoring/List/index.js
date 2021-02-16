@@ -91,7 +91,7 @@ function List(props) {
                         mentoring.map((m, i) => {
                             return (
                                 <div key={i}>
-                                    <div key={"img_" + i} className={styles.mentoring_img_box}>
+                                    <div key={"img_" + i} className={styles.mentoring_img_box} onClick={() => { props.history.push(`/mentoring/detail/${m.id}`) }}>
                                         <Imgbox src={m.mentoringImageUrl} shape="rectRound" className={styles.mentoring_img}></Imgbox>
                                         <PulseBadge title={m.type.toUpperCase()} bg={toColor(m.type.toUpperCase())} style={{ position: "absolute", top: "3px", left: "3px" }} />
                                     </div>

@@ -79,7 +79,6 @@
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
-    cursor:pointer;
     font-size: 0.7em;
     color:rgb(92, 92, 92);
 }
@@ -93,7 +92,6 @@
     justify-content: flex-start;
     align-items: center;
     overflow: hidden;
-    cursor:pointer;
     font-size: 0.7em;
     color:rgb(92, 92, 92);
 }
