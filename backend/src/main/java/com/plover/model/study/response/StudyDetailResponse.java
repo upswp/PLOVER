@@ -11,13 +11,15 @@ import java.util.Set;
 @ToString
 public class StudyDetailResponse {
     private String nickName;
+    private String profileImageUrl;
     private String title;
     private String content;
     private Set<HashtagResponse> hashtags;
     private LocalDateTime createDate;
 
-    public StudyDetailResponse(String nickName, String title, String content, Set<HashtagResponse> hashtags, LocalDateTime createDate) {
+    public StudyDetailResponse(String nickName, String profileImageUrl,String title, String content, Set<HashtagResponse> hashtags, LocalDateTime createDate) {
         this.nickName = nickName;
+        this.profileImageUrl = profileImageUrl;
         this.title = title;
         this.content = content;
         this.hashtags = hashtags;
@@ -27,6 +29,7 @@ public class StudyDetailResponse {
     public static StudyDetailResponse of(Study study) {
         return new StudyDetailResponse(
                 study.getUser().getNickName(),
+                study.getUser().getProfileImageUrl(),
                 study.getTitle(),
                 study.getContent(),
                 HashtagResponse.listOf(study.getHashtags()),
