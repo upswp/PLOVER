@@ -52,6 +52,24 @@ function List(props) {
         }]);
     */
 
+    function toColor($value) {
+        let result = "black";
+        switch ($value) {
+            case "MEET":
+                result = "purple";
+                break;
+            case "CHAT":
+                result = "blue";
+                break;
+        }
+        return result;
+    }
+
+    function toDay($value) {
+        let arr = ['일', '월', '화', '수', '목', '금', '토'];
+        return arr[new Date($value).getDay()];
+    }
+
     return (
         <div id="mentoring_list" className={styles.mentoring_list}>
             <Navbar color="white">
@@ -74,8 +92,8 @@ function List(props) {
                             return (
                                 <div key={i}>
                                     <div key={"img_" + i} className={styles.mentoring_img_box}>
-                                        <Imgbox src={m.profileImg} shape="rectRound" className={styles.mentoring_img}></Imgbox>
-                                        <PulseBadge title={m.type ? m.type : "LIVE"} bg={m.type === "LIVE" ? "purple" : "blue"} style={{ position: "absolute", top: "3px", left: "3px" }} />
+                                        <Imgbox src={m.mentoringImageUrl} shape="rectRound" className={styles.mentoring_img}></Imgbox>
+                                        <PulseBadge title={m.type.toUpperCase()} bg={toColor(m.type.toUpperCase())} style={{ position: "absolute", top: "3px", left: "3px" }} />
                                     </div>
                                     <div key={"m_" + i} className={styles.m_box}>
                                         <div className={styles.m_left}>
@@ -83,18 +101,18 @@ function List(props) {
                                                 {m.title}
                                             </div>
                                             <div className={styles.datetime}>
-                                                <i className="far fa-clock"></i>&nbsp;<span>시작날짜~종료날짜 라이브예정</span>
+                                                <i className="far fa-clock"></i>&nbsp;<span>{`${m.startDate.slice(5)}(${toDay(m.startDate)}) ${m.startTime.slice(0, 5)}~${m.endDate.slice(5)}(${toDay(m.endDate)}) ${m.endTime.slice(0, 5)} ${m.place ? m.place : ""}`}</span>
                                             </div>
                                             <div className={styles.personnel}>
-                                                <i className={"fas fa-user"} style={{ fontSize: "1.0em" }}></i>&nbsp;<span>인원제한없음</span>
+                                                <i className={"fas fa-user"} style={{ fontSize: "1.0em" }}></i>&nbsp;<span>모집인원 : {m.type === "meet" ? `${m.maxPersonnel}명` : "인원제한없음"}</span>
                                             </div>
                                         </div>
                                         <div className={styles.m_right}>
                                             <div className={styles.profilebox}>
-                                                {/*<Imgbox src={study.profileImg} shape="circle" className={styles.profile}></Imgbox>*/}
-                                                <Skeleton shape="circle" className={styles.profile} />
+                                                <Imgbox src={m.profileImageUrl} shape="circle" className={styles.profile}></Imgbox>
+                                                {/*<Skeleton shape="circle" className={styles.profile} />*/}
                                             </div>
-                                            <div className={styles.nicknamebox}><span className={styles.nickname}>닉네임</span></div>
+                                            <div className={styles.nicknamebox}><span className={m.nickname}>{m.nickName}</span></div>
                                         </div>
                                     </div>
                                 </div>
