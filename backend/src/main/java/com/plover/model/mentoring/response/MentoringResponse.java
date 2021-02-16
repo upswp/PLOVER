@@ -1,6 +1,6 @@
-package com.plover.model.mentoring.common.response;
+package com.plover.model.mentoring.response;
 
-import com.plover.model.mentoring.MentoringEntity;
+import com.plover.model.mentoring.Mentoring;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.ToString;
@@ -44,24 +44,24 @@ public class MentoringResponse {
 
     private String place;
 
-    public static MentoringResponse of(MentoringEntity mentoringEntity){
+    public static MentoringResponse of(Mentoring mentoring){
         return new MentoringResponse(
-                mentoringEntity.getUser().getNickName(),
-                mentoringEntity.getUser().getProfileImageUrl(),
-                mentoringEntity.getId(),
-                mentoringEntity.getMentoringImageUrl(),
-                mentoringEntity.getTitle(),
-                mentoringEntity.getStartDate(),
-                mentoringEntity.getStartTime(),
-                mentoringEntity.getEndDate(),
-                mentoringEntity.getEndTime(),
-                mentoringEntity.getContent(),
-                mentoringEntity.getType(),
-                mentoringEntity.getAddress(),
-                mentoringEntity.getState(),
-                mentoringEntity.getCurrentPersonnel(),
-                mentoringEntity.getMaxPersonnel(),
-                mentoringEntity.getPlace()
+                mentoring.getUser().getNickName(),
+                mentoring.getUser().getProfileImageUrl(),
+                mentoring.getId(),
+                mentoring.getMentoringImageUrl(),
+                mentoring.getTitle(),
+                mentoring.getStartDate(),
+                mentoring.getStartTime(),
+                mentoring.getEndDate(),
+                mentoring.getEndTime(),
+                mentoring.getContent(),
+                mentoring.getType(),
+                mentoring.getAddress(),
+                mentoring.getState(),
+                mentoring.getCurrentPersonnel(),
+                mentoring.getMaxPersonnel(),
+                mentoring.getPlace()
         );
     }
 
@@ -84,10 +84,10 @@ public class MentoringResponse {
         this.place = place;
     }
 
-    public static List<MentoringResponse> listof(List<MentoringEntity> mentorings){
+    public static List<MentoringResponse> listof(List<Mentoring> mentorings){
         List<MentoringResponse> mentoringResponses = new ArrayList<>();
 
-        for (MentoringEntity metoring: mentorings) {
+        for (Mentoring metoring: mentorings) {
             mentoringResponses.add(of(metoring));
         }
         return mentoringResponses;

@@ -3,21 +3,13 @@ package com.plover.service;
 import com.plover.config.Constant;
 import com.plover.exceptions.EntityNotFoundException;
 import com.plover.exceptions.ErrorCode;
-import com.plover.model.mentoring.MentoringEntity;
-import com.plover.model.mentoring.chat.request.ChatMentoringInsertRequest;
-import com.plover.model.mentoring.chat.request.ChatMentoringUpdateRequest;
-import com.plover.model.mentoring.chat.response.ChatMentoringDetailResPonse;
-import com.plover.model.mentoring.common.response.ListResponse;
-import com.plover.model.mentoring.live.request.LiveMentoringInsertRequest;
-import com.plover.model.mentoring.live.request.LiveMentoringUpdateRequest;
-import com.plover.model.mentoring.live.response.LiveMentoringDetailResPonse;
-import com.plover.model.mentoring.meet.request.MeetMentoringInsertRequest;
-import com.plover.model.mentoring.meet.request.MeetMentoringUpdateRequest;
-import com.plover.model.mentoring.meet.response.MeetMentoringDetailResPonse;
+import com.plover.model.mentoring.Mentoring;
+import com.plover.model.mentoring.request.MentoringRequest;
+import com.plover.model.mentoring.request.MentoringUpdateRequest;
+import com.plover.model.mentoring.response.MentoringListResponse;
+import com.plover.model.mentoring.response.MentoringResponse;
 import com.plover.model.user.Users;
 import com.plover.repository.MentoringRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,10 +34,10 @@ public class MentoringService {
     /*멘토링 조회*/
 
     @Transactional
-    public ListResponse getMentoringOrderByRecent(Long cursorId) {
+    public MentoringListResponse getMentoringOrderByRecent(Long cursorId) {
         Pageable page = PageRequest.of(0, Constant.PAGE_SIZE.getValue());
         // 페이지에 맞게 리스트 반환
-        List<MentoringEntity> mentorings;
+        List<Mentoring> mentorings;
         if (cursorId == 0) {
             mentorings = mentoringRepository.findByOrderByIdDesc(page);
         } else {
@@ -55,7 +47,7 @@ public class MentoringService {
         final Long lastIdOfList = mentorings.isEmpty() ?
                 null : mentorings.get(mentorings.size() - 1).getId();
 
-        return new ListResponse(mentorings, hasNext(lastIdOfList));
+        return new MentoringListResponse(mentorings, hasNext(lastIdOfList));
     }
     private Boolean hasNext(Long lastIdOfList) {
         if (lastIdOfList == null) return false;
@@ -64,31 +56,9 @@ public class MentoringService {
     }
 
     /*멘토링 등록*/
-
-    private static final Logger logger = LoggerFactory.getLogger(MentoringService.class);
     @Transactional
-    public Long saveChat(Users user, ChatMentoringInsertRequest mentoringRequest){
-        logger.error("3");
-        MentoringEntity mentoring = mentoringRequest.toChat();
-        logger.error("4");
-        mentoring.setUser(user);
-        logger.error("5");
-        mentoringRepository.save(mentoring);
-        logger.error("6");
-        return mentoring.getId();
-    }
-
-    @Transactional
-    public Long saveLive(Users user, LiveMentoringInsertRequest mentoringRequest){
-        MentoringEntity mentoring = mentoringRequest.toLive();
-        mentoring.setUser(user);
-        mentoringRepository.save(mentoring);
-        return mentoring.getId();
-    }
-
-    @Transactional
-    public Long saveMeet(Users user, MeetMentoringInsertRequest mentoringRequest){
-        MentoringEntity mentoring = mentoringRequest.toMeet();
+    public Long save(Users user, MentoringRequest mentoringRequest){
+        Mentoring mentoring = mentoringRequest.toMentoring();
         mentoring.setUser(user);
         mentoringRepository.save(mentoring);
         return mentoring.getId();
@@ -96,56 +66,27 @@ public class MentoringService {
 
     /*멘토링 상세보기*/
 
-    public MentoringEntity findById(Long id){
+    public Mentoring findById(Long id){
         return mentoringRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.MENTORING_NOT_FOUND));
     }
 
     @Transactional
-    public ChatMentoringDetailResPonse getChatMentoring(Long id) {
-        MentoringEntity mentoringEntity = findById(id);
-        return ChatMentoringDetailResPonse.of(mentoringEntity);
+    public MentoringResponse getMentoring(Long id) {
+        Mentoring mentoring = findById(id);
+        return MentoringResponse.of(mentoring);
     }
 
-    @Transactional
-    public LiveMentoringDetailResPonse getLiveMentoring(Long id) {
-        MentoringEntity mentoringEntity = findById(id);
-        return LiveMentoringDetailResPonse.of(mentoringEntity);
-    }
-
-    @Transactional
-    public MeetMentoringDetailResPonse getMeetMentoring(Long id) {
-        MentoringEntity mentoringEntity = findById(id);
-        return MeetMentoringDetailResPonse.of(mentoringEntity);
-    }
 
     /*멘토링 수정*/
 
     @Transactional
-    public ChatMentoringDetailResPonse updateChatMentoring(Long id, ChatMentoringUpdateRequest chatMentoringUpdateRequest) {
-        MentoringEntity mentoringEntity = findById(id);
-        MentoringEntity requestChatMentoring = chatMentoringUpdateRequest.toChat();
+    public MentoringResponse updateMentoring(MentoringUpdateRequest mentoringUpdateRequest) {
+        Mentoring mentoring = findById(mentoringUpdateRequest.getId());
+        Mentoring requestMentoring = mentoringUpdateRequest.toMentoring();
 
-        MentoringEntity updateChatMentoring = mentoringEntity.updateChatMentoring(requestChatMentoring);
-        return ChatMentoringDetailResPonse.of(updateChatMentoring);
-    }
-
-    @Transactional
-    public LiveMentoringDetailResPonse updateLiveMentoring(Long id, LiveMentoringUpdateRequest liveMentoringUpdateRequest) {
-        MentoringEntity mentoringEntity = findById(id);
-        MentoringEntity requestLiveMentoring = liveMentoringUpdateRequest.toLive();
-
-        MentoringEntity updateLiveMentoring = mentoringEntity.updateLiveMentoring(requestLiveMentoring);
-        return LiveMentoringDetailResPonse.of(updateLiveMentoring);
-    }
-
-    @Transactional
-    public MeetMentoringDetailResPonse updateMeetMentoring(Long id, MeetMentoringUpdateRequest meetMentoringUpdateRequest) {
-        MentoringEntity mentoringEntity = findById(id);
-        MentoringEntity requestMeetMentoring = meetMentoringUpdateRequest.toMeet();
-
-        MentoringEntity updateMeetMentoring = mentoringEntity.updateMeetMentoring(requestMeetMentoring);
-        return MeetMentoringDetailResPonse.of(updateMeetMentoring);
+        Mentoring updateMentoring = mentoring.update(requestMentoring);
+        return MentoringResponse.of(updateMentoring);
     }
 
     /*멘토링 삭제*/
