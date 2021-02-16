@@ -6,14 +6,12 @@ import com.plover.model.metoring.chat.request.ChatMentoringUpdateRequest;
 import com.plover.model.metoring.chat.response.ChatMentoringDetailResPonse;
 import com.plover.model.metoring.common.request.DeleteRequest;
 import com.plover.model.metoring.common.response.ListResponse;
-import com.plover.model.metoring.common.response.MentoringResponse;
 import com.plover.model.metoring.live.request.LiveMentoringInsertRequest;
 import com.plover.model.metoring.live.request.LiveMentoringUpdateRequest;
 import com.plover.model.metoring.live.response.LiveMentoringDetailResPonse;
 import com.plover.model.metoring.meet.request.MeetMentoringInsertRequest;
 import com.plover.model.metoring.meet.request.MeetMentoringUpdateRequest;
 import com.plover.model.metoring.meet.response.MeetMentoringDetailResPonse;
-import com.plover.model.study.response.StudiesResponse;
 import com.plover.model.user.Users;
 import com.plover.service.MentoringService;
 import com.plover.service.AccountService;
@@ -21,20 +19,29 @@ import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("mentoring")
 public class MentoringController {
 
+    @Value("${file.path}")
+    String localFilePath;
     private MentoringService mentoringService;
     private AccountService accountService;
     private JwtUtil jwtUtil;
@@ -67,8 +74,25 @@ public class MentoringController {
 
     @PostMapping("/article/chat")
     @ApiOperation(value = "채팅 멘토링 게시글 등록", notes = "채팅 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveChatMentoring(HttpServletRequest request, @Valid @RequestBody ChatMentoringInsertRequest chatMentoringInsertRequest) {
+    public Object saveChatMentoring(@RequestPart(value = "file", required = false) MultipartFile image, HttpServletRequest request, @Valid @RequestBody ChatMentoringInsertRequest chatMentoringInsertRequest) {
         ResponseEntity response = null;
+        //멘토링 대표 이미지 저장
+        if(image != null){
+            UUID uuid = UUID.randomUUID();
+            long time = System.currentTimeMillis();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+            String filename = uuid + "-" + formatter.format(time) + image.getOriginalFilename();
+            Path filePath = Paths.get(localFilePath + filename);
+            try {
+                Files.write(filePath, image.getBytes());
+                chatMentoringInsertRequest.setMentoringImageUrl(filePath.toString());
+            }
+            catch (IOException e){
+                final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            }
+        }//파일 저장 끝
+
         try {
             Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (no != null) {
@@ -89,8 +113,25 @@ public class MentoringController {
 
     @PostMapping("/article/live")
     @ApiOperation(value = "실시간 라이브 멘토링 게시글 등록", notes = "실시간 라이브 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveLiveMentoring(HttpServletRequest request, @Valid @RequestBody LiveMentoringInsertRequest liveMentoringInsertRequest) {
+    public Object saveLiveMentoring(@RequestPart(value = "file", required = false) MultipartFile image,HttpServletRequest request, @Valid @RequestBody LiveMentoringInsertRequest liveMentoringInsertRequest) {
         ResponseEntity response = null;
+
+        //멘토링 대표 이미지 저장
+        if(image != null){
+            UUID uuid = UUID.randomUUID();
+            long time = System.currentTimeMillis();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+            String filename = uuid + "-" + formatter.format(time) + image.getOriginalFilename();
+            Path filePath = Paths.get(localFilePath + filename);
+            try {
+                Files.write(filePath, image.getBytes());
+                liveMentoringInsertRequest.setMentoringImageUrl(filePath.toString());
+            }
+            catch (IOException e){
+                final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            }
+        }//파일 저장 끝
         try {
             Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (no != null) {
@@ -111,8 +152,25 @@ public class MentoringController {
 
     @PostMapping("/article/meet")
     @ApiOperation(value = "만남 멘토링 게시글 등록", notes = "만남 멘토링 게시글 정보를 전달받아 멘토링 게시글을 등록한다.", response = Response.class)
-    public Object saveMeetMentoring(HttpServletRequest request, @Valid @RequestBody MeetMentoringInsertRequest meetMentoringInsertRequest) {
+    public Object saveMeetMentoring(@RequestPart(value = "file", required = false) MultipartFile image,HttpServletRequest request, @Valid @RequestBody MeetMentoringInsertRequest meetMentoringInsertRequest) {
         ResponseEntity response = null;
+
+        //멘토링 대표 이미지 저장
+        if(image != null){
+            UUID uuid = UUID.randomUUID();
+            long time = System.currentTimeMillis();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+            String filename = uuid + "-" + formatter.format(time) + image.getOriginalFilename();
+            Path filePath = Paths.get(localFilePath + filename);
+            try {
+                Files.write(filePath, image.getBytes());
+                meetMentoringInsertRequest.setMentoringImageUrl(filePath.toString());
+            }
+            catch (IOException e){
+                final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+            }
+        }//파일 저장 끝
         try {
             Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (no != null) {
