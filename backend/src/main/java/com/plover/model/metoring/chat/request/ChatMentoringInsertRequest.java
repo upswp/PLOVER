@@ -19,12 +19,9 @@ public class ChatMentoringInsertRequest extends InsertRequest {
     @NotBlank
     private String type;
 
-    public ChatMentoringInsertRequest(@Email(message = "이메일 형식이 아닙니다.") @NotBlank(message = "반드시 입력해주세요") String email,
-                                      @NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다.") String title,
-                                      @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content,
-                                      @NotBlank String startDate, @NotBlank String startTime, @NotBlank String endDate, @NotBlank String endTime,
-                                      @NotBlank String type) {
-        super(email, title, content, startDate, startTime, endDate, endTime);
+    public ChatMentoringInsertRequest(@Email(message = "이메일 형식이 아닙니다.") @NotBlank(message = "반드시 입력해주세요") String email, @NotBlank @Length(max = 50, message = "제목의 최대 길이는 50자 입니다.") String title, @NotBlank @Length(max = 1000, message = "내용의 최대 길이는 1000자 입니다.") String content, @NotBlank String startDate, @NotBlank String startTime,
+                                      @NotBlank String endDate, @NotBlank String endTime, String mentoringImageUrl, @NotBlank String type) {
+        super(email, title, content, startDate, startTime, endDate, endTime, mentoringImageUrl);
         this.type = type;
     }
 
@@ -37,6 +34,7 @@ public class ChatMentoringInsertRequest extends InsertRequest {
                 .startTime(getStartTime())
                 .endTime(getEndTime())
                 .content(getContent())
+                .mentoringImageUrl(getMentoringImageUrl())
                 .build();
     }
 }

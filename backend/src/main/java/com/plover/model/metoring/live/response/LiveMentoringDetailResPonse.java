@@ -17,9 +17,9 @@ public class LiveMentoringDetailResPonse extends DetailResponse {
 
     private String state;
 
-    public LiveMentoringDetailResPonse(String email, String nickName, String title, String content, String startTime,
-                                       String endTime, String startDate, String endDate, String type, String address, String state) {
-        super(email, nickName, title, content, startTime, endTime, startDate, endDate);
+    public LiveMentoringDetailResPonse(String email, String nickName, String title, String content, String startTime, String endTime,
+                                       String startDate, String endDate, String mentoringImageUrl, String type, String address, String state) {
+        super(email, nickName, title, content, startTime, endTime, startDate, endDate, mentoringImageUrl);
         this.type = type;
         this.address = address;
         this.state = state;
@@ -37,7 +37,8 @@ public class LiveMentoringDetailResPonse extends DetailResponse {
                 mentoringEntity.getEndDate(),
                 mentoringEntity.getEndDate(),
                 mentoringEntity.getAddress(),
-                mentoringEntity.getState()
+                mentoringEntity.getState(),
+                mentoringEntity.getMentoringImageUrl()
         );
     }
 }

@@ -14,6 +14,8 @@ import java.util.List;
 public class MentoringResponse {
     private Long id;
 
+    private String mentoringImageUrl;
+
     private String title;
 
     private String startDate;
@@ -50,15 +52,19 @@ public class MentoringResponse {
                 mentoringEntity.getEndDate(),
                 mentoringEntity.getAddress(),
                 mentoringEntity.getState(),
+                mentoringEntity.getPlace(),
                 mentoringEntity.getCurrentPersonnel(),
                 mentoringEntity.getMaxPersonnel(),
-                mentoringEntity.getPlace()
+                mentoringEntity.getMentoringImageUrl()
         );
     }
 
-    public MentoringResponse(Long id, String title, String startDate, String startTime, String endDate, String endTime, String content,
-                             String type, String address, String state, Integer currentPersonnel, Integer maxPersonnel, String place) {
+    public MentoringResponse(Long id, String mentoringImageUrl, String title, String startDate,
+                             String startTime, String endDate, String endTime, String content,
+                             String type, String address, String state, Integer currentPersonnel,
+                             Integer maxPersonnel, String place) {
         this.id = id;
+        this.mentoringImageUrl = mentoringImageUrl;
         this.title = title;
         this.startDate = startDate;
         this.startTime = startTime;

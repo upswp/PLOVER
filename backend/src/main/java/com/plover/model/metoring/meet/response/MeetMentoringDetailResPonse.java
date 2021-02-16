@@ -16,8 +16,10 @@ public class MeetMentoringDetailResPonse extends DetailResponse {
 
     private String place;
 
-    public MeetMentoringDetailResPonse(String email, String nickName, String title, String content, String startTime, String endTime, String startDate, String endDate, String type, Integer currentPersonnel, Integer maxPersonnel, String place) {
-        super(email, nickName, title, content, startTime, endTime, startDate, endDate);
+    public MeetMentoringDetailResPonse(String email, String nickName, String title, String content, String startTime,
+                                       String endTime, String startDate, String endDate, String mentoringImageUrl,
+                                       String type, Integer currentPersonnel, Integer maxPersonnel, String place) {
+        super(email, nickName, title, content, startTime, endTime, startDate, endDate, mentoringImageUrl);
         this.type = type;
         this.currentPersonnel = currentPersonnel;
         this.maxPersonnel = maxPersonnel;
@@ -35,9 +37,10 @@ public class MeetMentoringDetailResPonse extends DetailResponse {
                 mentoringEntity.getStartDate(),
                 mentoringEntity.getEndDate(),
                 mentoringEntity.getEndDate(),
+                mentoringEntity.getPlace(),
                 mentoringEntity.getCurrentPersonnel(),
                 mentoringEntity.getMaxPersonnel(),
-                mentoringEntity.getPlace()
+                mentoringEntity.getMentoringImageUrl()
         );
     }
 }
