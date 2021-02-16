@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
 import Imgbox from 'src/components/Imgcomponents/Imgbox';
 import Navbar from 'src/components/Navbar/Navbar';
 import Navbutton from 'src/components/Navbar/Navbutton';
@@ -8,7 +9,7 @@ import styles from './index.module.css';
 import Menu from 'src/components/Menu/Menu';
 import Badgeslider from 'src/components/Slider/Badgeslider';
 import Noticeslider from 'src/components/Slider/Noticeslider';
-// import restapi from 'src/api/restapi';
+import restapi from 'src/api/restapi';
 import StudyList from 'src/components/StudyList/StudyList';
 
 const mentoringClassList = [
@@ -57,67 +58,6 @@ const mentoringClassList = [
   }
 ]
 
-const friendRecommendSlider = [{
-  img: "/images/bewhy.jpg",
-  nickname: "1기 비와이",
-  ordnum: "1",
-}, 
-{
-  img: "/images/gangsora.png",
-  nickname: "2기 강소라",
-  ordnum: "2",
-}, 
-{
-  img: "/images/one.png",
-  nickname: "3기 원빈",
-  ordnum: "3",
-}, 
-{
-  img: "/images/swings.png",
-  nickname: "4기 스윙스",
-  ordnum: "4",
-}, 
-{
-  img: "/images/yeji.png",
-  nickname: "5기 예지",
-  ordnum: "5",
-}, 
-{
-  img: "/images/park.png",
-  nickname: "1기 박명수",
-  ordnum: "1",
-}, 
-{
-  img: "/images/bewhy.jpg",
-  nickname: "sadasddddddddddddddddddddddddddd",
-  ordnum: "2",
-}, 
-{
-  img: "/images/bewhy.jpg",
-  nickname: "가나다라마바사아자차카타파하",
-  ordnum: "3",
-}, 
-{
-  img: "/images/bewhy.jpg",
-  nickname: "sadas",
-  ordnum: "4",
-}, 
-{
-  img: "/images/bewhy.jpg",
-  nickname: "sadas",
-  ordnum: "5",
-}, 
-{
-  img: "/images/bewhy.jpg",
-  nickname: "sadas",
-  ordnum: "1",
-}, 
-{
-  img: "/images/bewhy.jpg",
-  nickname: "sadas",
-  ordnum: "1",
-}]
-
 const studyNoticeList = [
   {
     gubun: "공지",
@@ -141,57 +81,27 @@ const studyNoticeList = [
     url: "/jiyoung"
   }]
 
-const studyArticleList = [
-  {
-    "id": 1,
-    "title": "대전/CS/스터디 팀원 충원합니다!",
-    "hashtags": [
-      {
-        "id": 1,
-        "name": "디비"
-      }
-    ],
-    "date": "하루전",
-    "user": {
-      "profileImg": "https://picsum.photos/200/200",
-      "userId": "tory_922"
-    }
-  },
-  {
-    "id": 2,
-    "title": "리액트 스터디원 모집!",
-    "hashtags": [
-      {
-        "id": 1,
-        "name": "디비"
-      }
-    ],
-    "date": "17시간전",
-    "user": {
-      "profileImg": "https://picsum.photos/200/200",
-      "userId": "jang_su"
-    }
-  },
-  {
-    "id": 3,
-    "title": "vanilla JS 스터디 모집합니다.",
-    "hashtags": [
-      {
-        "id": 1,
-        "name": "디비"
-      }
-    ],
-    "date": "12시간전",
-    "user": {
-      "profileImg": "https://picsum.photos/200/200",
-      "userId": "jiyoung321"
-    }
-  }
-]
 
 const Home = (props) => {
   const [showMenu, setShowMenu] = useState(false);
+  const [recommendedFriendList, setRecommendedFriendList] = useState([]);
+  const [studyArticleList, setStudyArticleList] = useState([]); 
   
+  useEffect(() => {
+    // axios.get('https://dev.plover.co.kr/ssafy/user/random')
+    restapi.get('/user/random')
+    .then((response) => {
+      setRecommendedFriendList(response.data.data.users)
+    })
+    .catch(() => {})
+    
+    restapi.get('study/article/최신순/0')
+    .then((response) => {
+      setStudyArticleList(response.data.data.studies)
+    })
+    .catch(() => {})
+  }, [])
+
   return (
     <>
       <Navbar color="white" style={{ marginTop: "20px", width: "95%", marginLeft: "auto", marginRight: "auto"}}>
@@ -208,15 +118,16 @@ const Home = (props) => {
         />
       </div>
       <h1 className={styles.friend__reco__title}>친구추천🙌</h1>
-      <div style={{ width: "430px", height: "200px", marginTop: "20px", marginBottom: "30px", marginLeft: "0.5em" }}>
+      <div style={{ width: "100%", height: "200px", marginBottom: "45px", padding: "0.5em" }}>
         <Badgeslider
           perCount={6}
           card={{
-            width: "120px",
+            width: "6.5em",
             height: "80px",
           }}
-          data={friendRecommendSlider} history={props.history} />
+          data={recommendedFriendList} history={props.history} />
       </div>
+
       <h1 className={styles.study__title}>스터디 같이해요😍</h1>
       <div style={{ height: "40px", marginBottom: "10px", marginLeft: "0.8em", marginRight: "0.8em" }}>
         <Noticeslider data={studyNoticeList} style={{ height: "40px" }} duration={3000} history={props.history} />
