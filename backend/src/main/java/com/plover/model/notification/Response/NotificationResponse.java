@@ -1,5 +1,6 @@
 package com.plover.model.notification.Response;
 
+import com.plover.model.notification.Notification;
 import lombok.*;
 
 @Setter
@@ -21,5 +22,12 @@ public class NotificationResponse {
         this.message = message;
         this.icon = icon;
         this.click_action = click_action;
+    }
+
+    public Notification toNotification(){
+        return new Notification(this.getTitle(),
+                this.getMessage(),
+                this.getClick_action(),
+                0);
     }
 }
