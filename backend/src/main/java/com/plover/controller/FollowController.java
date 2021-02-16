@@ -155,7 +155,7 @@ public class FollowController {
 
                 NotificationResponse notificationResponse = fcmService.setNotification("follow",toUser,request);
                 fcmService.send(notificationResponse);
-                notificationService.save(notificationResponse,fromUser,toUser);
+                notificationService.postRealTimeDataBase(request,notificationResponse);
 
                 final Response result = new Response("success", "팔로우를 성공하였습니다.", null);
                 response = new ResponseEntity<>(result, HttpStatus.OK);
