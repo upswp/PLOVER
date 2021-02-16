@@ -2,9 +2,7 @@ package com.plover.controller;
 
 
 import com.plover.model.Response;
-import com.plover.model.notification.Response.NotificationResponse;
 import com.plover.model.notification.request.FcmRequest;
-import com.plover.service.FCMService;
 import com.plover.service.NotificationService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
@@ -52,11 +50,5 @@ public class NotificationController {
         else{
             return new ResponseEntity<>(new Response("error", "FCM 토큰 등록 실패", null), HttpStatus.UNAUTHORIZED);
         }
-    }
-    @PostMapping("/rdbtest")
-    public ResponseEntity ddd(@RequestBody NotificationResponse notificationResponse, HttpServletRequest request) {
-
-            notificationService.postRealTimeDataBase(request, notificationResponse);
-            return new ResponseEntity<>(new Response("success", "ok", null), HttpStatus.OK);
     }
 }
