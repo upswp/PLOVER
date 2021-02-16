@@ -73,12 +73,13 @@ public class Users {
     public Users() {}
 
     @Builder
-    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation) {
+    public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation, String description) {
         this.email = email;
         this.nickName = nickName;
         this.campus = campus;
         this.profileImageUrl = profileImageUrl;
         this.generation = generation;
+        this.description = description;
     }
     @Builder
     public Users(@NotNull @Email String email, @NotNull String nickName, @NotNull String campus, @NotNull String generation) {

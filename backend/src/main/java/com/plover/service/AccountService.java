@@ -79,14 +79,9 @@ public class AccountService {
 				 .nickName(request.getNickName())
 				 .campus(request.getCampus())
 				 .generation(request.getGeneration())
+				 .profileImageUrl(request.getProfileImageUrl())
+				 .description(request.getDescription())
 				 .build();
-
-		 if(request.getProfileImageUrl()!="" && request.getProfileImageUrl()!=null){
-			user.setProfileImageUrl(request.getProfileImageUrl());
-		 }
-		 else{
-		 	user.setProfileImageUrl("images/default-image.png");
-		 }
 
 		 user.setSalt(new Salt(salt));
 		 user.setPassword(saltUtil.encodePassword(salt, password));
