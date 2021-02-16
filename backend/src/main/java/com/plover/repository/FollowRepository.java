@@ -22,4 +22,7 @@ public interface FollowRepository extends JpaRepository<Follow,Long> {
     Boolean existsByFromUserNoAndToUserNo(Long fromUserNo, Long toUserNo);
 
     Optional<Follow> findByFromUserNoAndToUserNo(Long fromUserNo, Long toUserNo);
+
+    Long countByToUserNo(Long no);
+    Long countByFromUserNo(long no);
 }
