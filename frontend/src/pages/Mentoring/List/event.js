@@ -34,7 +34,7 @@ export default class Event {
         }
 
         console.log("== getMentoring ==");
-        await restapi.get(`/mentoring/${this.$lastIndex}`).then((response) => {
+        await restapi.get(`/mentoring/list/${this.$lastIndex}`).then((response) => {
             if (response.status == 200) {
                 console.log(response);
                 this.setMentoring([...this.$mentoring,

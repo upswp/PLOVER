@@ -82,7 +82,7 @@ function Register(props) {
                     <option value="no">유형을 선택해주세요.</option>
                     <option value="live">실시간 라이브</option>
                     <option value="chat">채팅</option>
-                    <option value="meet">스터디 모임</option>
+                    <option value="meeting">스터디 모임</option>
                 </Select>
             </div>
             <div className={styles.desc} style={{ display: type === "meet" ? "" : "none" }}>
@@ -194,42 +194,42 @@ function Register(props) {
                     console.log(`장소 : ${place}`);
                     console.log(`모집인원 : ${personnel}`);
                     */
-                    /*
-                                        const mentoring = {
-                                            title,
-                                            type,
-                                            startDate,
-                                            startTime,
-                                            endDate,
-                                            endTime,
-                                            content: setLineToPtag(document.getElementById("content").value),
-                                            place,
-                                            currentPersonnel: 0,
-                                            maxPersonnel: Number(personnel)
-                                        };
-                    
-                                        let formData = new FormData();
-                    
-                                        formData.append('file', imgattach.current.state.imgFile);
-                                        formData.append('mentoring', new Blob([JSON.stringify(mentoring)], { type: 'application/json' }));
-                    
-                                        restapi.post(`/mentoring/register`, formData)
-                                            .then((res) => {
-                                                if (res.status == 200) {
-                                                    console.log(res)
-                                                    alert("등록 성공");
-                                                    props.history.push('/mentoring/list');
-                                                }
-                                                else {
-                                                    console.log(res);
-                                                    alert('등록 실패');
-                                                }
-                                            })
-                                            .catch((err) => {
-                                                console.log(err);
-                                                alert('등록 실패');
-                                            })
-                                            */
+
+                    const mentoring = {
+                        title: title,
+                        type: type,
+                        startDate: startDate,
+                        startTime: startTime,
+                        endDate: endDate,
+                        endTime: endTime,
+                        content: setLineToPtag(document.getElementById("content").value),
+                        place: place,
+                        currentPersonnel: 0,
+                        maxPersonnel: Number(personnel)
+                    };
+
+                    let formData = new FormData();
+
+                    formData.append('file', imgattach.current.state.imgFile);
+                    formData.append('mentoring', new Blob([JSON.stringify(mentoring)], { type: 'application/json' }));
+
+                    restapi.post(`/mentoring`, formData)
+                        .then((res) => {
+                            if (res.status == 200) {
+                                console.log(res)
+                                alert("등록 성공");
+                                props.history.push('/mentoring/list');
+                            }
+                            else {
+                                console.log(res);
+                                alert('등록 실패');
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            alert('등록 실패');
+                        })
+
                 }} />
             </div>
         </div>
