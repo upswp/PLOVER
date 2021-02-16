@@ -48,8 +48,8 @@ function Detail(props) {
         </div>
         <div className={styles.info_box}>
           <div className={styles.profileImgbox}>
-            {/*<Imgbox src="/images/bewhy.jpg" shape="circle" className={styles.profileImg} />*/}
-            <Skeleton shape="circle" className={styles.profileImg} />
+            <Imgbox src={`/${study.profileImageUrl}`} shape="circle" className={styles.profileImg}></Imgbox>
+            {/*<Skeleton shape="circle" className={styles.profileImg} />*/}
           </div>
           <div className={styles.profileTextbox}>
             <div className={styles.profileTextbox_top}><p className={styles.profileText}>{state.study.nickName !== undefined && state.study.nickName}</p></div>
