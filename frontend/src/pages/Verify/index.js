@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import {
   Typo, Navbar, ButtonComp, 
 //     // Skeleton, Cardslider, Badgeslider, Noticeslider, PulseBadge
@@ -11,26 +11,28 @@ import axios from "axios";
 
 function Verify (props) {
 
-  // const location = useLocation()
+  const location = useLocation()
 
   const history = useHistory()
 
-  // useEffect(() => {
-  //   sendEmail()
-  // }, [])
+  const email = location.state.email
 
-  // function sendEmail() {
-  //   axios.post('https://dev.plover.co.kr/ssafy/account/verify',{
-  //     email: ''
-  //   })
-  //   .then((res) => {
-  //     console.log(res)
-  //   }
-  //   )
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
-  // }
+  useEffect(() => {
+    sendEmail()
+  }, [])
+
+  function sendEmail() {
+    axios.post('https://dev.plover.co.kr/ssafy/account/verify',{
+      email: email
+    })
+    .then((res) => {
+      console.log(res)
+    }
+    )
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   return (
     <div className={styles.container}>
@@ -44,7 +46,7 @@ function Verify (props) {
         <p>PLOVER의 회원이 되신 것을 환영합니다!</p>
         <p>가입한 이메일 주소로 발송된 이메일을 확인해 주세요.</p>
       </div>
-    <ButtonComp type="base" width="regular" textvalue="재발송"></ButtonComp>
+    <ButtonComp type="base" width="regular" textvalue="재발송" onClick={sendEmail}></ButtonComp>
     </div>
   )
 }

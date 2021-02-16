@@ -24,7 +24,7 @@ class Select extends Component {
     render() {
         return (
             <select id={this.props.id} defaultValue={this.props.value} className={this.buildSelectClass() + " " + (this.props.className === undefined ? '' : this.props.className)}
-                style={this.props.style}>
+                style={this.props.style} onChange={this.props.onchange}>
                 {this.props.children}
             </select>
         )

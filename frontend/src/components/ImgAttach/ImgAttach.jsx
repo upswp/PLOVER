@@ -28,10 +28,13 @@ class ImgAttach extends Component {
     };
     if (event.target.files[0]) {
       reader.readAsDataURL(event.target.files[0]);
+      console.log(event.target.files[0])
       this.setState({
         imgFile: event.target.files[0]
       });
     }
+    console.log(this.imgFile)
+    console.log(this.imgUrl)
   };
 
   handleRemove = () => {
@@ -81,7 +84,7 @@ class ImgAttach extends Component {
       <div id={this.props.id} className={styles.box + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
         <input id={this.props.id} type="file" name="imgFile" id="ex_file" onChange={this.handleChangeFile}
           className={this.props.type === undefined ? styles.input : styles.inputM} ref={this.Inputfile} />
-        <img src={this.state.imgUrl ? this.state.imgUrl : "/images/default-image.png"} onClick={this.handleRemove}
+        <img src={this.state.imgUrl ? this.state.imgUrl : "/images/default-image.png"} onClick={this.handleRemove} alt=""
           className={this.props.type === undefined ? styles.profile : styles.mentoring} />
         <label className={styles.attach_icon} style={{ cursor: "pointer" }} onClick={() => { this.Inputfile.current.click(); }}>
           <i className="fas fa-camera-retro color_black" style={{ fontSize: "1.0m", height: "100%" }}></i>
