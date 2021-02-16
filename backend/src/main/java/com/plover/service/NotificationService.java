@@ -10,16 +10,12 @@ import com.plover.repository.NotificationRepository;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import com.plover.utils.RedisUtil;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -62,14 +58,12 @@ public class NotificationService {
         notificationRepository.deleteByNo(no);
     }
 
-    public void postRealTimeDataBase(HttpServletRequest httpServletRequest, NotificationResponse notiResponse){
-        Cookie accessToken = cookieUtil.getCookie(httpServletRequest, JwtUtil.ACCESS_TOKEN_NAME);
-        String nickName = jwtUtil.getNickName(accessToken.getValue());
+    public void postRealTimeDataBase(NotificationResponse notiResponse, String toUserNickName){
         ZonedDateTime nowSeoul = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         LocalDateTime currDate = nowSeoul.toLocalDateTime();
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference().child("users").child(nickName);
+        DatabaseReference ref = database.getReference().child("users").child(toUserNickName);
         DatabaseReference newPostRef = ref.push();
         //TODO : 나중에 바꿔야함(경로)
         newPostRef.setValueAsync(new FirebaseNotification(notiResponse.getMessage(),"https://dev.plover.co.kr/profile","0",currDate.toString()));
