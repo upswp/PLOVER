@@ -133,7 +133,6 @@ public class AccountController {
             response = Response.class)
     public Object signup(@RequestPart(value = "file", required = false) MultipartFile image, @RequestPart(value = "user") SignupRequest userRequest) {
         ResponseEntity<Response> response = null;
-
         //유저 대표 이미지 저장
         if(image != null){
             UUID uuid = UUID.randomUUID();
@@ -143,7 +142,7 @@ public class AccountController {
                 Path filePath = Paths.get(localFilePath + filename);
                 try {
                     Files.write(filePath, image.getBytes());
-                    userRequest.setProfileImageUrl(filePath.toString());
+                    userRequest.setProfileImageUrl("images/"+filename);
                 }
                 catch (IOException e){
                     final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
@@ -292,38 +291,38 @@ public class AccountController {
 
         return response;
     }
-//    @PostMapping(value = "/filetest", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-//    @ApiOperation(value = "file업로드 테스트",
-//            notes = "회원가입 때 이미지를 업로드 해보자",
-//            response = Response.class)
-//    public Object signup(@RequestPart(value = "file", required = false) MultipartFile image) {
-//        ResponseEntity<Response> response = null;
-//        //유저 대표 이미지 저장
-//        if(image != null){
-//            UUID uuids = UUID.randomUUID();
-//
-//                long time = System.currentTimeMillis();
-//                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
-//                String filename = uuids + "-" + formatter.format(time) + image.getOriginalFilename();
-//                Path filePath = Paths.get(localFilePath+filename);
-//                try {
-//                    Files.write(filePath, image.getBytes());
-////                    userRequest.setProfileImageUrl(filePath.toString());
-//                }
-//                catch (IOException e){
-//                    final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
-//                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-//                }
-//
-//        }//파일 저장 끝
-//
-//        try {
-//            final Response result = new Response("success","회원가입 성공", null);
-//            response = new ResponseEntity<>(result, HttpStatus.OK);
-//        }catch (Exception e) {
-//            final Response result = new Response("success","회원가입 중 오류 발생", e.getMessage());
-//            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
-//        }
-//        return response;
-//    }
+    @PostMapping(value = "/filetest")
+    @ApiOperation(value = "file업로드 테스트",
+            notes = "회원가입 때 이미지를 업로드 해보자",
+            response = Response.class)
+    public Object filetest(@RequestPart(value = "file", required = false) MultipartFile image) {
+        ResponseEntity<Response> response = null;
+        //유저 대표 이미지 저장
+        if(image != null){
+            UUID uuids = UUID.randomUUID();
+
+                long time = System.currentTimeMillis();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+                String filename = uuids + "-" + formatter.format(time) + image.getOriginalFilename();
+                Path filePath = Paths.get(localFilePath+filename);
+                try {
+                    Files.write(filePath, image.getBytes());
+//                    userRequest.setProfileImageUrl(filePath.toString());
+                }
+                catch (IOException e){
+                    final Response result = new Response("success","회원가입 이미지 저장 중 오류 발생", e.getMessage());
+                    return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+                }
+
+        }//파일 저장 끝
+
+        try {
+            final Response result = new Response("success","회원가입 성공", null);
+            response = new ResponseEntity<>(result, HttpStatus.OK);
+        }catch (Exception e) {
+            final Response result = new Response("success","회원가입 중 오류 발생", e.getMessage());
+            response = new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+        return response;
+    }
 }
