@@ -127,7 +127,7 @@ public class AccountController {
         }
         return response;
     }
-    @PostMapping(value = "/signup", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/signup")
     @ApiOperation(value = "회원가입",
             notes = "회원가입 때 받아야하는 데이터 형태인 SignupRequest로 데이터를 받아서 가입을 진행한다.",
             response = Response.class)
