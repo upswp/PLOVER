@@ -44,13 +44,14 @@
     rgba(251,229,205,1) 0%, rgba(253,227,207,1) 23%,
     rgba(254,210,201,1) 41%, rgba(209,198,204,1) 60%, 
     rgba(191,192,208,1) 81%, rgba(184,195,217,1) 100%);
+  /* position: absolute; */
 }
 
 .propic {
   position: absolute;
   top: 100px;
-  margin-left: 150px;
-  margin-right: 150px;
+  /* margin-left: 150px;
+  margin-right: 150px; */
 }
 
 .inputdiv {
@@ -100,4 +101,59 @@
 .button {
   width: 100%;
   margin-top: 20px;
+}
+
+/* ------------------------------------------ */
+.box {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  position: absolute;
+  border: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.input {
+width: 100%;
+height: 100%;
+border-radius: 50%;
+position: absolute;
+top: 0;
+left: 0;
+z-index: 99;
+opacity: 0;
+}
+
+.input:hover {
+cursor: pointer;
+}
+
+.profile {
+position: relative;
+width: 100%;
+height: 100%;
+border-radius: 50%;
+border: 0px solid white;
+background-color: silver;
+opacity: 1;
+}
+
+.attach_icon{
+  position:absolute;
+  bottom:7px;
+  right:7px;
+  width:30px;
+  height:30px;
+  text-align: center;
+  line-height: 30px;
+  border:2px solid white;
+  border-radius: 50%;
+  background:#e5e5e5;
+  line-height:100%;
+  cursor: pointer;
 }
