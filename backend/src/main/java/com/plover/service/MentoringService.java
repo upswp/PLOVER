@@ -1,21 +1,29 @@
 package com.plover.service;
+import com.plover.config.Constant;
 import com.plover.exceptions.EntityNotFoundException;
 import com.plover.exceptions.ErrorCode;
 import com.plover.model.metoring.MentoringEntity;
 import com.plover.model.metoring.chat.request.ChatMentoringInsertRequest;
 import com.plover.model.metoring.chat.request.ChatMentoringUpdateRequest;
 import com.plover.model.metoring.chat.response.ChatMentoringDetailResPonse;
+import com.plover.model.metoring.common.response.ListResponse;
+import com.plover.model.metoring.common.response.MentoringResponse;
 import com.plover.model.metoring.live.request.LiveMentoringInsertRequest;
 import com.plover.model.metoring.live.request.LiveMentoringUpdateRequest;
 import com.plover.model.metoring.live.response.LiveMentoringDetailResPonse;
 import com.plover.model.metoring.meet.request.MeetMentoringInsertRequest;
 import com.plover.model.metoring.meet.request.MeetMentoringUpdateRequest;
 import com.plover.model.metoring.meet.response.MeetMentoringDetailResPonse;
+import com.plover.model.study.Study;
+import com.plover.model.study.response.StudiesResponse;
 import com.plover.model.user.Users;
 import com.plover.repository.MentoringRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class MentoringService {
@@ -24,6 +32,35 @@ public class MentoringService {
 
     public MentoringService(MentoringRepository mentoringRepository){
         this.mentoringRepository = mentoringRepository;
+    }
+
+    // 멘토링 게시글 수 조회
+    public Long getMentoringNum(Long no){
+        return mentoringRepository.countByUserNo(no);
+    }
+
+    /*멘토링 조회*/
+
+    @Transactional
+    public ListResponse getMentoringOrderByRecent(Long cursorId) {
+        Pageable page = PageRequest.of(0, Constant.PAGE_SIZE.getValue());
+        // 페이지에 맞게 리스트 반환
+        List<MentoringEntity> mentorings;
+        if (cursorId == 0) {
+            mentorings = mentoringRepository.findByOrderByIdDesc(page);
+        } else {
+            mentorings = mentoringRepository.findByIdLessThanOrderByIdDesc(cursorId, page);
+        }
+
+        final Long lastIdOfList = mentorings.isEmpty() ?
+                null : mentorings.get(mentorings.size() - 1).getId();
+
+        return new ListResponse(mentorings, hasNext(lastIdOfList));
+    }
+    private Boolean hasNext(Long lastIdOfList) {
+        if (lastIdOfList == null) return false;
+        // 마지막 인덱스보다 작은 것이 있으면 true, 없으면 false
+        return mentoringRepository.existsByIdLessThan(lastIdOfList);
     }
 
     /*멘토링 등록*/
