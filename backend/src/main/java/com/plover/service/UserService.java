@@ -5,6 +5,7 @@ import com.plover.exceptions.EntityNotFoundException;
 import com.plover.exceptions.ErrorCode;
 import com.plover.model.user.Users;
 import com.plover.model.user.request.DescriptionRequest;
+import com.plover.model.user.response.ProfileResponse;
 import com.plover.model.user.response.UsersResponse;
 import com.plover.repository.UserRepository;
 import org.springframework.data.domain.PageRequest;
@@ -42,5 +43,8 @@ public class UserService {
     }
 
     // 유저프로필 데이터 반환
-
+    public ProfileResponse getUserProfile(Long no){
+        Users user = findUserByNo(no);
+        return ProfileResponse.of(user);
+    }
 }
