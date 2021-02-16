@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import styles from "./index.module.css";
-import { Navbar, Typo, Noticeslider, Skeleton } from "src/components";
+import { Navbar, Typo, Noticeslider, Skeleton, Imgbox } from "src/components";
 import Event from "./event";
 
 let event = new Event();
@@ -73,10 +73,10 @@ function List(props) {
                 </div>
                 <div className={styles.study_right}>
                   <div className={styles.profilebox}>
-                    {/*<Imgbox src={study.profileImg} shape="circle" className={styles.profile}></Imgbox>*/}
-                    <Skeleton shape="circle" className={styles.profile} />
+                    {<Imgbox src={study.profileImageUrl} shape="circle" className={styles.profile}></Imgbox>}
+                    {/*<Skeleton shape="circle" className={styles.profile} />*/}
                   </div>
-                  <div className={styles.nicknamebox}><span className={styles.nickname}>닉네임</span></div>
+                  <div className={styles.nicknamebox}><span className={styles.nickname}>{study.nickname}</span></div>
                   <div className={styles.datebox}>{study.date}</div>
                 </div>
               </div>

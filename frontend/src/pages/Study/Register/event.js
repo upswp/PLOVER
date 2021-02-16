@@ -56,7 +56,6 @@ export default class Event {
         console.log("== registerStudy ==");
         await restapi.post("/study/article", {
             content: content,
-            email: "rosenari88@gmail.com",
             hashtag: this.$state.tags,
             notice: false,
             title: this.$title.value
