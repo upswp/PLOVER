@@ -110,7 +110,7 @@ function View(props) {
                                             <div className={styles.chat_my_content}>
                                                 {chat.massage}
                                             </div>
-                                            <div className={styles.chat_my_datetime} style={{ cursor: "pointer" }}>{chat.sendTime}</div>
+                                            <div className={styles.chat_my_datetime} style={{ cursor: "pointer" }}>{toStr(chat.sendTime)}</div>
                                         </div>
                                     </div>
                                 )
