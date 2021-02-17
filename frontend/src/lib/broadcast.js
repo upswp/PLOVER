@@ -169,6 +169,7 @@ class Broadcast {
         if (message.response != 'accepted') {
             let errorMsg = message.message ? message.message : 'Unknow error';
             console.warn('Call not accepted for the following reason: ' + errorMsg);
+            alert('방송중이 아닙니다. 잠시후 다시시도해주세요.');
             this.dispose();
         } else {
             console.log("watchScreenResponse accecpt");

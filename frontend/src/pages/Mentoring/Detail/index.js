@@ -95,7 +95,11 @@ function Detail(props) {
                 }}>
                 </div>
                 <div className={styles.button_box}>
-                    <ButtonComp width="large" type="base" textvalue={mentoring.type === "live" ? "라이브 보러가기" : "채팅하기"} className={styles.button} />
+                    <ButtonComp width="large" type="base" textvalue={mentoring.type === "live" ? (localStorage.getItem('email') === mentoring.email ? "라이브 관리" : "라이브 보러가기") : "채팅하기"}
+                        className={styles.button} onClick={() => {
+                            if (localStorage.getItem('email') === mentoring.email) props.history.push(`/live/manage?b_addr=${mentoring.address}`);
+                            else props.history.push(`/live/view?b_addr=${mentoring.address}`);
+                        }} />
                 </div>
                 <div className={styles.qna_title}>
                     멘토링 문의

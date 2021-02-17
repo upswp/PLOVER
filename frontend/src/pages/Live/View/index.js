@@ -15,8 +15,10 @@ function View(props) {
     const query = queryString.parse(props.location.search);
 
     useLayoutEffect(() => {
+        if (!localStorage.getItem('nickname')) props.history.goBack();
+
         console.log("useEffect");
-        broadcast.createSocketClient(query.b_addr, query.nickname);
+        broadcast.createSocketClient(query.b_addr, localStorage.getItem("nickname"));
         broadcast.setVideo(document.getElementById("live_screen"));
         broadcast.setVideo2(document.getElementById("live_screen2"));//
         broadcast.setChat(chat);
