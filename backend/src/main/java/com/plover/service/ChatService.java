@@ -34,6 +34,7 @@ public class ChatService {
         String fromUserNo = Integer.toString(jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue()));
         //내 닉네임 가지고오기(writer에 들어갈거임)
         String writerNickName = jwtUtil.getNickName(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+       
         logger.info("보내는 사람번호는 : "+fromUserNo+" 보내는 사람 이름은 : "+writerNickName);
 
         ZonedDateTime nowSeoul = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
