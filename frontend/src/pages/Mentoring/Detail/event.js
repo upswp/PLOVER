@@ -41,4 +41,20 @@ export default class Event {
         });
     }
 
+    async deleteMentoring() {
+        console.log("== deleteMentoring");
+        let index = this.getIndex();
+        await restapi.delete(`/mentoring/${index}`).then((response) => {
+            if (response.status == 200) {
+                this.$history.goBack();
+            } else {
+                alert("삭제 실패");
+                console.log(response);
+            }
+        }).catch((err) => {
+            alert("삭제 실패");
+            console.log(err);
+        });
+    }
+
 }

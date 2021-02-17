@@ -47,9 +47,19 @@ function Detail(props) {
                 }}>
                     <i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i>
                 </span>
-                <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">멘토링 상세보기</Typo></FadeIn></span>
                 <span>
-                    <i className={"fas fa-edit color_white " + styles.write_icon}></i>
+                    <i className={"fas fa-user-edit color_white " + styles.write_icon}></i>
+                </span>
+                <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">멘토링 상세보기</Typo></FadeIn></span>
+                <span style={{ cursor: "pointer" }} onClick={() => {
+                    if (localStorage.getItem('id') !== null) props.history.replace(`/mentoring/edit/${event.getIndex()}`);
+                }}>
+                    <i className={"fas fa-user-edit " + (localStorage.getItem('email') === mentoring.email ? "color_black " : "color_white ") + styles.write_icon}></i>
+                </span>
+                <span style={{ cursor: "pointer" }} onClick={() => {
+                    if (localStorage.getItem('id') !== null) event.deleteMentoring();
+                }}>
+                    <i className={"fas fa-trash-alt " + (localStorage.getItem('email') === mentoring.email ? "color_black " : "color_white ") + styles.write_icon}></i>
                 </span>
             </Navbar>
             <FadeIn delay={200}>
