@@ -116,16 +116,18 @@ function View(props) {
                         restapi.post(`/chat/message/send`, {
                             message: e.target.value,
                             toUserNo: getIndex()
+                        }).then(res => {
+                            e.target.value = "";
                         });
-                        e.target.value = "";
                     }
                 }} />
                 <ButtonComp width="small" type="base" className={styles.chatting_btn} textvalue="전송" onClick={() => {
                     restapi.post(`/chat/message/send`, {
                         message: document.getElementById("chatinput")[0].value,
                         toUserNo: getIndex()
+                    }).then(res => {
+                        document.getElementById("chatinput")[0].value = "";
                     });
-                    document.getElementById("chatinput")[0].value = "";
                 }} />
             </div>
         </div>
