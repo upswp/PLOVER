@@ -24,7 +24,7 @@ function App() {
       <Route path="/verified" component={Verified} />
       <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />
-      <Route path="/profile" component={Profile} />
+      <Route path="/profile/:id" component={Profile} />
       <Route path="/alarm" component={Alarm} />
       <Route path="/mentoring/register" component={MRegister} />
       <Route path="/mentoring/list" component={MList} />
