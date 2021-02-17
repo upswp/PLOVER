@@ -50,8 +50,6 @@
 .propic {
   position: absolute;
   top: 100px;
-  /* margin-left: 150px;
-  margin-right: 150px; */
 }
 
 .inputdiv {
@@ -156,4 +154,13 @@ opacity: 1;
   background:#e5e5e5;
   line-height:100%;
   cursor: pointer;
+}
+
+.textarea{
+  width: 100%;
+  height: 100%;
+  line-height: 20px;
+  padding: 5px;
+  resize: none;
+  border-radius: 5px;
 }

@@ -263,11 +263,11 @@ function Register(props) {
       <Typo ty="desc" className={styles.label}>기수</Typo>
       <Select id="generation" onchange={onGenerationHandler}>
         <option value="">기수를 선택하세요</option>
-        <option value="1">1기</option>
-        <option value="2">2기</option>
-        <option value="3">3기</option>
-        <option value="4">4기</option>
-        <option value="5">5기</option>
+        <option value="1기">1기</option>
+        <option value="2기">2기</option>
+        <option value="3기">3기</option>
+        <option value="4기">4기</option>
+        <option value="5기">5기</option>
       </Select>
 
       <Typo ty="desc" className={styles.label}>캠퍼스 선택</Typo>
@@ -279,8 +279,9 @@ function Register(props) {
         <option value="구미 캠퍼스">구미 캠퍼스</option>
       </Select>
 
-      <Typo ty="desc" className={styles.label}>한줄소개</Typo>
-      <Input id="description" height="tall" placeholder="한줄소개를 작성해주세요" onchange={onDescriptionHandler}></Input>
+      <Typo ty="desc" className={styles.label}>자기소개</Typo>
+      <textarea id="description" className={styles.textarea} placeholder="자기소개를 작성해주세요"
+      onChange={onDescriptionHandler}></textarea>
 
       <ButtonComp id="register" className={styles.button} width="large" type="base" textvalue="회원가입" onClick={register}></ButtonComp>
       </div>
