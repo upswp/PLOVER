@@ -38,7 +38,7 @@ public class ChatService {
         LocalDateTime currDate = nowSeoul.toLocalDateTime();
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference().child("users").child("chat");
+        DatabaseReference ref = database.getReference().child("users").child("chat-plover-KKHH");
 
         DatabaseReference senderRef = ref.child(fromUserNo).child(chatRequest.getToUserNo()).push();
         DatabaseReference receiverRef = ref.child(chatRequest.getToUserNo()).child(fromUserNo).push();
@@ -49,6 +49,7 @@ public class ChatService {
                 .writerNickName(writerNickName)
                 .sendTime(currDate.toString())
                 .build();
+
         senderRef.setValueAsync(chat);
         receiverRef.setValueAsync(chat);
     }
