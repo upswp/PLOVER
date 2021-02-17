@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
-@ApiModel(description = "멘토링 등록 모델")
+@ApiModel(description = "멘토링 수정 모델")
 public class MentoringUpdateRequest {
     @ApiModelProperty(value = "멘토링 게시글")
     @NotNull
