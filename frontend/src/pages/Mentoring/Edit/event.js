@@ -1,25 +1,45 @@
+import restapi from "src/api/restapi";
+
 export default class Event {
-    constructor($target) {
+    constructor($history) {
+        this.$history = $history;
+    }
+
+    setTarget($target) {
         this.$target = $target;
-
-        //이벤트 등록
-        this.addEvent($target);
     }
 
-    //이벤트 위임기법을 사용한 이벤트 핸들링
-    addEvent($target) {
-        $target.addEventListener('click', this.eventHandler.bind(this));
+    mentoring($value) {
+        this.$mentoring = $value;
     }
 
-    eventHandler(e) {
-        console.log(e.target);
+    setMentoring($value) {
+        this.setMentoring = $value;
     }
 
-    attachPhotoEventHandler(e) {
-
+    setHistory($history) {
+        this.$history = $history;
     }
 
-    destroy() {
-        window.removeEventListener('click', this.eventHandler.bind(this));
+    getIndex() {
+        let pathname = this.$history.location.pathname;
+        let arr = pathname.split("/");
+        return parseInt(arr[arr.length - 1]);
     }
+
+    async getMentoring(cb) {
+        console.log("== getMentoring ==");
+        let index = this.getIndex();
+        await restapi.get(`/mentoring/${index}`).then((response) => {
+            if (response.status == 200) {
+                this.setMentoring(response.data.data);
+                cb();
+            } else {
+                console.log(response);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
 }

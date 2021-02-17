@@ -16,7 +16,7 @@ function Manage(props) {
 
     useLayoutEffect(() => {
         console.log("useEffect");
-        broadcast.createSocketClient(query.b_addr, query.nickname);
+        broadcast.createSocketClient(query.b_addr, localStorage.getItem("nickname"));
         broadcast.setVideo(document.getElementById("live_screen"));
         broadcast.setVideo2(document.getElementById("live_screen2"));
         broadcast.setChat(chat);
@@ -49,9 +49,13 @@ function Manage(props) {
     return (
         <div id="live_manange" className={styles.live_manage}>
             <Navbar color="white">
-                <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
+                <span style={{ cursor: "pointer" }} onClick={
+                    () => {
+                        props.history.goBack();
+                    }
+                }><i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i></span>
                 <span className={"color_black" + " " + styles.title}><FadeIn delay={400}>라이브방송 관리</FadeIn></span>
-                <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
+                <span><i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i></span>
             </Navbar>
             <div className={styles.live_box}>
                 <video id="live_screen" loop className={mainScreen === "video1" ? styles.live_screen : styles.live_screen2} autoPlay onClick={() => {

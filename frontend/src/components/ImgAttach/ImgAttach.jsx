@@ -14,12 +14,14 @@ class ImgAttach extends Component {
       imgFile: null
     };
     if (props.imgUrl) this.state = { ...this.state, imgUrl: props.imgUrl };
+    if (props.imgFile) this.state = { ...this.state, imgFile: props.imgFile };
   }
 
   handleChangeFile = event => {
     let reader = new FileReader();
     reader.onloadend = e => {
       const base64 = reader.result;
+      console.log(base64)
       if (base64) {
         this.setState({
           imgUrl: base64.toString()

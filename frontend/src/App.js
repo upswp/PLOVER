@@ -1,8 +1,8 @@
 import { Route } from 'react-router-dom';
 import {
   Jangsoon, Jiyoung, Suyeon,
-  Register, Verify, 
-  Login, Home, Profile, Alert,
+  Register, Verify, Verified,
+  Login, Home, Profile, Alarm,
   MRegister, MList, MDetail, MEdit,
   SRegister, SList, SDetail,
   LManage, LView,
@@ -21,10 +21,11 @@ function App() {
       <Route path="/suyeon" component={Suyeon} />
       <Route path="/register" component={Register} />
       <Route path="/verify" component={Verify} />
+      <Route path="/verified" component={Verified} />
       <Route path="/login" component={Login} />
       <Route path="/home" component={Home} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/alert" component={Alert} />
+      <Route path="/profile/:id" component={Profile} />
+      <Route path="/alarm" component={Alarm} />
       <Route path="/mentoring/register" component={MRegister} />
       <Route path="/mentoring/list" component={MList} />
       <Route path="/mentoring/detail" component={MDetail} />

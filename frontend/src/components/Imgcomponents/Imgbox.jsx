@@ -30,7 +30,7 @@ class Imgbox extends Component {
                 {   this.props.src ?
                     <img
                         className={styles.image}
-                        src={`https://dev.plover.co.kr/${this.props.src}`}
+                        src={`${process.env.REACT_APP_PUBLIC_HOST}/${this.props.src}`}
 
                     /> : "이미지 없음"}
             </div>

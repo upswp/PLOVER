@@ -3,6 +3,7 @@ import styles from "./index.module.css";
 import { Navbar, Typo, Imgbox, Skeleton, PulseBadge, ButtonComp, Input } from "src/components";
 import Event from "./event";
 import FadeIn from 'react-fade-in';
+import restapi from "src/api/restapi";
 
 function Detail(props) {
 
@@ -18,6 +19,7 @@ function Detail(props) {
         event.setTarget(document.getElementById("mentoring_detail"));
         event.mentoring(mentoring);
         event.setMentoring(setMentoring);
+        console.log((localStorage.getItem('email') === mentoring.email ? "visible" : "hidden"));
 
     }, [mentoring]);
 
@@ -47,9 +49,19 @@ function Detail(props) {
                 }}>
                     <i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i>
                 </span>
-                <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">멘토링 상세보기</Typo></FadeIn></span>
                 <span>
-                    <i className={"fas fa-edit color_white " + styles.write_icon}></i>
+                    <i className={"fas fa-user-edit color_white " + styles.write_icon}></i>
+                </span>
+                <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">멘토링 상세보기</Typo></FadeIn></span>
+                <span style={{ cursor: "pointer" }} key={(localStorage.getItem('email') === mentoring.email ? "edit" : "no_edit")} onClick={() => {
+                    if (localStorage.getItem('email') === mentoring.email) props.history.replace(`/mentoring/edit/${event.getIndex()}`);
+                }}>
+                    <i className={"fas fa-user-edit " + "color_black " + styles.write_icon} style={{ visibility: (localStorage.getItem('email') === mentoring.email ? "visible" : "hidden") }}></i>
+                </span>
+                <span style={{ cursor: "pointer" }} key={(localStorage.getItem('email') === mentoring.email ? "delete" : "no_delete")} onClick={() => {
+                    if (localStorage.getItem('email') === mentoring.email) event.deleteMentoring();
+                }}>
+                    <i className={"fas fa-trash-alt " + "color_black " + styles.write_icon} style={{ visibility: (localStorage.getItem('email') === mentoring.email ? "visible" : "hidden") }}></i>
                 </span>
             </Navbar>
             <FadeIn delay={200}>
@@ -83,32 +95,84 @@ function Detail(props) {
                 }}>
                 </div>
                 <div className={styles.button_box}>
-                    <ButtonComp width="large" type="base" textvalue={mentoring.type === "live" ? "라이브 보러가기" : "채팅하기"} className={styles.button} />
+                    <ButtonComp width="large" type="base" textvalue={mentoring.type === "live" ? (localStorage.getItem('email') === mentoring.email ? "라이브 관리" : "라이브 보러가기") : "채팅하기"}
+                        className={styles.button} onClick={() => {
+                            if (localStorage.getItem('email') === mentoring.email) props.history.push(`/live/manage?b_addr=${mentoring.address}`);
+                            else props.history.push(`/live/view?b_addr=${mentoring.address}`);
+                        }} />
                 </div>
                 <div className={styles.qna_title}>
                     멘토링 문의
             </div>
                 <div style={{ padding: "0px 10px" }}>
-                    <Input placeholder="문의내용을 입력해주세요." type="text" className={styles.input_text} />
+                    <Input placeholder="문의내용을 입력해주세요." id="comment_input" type="text" className={styles.input_text} />
                 </div>
                 <div style={{ width: "100%", height: "40px", lineHeight: "40px", textAlign: "right", padding: "0px 10px" }}>
-                    <button className={styles.input_btn}>작성하기</button>
+                    <button className={styles.input_btn} onClick={
+                        () => {
+                            restapi.post(`/comment`, {
+                                content: document.getElementById("comment_input").value,
+                                mentoringId: event.getIndex()
+                            })
+                                .then((res) => {
+                                    if (res.status == 200) {
+                                        document.getElementById("comment_input").value = "";
+                                        console.log(res)
+                                        alert("댓글등록 성공");
+                                        event.getMentoring();
+                                    }
+                                    else {
+                                        console.log(res);
+                                        alert('댓글등록 실패');
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                    alert('댓글등록 실패');
+                                })
+                        }
+                    }>작성하기</button>
                 </div>
                 <div className={styles.qna_num} style={{ padding: "0px 10px" }}>
-                    총 5개의 문의
+                    총 {mentoring.comments ? mentoring.comments.length : 0}개의 문의
             </div>
-                <div className={styles.que_box}>
-                    <div className={styles.que_box_left}>
-                        <div className={styles.que_profile_box}><Skeleton shape="circle" className={styles.profile} /></div>
-                        <div className={styles.que_nickname_box}>닉네임</div>
-                    </div>
-                    <div className={styles.que_box_right}>
-                        <div className={styles.que_content}>
-                            멘토님 기초가 부족한데 수업을 들어도 괜찮을까요 ??
-                    <div className={styles.que_datetime}>1시간전</div>
-                        </div>
-                    </div>
-                </div>
+                {
+                    mentoring.comments ? mentoring.comments.map((comment, i) => {
+                        return (
+                            <div key={"comment_" + i} className={styles.que_box}>
+                                <div className={styles.que_box_left}>
+                                    <div className={styles.que_profile_box}><Imgbox src={comment.profileImageUrl} shape="circle" className={styles.profile} /></div>
+                                    <div className={styles.que_nickname_box}>{comment.nickName}</div>
+                                </div>
+                                <div className={styles.que_box_right}>
+                                    <div className={styles.que_content}>
+                                        {comment.content}
+                                    </div>
+                                    <div className={styles.que_datetime} style={{ cursor: "pointer" }} onClick={() => {
+                                        if (localStorage.getItem('email') !== comment.email) return;
+
+                                        restapi.delete(`/comment/${comment.commentId}`)
+                                            .then((res) => {
+                                                if (res.status == 200) {
+                                                    console.log(res)
+                                                    alert("삭제 성공");
+                                                    event.getMentoring();
+                                                }
+                                                else {
+                                                    console.log(res);
+                                                    alert('삭제 실패');
+                                                }
+                                            })
+                                            .catch((err) => {
+                                                console.log(err);
+                                                alert('삭제 실패');
+                                            })
+                                    }}>{localStorage.getItem('email') === comment.email ? "삭제" : ""}</div>
+                                </div>
+                            </div>
+                        )
+                    }) : ""
+                }
                 {/*
             <div className={styles.ans_box}>
                 <div className={styles.ans_profile_box}>
