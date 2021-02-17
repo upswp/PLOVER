@@ -6,7 +6,7 @@ export const MenuItems = [
   },
   {
     title: '프로필',
-    url: '#',
+    url: '/profile',
     cName: 'menu-links'
   },
   {
