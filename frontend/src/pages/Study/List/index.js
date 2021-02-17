@@ -87,7 +87,7 @@ function List(props) {
           }
         </FadeIn>
       </div>
-      <p id="footer" style={{ height: "20px" }}></p>
+      {<p id="footer" style={{ height: "20px", textAlign: "center" }}> {lastIndex !== -1 && <img src={"/images/loading.svg"} />}</p>}
     </div>
   );
 }
