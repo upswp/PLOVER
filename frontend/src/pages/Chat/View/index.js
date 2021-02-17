@@ -3,6 +3,7 @@ import { Navbar, Typo, Input, ButtonComp, Imgbox } from "src/components";
 import fire from "src/fire";
 import styles from "./index.module.css";
 import FadeIn from "react-fade-in";
+import restapi from "src/api/restapi";
 
 function View(props) {
     const [list, setList] = useState([]);
@@ -121,9 +122,10 @@ function View(props) {
                 }} />
                 <ButtonComp width="small" type="base" className={styles.chatting_btn} textvalue="전송" onClick={() => {
                     restapi.post(`/chat/message/send`, {
-                        message: e.target.value,
+                        message: document.getElementById("chatinput")[0].value,
                         toUserNo: getIndex()
                     });
+                    document.getElementById("chatinput")[0].value = "";
                 }} />
             </div>
         </div>
