@@ -112,6 +112,7 @@ function Detail(props) {
                             })
                                 .then((res) => {
                                     if (res.status == 200) {
+                                        document.getElementById("comment_input").value = "";
                                         console.log(res)
                                         alert("댓글등록 성공");
                                         event.getMentoring();
