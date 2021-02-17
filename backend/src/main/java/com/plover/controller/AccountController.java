@@ -179,7 +179,7 @@ public class AccountController {
         return response;
     }
 
-    @GetMapping("/verify/{key}")
+    @GetMapping("/verified/{key}")
     @ApiOperation(value = "이메일 인증 확인",
             notes = "이메일에 로그인 후, 주소를 누르면 이메일 인증이 완료된다.",
             response = Response.class)
