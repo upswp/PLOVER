@@ -38,8 +38,8 @@ function List(props) {
   return (
     <div id="study_list" className={styles.study_list}>
       <Navbar color="white">
-        <span onClick={() => {
-
+        <span style={{ cursor: "pointer" }} onClick={() => {
+          props.history.goBack();
         }}>
           <i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i>
         </span>
