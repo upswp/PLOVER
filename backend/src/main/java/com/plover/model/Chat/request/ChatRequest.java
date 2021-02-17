@@ -8,17 +8,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ChatRequest {
-    private String fromUserNo;
     private String toUserNo;
     private String massage;
     private String profileImage;
-    private String writerNickName;
 
-    public ChatRequest(String fromUserNo, String toUserNo, String massage, String profileImage, String writerNickName) {
-        this.fromUserNo = fromUserNo;
+    public ChatRequest(String toUserNo, String massage, String profileImage) {
         this.toUserNo = toUserNo;
         this.massage = massage;
         this.profileImage = profileImage;
-        this.writerNickName = writerNickName;
     }
 }

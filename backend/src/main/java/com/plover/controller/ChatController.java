@@ -32,11 +32,11 @@ public class ChatController {
 
     @PostMapping("/send")
     @ApiOperation(value = "메세지 보내기",  notes = "1:1 메세지를 보냄", response = Response.class)
-    public Object sned(@RequestBody ChatRequest chatRequest) {
+    public Object sned(@RequestBody ChatRequest chatRequest,HttpServletRequest request) {
 
 
         if(chatRequest!=null){
-            chatService.postRealTimeDataBase(chatRequest);
+            chatService.postRealTimeDataBase(chatRequest, request);
             return new ResponseEntity<>(new Response("success", "메세지 전송 성공", null), HttpStatus.OK);
         }
         else{

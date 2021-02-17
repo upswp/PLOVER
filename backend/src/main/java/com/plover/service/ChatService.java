@@ -5,32 +5,48 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.plover.controller.AccountController;
 import com.plover.model.Chat.Chat;
 import com.plover.model.Chat.request.ChatRequest;
+import com.plover.utils.CookieUtil;
+import com.plover.utils.JwtUtil;
+import io.jsonwebtoken.Jwt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @Service
 public class ChatService {
+    @Autowired
+    JwtUtil jwtUtil;
+    @Autowired
+    CookieUtil cookieUtil;
+
     private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
-    public void postRealTimeDataBase(ChatRequest chatRequest){
+    public void postRealTimeDataBase(ChatRequest chatRequest, HttpServletRequest request){
+        //내 no가지고오기
+        String fromUserNo = Integer.toString(jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue()));
+        //내 닉네임 가지고오기(writer에 들어갈거임)
+        String writerNickName = jwtUtil.getNickName(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+        logger.info("보내는 사람번호는 : "+fromUserNo+" 보내는 사람 이름은 : "+writerNickName);
+
         ZonedDateTime nowSeoul = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         LocalDateTime currDate = nowSeoul.toLocalDateTime();
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference().child("users").child("chat");
 
-        DatabaseReference senderRef = ref.child(chatRequest.getFromUserNo()).child(chatRequest.getToUserNo()).push();
-        DatabaseReference receiverRef = ref.child(chatRequest.getToUserNo()).child(chatRequest.getFromUserNo()).push();
+        DatabaseReference senderRef = ref.child(fromUserNo).child(chatRequest.getToUserNo()).push();
+        DatabaseReference receiverRef = ref.child(chatRequest.getToUserNo()).child(fromUserNo).push();
 
         Chat chat = Chat.builder()
                 .massage(chatRequest.getMassage())
                 .profileImage(chatRequest.getProfileImage())
-                .writerNickName(chatRequest.getWriterNickName())
+                .writerNickName(writerNickName)
                 .sendTime(currDate.toString())
                 .build();
         senderRef.setValueAsync(chat);
