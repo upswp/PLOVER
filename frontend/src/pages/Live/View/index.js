@@ -1,13 +1,14 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react';
+import React, { useLayoutEffect, useEffect, useState, useRef, useCallback } from 'react';
 import styles from './index.module.css';
 import { Navbar, PulseBadge, Skeleton, Input, ButtonComp } from "src/components";
 import Broadcast from "src/lib/broadcast";
 import queryString from "query-string";
+import FadeIn from 'react-fade-in';
 
 let broadcast = new Broadcast();
 
 function View(props) {
-
+    const scrollRef = useRef();
     const [chat, addChat] = useState([]);
     const [viewNum, setViewNum] = useState(0);
     const [mainScreen, setMainScreen] = useState("video1");
@@ -31,9 +32,15 @@ function View(props) {
         };
     }, []);
 
+    let scrollBottom = useCallback(() => {
+        console.log("callback")
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }, [chat]);
+
     useEffect(() => {
         console.log(chat);
         broadcast.setChat(chat);
+        scrollBottom();
     }, [chat]);
 
     useEffect(() => {
@@ -44,7 +51,7 @@ function View(props) {
         <div id="live_view" className={styles.live_view}>
             <Navbar color="white">
                 <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
-                <span className={"color_black" + " " + styles.title}>라이브방송 보기</span>
+                <span className={"color_black" + " " + styles.title}><FadeIn delay={400}>라이브방송 보기</FadeIn></span>
                 <i className={"fas fa-chevron-left color_white" + " " + styles.icon}></i>
             </Navbar>
             <div className={styles.live_box}>
@@ -80,42 +87,51 @@ function View(props) {
                 <div className={styles.configbox_right}>
                 </div>
             </div>
-            <div className={styles.infobox}>
-                <div className={styles.imgbox}>
-                    <Skeleton shape="circle" size="auto" />
-                </div>
-                <div className={styles.infotextbox}>
-                    <div className={styles.infotextbox_top}>
-                        <span className={"color_black " + styles.infotextbox_title}>[멘토링] 자바스크립트 알고리즘 강의</span>
+            <FadeIn delay={200}>
+                <div className={styles.infobox}>
+                    <div className={styles.imgbox}>
+                        <Skeleton shape="circle" size="auto" />
                     </div>
-                    <div className={styles.infotextbox_bottom}>
-                        <span className={"color_purple " + styles.infotextbox_nickname} >2기 김나리</span>
+                    <div className={styles.infotextbox}>
+                        <div className={styles.infotextbox_top}>
+                            <span className={"color_black " + styles.infotextbox_title}>[멘토링] 자바스크립트 알고리즘 강의</span>
+                        </div>
+                        <div className={styles.infotextbox_bottom}>
+                            <span className={"color_purple " + styles.infotextbox_nickname} >2기 김나리</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </FadeIn>
 
-            <div className={styles.chatting}>
-                {
-                    Array.from(chat).map((v, i) => {
-                        if (v.type === "chat") {
-                            return (
-                                <div key={`chat_${i}`} className={styles.chatting_box}>
-                                    <span className={styles.chatting_nickname}>{v.nickname}</span>
-                                    <span className={styles.chatting_text}>{v.message}</span>
-                                </div>
-                            );
-                        } else if (v.type === "join") {
-                            return (
-                                <div key={`join_${i}`} className={styles.chatting_box}>
-                                    <span className={"color_purple " + styles.chatting_join_text}>{v.message}</span>
-                                </div>
-                            );
-                        }
-                    })
-                }
+            <div className={styles.chatting} ref={scrollRef}>
+                <FadeIn delay={100}>
+                    {
+                        Array.from(chat).map((v, i) => {
+                            if (v.type === "chat") {
+                                return (
+                                    <div key={`chat_${i}`} className={styles.chatting_box}>
+                                        <span className={styles.chatting_nickname}>{v.nickname}</span>
+                                        <span className={styles.chatting_text}>{v.message}</span>
+                                    </div>
+                                );
+                            } else if (v.type === "join") {
+                                return (
+                                    <div key={`join_${i}`} className={styles.chatting_box}>
+                                        <span className={"color_purple " + styles.chatting_join_text}>{v.message}</span>
+                                    </div>
+                                );
+                            }
+                        })
+                    }
+                </FadeIn>
             </div>
             <div className={styles.chatting_form}>
-                <Input className={styles.chatting_input} placeholder="채팅메시지를 입력해주세요." id="chatinput" />
+                <Input className={styles.chatting_input} placeholder="채팅메시지를 입력해주세요." id="chatinput" onkeypress={(e) => {
+                    if (e.key === "Enter") {
+                        broadcast.sendChat(e.target.value);
+                        e.target.value = "";
+                    }
+                }} />
                 <ButtonComp width="small" type="base" className={styles.chatting_btn} textvalue="전송" onClick={() => {
                     broadcast.sendChat(document.getElementById("chatinput").value);
                 }} />
