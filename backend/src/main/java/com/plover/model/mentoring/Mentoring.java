@@ -7,7 +7,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Park Sangwoo
@@ -75,6 +77,9 @@ public class Mentoring {
     @Temporal(TemporalType.DATE)
     @UpdateTimestamp
     private Date updateDate;
+
+    @OneToMany(mappedBy = "mentoring", cascade = CascadeType.ALL)
+    private List<Comment> commentList = new ArrayList<>();
 
     public void setUser(Users user) {
         this.user = user;
