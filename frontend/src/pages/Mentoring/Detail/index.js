@@ -73,6 +73,7 @@ function Detail(props) {
                         <div className={styles.profilebox}>
                             <Imgbox src={mentoring.profileImageUrl ? mentoring.profileImageUrl : ""} shape="circle" className={styles.profile}></Imgbox>
                             {/*<Skeleton shape="circle" className={styles.profile} />*/}
+                            <div className={styles.profile_box_shiny}></div>
                         </div>
                         <div className={styles.nicknamebox}><span className={styles.nickname}>{mentoring.nickName ? mentoring.nickName : ""}</span></div>
                     </div>

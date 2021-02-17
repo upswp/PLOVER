@@ -108,12 +108,24 @@
 }
 
 .profilebox{
+    position:relative;
     width: 100%;
     height: 70%;
     display: flex;
     flex-direction:column;
     justify-content: flex-end;
     align-items: center;
+    overflow: hidden;
+}
+
+.profile_box_shiny{
+    position:absolute;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: sparkle 4s ease-in-out infinite;
 }
 
 .profile{
@@ -297,4 +309,10 @@
         font-size: 0.7em;
         color:var(--color-badge-skyblue);
         text-align: center;
+}
+@keyframes sparkle {
+    0% { transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { transform: scale(0) rotate(45deg); opacity: 0.2; }
+    81% { transform: scale(4) rotate(45deg); opacity: 0.7; }
+    100% { transform: scale(30) rotate(45deg); opacity: 0; }
 }

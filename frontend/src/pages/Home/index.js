@@ -75,7 +75,7 @@ const Home = (props) => {
     
     restapi.get('study/article/최신순/0')
     .then((response) => {
-      setStudyArticleList(response.data.data.studies)
+      setStudyArticleList(response.data.data.studies.slice(0, 5))
     })
     .catch(() => {})
 
@@ -116,6 +116,7 @@ const Home = (props) => {
         <Noticeslider data={studyNoticeList} style={{ height: "40px" }} duration={3000} history={props.history} />
       </div>
       <StudyList data={studyArticleList}/>
+      <br />
       
 
       

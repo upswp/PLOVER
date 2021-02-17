@@ -3,6 +3,7 @@ import styles from "./index.module.css";
 import { Navbar, Typo, ImgAttach, Input, Select, InputDate, InputTime, ButtonComp } from "src/components";
 import restapi from "src/api/restapi";
 import FadeIn from 'react-fade-in';
+import md5 from "md5";
 
 function Register(props) {
     const imgattach = useRef();
@@ -215,6 +216,10 @@ function Register(props) {
                             currentPersonnel: 0,
                             maxPersonnel: Number(personnel)
                         };
+
+                        if (type === "live") {
+                            mentoring.address = md5(new Date() + title);
+                        }
 
                         let formData = new FormData();
 

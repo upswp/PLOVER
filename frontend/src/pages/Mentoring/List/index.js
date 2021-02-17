@@ -111,6 +111,7 @@ function List(props) {
                                             <div className={styles.profilebox}>
                                                 <Imgbox src={m.profileImageUrl} shape="circle" className={styles.profile}></Imgbox>
                                                 {/*<Skeleton shape="circle" className={styles.profile} />*/}
+                                                <div className={styles.profile_box_shiny}></div>
                                             </div>
                                             <div className={styles.nicknamebox}><span className={m.nickname}>{m.nickName}</span></div>
                                         </div>
@@ -121,7 +122,7 @@ function List(props) {
                     }
                 </FadeIn>
             </div>
-            <p id="footer" style={{ height: "20px" }}></p>
+            {<p id="footer" style={{ height: "20px", textAlign: "center" }}> {lastIndex !== -1 && <img src={"/images/loading.svg"} />}</p>}
         </div>
     );
 }

@@ -14,7 +14,9 @@ body > div,body > div > div {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
     min-height: 100%;
+    overflow: hidden;
 }
 
 .icon {
@@ -89,6 +91,7 @@ body > div,body > div > div {
 }
 
 .configbox{
+    padding:0 10px;
     width: 100%;
     height: 30px;
     display: flex;
@@ -147,6 +150,7 @@ body > div,body > div > div {
 }
 
 .infobox{
+    padding:0 10px;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -195,6 +199,7 @@ body > div,body > div > div {
 }
 
 .chatting{
+    padding:0 10px;
     width: 100%;
     flex: 1;
     background: white;
@@ -240,6 +245,7 @@ body > div,body > div > div {
     line-height: 40px;
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .chatting_input{
