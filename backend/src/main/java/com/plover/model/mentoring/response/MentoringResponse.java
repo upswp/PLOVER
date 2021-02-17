@@ -12,6 +12,8 @@ import java.util.List;
 @ToString
 @ApiModel(description = "멘토링 객체 공통")
 public class MentoringResponse {
+    private String email;
+
     private String nickName;
 
     private String profileImageUrl;
@@ -44,28 +46,10 @@ public class MentoringResponse {
 
     private String place;
 
-    public static MentoringResponse of(Mentoring mentoring){
-        return new MentoringResponse(
-                mentoring.getUser().getNickName(),
-                mentoring.getUser().getProfileImageUrl(),
-                mentoring.getId(),
-                mentoring.getMentoringImageUrl(),
-                mentoring.getTitle(),
-                mentoring.getStartDate(),
-                mentoring.getStartTime(),
-                mentoring.getEndDate(),
-                mentoring.getEndTime(),
-                mentoring.getContent(),
-                mentoring.getType(),
-                mentoring.getAddress(),
-                mentoring.getState(),
-                mentoring.getCurrentPersonnel(),
-                mentoring.getMaxPersonnel(),
-                mentoring.getPlace()
-        );
-    }
+    private List<CommentResponse> comments;
 
-    public MentoringResponse(String nickName, String profileImageUrl, Long id, String mentoringImageUrl, String title, String startDate, String startTime, String endDate, String endTime, String content, String type, String address, String state, Integer currentPersonnel, Integer maxPersonnel, String place) {
+    public MentoringResponse(String email, String nickName, String profileImageUrl, Long id, String mentoringImageUrl, String title, String startDate, String startTime, String endDate, String endTime, String content, String type, String address, String state, Integer currentPersonnel, Integer maxPersonnel, String place, List<CommentResponse> comments) {
+        this.email = email;
         this.nickName = nickName;
         this.profileImageUrl = profileImageUrl;
         this.id = id;
@@ -82,6 +66,30 @@ public class MentoringResponse {
         this.currentPersonnel = currentPersonnel;
         this.maxPersonnel = maxPersonnel;
         this.place = place;
+        this.comments = comments;
+    }
+
+    public static MentoringResponse of(Mentoring mentoring){
+        return new MentoringResponse(
+                mentoring.getUser().getEmail(),
+                mentoring.getUser().getNickName(),
+                mentoring.getUser().getProfileImageUrl(),
+                mentoring.getId(),
+                mentoring.getMentoringImageUrl(),
+                mentoring.getTitle(),
+                mentoring.getStartDate(),
+                mentoring.getStartTime(),
+                mentoring.getEndDate(),
+                mentoring.getEndTime(),
+                mentoring.getContent(),
+                mentoring.getType(),
+                mentoring.getAddress(),
+                mentoring.getState(),
+                mentoring.getCurrentPersonnel(),
+                mentoring.getMaxPersonnel(),
+                mentoring.getPlace(),
+                CommentResponse.listof(mentoring.getCommentList())
+        );
     }
 
     public static List<MentoringResponse> listof(List<Mentoring> mentorings){
