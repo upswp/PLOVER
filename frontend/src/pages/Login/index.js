@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './index.module.css';
 import ButtonComp from 'src/components/ButtonComp/ButtonComp';
-import Typo from 'src/components/Typo/Typo';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
@@ -46,10 +45,13 @@ const Login = (props) => {
             console.log(err);
           });
         });
-       
+        
         //FCM토큰 코드 끝
 
         setLoginCheck(true);
+        props.history.push({
+          pathname: '/home'
+        })
       } else {
         alert('ID와 PW가 일치하지 않습니다.^0^')
       }
