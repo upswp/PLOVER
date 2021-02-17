@@ -34,7 +34,7 @@ const Login = (props) => {
 
         //FCM 토큰 코드 추가
         let massage = fire.messaging();
-        massage.getToken().then(fcmtoken => { 
+        massage.getToken().then(fcmtoken => {
           axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, {
             token: fcmtoken
           })
@@ -54,7 +54,7 @@ const Login = (props) => {
         localStorage.setItem('email', res.data.data.email);
         localStorage.setItem('nickname', res.data.data.nickName);
         localStorage.setItem('profileImageUrl', res.data.data.profileImageUrl);
-        localStorage.setItem('no', res.data.data.no);
+        localStorage.setItem('id', res.data.data.no);
         console.log(res.data.data);
 
         props.history.push({
