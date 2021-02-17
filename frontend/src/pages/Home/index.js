@@ -4,7 +4,6 @@ import Imgbox from 'src/components/Imgcomponents/Imgbox';
 import Navbar from 'src/components/Navbar/Navbar';
 import Navbutton from 'src/components/Navbar/Navbutton';
 import Cardslider from 'src/components/Slider/Cardslider';
-import user1 from "./testdata/user1.jpg";
 import styles from './index.module.css';
 import Menu from 'src/components/Menu/Menu';
 import Badgeslider from 'src/components/Slider/Badgeslider';
@@ -60,7 +59,7 @@ const Home = (props) => {
         <i className="far fa-bell color_black" style={{ fontSize: "1.8rem", marginLeft: "auto", marginBottom: "3px" }}></i>
         <Navbutton color="black" style={{ marginLeft: "15px", marginRight: "5px", marginBottom: "3px"}} setShowMenu={setShowMenu} showMenu={showMenu} />
       </Navbar>
-      { showMenu ? <Menu setShowMenu={setShowMenu} showMenu={showMenu} /> : null }
+      { showMenu ? <Menu setShowMenu={setShowMenu} showMenu={showMenu} history={props.history} /> : null }
       
       <h1 className={styles.mentoring__title}>Mentoring 갠찬으시겠어요? 😁😎</h1>
       <div style={{ width: "100%", height: "240px", marginTop: "20px", marginBottom: "10px", marginLeft: "1em" }}>

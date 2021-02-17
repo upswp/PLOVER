@@ -4,7 +4,7 @@ import styles from './Menu.module.css';
 import {MenuItems} from './MenuItems';
 
 
-const Menu = ({setShowMenu, showMenu}) => {
+const Menu = ({setShowMenu, showMenu, history}) => {
 
 
   return (
@@ -20,7 +20,7 @@ const Menu = ({setShowMenu, showMenu}) => {
           {
             MenuItems.map((item, index) => {
               return (
-                <li key={index} className={styles.items}>
+                <li key={index} className={styles.items} onClick={() => {history.push({pathname: item.url})}}>
                   <a className={styles.item} href={item.url}>
                     {item.title}
                   </a>
