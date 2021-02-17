@@ -90,7 +90,7 @@ public class AccountController {
             response.addCookie(accessToken);
             response.addCookie(refreshToken);
 
-            return new ResponseEntity<>(new Response("success", "로그인에 성공했습니다.", LoginResponse.of(user)), HttpStatus.OK);
+            return new ResponseEntity<>(new Response("success", "로그인에 성공했습니다.", LoginResponse.of(user, accessToken.getValue())), HttpStatus.OK);
         } catch(Exception e) {
             return new ResponseEntity<>(new Response("error", "로그인에 실패했습니다. 아이디/비밀번호 확인", e.getMessage()), HttpStatus.UNAUTHORIZED);
         }
