@@ -3,6 +3,7 @@ import { Navbar, Typo, Imgbox } from "src/components";
 import styles from "./index.module.css";
 import fire from "src/fire";
 import FadeIn from "react-fade-in";
+import restapi from "src/api/restapi";
 
 function List(props) {
     const [list, setList] = useState([]);
@@ -10,21 +11,35 @@ function List(props) {
     function addEvent() {
         const database = fire.database();
         let chatList = database.ref(`users/chat-plover-KKHH/${getIndex()}`);
-        chatList.on('value', (list) => {
+        chatList.on('value', async (list) => {
             const data = list.val();
+            console.log(data);
             let tempList = [];
             for (let from in data) {
+                console.log(from);
                 let obj = {};
                 obj.fromId = from;
                 for (let p in data[from]) {
                     obj.message = data[from][p].massage;
-                    obj.profileImage = data[from][p].profileImage;
                     obj.sendTime = data[from][p].sendTime;
-                    obj.nickname = data[from][p].writerNickName;
                 }
+
+                await restapi.get(`/user/${from}`).then(res => {
+                    if (res.status === 200) {
+                        obj.nickname = res.data.data.nickname;
+                        obj.profileImage = res.data.data.profileImageUrl;
+                    } else {
+                        obj.nickname = "알수없음";
+                        obj.profileImage = "/images/default-image.png";
+                    }
+                }).catch(err => {
+                    obj.nickname = "알수없음";
+                    obj.profileImage = "/images/default-image.png";
+                });
+
                 tempList.push(obj);
             }
-            console.log(tempList);
+
             setList(tempList);
         });
     }
