@@ -21,6 +21,7 @@ function Detail(props) {
   }, []);
 
   useEffect(() => {
+    console.log(state.study.no);
     event.setTarget(document.getElementById("study_detail"));
     event.setState(state);
 
@@ -80,7 +81,10 @@ function Detail(props) {
           <hr />
         </div>
         <div className={styles.button_box}>
-          <ButtonComp width="large" type="base" textvalue="채팅하기" className={styles.button} />
+          <ButtonComp width="large" type="base" textvalue="채팅하기" className={styles.button} onClick={() => {
+            if (localStorage.getItem('id') == state.study.no) props.history.push(`/chat/list/${state.study.no}`);
+            else props.history.push(`/chat/view/${state.study.no}`);
+          }} />
         </div>
       </FadeIn>
     </div >

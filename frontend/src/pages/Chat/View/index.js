@@ -105,7 +105,7 @@ function View(props) {
                                 )
                             } else {
                                 return (
-                                    <div className={styles.chat_my}>
+                                    <div key={"chat_" + i} className={styles.chat_my}>
                                         <div className={styles.chat_box_my}>
                                             <div className={styles.chat_my_content}>
                                                 {chat.massage}
