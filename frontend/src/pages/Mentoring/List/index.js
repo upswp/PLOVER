@@ -74,7 +74,7 @@ function List(props) {
         <div id="mentoring_list" className={styles.mentoring_list}>
             <Navbar color="white">
                 <span onClick={() => {
-
+                    props.history.goBack();
                 }}>
                     <i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i>
                 </span>
