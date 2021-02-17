@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Typo, Navbar } from '../../components'
 import styles from './index.module.css'
+import axios from 'axios'
 
 function Alarm(props) {
 
