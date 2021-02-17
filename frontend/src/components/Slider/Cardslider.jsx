@@ -143,9 +143,9 @@ class Cardslider extends Component {
 
                                 return (
                                     <div key={"card_" + i} className={cardClass} onClick={() => { this.props.history.push(v.url) }} style={this.props.card === undefined ? {} : this.props.card}>
-                                        <img src={v.img} style={{ width: "100%", height: "100%" }} />
+                                        <img src={`${process.env.REACT_APP_PUBLIC_HOST}/${v.mentoringImageUrl}`} style={{ width: "100%", height: "100%" }} />
                                         <div className={badgeClass + " " + "bg_" + v.badgeColor}>
-                                            {v.badgeValue}
+                                            {v.type}
                                             <div className={this.buildPulseClass(v)}></div>
                                         </div>
                                         <div className={this.buildTitleClass()}>{v.title}</div>

@@ -62,9 +62,9 @@ class Badgeslider extends Component {
                             </div>);
                         } else {
                             return (<div key={"badge_" + v[1]} className={cardClass} style={this.props.card}>
-                                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", height: "40%", padding: "10px" }}>
+                                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", height: "40%", padding: "10px"  }}>
                                     <Imgbox src={`${v[0].profileImageUrl}`} size="tiny" shape="circle" style={{ marginRight: "10px", flexShrink: "0" }} /> 
-                                    <div style={{ fontSize: "0.8em", fontWeight: "bold", width: "70%", textAlign: "left" }}>{`${v[0].nickName.substring(0, 3)} ${v[0].nickName.length > 3 ? ".." : ""}`}</div>
+                                    <div style={{ fontSize: "0.8em", fontWeight: "bold", width: "70%", textAlign: "left", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>{`${v[0].nickName}`}</div>
                                 </div>
                                 <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", height: "40%" }}><Badge ordnum={this.changeNum(v[0].generation)} value={v[0].generation} /></div>
                             </div>);

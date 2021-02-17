@@ -12,51 +12,6 @@ import Noticeslider from 'src/components/Slider/Noticeslider';
 import restapi from 'src/api/restapi';
 import StudyList from 'src/components/StudyList/StudyList';
 
-const mentoringClassList = [
-  {
-    img: "/images/mentoring_1.png",
-    badgeColor: "black",
-    badgeValue: "LIVE",
-    url: "/jiyoung",
-    title: "앱 개발 입문",
-    pulseColor: "red"
-  }, 
-  {
-    img: "/images/mentoring_2.png",
-    badgeColor: "purple",
-    badgeValue: "CHAT",
-    url: "/jiyoung",
-    title: "웹풀스택과정 강의"
-  }, 
-  {
-    img: "/images/mentoring_3.png",
-    badgeColor: "blue",
-    badgeValue: "MEET",
-    url: "/jiyoung",
-    title: "코딩의 신이 돼보자!"
-  }, 
-  {
-    img: "/images/mentoring_4.png",
-    badgeColor: "black",
-    badgeValue: "LIVE",
-    url: "/jiyoung",
-    title: "HELLO WORLD"
-  }, 
-  {
-    img: "/images/mentoring_5.png",
-    badgeColor: "purple",
-    badgeValue: "CHAT",
-    url: "/jiyoung",
-    title: "WEB HACKING"
-  }, 
-  {
-    img: "/images/mentoring_5.png",
-    badgeColor: "purple",
-    badgeValue: "CHAT",
-    url: "/jiyoung",
-    title: "WEB HACKING"
-  }
-]
 
 const Home = (props) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -64,6 +19,7 @@ const Home = (props) => {
   const [studyArticleList, setStudyArticleList] = useState([]);
   const [studyNoticeList, setStudyNoticeList] = useState([]); 
   const [showUserData, setShowUserData] = useState({});
+  const [mentoringClassList, setMentoringClassList] = useState([]);
 
   useEffect(() => {
     // axios.get('https://dev.plover.co.kr/ssafy/user/random')
@@ -84,27 +40,35 @@ const Home = (props) => {
       setStudyNoticeList(response.data.data.studies)
     })
 
+    restapi.get('mentoring/list/0')
+    .then((response) => {
+      setMentoringClassList(response.data.data.mentoringResponseList)
+    })
+
     const nickname = localStorage.getItem('nickname');
     const email = localStorage.getItem('email');
+    const profileImageUrl = localStorage.getItem('profileImageUrl');
     
-    setShowUserData({nickname, email});
+    setShowUserData({nickname, email, profileImageUrl});
   }, [])
 
   return (
     <>
       <Navbar color="white" style={{ marginTop: "20px", width: "95%", marginLeft: "auto", marginRight: "auto"}}>
-        <Imgbox src={user1} size="small" shape="circle" style={{ marginLeft: "0px" }} />
+        <Imgbox src={showUserData.profileImageUrl} size="small" shape="circle" style={{ marginLeft: "0px" }} />
         <span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize:"0.9rem"}}>hello, {showUserData.nickname}</span>
         <i className="far fa-bell color_black" style={{ fontSize: "1.8rem", marginLeft: "auto", marginBottom: "3px" }}></i>
         <Navbutton color="black" style={{ marginLeft: "15px", marginRight: "5px", marginBottom: "3px"}} setShowMenu={setShowMenu} showMenu={showMenu} />
       </Navbar>
       { showMenu ? <Menu setShowMenu={setShowMenu} showMenu={showMenu} /> : null }
+      
       <h1 className={styles.mentoring__title}>Mentoring 갠찬으시겠어요? 😁😎</h1>
       <div style={{ width: "100%", height: "240px", marginTop: "20px", marginBottom: "10px", marginLeft: "1em" }}>
         <Cardslider data={mentoringClassList}
           history={props.history}
         />
       </div>
+      
       <h1 className={styles.friend__reco__title}>친구추천🙌</h1>
       <div style={{ width: "100%", height: "200px", marginBottom: "45px", padding: "0.5em" }}>
         <Badgeslider

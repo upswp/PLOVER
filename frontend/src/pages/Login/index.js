@@ -53,6 +53,7 @@ const Login = (props) => {
         //로컬스토리지에 이메일,닉네임,유저번호 저장
         localStorage.setItem('email', res.data.data.email);
         localStorage.setItem('nickname', res.data.data.nickName);
+        localStorage.setItem('profileImageUrl', res.data.data.profileImageUrl);
         localStorage.setItem('no', res.data.data.no);
         console.log(res.data.data);
 
