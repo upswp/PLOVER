@@ -58,13 +58,13 @@ const mentoringClassList = [
   }
 ]
 
-
 const Home = (props) => {
   const [showMenu, setShowMenu] = useState(false);
   const [recommendedFriendList, setRecommendedFriendList] = useState([]);
   const [studyArticleList, setStudyArticleList] = useState([]);
   const [studyNoticeList, setStudyNoticeList] = useState([]); 
-  
+  const [showUserData, setShowUserData] = useState({});
+
   useEffect(() => {
     // axios.get('https://dev.plover.co.kr/ssafy/user/random')
     restapi.get('/user/random')
@@ -83,13 +83,18 @@ const Home = (props) => {
     .then((response) => {
       setStudyNoticeList(response.data.data.studies)
     })
+
+    const nickname = localStorage.getItem('nickname');
+    const email = localStorage.getItem('email');
+    
+    setShowUserData({nickname, email});
   }, [])
 
   return (
     <>
       <Navbar color="white" style={{ marginTop: "20px", width: "95%", marginLeft: "auto", marginRight: "auto"}}>
         <Imgbox src={user1} size="small" shape="circle" style={{ marginLeft: "0px" }} />
-        <span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize:"0.9rem"}}>hello, jiyoung_321</span>
+        <span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize:"0.9rem"}}>hello, {showUserData.nickname}</span>
         <i className="far fa-bell color_black" style={{ fontSize: "1.8rem", marginLeft: "auto", marginBottom: "3px" }}></i>
         <Navbutton color="black" style={{ marginLeft: "15px", marginRight: "5px", marginBottom: "3px"}} setShowMenu={setShowMenu} showMenu={showMenu} />
       </Navbar>
