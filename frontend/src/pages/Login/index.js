@@ -54,6 +54,7 @@ const Login = (props) => {
         localStorage.setItem('email', res.data.data.email);
         localStorage.setItem('nickname', res.data.data.nickName);
         localStorage.setItem('no', res.data.data.no);
+        console.log(res.data.data);
 
         props.history.push({
           pathname: '/home'
