@@ -53,12 +53,12 @@ function Detail(props) {
                 </span>
                 <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">멘토링 상세보기</Typo></FadeIn></span>
                 <span style={{ cursor: "pointer" }} key={(localStorage.getItem('email') === mentoring.email ? "edit" : "no_edit")} onClick={() => {
-                    if (localStorage.getItem('id') !== null) props.history.replace(`/mentoring/edit/${event.getIndex()}`);
+                    if (localStorage.getItem('email') === mentoring.email) props.history.replace(`/mentoring/edit/${event.getIndex()}`);
                 }}>
                     <i className={"fas fa-user-edit " + "color_black " + styles.write_icon} style={{ visibility: (localStorage.getItem('email') === mentoring.email ? "visible" : "hidden") }}></i>
                 </span>
                 <span style={{ cursor: "pointer" }} key={(localStorage.getItem('email') === mentoring.email ? "delete" : "no_delete")} onClick={() => {
-                    if (localStorage.getItem('id') !== null) event.deleteMentoring();
+                    if (localStorage.getItem('email') === mentoring.email) event.deleteMentoring();
                 }}>
                     <i className={"fas fa-trash-alt " + "color_black " + styles.write_icon} style={{ visibility: (localStorage.getItem('email') === mentoring.email ? "visible" : "hidden") }}></i>
                 </span>
