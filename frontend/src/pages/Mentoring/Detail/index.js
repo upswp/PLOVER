@@ -149,6 +149,8 @@ function Detail(props) {
                                         {comment.content}
                                     </div>
                                     <div className={styles.que_datetime} style={{ cursor: "pointer" }} onClick={() => {
+                                        if (localStorage.getItem('email') !== comment.email) return;
+
                                         restapi.delete(`/comment/${comment.commentId}`)
                                             .then((res) => {
                                                 if (res.status == 200) {
@@ -165,7 +167,7 @@ function Detail(props) {
                                                 console.log(err);
                                                 alert('삭제 실패');
                                             })
-                                    }}>삭제</div>
+                                    }}>{localStorage.getItem('email') === comment.email ? "삭제" : ""}</div>
                                 </div>
                             </div>
                         )
