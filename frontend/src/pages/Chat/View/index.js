@@ -62,6 +62,15 @@ function View(props) {
         addEvent();
     }, []);
 
+    useEffect(() => {
+        scrollBottom();
+    }, [list]);
+
+    let scrollBottom = useCallback(() => {
+        console.log("callback")
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }, [list]);
+
     return (
         <div className={styles.chatting_view}>
             <Navbar color="white">
@@ -79,7 +88,7 @@ function View(props) {
                 <FadeIn delay={100}>
                     {
                         list.map((chat, i) => {
-                            if (chat.nickname !== localStorage.getItem('nickname')) {
+                            if (chat.writerNickName !== localStorage.getItem('nickname')) {
                                 return (
                                     <div key={"chat_" + i} className={styles.chat_box}>
                                         <div className={styles.chat_box_left}>
