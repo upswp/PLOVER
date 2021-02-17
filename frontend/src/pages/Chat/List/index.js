@@ -91,7 +91,9 @@ function List(props) {
                     {
                         list.map((v, i) => {
                             return (
-                                <div key={`chatbox_${i}`} className={styles.chatbox}>
+                                <div key={`chatbox_${i}`} className={styles.chatbox} style={{ cursor: "pointer" }} onClick={() => {
+                                    props.history.push(`/chat/view/${v.fromId}`);
+                                }}>
                                     <div className={styles.imgbox}><Imgbox shape="circle" src={v.profileImage} className={styles.image} /></div>
                                     <div className={styles.nicknamebox}>{v.nickname}</div>
                                     <div className={styles.msgbox}>{v.message}</div>
