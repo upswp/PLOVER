@@ -9,15 +9,17 @@ public class LoginResponse {
     private String email;
     private String nickName;
     private String profileImageUrl;
+    private String accessToken;
 
-    public LoginResponse(Long no, String email, String nickName,String profileImageUrl) {
+    public LoginResponse(Long no, String email, String nickName,String profileImageUrl, String accessToken) {
         this.no = no;
         this.email = email;
         this.nickName = nickName;
         this.profileImageUrl = profileImageUrl;
+        this.accessToken = accessToken;
     }
 
-    public static LoginResponse of(Users user){
-        return new LoginResponse(user.getNo(),user.getEmail(),user.getNickName(),user.getProfileImageUrl());
+    public static LoginResponse of(Users user, String accessToken){
+        return new LoginResponse(user.getNo(),user.getEmail(),user.getNickName(),user.getProfileImageUrl(), accessToken);
     }
 }
