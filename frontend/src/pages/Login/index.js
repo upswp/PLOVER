@@ -3,7 +3,7 @@ import styles from './index.module.css';
 import ButtonComp from 'src/components/ButtonComp/ButtonComp';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import firebase from 'firebase';
+import fire from 'src/fire';
 
 const Login = (props) => {
 
@@ -33,8 +33,8 @@ const Login = (props) => {
       if (res.data.response === "success") {
 
         //FCM 토큰 코드 추가
-        let massage = firebase.messaging();
-        massage.getToken().then(fcmtoken => {
+        let massage = fire.messaging();
+        massage.getToken().then(fcmtoken => { 
           axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, {
             token: fcmtoken
           })
