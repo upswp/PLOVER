@@ -114,7 +114,7 @@ public class AccountService {
     }
     
     public void sendVerificationMail(Users user) throws NotFoundException {
-        String VERIFICATION_LINK = "https://dev.plover.co.kr/ssafy/account/verified/";
+        String VERIFICATION_LINK = "https://dev.plover.co.kr/ssafy/account/verify/";
         if(user==null) throw new NotFoundException("멤버가 조회되지 않음");
         UUID uuid = UUID.randomUUID();
         redisUtil.setDataExpire(uuid.toString(),user.getEmail(), 60 * 30L);

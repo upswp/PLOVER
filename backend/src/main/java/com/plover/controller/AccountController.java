@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -179,20 +180,17 @@ public class AccountController {
         return response;
     }
 
-    @GetMapping("/verified/{key}")
+    @GetMapping("/verify/{key}")
     @ApiOperation(value = "이메일 인증 확인",
             notes = "이메일에 로그인 후, 주소를 누르면 이메일 인증이 완료된다.",
             response = Response.class)
-    public Response getVerify(@PathVariable String key) {
-        Response response;
+    public Object getVerify(HttpServletResponse response, @PathVariable String key) {
         try {
             accountService.verifyEmail(key);
-            response = new Response("success", "성공적으로 인증메일을 확인했습니다.", null);
-
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, "https://dev.plover.co.kr/verified/success").build();
         } catch (Exception e) {
-            response = new Response("error", "인증메일을 확인하는데 실패했습니다.", null);
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, "https://dev.plover.co.kr/verified/fail").build();
         }
-        return response;
     }
 
     @GetMapping("/password/{key}")
