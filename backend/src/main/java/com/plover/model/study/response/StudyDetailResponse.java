@@ -10,6 +10,7 @@ import java.util.Set;
 @Getter
 @ToString
 public class StudyDetailResponse {
+    private Long no;
     private String nickName;
     private String profileImageUrl;
     private String title;
@@ -17,7 +18,8 @@ public class StudyDetailResponse {
     private Set<HashtagResponse> hashtags;
     private LocalDateTime createDate;
 
-    public StudyDetailResponse(String nickName, String profileImageUrl,String title, String content, Set<HashtagResponse> hashtags, LocalDateTime createDate) {
+    public StudyDetailResponse(Long no, String nickName, String profileImageUrl,String title, String content, Set<HashtagResponse> hashtags, LocalDateTime createDate) {
+        this.no = no;
         this.nickName = nickName;
         this.profileImageUrl = profileImageUrl;
         this.title = title;
@@ -28,6 +30,7 @@ public class StudyDetailResponse {
 
     public static StudyDetailResponse of(Study study) {
         return new StudyDetailResponse(
+                study.getUser().getNo(),
                 study.getUser().getNickName(),
                 study.getUser().getProfileImageUrl(),
                 study.getTitle(),
