@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Navbutton from '../Navbar/Navbutton';
 import styles from './Menu.module.css';
 import {MenuItems} from './MenuItems';
@@ -6,6 +6,16 @@ import {MenuItems} from './MenuItems';
 
 const Menu = ({setShowMenu, showMenu, history}) => {
 
+  const moveLink = (url) => {
+    console.log(url);
+    if (url === '/profile') {
+      const userId = localStorage.getItem('no');
+      console.log(userId);
+      history.push({pathname: `${url}/${userId}`});
+    } else {
+      history.push({pathname: url})
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -20,10 +30,10 @@ const Menu = ({setShowMenu, showMenu, history}) => {
           {
             MenuItems.map((item, index) => {
               return (
-                <li key={index} className={styles.items} onClick={() => {history.push({pathname: item.url})}}>
-                  <a className={styles.item} href={item.url}>
+                <li key={index} className={styles.items} onClick={() => {moveLink(item.url)}}>
+                  <div className={styles.item}>
                     {item.title}
-                  </a>
+                  </div>
                 </li>
               )
             })}
