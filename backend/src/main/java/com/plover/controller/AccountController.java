@@ -1,11 +1,11 @@
 package com.plover.controller;
 
 import com.plover.model.Response;
-import com.plover.model.notification.Response.NotificationResponse;
 import com.plover.model.user.Users;
 import com.plover.model.user.request.*;
-import com.plover.service.FCMService;
+import com.plover.model.user.response.LoginResponse;
 import com.plover.service.AccountService;
+import com.plover.service.FCMService;
 import com.plover.utils.CookieUtil;
 import com.plover.utils.JwtUtil;
 import com.plover.utils.RedisUtil;
@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
@@ -34,10 +33,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 @ApiResponses(value = {
         @ApiResponse(code = 401, message = "Unauthorized", response = Response.class),
@@ -92,7 +89,7 @@ public class AccountController {
             response.addCookie(accessToken);
             response.addCookie(refreshToken);
 
-            return new ResponseEntity<>(new Response("success", "로그인에 성공했습니다.", token), HttpStatus.OK);
+            return new ResponseEntity<>(new Response("success", "로그인에 성공했습니다.", LoginResponse.of(user)), HttpStatus.OK);
         } catch(Exception e) {
             return new ResponseEntity<>(new Response("error", "로그인에 실패했습니다. 아이디/비밀번호 확인", e.getMessage()), HttpStatus.UNAUTHORIZED);
         }

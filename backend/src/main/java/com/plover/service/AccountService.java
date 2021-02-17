@@ -1,9 +1,5 @@
 package com.plover.service;
 
-import java.util.UUID;
-
-import javax.transaction.Transactional;
-
 import com.plover.config.UserRole;
 import com.plover.model.user.Salt;
 import com.plover.model.user.Users;
@@ -12,10 +8,12 @@ import com.plover.repository.SaltRepository;
 import com.plover.repository.UserRepository;
 import com.plover.utils.RedisUtil;
 import com.plover.utils.SaltUtil;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javassist.NotFoundException;
+import javax.transaction.Transactional;
+import java.util.UUID;
 
 @Service
 public class AccountService {
@@ -116,7 +114,7 @@ public class AccountService {
     }
     
     public void sendVerificationMail(Users user) throws NotFoundException {
-        String VERIFICATION_LINK = "https://dev.plover.co.kr/ssafy/account/verify/";
+        String VERIFICATION_LINK = "https://dev.plover.co.kr/ssafy/account/verified/";
         if(user==null) throw new NotFoundException("멤버가 조회되지 않음");
         UUID uuid = UUID.randomUUID();
         redisUtil.setDataExpire(uuid.toString(),user.getEmail(), 60 * 30L);
