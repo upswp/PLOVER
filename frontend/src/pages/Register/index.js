@@ -194,7 +194,7 @@ function Register(props) {
       description: description,
     }
     console.log(img)
-    console.log(userData)
+    // console.log(userData)
     formData.append('file', img)
     formData.append('user', new Blob([JSON.stringify(userData)], {type: 'application/json'}))
     await axios.post("https://dev.plover.co.kr/ssafy/account/signup", formData)
@@ -261,7 +261,7 @@ function Register(props) {
       </div>
 
       <Typo ty="desc" className={styles.label}>기수</Typo>
-      <Select id="generation" onchange={onGenerationHandler}>
+      <Select id="generation" onchange={onGenerationHandler} className={styles.select}>
         <option value="">기수를 선택하세요</option>
         <option value="1기">1기</option>
         <option value="2기">2기</option>
@@ -271,7 +271,7 @@ function Register(props) {
       </Select>
 
       <Typo ty="desc" className={styles.label}>캠퍼스 선택</Typo>
-      <Select id="campus" onchange={onCampusHandler}>
+      <Select id="campus" onchange={onCampusHandler} className={styles.select}>
         <option value="">지역을 선택하세요</option>
         <option value="서울 캠퍼스">서울 캠퍼스</option>
         <option value="대전 캠퍼스">대전 캠퍼스</option>
