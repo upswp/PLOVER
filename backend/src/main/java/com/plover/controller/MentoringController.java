@@ -123,7 +123,7 @@ public class MentoringController {
         return response;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @ApiOperation(value = "멘토링 게시글 한 개의 정보 수정(로그인필수)",
             notes = "수정하려는 정보와 멘토링의 아이디를 전달 받아 해당 게시글의 정보를 수정한다.",
             response = Response.class)
