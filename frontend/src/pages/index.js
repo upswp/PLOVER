@@ -13,3 +13,4 @@ export { SRegister, SList, SDetail } from "./Study";
 export { LManage, LView } from "./Live";
 export { default as Search } from "./Search";
 export { default as Follow } from "./Follow";
+export { CList, CView } from "./Chat";

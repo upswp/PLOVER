@@ -6,7 +6,8 @@ import {
   MRegister, MList, MDetail, MEdit,
   SRegister, SList, SDetail,
   LManage, LView,
-  Search, Follow
+  Search, Follow,
+  CList, CView
 } from './pages';
 import styles from "./App.module.css"
 import "./global.color.css";
@@ -37,6 +38,8 @@ function App() {
       <Route path="/live/view" component={LView} />
       <Route path="/search" component={Search} />
       <Route path="/follow" component={Follow} />
+      <Route path="/chat/list" component={CList} />
+      <Route path="/chat/view" component={CView} />
     </div>
   );
 }
