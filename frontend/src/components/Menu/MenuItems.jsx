@@ -1,22 +1,22 @@
 export const MenuItems = [
   {
     title: '홈',
-    url: '#',
+    url: '/home',
     cName: 'menu-links'
   },
   {
-    title: '친구 추천',
+    title: '프로필',
     url: '#',
     cName: 'menu-links'
   },
   {
     title: '멘토링 클래스',
-    url: '#',
+    url: '/mentoring/list',
     cName: 'menu-links'
   },
   {
     title: '스터디 클래스',
-    url: '#',
+    url: '/study/list',
     cName: 'menu-links'
   },
   {
