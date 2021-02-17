@@ -1,7 +1,6 @@
 package com.plover.model.mentoring.response;
 
 import com.plover.model.mentoring.Comment;
-import com.plover.model.mentoring.Mentoring;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class CommentResponse {
+    private String email;
 
     private String nickName;
 
@@ -22,7 +22,8 @@ public class CommentResponse {
 
     private String content;
 
-    public CommentResponse(String nickName, String profileImageUrl, Long mentoringId, Long commentId, String content) {
+    public CommentResponse(String email, String nickName, String profileImageUrl, Long mentoringId, Long commentId, String content) {
+        this.email = email;
         this.nickName = nickName;
         this.profileImageUrl = profileImageUrl;
         this.mentoringId = mentoringId;
@@ -32,6 +33,7 @@ public class CommentResponse {
 
     public static CommentResponse of(Comment comment){
         return new CommentResponse(
+                comment.getUser().getEmail(),
                 comment.getUser().getNickName(),
                 comment.getUser().getProfileImageUrl(),
                 comment.getMentoring().getId(),
