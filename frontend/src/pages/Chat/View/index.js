@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Navbar, Typo, Input, ButtonComp, Imgbox } from "src/components";
 import fire from "src/fire";
 import styles from "./index.module.css";
