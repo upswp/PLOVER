@@ -218,7 +218,7 @@ function Edit(props) {
                         alert("내용을 입력해주세요.");
                         return;
                     }
-                    /*
+
                     console.log(`제목 : ${title}`);
                     console.log(`유형 : ${type}`);
                     console.log(`시작날짜 : ${startDate}`);
@@ -228,7 +228,7 @@ function Edit(props) {
                     console.log(`내용 : ${setLineToPtag(document.getElementById("content").value)}`);
                     console.log(`장소 : ${place}`);
                     console.log(`모집인원 : ${personnel}`);
-                    */
+
 
                     const mentoring = {
                         title: title,
