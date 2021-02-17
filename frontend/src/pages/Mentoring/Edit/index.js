@@ -231,6 +231,7 @@ function Edit(props) {
 
 
                     const mentoring = {
+                        id: event.getIndex(),
                         title: title,
                         type: type,
                         startDate: startDate,
@@ -252,7 +253,7 @@ function Edit(props) {
                     formData.append('file', imgattach.current.state.imgFile);
                     formData.append('mentoring', new Blob([JSON.stringify(mentoring)], { type: 'application/json' }));
 
-                    restapi.put(`/mentoring/${event.getIndex()}`, formData)
+                    restapi.put(`/mentoring`, formData)
                         .then((res) => {
                             if (res.status == 200) {
                                 console.log(res)
