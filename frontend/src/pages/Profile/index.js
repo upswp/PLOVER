@@ -44,6 +44,7 @@ const Profile = (props) => {
           ...userInfo,
           followerNum: userInfo.followerNum + 1
         })
+        setCheckFollow(true);
       })
       .catch((error) => {console.error(error)})
   }
@@ -56,6 +57,7 @@ const Profile = (props) => {
           ...userInfo,
           followerNum: userInfo.followerNum - 1
         })
+        setCheckFollow(false);
       })
       .catch((error) => {console.log(error)})
   }
