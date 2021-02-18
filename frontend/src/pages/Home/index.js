@@ -11,6 +11,7 @@ import Noticeslider from 'src/components/Slider/Noticeslider';
 import restapi from 'src/api/restapi';
 import StudyList from 'src/components/StudyList/StudyList';
 import FadeIn from "react-fade-in";
+import Skeleton from 'src/components/Skeleton/Skeleton';
 
 
 const Home = (props) => {
@@ -20,6 +21,29 @@ const Home = (props) => {
   const [studyNoticeList, setStudyNoticeList] = useState([]);
   const [showUserData, setShowUserData] = useState({});
   const [mentoringClassList, setMentoringClassList] = useState([]);
+
+  const onHandlerLogout = () => {
+    localStorage.removeItem('nickname')
+    localStorage.removeItem('email')
+    localStorage.removeItem('profileImageUrl')
+    localStorage.removeItem('accessToken')
+    setShowUserData({})
+  }
+
+  const renderNavItem = () => {
+    return (
+      showUserData.accessToken ? 
+      <>
+        <Imgbox src={showUserData.profileImageUrl} size="small" shape="circle" style={{ marginLeft: "0px" }} />
+        <FadeIn delay={400}><span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>hello, {showUserData.nickname}</span></FadeIn>
+        <button className={styles.logout__Button} onClick={onHandlerLogout}><i className="fas fa-running" style={{ marginLeft: "auto", marginBottom: "3px" }}></i></button>
+      </> :
+      <>
+        <Skeleton shape="circle" style={{ width: "40px", height: "40px", marginLeft: "5px", marginTop: "5px" }} />
+        <FadeIn delay={400}><span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>hello, Sign In Please ~ :) </span></FadeIn>
+      </>
+    )
+  }
 
   useEffect(() => {
     // axios.get('https://dev.plover.co.kr/ssafy/user/random')
@@ -49,15 +73,15 @@ const Home = (props) => {
     const nickname = localStorage.getItem('nickname');
     const email = localStorage.getItem('email');
     const profileImageUrl = localStorage.getItem('profileImageUrl');
+    const accessToken = localStorage.getItem('accessToken');
 
-    setShowUserData({ nickname, email, profileImageUrl });
+    setShowUserData({ nickname, email, profileImageUrl, accessToken });
   }, [])
 
   return (
     <>
       <Navbar color="white" style={{ marginTop: "20px", width: "95%", marginLeft: "auto", marginRight: "auto" }}>
-        <Imgbox src={showUserData.profileImageUrl} size="small" shape="circle" style={{ marginLeft: "0px" }} />
-        <FadeIn delay={400}><span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>hello, {showUserData.nickname}</span></FadeIn>
+        {renderNavItem()}
         <i className="far fa-bell color_black" style={{ fontSize: "1.8rem", marginLeft: "auto", marginBottom: "3px" }}></i>
         <Navbutton color={showMenu ? "white" : "black"} style={{ marginLeft: "15px", marginRight: "5px", marginBottom: "3px", zIndex: "999" }} setShowMenu={setShowMenu} showMenu={showMenu} />
       </Navbar>
