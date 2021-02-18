@@ -50,10 +50,6 @@ export default class Event {
             return;
         }
 
-        console.log(content);
-
-        return;
-
         console.log("== registerStudy ==");
         await restapi.post("/study/article", {
             content: content,
