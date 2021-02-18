@@ -25,12 +25,17 @@ const Home = (props) => {
   const [notificationPulse, setNotificationPulse] = useState(false);
 
   const onHandlerLogout = () => {
-    localStorage.removeItem('nickname')
-    localStorage.removeItem('email')
-    localStorage.removeItem('profileImageUrl')
-    localStorage.removeItem('accessToken')
-    setShowUserData({})
-    props.history.replace('/login');
+    restapi.get('/account/logout')
+      .then(() => {
+        localStorage.removeItem('nickname')
+        localStorage.removeItem('email')
+        localStorage.removeItem('profileImageUrl')
+        localStorage.removeItem('accessToken')
+        setShowUserData({})
+        props.history.replace('/login');
+      })
+      .catch(() => {})
+    
   }
 
   const renderNavItem = () => {
