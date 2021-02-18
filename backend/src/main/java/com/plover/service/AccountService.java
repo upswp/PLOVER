@@ -78,10 +78,10 @@ public class AccountService {
 		
 		 String password = request.getPassword();
 		 String salt = saltUtil.genSalt();
-
+		 logger.info(request.getProfileImageUrl());
 		 if(request.getProfileImageUrl().equals("") || request.getProfileImageUrl()==null){
 			 request.setProfileImageUrl("images/default-image.png");
-			 logger.info(request.getProfileImageUrl());
+
 		 }
 
 		 Users user = Users.builder()
