@@ -1,10 +1,10 @@
 import React from 'react';
 import StudyListItem from './StudyListItem';
 
-const StudyList = ({data}) => {
+const StudyList = ({ data }) => {
   return (
-    data.map((item) => {
-      return <StudyListItem item={item}/>;
+    data.map((item, i) => {
+      return <StudyListItem key={"study_list_" + i} item={item} />;
     })
   )
 };
