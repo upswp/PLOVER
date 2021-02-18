@@ -15,7 +15,6 @@ function Verified(props) {
   })
 
   const key = document.location.href.split('/')[4]
-  // console.log(key)
 
   function GetVerified() {
     if (key === "success") {

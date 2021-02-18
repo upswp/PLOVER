@@ -46,7 +46,6 @@ function Register(props) {
   };
 
   const handleChangeFile = (event) => {
-    console.log(event.target.files[0])
     setImg(event.target.files[0])
 
     const reader = new FileReader()
@@ -57,7 +56,7 @@ function Register(props) {
       }
   }
   const handleRemove = () => {
-    setImg(null)
+    setImg('/images/default-images.png')
   };
 
   function PassConfirm() {
@@ -87,7 +86,6 @@ function Register(props) {
 
   const dupEmail = () => {
     if (email <= 0) {
-      console.log('default')
       return
     }
     axios.get("https://dev.plover.co.kr/ssafy/account/checkDupEmail",{
@@ -96,8 +94,6 @@ function Register(props) {
     }})
     .then((res) => {
       if (res.status === 200) {
-        console.log(email)
-        console.log(res)
         if (res.data.response === "success") {
           alert('이메일을 사용할 수 있습니다.')
           const disableEmail = document.getElementById('email')
@@ -119,22 +115,18 @@ function Register(props) {
   }
 
   const validEmail = (str) => {
-    console.log(str)
     let valid = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if (valid.test(str)) {
       dupEmail()
     }
     else {
-      console.log(str)
       alert('이메일 형식이 아닙니다.')
       return
     }
   }
 
   const dupNickname = () => {
-    console.log('asdf')
     if (nickname <= 0) {
-      console.log('default')
       return
     }
     axios.get("https://dev.plover.co.kr/ssafy/account/checkDupNickName",{
@@ -143,8 +135,6 @@ function Register(props) {
     }})
     .then((res) => {
       if (res.status === 200) {
-        console.log(nickname)
-        console.log(res)
         if (res.data.response === "success") {
           alert('닉네임을 사용할 수 있습니다.')
           const disableNick = document.getElementById('nickname')
@@ -182,7 +172,6 @@ function Register(props) {
       alert('비밀번호 확인이 일치하지 않습니다.')
       return
     }
-    console.log('register')
 
     const formData = new FormData()
     const userData = {
@@ -193,27 +182,23 @@ function Register(props) {
       campus: campus,
       description: description,
     }
-    console.log(img)
-    // console.log(userData)
     formData.append('file', img)
     formData.append('user', new Blob([JSON.stringify(userData)], {type: 'application/json'}))
+    console.log(formData)
     await axios.post("https://dev.plover.co.kr/ssafy/account/signup", formData)
     .then((res) => {
       if (res.status == 200) {
-        console.log(res)
         history.push({
           pathname: '/verify',
           state: {email: email}
         })
       }
       else {
-        console.log(res)
-        alert('실패')
+        alert('회원가입 실패')
       }
     })
     .catch((err) => {
-      console.log(err)
-      alert('실패')
+      alert('회원가입 실패')
     })
   }
 
