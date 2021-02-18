@@ -32,7 +32,6 @@ const Login = (props) => {
       password
     }
     ).then(res => {
-      console.log(res);
       if (res.data.response === "success") {
 
         //FCM 토큰 코드 추가

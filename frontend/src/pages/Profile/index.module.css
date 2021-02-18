@@ -67,10 +67,35 @@
   margin: 25px;
 }
 
-.editBtn {
-  display: flex;
-  box-sizing: border-box;
-  border-style: none;
-  background-color: white;
-  font-size: 1rem;
+.profileDescription {
+  width: 90%;
+  margin: 20px 10px 10px 10px;
+  overflow: hidden;
 }
+
+.profileEdit {
+  display: flex;
+  flex-direction: column;
+}
+
+.editBtn {
+  position: absolute;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  width: 5rem;
+  height: 2rem;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 7px;
+  color: rgb(255, 255, 255);
+  background-color: rgba(128, 0, 128, 0.678);
+  font-size: 1rem;
+  padding: 3px 10px;
+}
+
+/* .editBtnText {
+  font-size: 16px;
+  margin-right: 0.3em;
+} */
