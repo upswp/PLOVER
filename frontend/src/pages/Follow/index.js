@@ -56,9 +56,7 @@ const Follow = (props) => {
     .catch((err) => {
       // console.log(err)
     })
- 
-    
-    axios.get('https://dev.plover.co.kr/ssafy/follow/follower/1/0')
+    axios.get(request)
     .then((res) => {
       setFollower(res.data.data.followUsers)
       // console.log(followers)
@@ -109,11 +107,11 @@ const Follow = (props) => {
       <span className={"color_black" + " " + styles.title}><Typo ty="h4">{username}</Typo></span>
     </Navbar>
     <Tabs className={styles.tab}>
-      <div label={numFollowing}>
-        <FollowingList></FollowingList>
-      </div>
       <div label={numFollower}>
         <FollowerList></FollowerList>
+      </div>
+      <div label={numFollowing}>
+        <FollowingList></FollowingList>
       </div>
     </Tabs>
     </div>
