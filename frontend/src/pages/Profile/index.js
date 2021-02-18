@@ -16,27 +16,22 @@ const Profile = (props) => {
 
   useEffect(() => {
     restapi.get(`/user/${props.match.params.id}`)
-    .then((response) => {
-      setUserInfo(response.data.data);
-    })
-    .catch(() => {
-      props.history.push({pathname: '/home'})
-    })
+      .then((response) => {
+        setUserInfo(response.data.data);
+      })
+      .catch(() => {
+        props.history.push({pathname: '/home'})
+      })
   }, [])
 
   const moveChatPage = () => {
     props.history.push(`/chat/view/${userInfo.no}`);
   }
 
-  const onFollow = () => {
-    // setUserNo(userInfo.no)
-    // restapi.post(`/follow`,{
-    //   userNo
-    // })
-    // .then((response) => {
-    //   console.log(response);
-    // })
-    // .catch(() => {})
+  const onFollowHandler = () => {
+    restapi.post('/follow', {toUserNo: props.match.params.id})
+      .then((response) => {console.log(response)})
+      .catch((error) => {console.error(error)})
   }
 
   const renderBtnComponent = () => {
@@ -44,8 +39,30 @@ const Profile = (props) => {
     return (
       props.match.params.id === userId ? null :
       <div className={styles.otherDisplayBtn}>
-        <ButtonComp width="regular" type="base" textvalue="팔로우" className={styles.followBtn} onClick={onFollow}/>
+        <ButtonComp width="regular" type="base" textvalue="팔로우" className={styles.followBtn} onClick={onFollowHandler}/>
         <ButtonComp width="regular" type="base" textvalue="메시지" className={styles.messageBtn} onClick={moveChatPage}/>
+      </div>
+    )
+  }
+
+  const renderProfileComponent = () => {
+    const userId = localStorage.getItem('id');
+    return (
+      <div className={styles.userIntro}>
+        {
+          props.match.params.id !== userId ?
+          <div className={styles.profileDescription}>{ ReactHtmlParser(userInfo.description) }</div> : 
+          editMode ? 
+          <TextEditor userInfo={userInfo} setUserInfo={setUserInfo} setEditMode={setEditMode} /> :
+          <div className={styles.profileEdit}>
+            <button onClick={() => {setEditMode(!editMode)}} className={styles.editBtn}>
+              <p className={styles.editBtnText}>EDIT</p>
+              <i class="fas fa-pencil-alt" className={styles.editIcon}></i>
+            </button>
+            <div className={styles.profileDescription}>{ ReactHtmlParser(userInfo.description) }</div>
+          </div>
+        } 
+        
       </div>
     )
   }
@@ -90,17 +107,7 @@ const Profile = (props) => {
       </div>
       <h1 className={styles.userNickname}>{userInfo.nickname}</h1>
       {renderBtnComponent()}
-      <div className={styles.userIntro}>
-        {
-          editMode ? 
-          <TextEditor userInfo={userInfo} setUserInfo={setUserInfo} setEditMode={setEditMode} /> :
-          <>
-            <button onClick={() => {setEditMode(!editMode)}} className={styles.editBtn}><h1>EDIT</h1><i class="fas fa-pencil-alt"></i></button>
-            <div>{ ReactHtmlParser(userInfo.description) }</div>
-          </>
-        }
-        
-      </div>
+      {renderProfileComponent()}
     </>
   );
 };
