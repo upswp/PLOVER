@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import {
   Typo, Navbar, ButtonComp, 
@@ -17,20 +17,26 @@ function Verify (props) {
 
   const email = location.state.email
 
+  const [num, setNum] = useState(0)
+
   useEffect(() => {
-    sendEmail()
+    if (num === 0) {
+      sendEmail()
+    }
+    setNum(1)
   }, [])
 
-  function sendEmail() {
+  const sendEmail = () => {
     axios.post('https://dev.plover.co.kr/ssafy/account/verify',{
       email: email
     })
     .then((res) => {
-      alert('이메일이 재발송되었습니다.')
+      if (num===1) {
+        alert('이메일이 재발송되었습니다.')
+      }
     }
     )
     // .catch((err) => {
-    //   console.log(err)
     // })
   }
 
