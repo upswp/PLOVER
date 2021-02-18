@@ -4,7 +4,7 @@ import StudyListItem from './StudyListItem';
 const StudyList = ({ data }) => {
   return (
     data.map((item, i) => {
-      return <StudyListItem key={"study_list_" + i} item={item} />;
+      return <StudyListItem key={"study_list_" + i} item={item} onClick={()=> {'wow'}}/>;
     })
   )
 };
