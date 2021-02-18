@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import styles from './index.module.css';
 import ButtonComp from 'src/components/ButtonComp/ButtonComp';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import fire from 'src/fire';
+import { Typo } from 'src/components';
 
 const Login = (props) => {
+
+  const history = useHistory()
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,12 +74,13 @@ const Login = (props) => {
 
   return (
     <div className={styles.login}>
-      {loginCheck && <Redirect to="/study/list" />}
+      {loginCheck && <Redirect to="/home" />}
       <h1 className={styles.login__title}>PLOVER</h1>
       <form className={styles.login__form} onSubmit={onSubmitHandler}>
         <input className={styles.login__input} value={email} type="text" placeholder="ID" autoCapitalize="off" onChange={onEmailHandler} />
         <input className={styles.login__input} value={password} type="password" placeholder="PW" onChange={onPasswordHandler} />
         <ButtonComp width="login" type="login-option" textvalue="로그인" />
+        <ButtonComp className={styles.register} width="login" type="login-option" textvalue="회원가입" onClick={() => { history.push("/register") }}></ButtonComp>
       </form>
     </div>
   );

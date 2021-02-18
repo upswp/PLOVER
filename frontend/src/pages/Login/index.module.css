@@ -43,3 +43,20 @@
   background: none;
   margin-bottom: 1em;
 }
+
+.register {
+  background-color: rgba(0,0,0,0);
+  color: black;
+  border: 1px solid rgba(0,0,0,0.5);
+  border-width: 2px;
+  margin-top: 10px;
+  z-index: 99;
+}
+
+.register:hover {
+  cursor: pointer;
+  border: 1px solid var(--color-black);
+  background-color: rgba(0,0,0,0);
+  opacity: 0.8;
+  transition: all 200ms ease-in-out;
+}

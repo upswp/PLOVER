@@ -7,7 +7,7 @@ export { default as Verified } from "./Verified";
 export { default as Login } from "./Login";
 export { default as Home } from "./Home";
 export { default as Profile } from "./Profile";
-export { default as Alarm } from "./Alarm";
+export { default as Notification } from "./Notification";
 export { MRegister, MList, MDetail, MEdit } from "./Mentoring";
 export { SRegister, SList, SDetail } from "./Study";
 export { LManage, LView } from "./Live";

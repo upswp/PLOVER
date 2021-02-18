@@ -4,7 +4,7 @@ import { Typo, Navbar } from '../../components'
 import styles from './index.module.css'
 import axios from 'axios'
 
-function Alarm(props) {
+function Notification(props) {
 
   const history = useHistory()
   
@@ -19,4 +19,4 @@ function Alarm(props) {
   )
 }
 
-export default Alarm;
+export default Notification;
