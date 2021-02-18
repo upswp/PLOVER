@@ -10,7 +10,7 @@
 
 |   Name   | 윤기현                                                       | 이아영                                                       | 박상우                                                       | 임장순                                                       | 박지영                                                       | 차수연                                                       |
 | :------: | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Profile  | ![그림4](https://user-images.githubusercontent.com/70404643/108405582-93fc1780-7264-11eb-9ff2-61d106ef4423.png) | ![그림5](https://user-images.githubusercontent.com/70404643/108405567-8f376380-7264-11eb-95b7-8f842cc73a6e.png) | ![그림3](https://user-images.githubusercontent.com/70404643/108405497-7af36680-7264-11eb-861e-7c9085bbe8f3.png) | ![그림6](https://user-images.githubusercontent.com/70404643/108405549-8b0b4600-7264-11eb-89ef-d3c5155ecf3c.jpg) | ![그림7](https://user-images.githubusercontent.com/70404643/108405530-86469200-7264-11eb-8d44-93b71eb2ca2d.png) | ![그림8](https://user-images.githubusercontent.com/70404643/108405518-821a7480-7264-11eb-9436-f8251aa4f5fe.png) |
+| Profile  | ![그림4](https://user-images.githubusercontent.com/70404643/108405582-93fc1780-7264-11eb-9ff2-61d106ef4423.png) | ![unknown](https://user-images.githubusercontent.com/70404643/108406929-687a2c80-7266-11eb-9f26-b52c9b34997e.png) | ![그림3](https://user-images.githubusercontent.com/70404643/108405497-7af36680-7264-11eb-861e-7c9085bbe8f3.png) | ![그림6](https://user-images.githubusercontent.com/70404643/108405549-8b0b4600-7264-11eb-89ef-d3c5155ecf3c.jpg) | ![그림7](https://user-images.githubusercontent.com/70404643/108405530-86469200-7264-11eb-8d44-93b71eb2ca2d.png) | ![그림8](https://user-images.githubusercontent.com/70404643/108405518-821a7480-7264-11eb-9436-f8251aa4f5fe.png) |
 | Position | CI/CD구성 및관리, 서버 개발                                  | 서버 개발                                                    | 팀장 & 서버개발 & 기획                                       | UI/UX 디자인 & 개발                                          | 기획 & UI/UX 디자인 & 개발                                   | UI/UX 디자인 & 개발 & UCC                                    |
 |   Git    | [@KihyeonYun](https://github.com/KiHyeonYun)                 | [@LeeA0](https://github.com/LeeA0)                           | [@upswp](https://github.com/upswp)                           | [@color0e](https://github.com/color0e) <br />[@rosenari](https://github.com/rosenari) | [@reachgoal321](https://lab.ssafy.com/reachgoal321)          | [@pepprbell](https://github.com/pepprbell)                   |
 | 닉네임🍕  | 핫소스                                                       | 올리브                                                       | 도우                                                         | 먹장수                                                       | 감자                                                         | 피망                                                         |
@@ -84,83 +84,87 @@
 
 ##  :video_game: 기술 스택
 
-<h3 id="back-end">💻Back-End</h3>
-<h4 id="기술스택">기술스택</h4>
-<ul>
-<li><embed src="https://img.shields.io/badge/Apache_Maven-4.0.0-C71A36?Style=flat&amp;logo=Apache-Maven&amp;logoColor=C71A36" /></li>
-<li><embed src="https://img.shields.io/badge/JAVA_JDK-1.8-007396?Style=flat&amp;logo=Java&amp;logoColor=007396" /></li>
-<li><embed src="https://img.shields.io/badge/SpringBoot-2.4.2-6DB33F?Style=flat&amp;logo=Spring&amp;logoColor=6DB33F" /></li>
-<li><embed src="https://img.shields.io/badge/MariaDB(AWS_RDS)-10.4.13-61DAFB?Style=flat&amp;logo=MariaDB&amp;logoColor=61DAFB" title="fig:" /></li>
-</ul>
-<h4 id="사용된-라이브러리">사용된 라이브러리</h4>
-<ul>
-<li><embed src="https://img.shields.io/badge/Spring_mail-2.4.2-6DB33F?Style=flat&amp;logo=Spring&amp;logoColor=85EA2D" /></li>
-<li><embed src="https://img.shields.io/badge/Spring_security-2.4.2-6DB33F?Style=flat&amp;logo=Spring&amp;logoColor=85EA2D" /></li>
-<li><embed src="https://img.shields.io/badge/Spring_redis-2.4.2-DC382D?Style=flat&amp;logo=Redis&amp;logoColor=DC382D" /></li>
-<li><embed src="https://img.shields.io/badge/Spring_jpa-2.4.2-6DB33F?Style=flat&amp;logo=Spring&amp;logoColor=85EA2D" /></li>
-<li><embed src="https://img.shields.io/badge/Spring_jdbc-2.4.2-6DB33F?Style=flat&amp;logo=Spring&amp;logoColor=85EA2D" /></li>
-<li><embed src="https://img.shields.io/badge/Spring_validation-2.4.2-6DB33F?Style=flat&amp;logo=Spring&amp;logoColor=85EA2D" /></li>
-<li><embed src="https://img.shields.io/badge/Lombok-1.18.16-BC4521?Style=flat" /></li>
-<li><embed src="https://img.shields.io/badge/Swagger-2.9.2-85EA2D?Style=flat&amp;logo=Swagger&amp;logoColor=85EA2D" /></li>
-<li><embed src="https://img.shields.io/badge/Firebase_admin-7.0.1-FFCA28?Style=flat&amp;logo=Firebase&amp;logoColor=FFCA28" /></li>
-<li><embed src="https://img.shields.io/badge/JSON_Web_Tokens-0.11.1-000000?Style=flat&amp;logo=Json-Web-Tokens&amp;logoColor=000000" title="fig:" /></li>
-</ul>
-<h3 id="인프라">📚인프라</h3>
-<h4 id="기술스택-1">기술스택</h4>
-<ul>
-<li><img src="https://img.shields.io/badge/Docker-gray?Style=flat&amp;logo=Docker&amp;logoColor=2496ED" alt="Docker" /></li>
-<li><img src="https://img.shields.io/badge/Nginx-gray?Style=flat&amp;logo=Nginx&amp;logoColor=269539" alt="Nginx" /></li>
-<li><img src="https://img.shields.io/badge/Jenkins-gray?Style=flat&amp;logo=Jenkins&amp;logoColor=D24939" alt="Jenkins" /></li>
-<li><img src="https://img.shields.io/badge/GitLab-gray?Style=flat&amp;logo=GitLab&amp;logoColor=FCA121" alt="GitLab" /></li>
-<li><img src="https://img.shields.io/badge/Mattermost-gray?Style=flat&amp;logo=Mattermost&amp;logoColor=0072C6" alt="Mattermost" /></li>
-<li><img src="https://img.shields.io/badge/Slack-gray?Style=flat&amp;logo=Slack&amp;logoColor=4A154B" title="fig:" alt="Slack" /></li>
-</ul>
-<h4 id="사용된-라이브러리-1">사용된 라이브러리</h4>
-<ul>
-<li><embed src="https://img.shields.io/badge/Apache_Ant-1.11-A81C7D?Style=flat&amp;logo=Apache-Ant&amp;logoColor=A81C7D" /></li>
-<li><embed src="https://img.shields.io/badge/Email_Extension-2.80-D24939?Style=flat&amp;logo=Jenkins&amp;logoColor=D24939" /></li>
-<li><embed src="https://img.shields.io/badge/Credentials-2.3.15-D24939?Style=flat&amp;logo=Jenkins&amp;logoColor=D24939" /></li>
-<li><embed src="https://img.shields.io/badge/Maven_Integration-3.8-C71A36?Style=flat&amp;logo=Apache-Maven&amp;logoColor=C71A36" /></li>
-<li><embed src="https://img.shields.io/badge/Node.js-1.3.10-339933?Style=flat&amp;logo=Node.js&amp;logoColor=339933" /></li>
-<li><embed src="https://img.shields.io/badge/GitLab_Plugin-2.9.3-FCA121?Style=flat&amp;logo=GitLab&amp;logoColor=FCA121" /></li>
-<li><embed src="https://img.shields.io/badge/Mattermost_Notification-3.1.1-0072C6?Style=flat&amp;logo=Mattermost&amp;logoColor=0072C6" /></li>
-<li><embed src="https://img.shields.io/badge/Slack_Notification-2.45-4A154B?Style=flat&amp;logo=Slack&amp;logoColor=4A154B" /></li>
-<li><embed src="https://img.shields.io/badge/Publish_Over_SSH-1.22-D24939?Style=flat&amp;logo=Jenkins&amp;logoColor=D24939" title="fig:" /></li>
-</ul>
-<h3 id="front-end">✨Front-End</h3>
-<h4 id="기술스택-2">기술스택</h4>
-<ul>
-<li><embed src="https://img.shields.io/badge/React-17.0.1-61DAFB?Style=flat&amp;logo=React&amp;logoColor=61DAFB" /></li>
-<li><img src="https://img.shields.io/badge/PostCSS-gray?Style=flat&amp;logo=PostCSS&amp;logoColor=DD3A0A" alt="PostCSS" /></li>
-<li><embed src="https://img.shields.io/badge/WebSocket-gray?Style=flat&amp;logo=Socket.io&amp;logoColor=010101" title="fig:" /></li>
-</ul>
-<h4 id="사용된-라이브러리-2">사용된 라이브러리</h4>
-<ul>
-<li><embed src="https://img.shields.io/badge/Font_Awesome-5.15.2-339AF0?Style=flat&amp;logo=Font-Awesome&amp;logoColor=339AF0" /></li>
-<li><embed src="https://img.shields.io/badge/Axios-0.21.1-61DAFB?Style=flat&amp;logo=React&amp;logoColor=61DAFB" /></li>
-<li><embed src="https://img.shields.io/badge/ClassNames-2.2.6-61DAFB?Style=flat&amp;logo=React&amp;logoColor=61DAFB" /></li>
-<li><embed src="https://img.shields.io/badge/Firebase-8.2.6-FFCA28?Style=flat&amp;logo=Firebase&amp;logoColor=FFCA28" /></li>
-<li><embed src="https://img.shields.io/badge/Kurento_utils-6.15.0-ED1D24?Style=flat" /></li>
-<li><embed src="https://img.shields.io/badge/MD5-2.3.0-ED1D24?Style=flat" /></li>
-<li><embed src="https://img.shields.io/badge/PropTypes-15.7.2-FECF0C?Style=flat" /></li>
-<li><embed src="https://img.shields.io/badge/ReactDom-17.0.1-61DAFB?Style=flat&amp;logo=React&amp;logoColor=61DAFB" /></li>
-<li><embed src="https://img.shields.io/badge/ReactFadeIn-2.0.1-61DAFB?Style=flat&amp;logo=React&amp;logoColor=61DAFB" /></li>
-<li><embed src="https://img.shields.io/badge/React_Router-5.2.0-CA4245?Style=flat&amp;logo=React-Router&amp;logoColor=CA4245" /></li>
-<li><embed src="https://img.shields.io/badge/ReactScripts-4.0.1-61DAFB?Style=flat&amp;logo=React&amp;logoColor=61DAFB" /></li>
-<li><embed src="https://img.shields.io/badge/Socket.io_client-3.1.1-010101?Style=flat&amp;logo=Socket.io&amp;logoColor=010101" title="fig:" /></li>
-</ul>
-<h3 id="라이브">🎞라이브</h3>
-<h4 id="기술스택-3">기술스택</h4>
-<ul>
-<li><img src="https://img.shields.io/badge/VMware-gray?Style=flat&amp;logo=VMware&amp;logoColor=white" alt="VMware" /></li>
-<li><img src="https://img.shields.io/badge/WebRTC(Kurento)-gray?Style=flat&amp;logo=WebRTC&amp;logoColor=white" alt="WebRTC" /></li>
-<li><embed src="https://img.shields.io/badge/Express(Node.js)-gray?Style=flat&amp;logo=Node.js&amp;logoColor=339933" /></li>
-<li><embed src="https://img.shields.io/badge/WebSocket-gray?Style=flat&amp;logo=Socket.io&amp;logoColor=010101" /></li>
-<li><img src="https://img.shields.io/badge/Docker-gray?Style=flat&amp;logo=Docker&amp;logoColor=2496ED" alt="Docker" /></li>
-<li><img src="https://img.shields.io/badge/Nginx-gray?Style=flat&amp;logo=Nginx&amp;logoColor=269539" title="fig:" alt="Nginx" /></li>
-</ul>
+### 💻Back-End
+
+#### 기술스택
+
+![Apache Maven](https://img.shields.io/badge/Apache_Maven-4.0.0-C71A36?Style=flat&logo=Apache-Maven&logoColor=C71A36)
+![JAVA ](https://img.shields.io/badge/JAVA_JDK-1.8-007396?Style=flat&logo=Java&logoColor=007396)
+![SpringBoot](https://img.shields.io/badge/SpringBoot-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=6DB33F)
+![MariaDB](https://img.shields.io/badge/MariaDB(AWS_RDS)-10.4.13-61DAFB?Style=flat&logo=MariaDB&logoColor=61DAFB)
+
+#### 📚사용된 라이브러리
+
+![spring-mail](https://img.shields.io/badge/Spring_mail-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=85EA2D)
+![spring-security](https://img.shields.io/badge/Spring_security-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=85EA2D)
+![spring-redis](https://img.shields.io/badge/Spring_redis-2.4.2-DC382D?Style=flat&logo=Redis&logoColor=DC382D)
+![spring-jpa](https://img.shields.io/badge/Spring_jpa-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=85EA2D)
+![spring-jdbc](https://img.shields.io/badge/Spring_jdbc-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=85EA2D)
+![spring-validation](https://img.shields.io/badge/Spring_validation-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=85EA2D)
+![Lombok](https://img.shields.io/badge/Lombok-1.18.16-BC4521?Style=flat)
+![Swagger](https://img.shields.io/badge/Swagger-2.9.2-85EA2D?Style=flat&logo=Swagger&logoColor=85EA2D)
+![Firebase-admin](https://img.shields.io/badge/Firebase_admin-7.0.1-FFCA28?Style=flat&logo=Firebase&logoColor=FFCA28)
+![JSON_Web_Tokens](https://img.shields.io/badge/JSON_Web_Tokens-0.11.1-000000?Style=flat&logo=Json-Web-Tokens&logoColor=000000)
+
+### 🌏인프라
+
+#### ⚙️기술스택
+
+![Docker](https://img.shields.io/badge/Docker-gray?Style=flat&logo=Docker&logoColor=2496ED)
+![Nginx](https://img.shields.io/badge/Nginx-gray?Style=flat&logo=Nginx&logoColor=269539)
+![Jenkins](https://img.shields.io/badge/Jenkins-gray?Style=flat&logo=Jenkins&logoColor=D24939)
+![GitLab](https://img.shields.io/badge/GitLab-gray?Style=flat&logo=GitLab&logoColor=FCA121)
+![Mattermost](https://img.shields.io/badge/Mattermost-gray?Style=flat&logo=Mattermost&logoColor=0072C6)
+![Slack](https://img.shields.io/badge/Slack-gray?Style=flat&logo=Slack&logoColor=4A154B)
 
 
+#### 📚사용된 라이브러리
+
+![Apache Ant](https://img.shields.io/badge/Apache_Ant-1.11-A81C7D?Style=flat&logo=Apache-Ant&logoColor=A81C7D)
+![Email Extension](https://img.shields.io/badge/Email_Extension-2.80-D24939?Style=flat&logo=Jenkins&logoColor=D24939)
+![Credentials](https://img.shields.io/badge/Credentials-2.3.15-D24939?Style=flat&logo=Jenkins&logoColor=D24939)
+![Maven Integration](https://img.shields.io/badge/Maven_Integration-3.8-C71A36?Style=flat&logo=Apache-Maven&logoColor=C71A36)
+![Node.js](https://img.shields.io/badge/Node.js-1.3.10-339933?Style=flat&logo=Node.js&logoColor=339933)
+![GitLab Plugin](https://img.shields.io/badge/GitLab_Plugin-2.9.3-FCA121?Style=flat&logo=GitLab&logoColor=FCA121)
+![Mattermost Notification](https://img.shields.io/badge/Mattermost_Notification-3.1.1-0072C6?Style=flat&logo=Mattermost&logoColor=0072C6)
+![Slack Notification](https://img.shields.io/badge/Slack_Notification-2.45-4A154B?Style=flat&logo=Slack&logoColor=4A154B)
+![Publish Over SSH](https://img.shields.io/badge/Publish_Over_SSH-1.22-D24939?Style=flat&logo=Jenkins&logoColor=D24939)
+
+
+
+### ✨Front-End
+
+#### ⚙️기술스택
+
+![React](https://img.shields.io/badge/React-17.0.1-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
+![PostCSS](https://img.shields.io/badge/PostCSS-gray?Style=flat&logo=PostCSS&logoColor=DD3A0A)
+![WebSocket](https://img.shields.io/badge/WebSocket-gray?Style=flat&logo=Socket.io&logoColor=010101)
+
+#### 📚사용된 라이브러리
+
+![Font Awesome](https://img.shields.io/badge/Font_Awesome-5.15.2-339AF0?Style=flat&logo=Font-Awesome&logoColor=339AF0)
+![Axios](https://img.shields.io/badge/Axios-0.21.1-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
+![ClassNames](https://img.shields.io/badge/ClassNames-2.2.6-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
+![Firebase](https://img.shields.io/badge/Firebase-8.2.6-FFCA28?Style=flat&logo=Firebase&logoColor=FFCA28)
+![Kurento-utils](https://img.shields.io/badge/Kurento_utils-6.15.0-ED1D24?Style=flat)
+![MD5](https://img.shields.io/badge/MD5-2.3.0-ED1D24?Style=flat)
+![PropTypes](https://img.shields.io/badge/PropTypes-15.7.2-FECF0C?Style=flat)
+![React-dom](https://img.shields.io/badge/ReactDom-17.0.1-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
+![React-fade-in](https://img.shields.io/badge/ReactFadeIn-2.0.1-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
+![react-router-dom](https://img.shields.io/badge/React_Router-5.2.0-CA4245?Style=flat&logo=React-Router&logoColor=CA4245)
+![React-scripts](https://img.shields.io/badge/ReactScripts-4.0.1-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
+![socket.io-client](https://img.shields.io/badge/Socket.io_client-3.1.1-010101?Style=flat&logo=Socket.io&logoColor=010101)
+
+### 🔥라이브
+
+#### ⚙️기술스택
+
+![VMware](https://img.shields.io/badge/VMware-gray?Style=flat&logo=VMware&logoColor=white)
+![WebRTC](https://img.shields.io/badge/WebRTC(Kurento)-gray?Style=flat&logo=WebRTC&logoColor=white)
+![Express(Node.js)](https://img.shields.io/badge/Express(Node.js)-gray?Style=flat&logo=Node.js&logoColor=339933)
+![WebSocket](https://img.shields.io/badge/WebSocket-gray?Style=flat&logo=Socket.io&logoColor=010101)
+![Docker](https://img.shields.io/badge/Docker-gray?Style=flat&logo=Docker&logoColor=2496ED)
+![Nginx](https://img.shields.io/badge/Nginx-gray?Style=flat&logo=Nginx&logoColor=269539)
 
 
 
