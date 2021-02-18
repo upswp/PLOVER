@@ -40,7 +40,7 @@ const Profile = (props) => {
     )
   }
 
-  const push = () => {
+  const moveFollowPage = () => {
     history.push({
       pathname: '/follow',
       state: {
@@ -68,11 +68,11 @@ const Profile = (props) => {
             <h2 className={styles.userInfoNum}>{userInfo.articleNum}</h2>
             <h3 className={styles.userInfoLet}>게시물</h3>
           </div>
-          <div className={styles.userInfoItem} onClick={push}>
+          <div className={styles.userInfoItem} onClick={moveFollowPage}>
             <h2 className={styles.userInfoNum}>{userInfo.followerNum}</h2>
             <h3 className={styles.userInfoLet}>팔로워</h3>
           </div>
-          <div onClick={push}>
+          <div onClick={moveFollowPage}>
             <h2 className={styles.userInfoNum}>{userInfo.followingNum}</h2>
             <h3 className={styles.userInfoLet}>팔로잉</h3>
           </div>
