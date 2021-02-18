@@ -21,15 +21,21 @@ const Profile = (props) => {
     })
   }, [])
 
+  const moveChatPage = () => {
+    props.history.push(`/chat/view/${userInfo.no}`);
+  }
+
+  const onFollow = () => {
+    
+  }
+
   const renderBtnComponent = () => {
-
     const userId = localStorage.getItem('no');
-
     return (
       props.match.params.id === userId ? null :
       <div className={styles.otherDisplayBtn}>
-        <ButtonComp width="regular" type="base" textvalue="팔로우" className={styles.followBtn}/>
-        <ButtonComp width="regular" type="base" textvalue="메시지" className={styles.messageBtn}/>
+        <ButtonComp width="regular" type="base" textvalue="팔로우" className={styles.followBtn} onClick={onFollow}/>
+        <ButtonComp width="regular" type="base" textvalue="메시지" className={styles.messageBtn} onClick={moveChatPage}/>
       </div>
     )
   }
@@ -48,8 +54,8 @@ const Profile = (props) => {
     <>
       <Navbar color="white">
         <span onClick={() => {
-
-          }}>
+          props.history.push({pathname: '/home'})  
+        }}>
         <i className={"fas fa-chevron-left color_black " + styles.backIcon} style={{ cursor: "pointer" }}></i>
         </span>
         <h1 className={styles.userId}>{userInfo.nickname}</h1>
