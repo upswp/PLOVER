@@ -44,13 +44,15 @@ export default class Event {
     }
 
     async registerStudy() {
-        let content = this.$content.current.getInstance().getHtml();
+        let content = this.$content.current.getInstance().getMarkdown();
         if (!content || !this.$title.value || this.$state.tags.length <= 0) {
             alert("모든 입력값을 채워주세요");
             return;
         }
 
         console.log(content);
+
+        return;
 
         console.log("== registerStudy ==");
         await restapi.post("/study/article", {

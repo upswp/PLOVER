@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styles from "./index.module.css";
 import { Navbar, Typo, Imgbox, ButtonComp, Skeleton } from "src/components";
 import FadeIn from 'react-fade-in';
+import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import Event from "./event";
 
+let viewer = null;
 
 function Detail(props) {
   let [tags, setTags] = useState([]);
@@ -25,7 +28,13 @@ function Detail(props) {
     event.setTarget(document.getElementById("study_detail"));
     event.setState(state);
     console.log(state);
-
+    if (state.study) {
+      viewer = new Viewer({
+        el: document.querySelector('#content'),
+        height: '100%',
+        initialValue: state.study.content
+      });
+    }
     return () => {
       //event.destroy();
     };
@@ -67,7 +76,7 @@ function Detail(props) {
         <div className={styles.border}>
           <hr />
         </div>
-        <div style={{ width: "100%", padding: "0px 10px" }} id="content" dangerouslySetInnerHTML={{ __html: state.study.content !== undefined && state.study.content }}>
+        <div style={{ width: "100%", padding: "0px 10px" }} id="content">
         </div>
         <div className={styles.border}>
           <hr />

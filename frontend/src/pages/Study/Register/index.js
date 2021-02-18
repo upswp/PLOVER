@@ -54,7 +54,7 @@ function Register(props) {
           <Editor
             previewStyle="vertical"
             height="100%"
-            initialEditType="wysiwyg"
+            initialEditType="markdown"
             initialValue=""
             ref={editor}
           />
