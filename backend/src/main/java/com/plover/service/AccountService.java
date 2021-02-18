@@ -71,7 +71,11 @@ public class AccountService {
 		
 		 String password = request.getPassword();
 		 String salt = saltUtil.genSalt();
-		
+
+		 if(request.getProfileImageUrl().equals("") || request.getProfileImageUrl()==null){
+			 request.setProfileImageUrl("images/default-image.png");
+		 }
+
 		 Users user = Users.builder()
 				 .email(request.getEmail())
 				 .nickName(request.getNickName())
@@ -82,9 +86,6 @@ public class AccountService {
 				 .build();
 		 user.setSalt(new Salt(salt));
 
-		 if(request.getProfileImageUrl().equals("") || request.getProfileImageUrl()==null){
-		 	user.setProfileImageUrl("images/default-image.png");
-		 }
 
 		 user.setPassword(saltUtil.encodePassword(salt, password));
 		 userRepository.save(user);
