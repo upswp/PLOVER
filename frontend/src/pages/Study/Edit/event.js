@@ -65,6 +65,10 @@ export default class Event {
         }
 
         console.log("== editStudy ==");
+        console.log(content);
+        console.log(this.$title.value);
+        console.log(this.$state.tags);
+
         await restapi.put(`/study/article/${this.getIndex()}`, {
             content: content,
             hashtag: this.$state.tags,
@@ -85,13 +89,12 @@ export default class Event {
         });
     }
 
-    async getStudy(cb) {
+    async getStudy() {
         console.log("== getStudy ==");
         let index = this.getIndex();
         await restapi.get(`/study/article/${index}`).then((response) => {
             if (response.status == 200) {
                 this.setStudy(response.data.data);
-                cb();
             } else {
                 console.log(response);
             }
