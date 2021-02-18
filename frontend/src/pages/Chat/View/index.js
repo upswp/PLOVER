@@ -131,10 +131,10 @@ function View(props) {
                 }} />
                 <ButtonComp width="small" type="base" className={styles.chatting_btn} textvalue="전송" onClick={() => {
                     restapi.post(`/chat/message/send`, {
-                        massage: document.getElementById("chatinput")[0].value,
+                        massage: document.getElementById("chatinput").value,
                         toUserNo: getIndex()
                     });
-                    document.getElementById("chatinput")[0].value = "";
+                    document.getElementById("chatinput").value = "";
                 }} />
             </div>
         </div>
