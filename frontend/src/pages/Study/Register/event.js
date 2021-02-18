@@ -44,12 +44,11 @@ export default class Event {
     }
 
     async registerStudy() {
-        if (!this.$content.value || !this.$title.value || this.$state.tags.length <= 0) {
+        let content = this.$content.current.getInstance().getHtml();
+        if (!content || !this.$title.value || this.$state.tags.length <= 0) {
             alert("모든 입력값을 채워주세요");
             return;
         }
-
-        let content = this.setLineToPtag(this.$content.value);
 
         console.log(content);
 

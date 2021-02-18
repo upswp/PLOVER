@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import "./tooltip.css";
 import styles from "./index.module.css";
 import { Navbar, Typo, Input, ButtonComp } from "src/components";
 import FadeIn from 'react-fade-in';
 import Event from "./event";
+import { Editor } from '@toast-ui/react-editor';
 
 function Register(props) {
   let [tags, setTags] = useState([]);
@@ -10,11 +15,13 @@ function Register(props) {
   state.tags = tags;
   state.setTags = setTags;
   const event = new Event(props.history);
+  const editor = useRef();
+
   useEffect(() => {
     event.setState(state);
     event.setTarget(document.getElementById("study_register"));
     event.setTitle(document.getElementById("title"));
-    event.setContent(document.getElementById("content"));
+    event.setContent(editor);
     event.addEvent();
 
     return () => {
@@ -44,7 +51,13 @@ function Register(props) {
           <Typo ty="p">내용</Typo>
         </div>
         <div className={styles.textarea_box}>
-          <textarea id="content" placeholder="내용을 입력해주세요." type="text" className={styles.textarea} />
+          <Editor
+            previewStyle="vertical"
+            height="100%"
+            initialEditType="wysiwyg"
+            initialValue=""
+            ref={editor}
+          />
         </div>
         <div className={styles.desc}>
           <Typo ty="p">태그</Typo>
