@@ -12,6 +12,7 @@ import ReactHtmlParser from 'react-html-parser';
 const Profile = (props) => {
   const [userInfo, setUserInfo] = useState({});
   const [editMode, setEditMode] = useState(false);
+  const [checkFollow, setCheckFollow] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -22,6 +23,13 @@ const Profile = (props) => {
       .catch(() => {
         props.history.push({pathname: '/home'})
       })
+    
+    restapi.get(`/follow/following/${props.match.params.id}`)
+      .then((response) => {
+        console.log(response);
+        setCheckFollow(response.data.data);
+      })
+      .catch(() => {})
   }, [])
 
   const moveChatPage = () => {
@@ -30,8 +38,26 @@ const Profile = (props) => {
 
   const onFollowHandler = () => {
     restapi.post('/follow', {toUserNo: props.match.params.id})
-      .then((response) => {console.log(response)})
+      .then((response) => {
+        console.log(response)
+        setUserInfo({
+          ...userInfo,
+          followerNum: userInfo.followerNum + 1
+        })
+      })
       .catch((error) => {console.error(error)})
+  }
+
+  const onFollowingHandler = () => {
+    restapi.delete('/follow', {toUserNo: props.match.params.id})
+      .then((response) => {
+        console.log(response)
+        setUserInfo({
+          ...userInfo,
+          followerNum: userInfo.followerNum - 1
+        })
+      })
+      .catch((error) => {console.log(error)})
   }
 
   const renderBtnComponent = () => {
@@ -39,7 +65,11 @@ const Profile = (props) => {
     return (
       props.match.params.id === userId ? null :
       <div className={styles.otherDisplayBtn}>
-        <ButtonComp width="regular" type="base" textvalue="팔로우" className={styles.followBtn} onClick={onFollowHandler}/>
+        {
+          checkFollow ? 
+          <button className={styles.followingBtn} onClick={onFollowingHandler}>팔로잉</button> :
+          <ButtonComp width="regular" type="base" textvalue="팔로우" className={styles.followBtn} onClick={onFollowHandler}/>
+        }
         <ButtonComp width="regular" type="base" textvalue="메시지" className={styles.messageBtn} onClick={moveChatPage}/>
       </div>
     )
