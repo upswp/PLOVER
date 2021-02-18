@@ -1,6 +1,5 @@
 import { Route } from 'react-router-dom';
 import {
-  Jangsoon, Jiyoung, Suyeon,
   Register, Verify, Verified,
   Login, Home, Profile, Notification,
   MRegister, MList, MDetail, MEdit,
@@ -16,10 +15,7 @@ import "./firebaseConfig";
 function App() {
   return (
     <div className={styles.App}>
-      <Route exact path="/" component={Jangsoon} />
-      <Route path="/jangsoon" component={Jangsoon} />
-      <Route path="/jiyoung" component={Jiyoung} />
-      <Route path="/suyeon" component={Suyeon} />
+      <Route exact path="/" component={localStorage.getItem('id') ? Home : Login} />
       <Route path="/register" component={Register} />
       <Route path="/verify" component={Verify} />
       <Route path="/verified" component={Verified} />
