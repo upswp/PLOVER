@@ -1,6 +1,7 @@
 package com.plover.service;
 
 import com.plover.config.UserRole;
+import com.plover.controller.AccountController;
 import com.plover.model.user.Salt;
 import com.plover.model.user.Users;
 import com.plover.model.user.request.SignupRequest;
@@ -9,6 +10,8 @@ import com.plover.repository.UserRepository;
 import com.plover.utils.RedisUtil;
 import com.plover.utils.SaltUtil;
 import javassist.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,8 @@ import java.util.UUID;
 @Service
 public class AccountService {
 	final String REDIS_CHANGE_PASSWORD_PREFIX="CPW";
+	private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
+
 	@Autowired
 	UserRepository userRepository;
 	
@@ -32,6 +37,8 @@ public class AccountService {
 	
 	@Autowired
     private RedisUtil redisUtil;
+
+
 
 	 //이메일 인증에서 사용할 메서드
 	 Users getUserByEmail(String email) {
@@ -74,6 +81,7 @@ public class AccountService {
 
 		 if(request.getProfileImageUrl().equals("") || request.getProfileImageUrl()==null){
 			 request.setProfileImageUrl("images/default-image.png");
+			 logger.info(request.getProfileImageUrl());
 		 }
 
 		 Users user = Users.builder()
@@ -86,6 +94,7 @@ public class AccountService {
 				 .build();
 		 user.setSalt(new Salt(salt));
 
+		 logger.info(user.toString());
 
 		 user.setPassword(saltUtil.encodePassword(salt, password));
 		 userRepository.save(user);

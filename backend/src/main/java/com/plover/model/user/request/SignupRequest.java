@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.validation.Valid;
@@ -35,7 +36,7 @@ public class SignupRequest {
     @NotNull
     private String campus;
 
-    @Column(columnDefinition = "varchar(255) default 'images/default-image.png'")
+    @ColumnDefault("images/default-image.png")
     private String profileImageUrl;
 
     @NotNull

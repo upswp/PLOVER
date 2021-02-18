@@ -135,7 +135,7 @@ public class AccountController {
         ResponseEntity<Response> response = null;
         //유저 대표 이미지 저장
         if(image != null){
-            UUID uuid = UUID.randomUUID();
+                UUID uuid = UUID.randomUUID();
                 long time = System.currentTimeMillis();
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
                 String filename = uuid + "-" + formatter.format(time) + image.getOriginalFilename();
