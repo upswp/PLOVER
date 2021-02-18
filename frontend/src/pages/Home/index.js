@@ -12,6 +12,7 @@ import restapi from 'src/api/restapi';
 import StudyList from 'src/components/StudyList/StudyList';
 import FadeIn from "react-fade-in";
 import Skeleton from 'src/components/Skeleton/Skeleton';
+import fire from "src/fire";
 
 
 const Home = (props) => {
@@ -21,6 +22,7 @@ const Home = (props) => {
   const [studyNoticeList, setStudyNoticeList] = useState([]);
   const [showUserData, setShowUserData] = useState({});
   const [mentoringClassList, setMentoringClassList] = useState([]);
+  const [notificationPulse, setNotificationPulse] = useState(false);
 
   const onHandlerLogout = () => {
     localStorage.removeItem('nickname')
@@ -28,22 +30,46 @@ const Home = (props) => {
     localStorage.removeItem('profileImageUrl')
     localStorage.removeItem('accessToken')
     setShowUserData({})
+    props.history.replace('/login');
   }
 
   const renderNavItem = () => {
     return (
-      showUserData.accessToken ? 
-      <>
-        <Imgbox src={showUserData.profileImageUrl} size="small" shape="circle" style={{ marginLeft: "0px" }} />
-        <FadeIn delay={400}><span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>hello, {showUserData.nickname}</span></FadeIn>
-        <button className={styles.logout__Button} onClick={onHandlerLogout}><i className="fas fa-running" style={{ marginLeft: "auto", marginBottom: "3px" }}></i></button>
-      </> :
-      <>
-        <Skeleton shape="circle" style={{ width: "40px", height: "40px", marginLeft: "5px", marginTop: "5px" }} />
-        <FadeIn delay={400}><span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>hello, Sign In Please ~ :) </span></FadeIn>
-      </>
+      showUserData.accessToken ?
+        <>
+          <Imgbox src={showUserData.profileImageUrl} size="small" shape="circle" style={{ marginLeft: "0px" }} />
+          <FadeIn delay={400}><span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>hello, {showUserData.nickname}</span></FadeIn>
+          <button className={styles.logout__Button} onClick={onHandlerLogout}><i className="fas fa-running" style={{ marginLeft: "auto", marginBottom: "3px" }}></i></button>
+        </> :
+        <>
+          <Skeleton shape="circle" style={{ width: "40px", height: "40px", marginLeft: "5px", marginTop: "5px" }} />
+          <FadeIn delay={400}><span className="color_black" style={{ marginLeft: "15px", fontWeight: "bold", fontSize: "0.9rem" }}>hello, Sign In Please ~ :) </span></FadeIn>
+        </>
     )
   }
+
+  function addEvent() {
+    if (!localStorage.getItem('nickname')) return;
+
+    let nickname = localStorage.getItem('nickname');
+
+    const database = fire.database();
+    let notifications = database.ref(`users/${nickname}`);
+    notifications.on('value', (list) => {
+      const data = list.val();
+      let count = 0;
+      for (let key in data) {
+        count++;
+      }
+
+      if (localStorage.getItem('notificationNum') != count) {
+        setNotificationPulse(true);
+      } else {
+        setNotificationPulse(false);
+      }
+    });
+  }
+
 
   useEffect(() => {
     // axios.get('https://dev.plover.co.kr/ssafy/user/random')
@@ -76,13 +102,17 @@ const Home = (props) => {
     const accessToken = localStorage.getItem('accessToken');
 
     setShowUserData({ nickname, email, profileImageUrl, accessToken });
+    addEvent();
   }, [])
 
   return (
     <>
       <Navbar color="white" style={{ marginTop: "20px", width: "95%", marginLeft: "auto", marginRight: "auto" }}>
         {renderNavItem()}
-        <i className="far fa-bell color_black" style={{ fontSize: "1.8rem", marginLeft: "auto", marginBottom: "3px" }}></i>
+        <span style={{ fontSize: "1.8rem", marginLeft: "auto", marginBottom: "3px", cursor: "pointer" }} onClick={() => {
+          if (localStorage.getItem('nickname')) props.history.push(`/notification/${localStorage.getItem("nickname")}`);
+        }}><i className="far fa-bell color_black"></i></span>
+        {notificationPulse === true && <div className={styles.pulse}></div>}
         <Navbutton color={showMenu ? "white" : "black"} style={{ marginLeft: "15px", marginRight: "5px", marginBottom: "3px", zIndex: "999" }} setShowMenu={setShowMenu} showMenu={showMenu} />
       </Navbar>
       { showMenu ? <Menu setShowMenu={setShowMenu} showMenu={showMenu} history={props.history} /> : null}

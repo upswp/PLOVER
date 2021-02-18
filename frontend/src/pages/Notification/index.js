@@ -31,6 +31,9 @@ function Notification(props) {
         })
       }
       setList(temp);
+
+      //저장
+      localStorage.setItem('notificationNum', temp.length);
     });
   }
 
@@ -60,7 +63,7 @@ function Notification(props) {
   return (
     <div className={styles.container}>
       <Navbar className={styles.nav}>
-        <div className={styles.redirect} onClick={() => { props.history.push("/login") }}></div>
+        <div className={styles.redirect} onClick={() => { props.history.goBack() }}></div>
         <i className={"fas fa-chevron-left color_black" + " " + styles.icon}></i>
         <span className={"color_black" + " " + styles.title}><Typo ty="h4">알림</Typo></span>
       </Navbar>

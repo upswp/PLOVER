@@ -51,8 +51,6 @@ const Login = (props) => {
 
         //FCM토큰 코드 끝
 
-        setLoginCheck(true);
-
         //로컬스토리지에 이메일,닉네임,유저번호 저장
         localStorage.setItem('email', res.data.data.email);
         localStorage.setItem('nickname', res.data.data.nickName);
@@ -64,6 +62,7 @@ const Login = (props) => {
         props.history.push({
           pathname: '/home'
         })
+
       } else {
         alert('ID와 PW가 일치하지 않습니다.^0^')
       }
@@ -75,7 +74,6 @@ const Login = (props) => {
 
   return (
     <div className={styles.login}>
-      {loginCheck && <Redirect to="/home" />}
       <h1 className={styles.login__title}>PLOVER</h1>
       <form className={styles.login__form} onSubmit={onSubmitHandler}>
         <input className={styles.login__input} value={email} type="text" placeholder="ID" autoCapitalize="off" onChange={onEmailHandler} />
