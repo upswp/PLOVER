@@ -42,17 +42,31 @@ public class FCMService {
             case "follow" :
                 //받는 사람 FCM 토큰 redis에서 가지고 오기
                 token = redisUtil.getData("FCM_TOKEN_"+toUser.getNo());
-                //보내는 사람 닉네임 가지고 오기
-                sender = jwtUtil.getNickName(cookieUtil.getCookie(res, JwtUtil.ACCESS_TOKEN_NAME).getValue());
-                //받는 사람 닉네임 가지고 오기
-                receiver = toUser.getNickName();
-                 notificationResponse = NotificationResponse.builder()
-                        .token(token)
-                        .title(receiver+"님 PLOVER가 알림을 받아왔어요.")
-                        .message(sender+"님이 팔로우를 시작하셨습니다!")
-                        .icon("plover.png")
-                        .click_action("goto follow page")//TODO : 경로 넣고 action 설정하기 (차후에 해야함)
-                        .build();
+                if(token != null) {
+                    //보내는 사람 닉네임 가지고 오기
+                    sender = jwtUtil.getNickName(cookieUtil.getCookie(res, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+                    //받는 사람 닉네임 가지고 오기
+                    receiver = toUser.getNickName();
+                    notificationResponse = NotificationResponse.builder()
+                            .token(token)
+                            .title(receiver + "님 PLOVER가 알림을 받아왔어요.")
+                            .message(sender + "님이 팔로우를 시작하셨습니다!")
+                            .icon("images/plover.png")
+                            .click_action("https://plover.co.kr/follow")//TODO : 경로 넣고 action 설정하기 (차후에 해야함)
+                            .build();
+                }
+                else{
+                    sender = jwtUtil.getNickName(cookieUtil.getCookie(res, JwtUtil.ACCESS_TOKEN_NAME).getValue());
+                    //받는 사람 닉네임 가지고 오기
+                    receiver = toUser.getNickName();
+                    notificationResponse = NotificationResponse.builder()
+                            .token(null)
+                            .title(receiver + "님 PLOVER가 알림을 받아왔어요.")
+                            .message(sender + "님이 팔로우를 시작하셨습니다!")
+                            .icon("images/plover.png")
+                            .click_action("https://plover.co.kr/follow")//TODO : 경로 넣고 action 설정하기 (차후에 해야함)
+                            .build();
+                }
             break;
 //            case "mentoring":
 //            case "all":

@@ -153,8 +153,11 @@ public class FollowController {
                 Users toUser = userService.findUserByNo(followRequest.getToUserNo());
                 followService.save(fromUser, toUser);
 
+
                 NotificationResponse notificationResponse = fcmService.setNotification("follow",toUser,request);
-                fcmService.send(notificationResponse);
+                if(notificationResponse.getToken()!=null) {
+                    fcmService.send(notificationResponse);
+                }
                 notificationService.postRealTimeDataBase(notificationResponse,toUser.getNickName());
 
                 final Response result = new Response("success", "팔로우를 성공하였습니다.", null);
