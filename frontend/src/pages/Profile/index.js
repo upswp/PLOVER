@@ -46,7 +46,10 @@ const Profile = (props) => {
         })
         setCheckFollow(true);
       })
-      .catch((error) => {console.error(error)})
+      .catch((error) => {
+        alert('로그인 하세요')
+        props.history.push({pathname:'/login'})
+    })
   }
 
   const onFollowingHandler = () => {
