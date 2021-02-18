@@ -4,10 +4,12 @@ import ButtonComp from 'src/components/ButtonComp/ButtonComp';
 import Imgbox from 'src/components/Imgcomponents/Imgbox';
 import Navbar from 'src/components/Navbar/Navbar';
 import styles from './index.module.css';
+import { useHistory } from 'react-router-dom'
 
 
 const Profile = (props) => {
   const [userInfo, setUserInfo] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
     restapi.get(`/user/${props.match.params.id}`)
@@ -32,6 +34,16 @@ const Profile = (props) => {
     )
   }
 
+  const push = () => {
+    history.push({
+      pathname: '/follow',
+      state: {
+        no: userInfo.no,
+        username: userInfo.nickname
+      }
+    })
+  }
+
   return (
     <>
       <Navbar color="white">
@@ -50,11 +62,11 @@ const Profile = (props) => {
             <h2 className={styles.userInfoNum}>{userInfo.articleNum}</h2>
             <h3 className={styles.userInfoLet}>게시물</h3>
           </div>
-          <div className={styles.userInfoItem}>
+          <div className={styles.userInfoItem} onClick={push}>
             <h2 className={styles.userInfoNum}>{userInfo.followerNum}</h2>
             <h3 className={styles.userInfoLet}>팔로워</h3>
           </div>
-          <div>
+          <div onClick={push}>
             <h2 className={styles.userInfoNum}>{userInfo.followingNum}</h2>
             <h3 className={styles.userInfoLet}>팔로잉</h3>
           </div>
