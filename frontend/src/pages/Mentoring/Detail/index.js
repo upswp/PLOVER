@@ -106,8 +106,8 @@ function Detail(props) {
                     <ButtonComp width="large" type="base" textvalue={mentoring.type === "live" ? (localStorage.getItem('email') === mentoring.email ? "라이브 관리" : "라이브 보러가기") : "채팅하기"}
                         className={styles.button} onClick={() => {
                             if (mentoring.type === "live") {
-                                if (localStorage.getItem('email') === mentoring.email) props.history.push(`/live/manage?b_addr=${mentoring.address}`);
-                                else props.history.push(`/live/view?b_addr=${mentoring.address}`);
+                                if (localStorage.getItem('email') === mentoring.email) props.history.push(`/live/manage?b_addr=${mentoring.address}&id=${mentoring.id}`);
+                                else props.history.push(`/live/view?b_addr=${mentoring.address}&id=${mentoring.id}`);
                             } else {
                                 if (localStorage.getItem('email') === mentoring.email) props.history.push(`/chat/list/${mentoring.no}`);
                                 else props.history.push(`/chat/view/${mentoring.no}`);

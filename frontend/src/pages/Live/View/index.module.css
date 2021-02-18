@@ -307,3 +307,7 @@ body > div,body > div > div {
     line-height: 30px;
     font-size: 0.9em;
 }
+
+.image{
+    border:2px solid var(--color-bright-purple);
+}
