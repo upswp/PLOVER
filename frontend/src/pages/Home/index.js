@@ -63,7 +63,8 @@ const Home = (props) => {
       }
 
       if (localStorage.getItem('notificationNum') != count) {
-        setNotificationPulse(true);
+        if (count === 0) setNotificationPulse(false);
+        else setNotificationPulse(true);
       } else {
         setNotificationPulse(false);
       }
