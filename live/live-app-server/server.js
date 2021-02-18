@@ -139,6 +139,10 @@ let createRoom = (client, clientInfo) => {
 
 let joinRoom = (client, clientInfo) => {
     client.join(clientInfo.b_addr);//방에 조인
+    if(!lives[clientInfo.b_addr]){
+        stop(clientInfo);
+	return;
+    }
     lives[clientInfo.b_addr].viewers[clientInfo.clientId] = {
         nickname: clientInfo.nickname,
         clientId: clientInfo.clientId,
