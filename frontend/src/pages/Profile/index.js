@@ -6,8 +6,7 @@ import Imgbox from 'src/components/Imgcomponents/Imgbox';
 import Navbar from 'src/components/Navbar/Navbar';
 import { useHistory } from 'react-router-dom'
 import TextEditor from 'src/components/TextEditor/TextEditor';
-
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 
 
 const Profile = (props) => {
@@ -41,7 +40,7 @@ const Profile = (props) => {
   }
 
   const renderBtnComponent = () => {
-    const userId = localStorage.getItem('no');
+    const userId = localStorage.getItem('id');
     return (
       props.match.params.id === userId ? null :
       <div className={styles.otherDisplayBtn}>

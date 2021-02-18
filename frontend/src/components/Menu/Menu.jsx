@@ -9,7 +9,7 @@ const Menu = ({ setShowMenu, showMenu, history }) => {
   const moveLink = (url) => {
     console.log(url);
     if (url === '/profile') {
-      const userId = localStorage.getItem('no');
+      const userId = localStorage.getItem('id');
       console.log(userId);
       history.push({ pathname: `${url}/${userId}` });
     } else {
