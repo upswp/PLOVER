@@ -15,7 +15,8 @@ const Follow = (props) => {
 
   const history = useHistory()
 
-  const request = "https://dev.plover.co.kr/ssafy/follow/following/"+location.state.no+"/0"
+  const requestFollowing = "https://dev.plover.co.kr/ssafy/follow/following/"+location.state.no+"/0"
+  const requestFollower = "https://dev.plover.co.kr/ssafy/follow/follower/"+location.state.no+"/0"
   const username = location.state.username
   const push = "/profile/"+location.state.no
 
@@ -27,13 +28,13 @@ const Follow = (props) => {
   }, [])
 
   function fetchFollow() {
-    axios.get(request)
+    axios.get(requestFollowing)
     .then((res) => {
       setFollowing(res.data.data.followUsers)
     })
     .catch((err) => {
     })
-    axios.get(request)
+    axios.get(requestFollower)
     .then((res) => {
       setFollower(res.data.data.followUsers)
     })
