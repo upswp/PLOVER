@@ -58,6 +58,7 @@ const Login = (props) => {
         localStorage.setItem('nickname', res.data.data.nickName);
         localStorage.setItem('profileImageUrl', res.data.data.profileImageUrl);
         localStorage.setItem('id', res.data.data.no);
+        localStorage.setItem('accessToken', res.data.data.accessToken);
         console.log(res.data.data);
 
         props.history.push({
