@@ -14,9 +14,14 @@
   color: rgb(35, 75, 136);
   margin: 45px 0 20px 0px;
   transition: all 300ms ease-in;
+  line-height: 1rem;
 }
 
 .editBtn:hover {
   background-color: rgb(35, 75, 136);
   color: white;
+}
+
+.editBtnText {
+  margin-right: 7px;
 }

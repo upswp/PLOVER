@@ -29,7 +29,10 @@ const TextEditor = (props) => {
 
   return(
     <>
-      <button className={styles.editBtn} onClick={clickEditBtn}><p>SAVE</p><i class="far fa-save"></i></button>
+      <button className={styles.editBtn} onClick={clickEditBtn}>
+        <p className={styles.editBtnText}>SAVE</p>
+        <i class="far fa-save"></i>
+      </button>
       <CKEditor
         editor={ ClassicEditor }
         data={props.userInfo.description}

@@ -61,6 +61,11 @@
 
 .followingBtn {
   width: 45%;
+  background-color: rgb(110, 100, 4);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
 }
 
 .messageBtn {
@@ -98,6 +103,7 @@
   background-color: rgb(111, 0, 255);
   color: white;
 }
+
 .editBtnText {
   margin-right: 5px;
 }
