@@ -18,30 +18,9 @@ const Follow = (props) => {
   const request = "https://dev.plover.co.kr/ssafy/follow/following/"+location.state.no+"/0"
   const username = location.state.username
   const push = "/profile/"+location.state.no
-  // const request = "https://dev.plover.co.kr/ssafy/follow/following/"+"1"+"/0" // testdata
-  // const username = "id" // testdata
-  // const push = "/profile/"+"1" // testdata
 
   const [followings, setFollowing] = useState([])
   const [followers, setFollower] = useState([])
-
-  // const sample = [
-  //   {
-  //     src: "https://i.pinimg.com/originals/df/10/2b/df102b48062904ebf4af4d118d21fa66.jpg",
-  //     username: "텐서플로우",
-  //     userNo: 1
-  //   },
-  //   {
-  //     src: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/best-dog-quotes-1580508958.jpg?crop=0.670xw:1.00xh;0.167xw,0&resize=640:*",
-  //     username: "케라스",
-  //     userNo: 2,
-  //   },
-  //   {
-  //     src: "https://previews.123rf.com/images/aquir/aquir1311/aquir131100316/23569861-sample-grunge-red-round-stamp.jpg",
-  //     username: "파이토치",
-  //     userNo: 3,
-  //   },
-  // ]
 
   useEffect(() => {
     fetchFollow()
@@ -51,18 +30,14 @@ const Follow = (props) => {
     axios.get(request)
     .then((res) => {
       setFollowing(res.data.data.followUsers)
-      // console.log(followings)
     })
     .catch((err) => {
-      // console.log(err)
     })
     axios.get(request)
     .then((res) => {
       setFollower(res.data.data.followUsers)
-      // console.log(followers)
     })
     .catch((err) => {
-      // console.log(err)
     })
   }
 
@@ -70,7 +45,6 @@ const Follow = (props) => {
   const numFollower =  followers.length + ' 팔로워'
   
   function FollowingList() {
-    // console.log(followings)
     const listItems = followings.map((user, index) =>
     <div className={styles.row} key={"following"+index}>
       <img src={`${process.env.REACT_APP_PUBLIC_HOST}/${user.profileImageUrl}`} shape="circle" className={styles.propic} alt="" />
