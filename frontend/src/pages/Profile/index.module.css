@@ -66,3 +66,11 @@
 .userIntro {
   margin: 25px;
 }
+
+.editBtn {
+  display: flex;
+  box-sizing: border-box;
+  border-style: none;
+  background-color: white;
+  font-size: 1rem;
+}
