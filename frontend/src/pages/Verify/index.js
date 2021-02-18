@@ -26,12 +26,12 @@ function Verify (props) {
       email: email
     })
     .then((res) => {
-      console.log(res)
+      alert('이메일이 재발송되었습니다.')
     }
     )
-    .catch((err) => {
-      console.log(err)
-    })
+    // .catch((err) => {
+    //   console.log(err)
+    // })
   }
 
   return (
