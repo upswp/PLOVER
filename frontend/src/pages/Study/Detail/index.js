@@ -24,6 +24,7 @@ function Detail(props) {
     console.log(state.study.no);
     event.setTarget(document.getElementById("study_detail"));
     event.setState(state);
+    console.log(state);
 
     return () => {
       //event.destroy();
@@ -38,9 +39,15 @@ function Detail(props) {
           props.history.goBack();
         }}><i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i></span>
         <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">스터디 상세보기</Typo></FadeIn></span>
-        <span onClick={() => {
+        <span style={{ cursor: "pointer" }} key={(localStorage.getItem('email') === state.study.email ? "edit" : "no_edit")} onClick={() => {
+          if (localStorage.getItem('email') === state.study.email) props.history.replace(`/study/edit/${event.getIndex()}`);
         }}>
-          <i className={"fas fa-pen color_white" + " " + styles.right_icon}></i>
+          <i className={"fas fa-user-edit " + "color_black " + styles.write_icon} style={{ visibility: (localStorage.getItem('email') === state.study.email ? "visible" : "hidden") }}></i>
+        </span>
+        <span style={{ cursor: "pointer" }} key={(localStorage.getItem('email') === state.study.email ? "delete" : "no_delete")} onClick={() => {
+          if (localStorage.getItem('email') === state.study.email) event.deleteStudy();
+        }}>
+          <i className={"fas fa-trash-alt " + "color_black " + styles.write_icon} style={{ visibility: (localStorage.getItem('email') === state.study.email ? "visible" : "hidden") }}></i>
         </span>
       </Navbar>
       <FadeIn delay={200}>
