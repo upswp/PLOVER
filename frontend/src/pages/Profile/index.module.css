@@ -71,35 +71,45 @@
   margin: 25px;
 }
 
-.profileDescription {
-  width: 90%;
-  margin: 20px 10px 10px 10px;
-  overflow: hidden;
-}
-
 .profileEdit {
   display: flex;
   flex-direction: column;
 }
 
 .editBtn {
-  position: absolute;
-  margin-right: 10px;
   display: flex;
-  align-items: center;
-  align-self: flex-end;
-  width: 5rem;
-  height: 2rem;
   box-sizing: border-box;
-  border: none;
-  border-radius: 7px;
-  color: rgb(255, 255, 255);
-  background-color: rgba(128, 0, 128, 0.678);
-  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
   padding: 3px 10px;
+  width: 100%;
+  height: 38px;
+  font-size: 1rem;
+  border: 2px solid rgb(111, 0, 255);
+  border-radius: 5px;
+  background-color: white;
+  color: rgb(111, 0, 255);
+  margin: 10px 0;
+  transition: all 400ms ease-in;
 }
 
-/* .editBtnText {
-  font-size: 16px;
-  margin-right: 0.3em;
-} */
+.editBtn:hover {
+  background-color: rgb(111, 0, 255);
+  color: white;
+}
+.editBtnText {
+  margin-right: 5px;
+}
+
+.DescripForm {
+  margin-top: 20px;
+  padding: 20px;
+  border: 3px solid rgb(255, 174, 0);
+  border-radius: 5%;
+}
+
+.profileDescription {
+  border: 1px solid white;
+  width: 100%;
+  overflow: hidden;
+}

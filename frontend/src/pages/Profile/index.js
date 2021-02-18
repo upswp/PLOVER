@@ -47,7 +47,7 @@ const Profile = (props) => {
         setCheckFollow(true);
       })
       .catch((error) => {
-        alert('로그인 하세요')
+        alert('로그인이 필요한데 괜찮으시겠어요? ^)^')
         props.history.push({pathname:'/login'})
     })
   }
@@ -95,10 +95,14 @@ const Profile = (props) => {
               <p className={styles.editBtnText}>EDIT</p>
               <i class="fas fa-pencil-alt" className={styles.editIcon}></i>
             </button>
-            <div className={styles.profileDescription}>{ ReactHtmlParser(userInfo.description) }</div>
+            <div className={styles.DescripForm}>
+              <div className={styles.profileDescription}>
+                { ReactHtmlParser(userInfo.description) }
+              </div>
+            </div>
           </div>
         } 
-        
+        <br/>
       </div>
     )
   }
