@@ -3,7 +3,7 @@ import {
   Register, Verify, Verified,
   Login, Home, Profile, Notification,
   MRegister, MList, MDetail, MEdit,
-  SRegister, SList, SDetail,
+  SRegister, SList, SDetail, SEdit,
   LManage, LView,
   Search, Follow,
   CList, CView
@@ -30,6 +30,7 @@ function App() {
       <Route path="/study/register" component={SRegister} />
       <Route path="/study/list" component={SList} />
       <Route path="/study/detail" component={SDetail} />
+      <Route path="/study/edit" component={SEdit} />
       <Route path="/live/manage" component={LManage} />
       <Route path="/live/view" component={LView} />
       <Route path="/search" component={Search} />

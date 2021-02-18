@@ -1,0 +1,72 @@
+.icon{
+    font-size: 1.1em;
+    margin-left: 10px;
+}
+
+.right_icon{
+    font-size: 1.1em;
+    margin-right: 10px;
+}
+
+.title{
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.desc{
+    margin-top: 20px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.input_text_box{
+    margin-top: 2px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 30px;
+}
+
+.input_text{
+    width: 100%;
+    height: 100%;
+}
+
+.textarea_box{
+    margin-top: 2px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 300px;
+}
+
+.textarea{
+    width: 100%;
+    height: 100%;
+    line-height: 20px;
+    padding: 5px;
+    resize: none;
+    border-radius: 5px;
+}
+
+.button_box{
+    margin: 20px 0px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.button{
+    width: 100%;
+    height: 100%;
+}
+
+.tag{
+    padding:2px;
+    border-radius: 3px;
+    background: var(--color-bright-purple);
+    color:white;
+    margin-right:4px;
+}
