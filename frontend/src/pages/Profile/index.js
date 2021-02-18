@@ -50,6 +50,7 @@ const Profile = (props) => {
   }
 
   const onFollowingHandler = () => {
+    console.log(props.match.params.id)
     restapi.delete('/follow', {toUserNo: props.match.params.id})
       .then((response) => {
         console.log(response)
