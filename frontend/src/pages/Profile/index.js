@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import styles from './index.module.css';
 import restapi from 'src/api/restapi';
 import ButtonComp from 'src/components/ButtonComp/ButtonComp';
 import Imgbox from 'src/components/Imgcomponents/Imgbox';
 import Navbar from 'src/components/Navbar/Navbar';
-import styles from './index.module.css';
 import { useHistory } from 'react-router-dom'
+import TextEditor from 'src/components/TextEditor/TextEditor';
+
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 
 const Profile = (props) => {
   const [userInfo, setUserInfo] = useState({});
+  const [editMode, setEditMode] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -26,7 +30,14 @@ const Profile = (props) => {
   }
 
   const onFollow = () => {
-    
+    // setUserNo(userInfo.no)
+    // restapi.post(`/follow`,{
+    //   userNo
+    // })
+    // .then((response) => {
+    //   console.log(response);
+    // })
+    // .catch(() => {})
   }
 
   const renderBtnComponent = () => {
@@ -81,7 +92,15 @@ const Profile = (props) => {
       <h1 className={styles.userNickname}>{userInfo.nickname}</h1>
       {renderBtnComponent()}
       <div className={styles.userIntro}>
-        {userInfo.description}
+        {
+          editMode ? 
+          <TextEditor userInfo={userInfo} setUserInfo={setUserInfo} setEditMode={setEditMode} /> :
+          <>
+            <button onClick={() => {setEditMode(!editMode)}} className={styles.editBtn}><h1>EDIT</h1><i class="fas fa-pencil-alt"></i></button>
+            <div>{ ReactHtmlParser(userInfo.description) }</div>
+          </>
+        }
+        
       </div>
     </>
   );
