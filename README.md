@@ -6,7 +6,7 @@
 
 
 
-> ## 🏡Let's PLOVER!🌈 [Link](https://plover.co.kr/)
+> ## 🏡Let's PLOVER!🌈 [Link](https://plover.co.kr/login)
 
 
 
@@ -46,7 +46,7 @@
 - ##### 모든 대화는 한곳에서!
 
   공적인 대화는 front와 back개발자들이 모두 알 수 있도록! 흐름은 모두가 알고가자!
-  
+
   
 
 ---
@@ -106,7 +106,7 @@
 
 
 
-​				    **youtube Link : **
+				    **youtube Link : **
 
 ### 						  	😎	https://youtu.be/oqFF05Jzb4k    🤩
 
@@ -140,9 +140,9 @@
 
   - **프로필 확인 주소 (다른 이용자 프로필 url)** :   ex )     ~ /profile/235
 
-    ​                                                                                        ~ /profile/95
-
-    ​                                                                                        ~/profile/1
+        ~ /profile/95
+        
+        ~/profile/1
 
     
 
