@@ -9,7 +9,8 @@ import FadeIn from 'react-fade-in';
 import Event from "./event";
 import { Editor } from '@toast-ui/react-editor';
 
-function Register(props) {
+function Edit(props) {
+  const [study, setStudy] = useState({});
   let [tags, setTags] = useState([]);
   let state = {};
   state.tags = tags;
@@ -18,10 +19,15 @@ function Register(props) {
   const editor = useRef();
 
   useEffect(() => {
-    event.setState(state);
-    event.setTarget(document.getElementById("study_register"));
+    event.setStudy(setStudy);
+    event.getStudy();
+  }, []);
+
+  useEffect(() => {
+    event.setTarget(document.getElementById("study_edit"));
     event.setTitle(document.getElementById("title"));
     event.setContent(editor);
+    event.setState(state);
     event.addEvent();
 
     return () => {
@@ -29,15 +35,19 @@ function Register(props) {
     };
   }, [tags]);
 
+  useEffect(() => {
+    if (study.content) editor.current.getInstance().setMarkdown(study.content);
+  }, [study]);
+
   return (
-    <div id="study_register">
+    <div id="study_edit">
       <Navbar color="white">
         <span onClick={() => {
           props.history.goBack();
         }}>
           <i className={"fas fa-chevron-left color_black" + " " + styles.icon} style={{ cursor: "pointer" }}></i>
         </span>
-        <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">스터디 등록</Typo></FadeIn></span>
+        <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">스터디 수정</Typo></FadeIn></span>
         <i className={"fas fa-pen color_white" + " " + styles.right_icon}></i>
       </Navbar>
       <FadeIn delay={200}>
@@ -45,7 +55,7 @@ function Register(props) {
           <Typo ty="p">제목</Typo>
         </div>
         <div className={styles.input_text_box}>
-          <Input id="title" placeholder="제목을 입력해주세요." type="text" className={styles.input_text} />
+          <Input id="title" placeholder="제목을 입력해주세요." type="text" className={styles.input_text} value={study.title ? study.title : ""} />
         </div>
         <div className={styles.desc}>
           <Typo ty="p">내용</Typo>
@@ -75,11 +85,11 @@ function Register(props) {
           }
         </div>}
         <div className={styles.button_box}>
-          <ButtonComp id="register_btn" width="large" type="base" textvalue="등록하기" className={styles.button} />
+          <ButtonComp id="edit_btn" width="large" type="base" textvalue="수정하기" className={styles.button} />
         </div>
       </FadeIn>
     </div>
   );
 }
 
-export default Register;
+export default Edit;

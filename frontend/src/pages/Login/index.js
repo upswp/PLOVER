@@ -27,22 +27,21 @@ const Login = (props) => {
     console.log('Email', email);
     console.log('Password', password);
 
-    axios.post(`https://dev.plover.co.kr/ssafy/account/login`, {
+    axios.post(`${process.env.REACT_APP_HOST}/account/login`, {
       email,
       password
     }
     ).then(res => {
-      console.log(res);
       if (res.data.response === "success") {
 
         //FCM 토큰 코드 추가
         let massage = fire.messaging();
         massage.getToken().then(fcmtoken => {
-          axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, {
+          axios.post(`${process.env.REACT_APP_HOST}/notification/registerFCMToken`, {
             token: fcmtoken
           })
             .then(res => {
-              alert(`hello! ${email}`);
+              //alert(`hello! ${email}`);
             })
             .catch(err => {
               console.log(err);
@@ -51,18 +50,18 @@ const Login = (props) => {
 
         //FCM토큰 코드 끝
 
-        setLoginCheck(true);
-
         //로컬스토리지에 이메일,닉네임,유저번호 저장
         localStorage.setItem('email', res.data.data.email);
         localStorage.setItem('nickname', res.data.data.nickName);
         localStorage.setItem('profileImageUrl', res.data.data.profileImageUrl);
         localStorage.setItem('id', res.data.data.no);
+        localStorage.setItem('accessToken', res.data.data.accessToken);
         console.log(res.data.data);
 
         props.history.push({
           pathname: '/home'
         })
+
       } else {
         alert('ID와 PW가 일치하지 않습니다.^0^')
       }
@@ -74,7 +73,6 @@ const Login = (props) => {
 
   return (
     <div className={styles.login}>
-      {loginCheck && <Redirect to="/home" />}
       <h1 className={styles.login__title}>PLOVER</h1>
       <form className={styles.login__form} onSubmit={onSubmitHandler}>
         <input className={styles.login__input} value={email} type="text" placeholder="ID" autoCapitalize="off" onChange={onEmailHandler} />

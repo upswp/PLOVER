@@ -1,11 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from "./index.module.css";
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import "./tooltip.css";
 import { Navbar, Typo, ImgAttach, Input, Select, InputDate, InputTime, ButtonComp } from "src/components";
 import restapi from "src/api/restapi";
 import FadeIn from 'react-fade-in';
 import md5 from "md5";
+import { Editor } from '@toast-ui/react-editor';
+
 
 function Register(props) {
+
+    const editor = useRef();
     const imgattach = useRef();
     const [title, setTitle] = useState("");
     const [type, setType] = useState("");
@@ -131,7 +138,14 @@ function Register(props) {
                     <Typo ty="p">내용</Typo>
                 </div>
                 <div className={styles.textarea_box}>
-                    <textarea placeholder="내용을 입력해주세요." id="content" type="text" className={styles.textarea} />
+                    <Editor
+                        previewStyle="vertical"
+                        height="100%"
+                        initialEditType="markdown"
+                        initialValue=""
+                        id="content"
+                        ref={editor}
+                    />
                 </div>
                 <div className={styles.button_box}>
                     <ButtonComp width="large" type="base" textvalue="등록하기" className={styles.button} onClick={() => {
@@ -188,7 +202,8 @@ function Register(props) {
                         }
 
                         //내용검사
-                        if (document.getElementById("content").value === "") {
+                        let content = editor.current.getInstance().getMarkdown();
+                        if (!content) {
                             alert("내용을 입력해주세요.");
                             return;
                         }
@@ -211,7 +226,7 @@ function Register(props) {
                             startTime: startTime,
                             endDate: endDate,
                             endTime: endTime,
-                            content: setLineToPtag(document.getElementById("content").value),
+                            content: content,
                             place: place,
                             currentPersonnel: 0,
                             maxPersonnel: Number(personnel)

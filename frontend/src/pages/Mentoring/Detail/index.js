@@ -4,6 +4,10 @@ import { Navbar, Typo, Imgbox, Skeleton, PulseBadge, ButtonComp, Input } from "s
 import Event from "./event";
 import FadeIn from 'react-fade-in';
 import restapi from "src/api/restapi";
+import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
+
+let viewer = null;
 
 function Detail(props) {
 
@@ -20,7 +24,13 @@ function Detail(props) {
         event.mentoring(mentoring);
         event.setMentoring(setMentoring);
         console.log((localStorage.getItem('email') === mentoring.email ? "visible" : "hidden"));
-
+        if (mentoring) {
+            viewer = new Viewer({
+                el: document.querySelector('#content'),
+                height: '100%',
+                initialValue: mentoring.content
+            });
+        }
     }, [mentoring]);
 
     function toColor($value) {
@@ -90,16 +100,14 @@ function Detail(props) {
                         <div className={styles.nicknamebox}><span className={styles.nickname}>{mentoring.nickName ? mentoring.nickName : ""}</span></div>
                     </div>
                 </div>
-                <div style={{ width: "100%", fontSize: "0.8em", padding: "0px 10px" }} id="content" dangerouslySetInnerHTML={{
-                    __html: `${mentoring.content ? mentoring.content : ""}`
-                }}>
+                <div style={{ width: "100%", padding: "0px 10px" }} id="content">
                 </div>
                 <div className={styles.button_box}>
                     <ButtonComp width="large" type="base" textvalue={mentoring.type === "live" ? (localStorage.getItem('email') === mentoring.email ? "라이브 관리" : "라이브 보러가기") : "채팅하기"}
                         className={styles.button} onClick={() => {
                             if (mentoring.type === "live") {
-                                if (localStorage.getItem('email') === mentoring.email) props.history.push(`/live/manage?b_addr=${mentoring.address}`);
-                                else props.history.push(`/live/view?b_addr=${mentoring.address}`);
+                                if (localStorage.getItem('email') === mentoring.email) props.history.push(`/live/manage?b_addr=${mentoring.address}&id=${mentoring.id}`);
+                                else props.history.push(`/live/view?b_addr=${mentoring.address}&id=${mentoring.id}`);
                             } else {
                                 if (localStorage.getItem('email') === mentoring.email) props.history.push(`/chat/list/${mentoring.no}`);
                                 else props.history.push(`/chat/view/${mentoring.no}`);

@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styles from "./index.module.css";
 import { Navbar, Typo, Imgbox, ButtonComp, Skeleton } from "src/components";
 import FadeIn from 'react-fade-in';
+import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer';
+import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import Event from "./event";
 
+let viewer = null;
 
 function Detail(props) {
   let [tags, setTags] = useState([]);
@@ -24,7 +27,14 @@ function Detail(props) {
     console.log(state.study.no);
     event.setTarget(document.getElementById("study_detail"));
     event.setState(state);
-
+    console.log(state);
+    if (state.study) {
+      viewer = new Viewer({
+        el: document.querySelector('#content'),
+        height: '100%',
+        initialValue: state.study.content
+      });
+    }
     return () => {
       //event.destroy();
     };
@@ -38,9 +48,15 @@ function Detail(props) {
           props.history.goBack();
         }}><i className={"fas fa-chevron-left color_black " + styles.icon} style={{ cursor: "pointer" }}></i></span>
         <span className={"color_black" + " " + styles.title}><FadeIn delay={400}><Typo ty="h4">스터디 상세보기</Typo></FadeIn></span>
-        <span onClick={() => {
+        <span style={{ cursor: "pointer" }} key={(localStorage.getItem('email') === state.study.email ? "edit" : "no_edit")} onClick={() => {
+          if (localStorage.getItem('email') === state.study.email) props.history.replace(`/study/edit/${event.getIndex()}`);
         }}>
-          <i className={"fas fa-pen color_white" + " " + styles.right_icon}></i>
+          <i className={"fas fa-user-edit " + "color_black " + styles.write_icon} style={{ visibility: (localStorage.getItem('email') === state.study.email ? "visible" : "hidden") }}></i>
+        </span>
+        <span style={{ cursor: "pointer" }} key={(localStorage.getItem('email') === state.study.email ? "delete" : "no_delete")} onClick={() => {
+          if (localStorage.getItem('email') === state.study.email) event.deleteStudy();
+        }}>
+          <i className={"fas fa-trash-alt " + "color_black " + styles.write_icon} style={{ visibility: (localStorage.getItem('email') === state.study.email ? "visible" : "hidden") }}></i>
         </span>
       </Navbar>
       <FadeIn delay={200}>
@@ -60,7 +76,7 @@ function Detail(props) {
         <div className={styles.border}>
           <hr />
         </div>
-        <div style={{ width: "100%", padding: "0px 10px" }} id="content" dangerouslySetInnerHTML={{ __html: state.study.content !== undefined && state.study.content }}>
+        <div style={{ width: "100%", padding: "0px 10px" }} id="content">
         </div>
         <div className={styles.border}>
           <hr />

@@ -1,12 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from "./index.module.css";
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import "./tooltip.css";
 import { Navbar, Typo, ImgAttach, Input, Select, InputDate, InputTime, ButtonComp } from "src/components";
 import Event from "./event";
 import md5 from "md5";
 import restapi from "src/api/restapi";
+import { Editor } from '@toast-ui/react-editor';
 
 function Edit(props) {
 
+    const editor = useRef();
     let [mentoring, setMentoring] = useState({});
     const imgattach = useRef();
     const [title, setTitle] = useState("");
@@ -73,7 +78,7 @@ function Edit(props) {
         event.mentoring(mentoring);
         event.setMentoring(setMentoring);
         if (mentoring.type) document.getElementById("type").value = mentoring.type;
-
+        if (mentoring.content) editor.current.getInstance().setMarkdown(mentoring.content);
     }, [mentoring]);
 
     function removePtag(str) {
@@ -157,7 +162,14 @@ function Edit(props) {
                 <Typo ty="p">내용</Typo>
             </div>
             <div className={styles.textarea_box}>
-                <textarea type="text" className={styles.textarea} id="content" defaultValue={mentoring.content ? removePtag(mentoring.content) : ""}></textarea>
+                <Editor
+                    previewStyle="vertical"
+                    height="100%"
+                    initialEditType="markdown"
+                    initialValue=""
+                    id="content"
+                    ref={editor}
+                />
             </div>
             <div className={styles.button_box}>
                 <ButtonComp width="large" type="base" textvalue="수정하기" className={styles.button} onClick={() => {
@@ -214,7 +226,7 @@ function Edit(props) {
                     }
 
                     //내용검사
-                    if (document.getElementById("content").value === "") {
+                    if (!editor.current.getInstance().getMarkdown()) {
                         alert("내용을 입력해주세요.");
                         return;
                     }
@@ -225,7 +237,7 @@ function Edit(props) {
                     console.log(`시작시간 : ${startTime}`);
                     console.log(`종료날짜 : ${endDate}`);
                     console.log(`종료시간 : ${endTime}`);
-                    console.log(`내용 : ${setLineToPtag(document.getElementById("content").value)}`);
+                    console.log(`내용 : ${editor.current.getInstance().getMarkdown()}`);
                     console.log(`장소 : ${place}`);
                     console.log(`모집인원 : ${personnel}`);
 
@@ -238,7 +250,7 @@ function Edit(props) {
                         startTime: startTime,
                         endDate: endDate,
                         endTime: endTime,
-                        content: setLineToPtag(document.getElementById("content").value),
+                        content: editor.current.getInstance().getMarkdown(),
                         place: place,
                         currentPersonnel: 0,
                         maxPersonnel: Number(personnel)

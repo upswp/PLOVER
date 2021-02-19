@@ -124,8 +124,10 @@ class Broadcast {
     //peer객체 소멸시키기
     dispose() {
         if (this.$webRtcPeer) {
+            this.$webRtcPeer2.dispose();
             this.$webRtcPeer.dispose();
             this.$webRtcPeer = null;
+            this.$webRtcPeer2 = null;
         }
     }
 

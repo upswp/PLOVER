@@ -9,7 +9,7 @@ export { default as Home } from "./Home";
 export { default as Profile } from "./Profile";
 export { default as Notification } from "./Notification";
 export { MRegister, MList, MDetail, MEdit } from "./Mentoring";
-export { SRegister, SList, SDetail } from "./Study";
+export { SRegister, SList, SDetail, SEdit } from "./Study";
 export { LManage, LView } from "./Live";
 export { default as Search } from "./Search";
 export { default as Follow } from "./Follow";

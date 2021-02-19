@@ -21,6 +21,14 @@ export default class Event {
         this.$content = $content;
     }
 
+    study($value) {
+        this.study = $value;
+    }
+
+    setStudy($value) {
+        this.setStudy = $value;
+    }
+
     //이벤트 위임기법을 사용한 이벤트 핸들링
     addEvent() {
         this.clickHandler = this.clickEventHandler.bind(this);
@@ -31,8 +39,8 @@ export default class Event {
     }
 
     clickEventHandler(e) {
-        if (e.target.id && e.target.id === "register_btn") {
-            this.registerStudy();
+        if (e.target.id && e.target.id === "edit_btn") {
+            this.editStudy();
         }
     };
 
@@ -43,15 +51,25 @@ export default class Event {
         return result;
     }
 
-    async registerStudy() {
+    getIndex() {
+        let pathname = this.$history.location.pathname;
+        let arr = pathname.split("/");
+        return parseInt(arr[arr.length - 1]);
+    }
+
+    async editStudy() {
         let content = this.$content.current.getInstance().getMarkdown();
         if (!content || !this.$title.value || this.$state.tags.length <= 0) {
             alert("모든 입력값을 채워주세요");
             return;
         }
 
-        console.log("== registerStudy ==");
-        await restapi.post("/study/article", {
+        console.log("== editStudy ==");
+        console.log(content);
+        console.log(this.$title.value);
+        console.log(this.$state.tags);
+
+        await restapi.put(`/study/article/${this.getIndex()}`, {
             content: content,
             hashtag: this.$state.tags,
             notice: false,
@@ -59,15 +77,29 @@ export default class Event {
         }).then((response) => {
             if (response.status == 200) {
                 console.log(response);
-                alert("등록성공");
+                alert("수정성공");
                 this.$history.push("/study/list");
             } else {
                 console.log(response);
-                alert("등록실패");
+                alert("수정실패");
             }
         }).catch((err) => {
             console.log(err);
-            alert("등록실패");
+            alert("수정실패");
+        });
+    }
+
+    async getStudy() {
+        console.log("== getStudy ==");
+        let index = this.getIndex();
+        await restapi.get(`/study/article/${index}`).then((response) => {
+            if (response.status == 200) {
+                this.setStudy(response.data.data);
+            } else {
+                console.log(response);
+            }
+        }).catch((err) => {
+            console.log(err);
         });
     }
 

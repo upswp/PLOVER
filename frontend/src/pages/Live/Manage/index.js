@@ -1,21 +1,28 @@
 import React, { useLayoutEffect, useState, useEffect, useRef, useCallback } from 'react';
 import styles from './index.module.css';
-import { Navbar, PulseBadge, Skeleton, Input, ButtonComp } from "src/components";
+import { Navbar, PulseBadge, Skeleton, Input, ButtonComp, Imgbox } from "src/components";
 import Broadcast from "src/lib/broadcast";
 import queryString from "query-string";
 import FadeIn from 'react-fade-in';
+import restapi from "src/api/restapi";
 
 let broadcast = new Broadcast();
 
 function Manage(props) {
     const scrollRef = useRef();
+    const [mentoring, setMentoring] = useState({});
     const [chat, addChat] = useState([]);
     const [viewNum, setViewNum] = useState(0);
     const [mainScreen, setMainScreen] = useState("video1");
     const query = queryString.parse(props.location.search);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         console.log("useEffect");
+
+        restapi.get(`/mentoring/${query.id}`).then(res => {
+            setMentoring(res.data.data);
+        })
+
         broadcast.createSocketClient(query.b_addr, localStorage.getItem("nickname"));
         broadcast.setVideo(document.getElementById("live_screen"));
         broadcast.setVideo2(document.getElementById("live_screen2"));
@@ -28,6 +35,7 @@ function Manage(props) {
 
         return () => {
             broadcast.stop();
+            broadcast.$ws.disconnect();
         };
     }, []);
 
@@ -88,14 +96,14 @@ function Manage(props) {
             <FadeIn delay={200}>
                 <div className={styles.infobox}>
                     <div className={styles.imgbox}>
-                        <Skeleton shape="circle" size="auto" />
+                        <Imgbox src={mentoring.profileImageUrl} shape="circle" size="auto" className={styles.image} />
                     </div>
                     <div className={styles.infotextbox}>
                         <div className={styles.infotextbox_top}>
-                            <span className={"color_black " + styles.infotextbox_title}>[멘토링] 자바스크립트 알고리즘 강의</span>
+                            <span className={"color_black " + styles.infotextbox_title}>{mentoring.title ? mentoring.title : ""}</span>
                         </div>
                         <div className={styles.infotextbox_bottom}>
-                            <span className={"color_purple " + styles.infotextbox_nickname} >2기 김나리</span>
+                            <span className={"color_purple " + styles.infotextbox_nickname} >{mentoring.nickName ? mentoring.nickName : ""}</span>
                         </div>
                     </div>
                 </div>

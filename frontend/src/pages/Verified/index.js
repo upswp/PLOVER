@@ -8,14 +8,13 @@ function Verified(props) {
   const history = useHistory()
 
   useEffect(() => {
-    const timer = setTimeout(redirect, 5000)
+    const timer = setTimeout(redirect, 3000)
     return () => {
       clearTimeout(timer)
     }
   })
 
   const key = document.location.href.split('/')[4]
-  console.log(key)
 
   function GetVerified() {
     if (key === "success") {
