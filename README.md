@@ -2,11 +2,19 @@
 
 [![image](https://user-images.githubusercontent.com/70404643/108404936-d1ac7080-7263-11eb-8b05-ffd433356c4b.png)](https://user-images.githubusercontent.com/45934117/94068485-35a04980-fe2a-11ea-8b57-abd9bde30014.png)
 
+
+
+
+
 > ## 🏡Let's PLOVER!🌈 [Link](https://plover.co.kr/)
+
+
 
 ---
 
 ## ![image](https://user-images.githubusercontent.com/70404643/108386995-863c9700-7250-11eb-9b95-497ab6b9d0ed.png)
+
+
 
 |   Name   | 윤기현                                                       | 이아영                                                       | 박상우                                                       | 임장순                                                       | 박지영                                                       | 차수연                                                       |
 | :------: | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -17,27 +25,41 @@
 
   
 
-### Team Communication Rule ✨
+## Team Communication Rule ✨
 
 - 🧷 [PLOVER Business Rules 바로가기](https://lab.ssafy.com/s04-webmobile2-sub3/s04p13b104/wikis/PLOVER-Business-Rules)
+
+
 
 - ##### 팀원간의 소통은 존댓말로! 
 
   사적인 자리에서는 친분을! 하지만 프로젝트는 우리 모두의 존중을 위해 존댓말로!
 
+  
+
 - ##### 프로젝트 이슈 관리는 스스로!
 
   팀장과 CTO를 중심으로 프로젝트 이슈를 기획하고 스스로 관리하며 이슈처리를 학습!
 
+  
+
 - ##### 모든 대화는 한곳에서!
 
   공적인 대화는 front와 back개발자들이 모두 알 수 있도록! 흐름은 모두가 알고가자!
+  
+  
 
 ---
 
 ## 👨‍👨‍👧 서비스 소개
 
+
+
 ![image](https://user-images.githubusercontent.com/70404643/108383811-77081a00-724d-11eb-8f60-6d4e904a3bd0.png)
+
+
+
+
 
 🤔[열심히 취업준비하는 현역 SSAFY 김싸피]
 
@@ -55,45 +77,97 @@
 
 - 다양한 개발경험이 있는 SSAFY 사람들과 지식을 공유하고 싶어요!
 
+
+
+
+
 ##### 그런 당신을 위해 준비했습니다! 실시간 멘토링 서비스 **PLOVER**👍
 
 ---
 
 ![image](https://user-images.githubusercontent.com/70404643/108387801-4a560180-7251-11eb-8696-f6e2bc338706.png)
 
-##  :computer: 핵심 기능
+
+
+
+
+##  :computer: 핵심 기능 (시연 영상 Let's get it ~! )
 
 * 멘토의 모습을 생생하게 라이브로! `실시간 라이브 멘토링`
 * 멘티의 궁금증은 편하게 채팅으로! `실시간 채팅 멘토링`
 * 스터디 현황을 한눈에 ! `스터디 매칭 시스템`
 * 모든 사람들과 소통 ! `SNS 시스템`
 
+
+
 ---
 
 ![image](https://user-images.githubusercontent.com/70404643/108387675-2692bb80-7251-11eb-838a-3fbb4d5aeac4.png)
 
+
+
+
+
 시연영상 위치
+
+
+
+
+
+
 
 ---
 
+![image](https://user-images.githubusercontent.com/70404643/108395700-68276480-7259-11eb-8a9f-4243262e20b6.png)
+
+- 페이지 상세 설명
+
+  - HOME
+
+    ![image](uploads/3b9881001d2987c25d331991bedd8edc/image.png)
+
+    ![image](uploads/e86f8748d5cd14e91ac2603f9fe49604/image.png)
+
+  - MENU
+
+    ![image](uploads/497f30225bb197d1e949233ee98fb188/image.png)
+
+  - ALARM
+
+  - ![image](uploads/953c2d4c15147f93c7a4478ab8d710e8/image.png)
+
+---
+
+
+
 ![image](https://user-images.githubusercontent.com/70404643/108394976-a5d7bd80-7258-11eb-97dc-a876a24c97a7.png)
+
+
+
+
 
 ## 🚀 배포 플로우
 
 ![plover_infra_v1.4.0](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9sIAN%2FbtqU4CqnMc3%2F0u9j26QLt74oyVNbDNHfVk%2Fimg.png)
 
+
+
+
+
 ##  :video_game: 기술 스택
+
+
 
 ### 💻Back-End
 
-#### 기술스택
+#### 기술스택   ----------------------
 
 ![Apache Maven](https://img.shields.io/badge/Apache_Maven-4.0.0-C71A36?Style=flat&logo=Apache-Maven&logoColor=C71A36)
 ![JAVA ](https://img.shields.io/badge/JAVA_JDK-1.8-007396?Style=flat&logo=Java&logoColor=007396)
 ![SpringBoot](https://img.shields.io/badge/SpringBoot-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=6DB33F)
 ![MariaDB](https://img.shields.io/badge/MariaDB(AWS_RDS)-10.4.13-61DAFB?Style=flat&logo=MariaDB&logoColor=61DAFB)
 
-#### 📚사용된 라이브러리
+#### 📚사용된 라이브러리   ----------------------
 
 ![spring-mail](https://img.shields.io/badge/Spring_mail-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=85EA2D)
 ![spring-security](https://img.shields.io/badge/Spring_security-2.4.2-6DB33F?Style=flat&logo=Spring&logoColor=85EA2D)
@@ -106,9 +180,11 @@
 ![Firebase-admin](https://img.shields.io/badge/Firebase_admin-7.0.1-FFCA28?Style=flat&logo=Firebase&logoColor=FFCA28)
 ![JSON_Web_Tokens](https://img.shields.io/badge/JSON_Web_Tokens-0.11.1-000000?Style=flat&logo=Json-Web-Tokens&logoColor=000000)
 
+
+
 ### 🌏인프라
 
-#### ⚙️기술스택
+#### ⚙️기술스택   ----------------------
 
 ![Docker](https://img.shields.io/badge/Docker-gray?Style=flat&logo=Docker&logoColor=2496ED)
 ![Nginx](https://img.shields.io/badge/Nginx-gray?Style=flat&logo=Nginx&logoColor=269539)
@@ -118,7 +194,7 @@
 ![Slack](https://img.shields.io/badge/Slack-gray?Style=flat&logo=Slack&logoColor=4A154B)
 
 
-#### 📚사용된 라이브러리
+#### 📚사용된 라이브러리   ----------------------
 
 ![Apache Ant](https://img.shields.io/badge/Apache_Ant-1.11-A81C7D?Style=flat&logo=Apache-Ant&logoColor=A81C7D)
 ![Email Extension](https://img.shields.io/badge/Email_Extension-2.80-D24939?Style=flat&logo=Jenkins&logoColor=D24939)
@@ -132,15 +208,17 @@
 
 
 
+-------------------------------------------
+
 ### ✨Front-End
 
-#### ⚙️기술스택
+#### ⚙️기술스택   ----------------------
 
 ![React](https://img.shields.io/badge/React-17.0.1-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
 ![PostCSS](https://img.shields.io/badge/PostCSS-gray?Style=flat&logo=PostCSS&logoColor=DD3A0A)
 ![WebSocket](https://img.shields.io/badge/WebSocket-gray?Style=flat&logo=Socket.io&logoColor=010101)
 
-#### 📚사용된 라이브러리
+#### 📚사용된 라이브러리   ----------------------
 
 ![Font Awesome](https://img.shields.io/badge/Font_Awesome-5.15.2-339AF0?Style=flat&logo=Font-Awesome&logoColor=339AF0)
 ![Axios](https://img.shields.io/badge/Axios-0.21.1-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
@@ -155,9 +233,11 @@
 ![React-scripts](https://img.shields.io/badge/ReactScripts-4.0.1-61DAFB?Style=flat&logo=React&logoColor=61DAFB)
 ![socket.io-client](https://img.shields.io/badge/Socket.io_client-3.1.1-010101?Style=flat&logo=Socket.io&logoColor=010101)
 
+
+
 ### 🔥라이브
 
-#### ⚙️기술스택
+#### ⚙️기술스택   ----------------------
 
 ![VMware](https://img.shields.io/badge/VMware-gray?Style=flat&logo=VMware&logoColor=white)
 ![WebRTC](https://img.shields.io/badge/WebRTC(Kurento)-gray?Style=flat&logo=WebRTC&logoColor=white)
@@ -165,6 +245,10 @@
 ![WebSocket](https://img.shields.io/badge/WebSocket-gray?Style=flat&logo=Socket.io&logoColor=010101)
 ![Docker](https://img.shields.io/badge/Docker-gray?Style=flat&logo=Docker&logoColor=2496ED)
 ![Nginx](https://img.shields.io/badge/Nginx-gray?Style=flat&logo=Nginx&logoColor=269539)
+
+
+
+-------------------------------------------------
 
 
 
@@ -183,6 +267,8 @@
   - ```bash
     $ npm start
     ```
+
+
 
 ### Backend
 
@@ -203,12 +289,9 @@
 
 - DB 테이블을 생성합니다.
 
+
+
 ---
-
-![image](https://user-images.githubusercontent.com/70404643/108395700-68276480-7259-11eb-8a9f-4243262e20b6.png)
-
-- 페이지 설명(위의 핵심기능쪽으로 빼도 괜찮을듯)
-- 
 
 
 
