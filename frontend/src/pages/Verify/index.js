@@ -27,7 +27,7 @@ function Verify(props) {
   }, [])
 
   const sendEmail = () => {
-    axios.post(process.env.REACT_APP_HOST + '/ssafy/account/verify', {
+    axios.post(process.env.REACT_APP_HOST + '/account/verify', {
       email: email
     })
       .then((res) => {
