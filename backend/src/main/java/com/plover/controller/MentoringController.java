@@ -149,7 +149,7 @@ public class MentoringController {
         try {
             Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (no != null) {
-                if (no == mentoringService.findById(mentoringUpdateRequest.getId()).getUser().getNo()) {
+                if (no.equals(mentoringService.findById(mentoringUpdateRequest.getId()).getUser().getNo())) {
                     MentoringResponse mentoringResponse = mentoringService.updateMentoring(mentoringUpdateRequest);
                     final Response result = new Response("success", "멘토링 게시글 정보 수정 성공", mentoringResponse);
                     response = new ResponseEntity<>(result, HttpStatus.OK);
@@ -177,7 +177,7 @@ public class MentoringController {
         try {
             Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (no != null) {
-                if (no == mentoringService.findById(id).getUser().getNo()) {
+                if (no.equals(mentoringService.findById(id).getUser().getNo())) {
                     mentoringService.deleteMentoring(id);
                     final Response result = new Response("success", "멘토링 게시글 정보 삭제 성공", null);
                     response = new ResponseEntity<>(result, HttpStatus.OK);

@@ -157,7 +157,7 @@ public class StudyController {
         try {
             Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (no != null) {
-                if (no == studyService.findById(id).getUser().getNo()) {
+                if (no.equals(studyService.findById(id).getUser().getNo())) {
                     StudyDetailResponse returnStudy = studyService.updateStudy(id, studyRequest);
                     final Response result = new Response("success", "스터디 게시글 정보 수정 성공", returnStudy);
                     response = new ResponseEntity<>(result, HttpStatus.OK);
@@ -185,7 +185,7 @@ public class StudyController {
         try {
             Long no = (long) jwtUtil.getNo(cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME).getValue());
             if (no != null) {
-                if (no == studyService.findById(id).getUser().getNo()) {
+                if (no.equals(studyService.findById(id).getUser().getNo())) {
                     studyService.deleteStudy(id);
                     final Response result = new Response("success", "스터디 게시글 정보 삭제 성공", null);
                     response = new ResponseEntity<>(result, HttpStatus.OK);
