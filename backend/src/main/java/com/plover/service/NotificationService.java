@@ -66,6 +66,6 @@ public class NotificationService {
         DatabaseReference ref = database.getReference().child("users").child(toUserNickName);
         DatabaseReference newPostRef = ref.push();
         //TODO : 나중에 바꿔야함(경로)
-        newPostRef.setValueAsync(new FirebaseNotification(notiResponse.getMessage(),"https://dev.plover.co.kr/profile","0",currDate.toString()));
+        newPostRef.setValueAsync(new FirebaseNotification(notiResponse.getMessage(),"https://plover.co.kr/","0",currDate.toString()));
     }
 }
