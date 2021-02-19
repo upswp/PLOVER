@@ -186,9 +186,9 @@ public class AccountController {
     public Object getVerify(HttpServletResponse response, @PathVariable String key) {
         try {
             accountService.verifyEmail(key);
-            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, "https://dev.plover.co.kr/verified/success").build();
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, "https://plover.co.kr/verified/success").build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, "https://dev.plover.co.kr/verified/fail").build();
+            return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).header(HttpHeaders.LOCATION, "https://plover.co.kr/verified/fail").build();
         }
     }
 
