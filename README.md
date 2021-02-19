@@ -120,21 +120,47 @@
 
 ![image](https://user-images.githubusercontent.com/70404643/108395700-68276480-7259-11eb-8a9f-4243262e20b6.png)
 
-- 페이지 상세 설명
+#### 페이지 상세 설명
 
-  - HOME
+- ##### Login & SignIn
 
-    ![image](uploads/3b9881001d2987c25d331991bedd8edc/image.png)
+  ![이미지](./images/login_signin.png)
 
-    ![image](uploads/e86f8748d5cd14e91ac2603f9fe49604/image.png)
 
-  - MENU
 
-    ![image](uploads/497f30225bb197d1e949233ee98fb188/image.png)
+- ##### Home & Menu & Alarm
 
-  - ALARM
+  ![이미지](./images/home_menu_alarm.png)
 
-  - ![image](uploads/953c2d4c15147f93c7a4478ab8d710e8/image.png)
+  
+
+- ##### Profile & Follow
+
+  ![이미지](./images/profile_follow.png)
+
+
+
+- ##### Chatting
+
+  ![이미지](./images/chatting.png)
+
+  
+
+- ##### Mentoring
+
+  ![이미지](./images/mentoring.png)
+
+  
+
+- ##### Studying
+
+  ![이미지](./images/studying.png)
+
+  
+
+  
+
+  
 
 ---
 
