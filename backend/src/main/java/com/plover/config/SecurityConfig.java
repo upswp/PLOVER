@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/account/checkDupNickName").permitAll()
                 .antMatchers("/account/login").permitAll()
                 .antMatchers("/account/verify/**").permitAll()
+                .antMatchers("/account/logout").permitAll()
                 .antMatchers("/study/**").permitAll()
                 .antMatchers("/follow/**").permitAll()
                 .antMatchers("/file/**").permitAll()
