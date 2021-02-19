@@ -132,17 +132,27 @@
 
   ![이미지](./images/home_menu_alarm.png)
 
-  
+  - **Logout 버튼** : hello, user ID 옆 **탈출구 초록이모티콘**
+
+    
 
 - ##### Profile & Follow
 
   ![이미지](./images/profile_follow.png)
 
+  - **프로필을 예쁘게 꾸며봅시다 😍**
 
+  - **프로필 확인 주소 (다른 이용자 프로필 url)** :   ex )    ~ /profile/95
+
+    ​                                                                                        ~/profile/1
+
+    
 
 - ##### Chatting
 
   ![이미지](./images/chatting.png)
+
+  - Chatting  : user 프로필 페이지, mentoring, studying 상세페이지에서 1:1 대화 가능
 
   
 
