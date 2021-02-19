@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+.tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  color: var(--color-bright-purple);
+}
+
+li {
+  padding: 1em 1em;
+  border-bottom: 2px solid var(--color-light-gray);
+  width: 33%;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-light-gray);
+}
+
+.current {
+  color: var(--color-bright-purple);
+  font-weight: bold;
+  border-color: var(--color-bright-purple);
+}
+
+.content {
+  padding: 1em 1.5em;
+}

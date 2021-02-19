@@ -1,0 +1,128 @@
+.icon{
+    font-size: 1.1em;
+    margin-left: 10px;
+}
+.right_icon{
+    font-size: 1.1em;
+    margin-right: 10px;
+}
+
+.title{
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.study_title{
+    margin-top: 30px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 30px;
+}
+
+.info_box{
+    width: 100%;
+    padding: 0px 10px;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+}
+
+.profileImgbox{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.profileImg{
+    border:2px solid var(--color-bright-purple);
+    width: 50px;
+    height: 50px;
+}
+
+.profileTextbox{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.profileTextbox_top{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.profileText{
+    font-weight: bold;
+}
+
+.profileTextbox_bottom{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.datetime{
+    font-size: 0.7em; 
+    height: 30px;
+    line-height: 30px;
+    color: #555;
+}
+
+.border{
+        margin-top: 15px;
+        width: 100%;
+        padding: 0px 10px;
+        height: 20px;
+        line-height: 20px;
+}
+
+.tag_border{
+        margin-top: 5px;
+        width: 100%;
+        padding: 0px 10px;
+        height: 20px;
+        line-height: 20px;
+}
+
+.tag_desc{
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.tags{
+    margin-top:20px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 30px;
+}
+.tag{
+    padding:0px 2px;
+    border-radius: 3px;
+    background: var(--color-bright-purple);
+    color:white;
+    margin:0px 4px;
+    font-size: 0.9em;
+}
+
+
+
+.button_box{
+    margin: 10px 0px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.button{
+    width: 100%;
+    height: 100%;
+}

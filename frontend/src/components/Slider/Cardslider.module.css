@@ -1,0 +1,130 @@
+.box{
+    position: relative;
+    width:100%;
+    height:200px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-behavior:smooth;
+    -ms-overflow-style: none; 
+}
+  
+/* chrome */
+.box::-webkit-scrollbar { 
+    display: none !important; 
+}
+
+.card{
+    position: relative;
+    width:140px;
+    height:190px;
+    margin-right:15px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 3px 3px 3px gray;
+}
+
+.badge{
+    position: absolute;
+    top:3px;
+    left:3px;
+    width:46px;
+    height:20px;
+    padding-right:10px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    font-size:0.7em;
+    font-weight:bold;
+    color:white;
+    z-index:200;
+}
+
+.pointbox{
+    clear:both;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height:30px;
+}
+
+.point{
+    display: inline-block;
+    margin-right:10px;
+    position: relative;
+    width:5px;
+    height:5px;
+    border-radius: 50%;
+    border: var(--color-bright-purple) solid 1px;
+    background:white;
+    cursor:pointer;
+}
+
+.point:last-child{
+    margin-right: 0px;
+}
+
+.active{
+    background: var(--color-bright-purple);
+}
+
+.pulse{
+    position:absolute;
+    top:6px;
+    right:3px;
+    width:8px;
+    height:8px;
+    background:red;
+    border-radius: 50%;
+    animation: pulse_red_ani 2s infinite;
+}
+
+.pulse_skyblue{
+    background: var(--color-badge-skyblue);
+}
+
+.pulse_yellow{
+    background:var(--color-badge-skyblue);
+}
+
+.pulse_orange{
+    background: var(--color-badge-skyblue);
+}
+
+.pulse_mint{
+    background: var(--color-badge-skyblue);
+}
+
+.pulse_pink{
+    background: var(--color-badge-skyblue);
+}
+
+.pulse_red{
+    background: var(--color-red);
+    animation: pulse_red_ani 2s infinite;
+}
+
+.title{
+    position: absolute;
+    bottom: 3px;
+    right: 0px;
+    font-size: 0.8em;
+    border-radius: 2px;
+    background: black;
+    opacity: 0.7;
+    color: white;
+    padding: 2px;
+}
+
+@keyframes pulse_red_ani {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8);
+      }
+      50% {
+        box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+      }
+      100% {
+
+        box-shadow: 0 0 0 0px rgba(255, 0, 0, 0);
+      }
+}

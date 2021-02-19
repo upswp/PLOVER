@@ -1,0 +1,64 @@
+/* Button default css */
+.button {
+  box-sizing: border-box;
+  outline: none;
+  cursor: pointer;
+  height: 40px;
+  padding: 0;
+  background-color: var(--color-white);
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.button:disabled {
+  background-color: rgba(145, 53, 218, 0.2);
+  border-color: rgba(145, 53, 218, 0.2);
+  color: rgba(145, 53, 218, 0.5);
+}
+
+/* width */
+.small {
+  width: 3em;
+  font-size: 0.7rem;
+}
+
+.regular {
+  width: 10rem;
+  font-size: 1rem;
+}
+
+.large {
+  width: 20rem;
+  font-size: 1rem;
+}
+
+.login {
+  width: 15rem;
+  font-size: 1rem;
+}
+
+/* type */
+.base {
+  border: 2px solid var(--color-bright-purple);
+  color: var(--color-bright-purple);
+}
+
+.base:hover {
+  background-color: var(--color-bright-purple);
+  opacity: 0.8;
+  transition: all 200ms ease-in-out;
+  color: var(--color-white);
+}
+
+.login-option {
+  border: none;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  opacity: 0.5;
+}
+
+.login-option:hover {
+  background-color: var(--color-black);
+  opacity: 0.8;
+  transition: all 200ms ease-in-out;
+}

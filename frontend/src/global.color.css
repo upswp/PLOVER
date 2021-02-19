@@ -1,0 +1,67 @@
+/* global color */
+:root {
+  /* Color */
+  --color-red: rgb(255, 0, 0);
+  --color-blue: rgb(215, 226, 243);
+  --color-bright-purple: rgb(145, 53, 218);
+  --color-dark-purple: rgb(94, 80, 113);
+  --color-light-gray: rgb(187, 187, 187);
+  --color-white: white;
+  --color-black: black;
+  --color-light-mint: rgb(205, 219, 155);
+  --color-light-blue: rgba(196, 198, 226, 0.808);
+
+  /* Badge Color */
+  --color-badge-skyblue: rgb(41, 182, 246);
+  --color-badge-yellow: rgb(233, 187, 26);
+  --color-badge-orange: rgb(249, 119, 0);
+  --color-badge-mint: rgb(90, 203, 149);
+  --color-badge-pink: rgb(226, 157, 227);
+  --color-badge-gray: rgb(233, 233, 233);
+}
+/* background */
+.bg_red {
+  background: var(--color-red);
+}
+
+.bg_blue {
+  background: var(--color-badge-skyblue);
+}
+
+.bg_purple {
+  background: var(--color-bright-purple);
+}
+
+.bg_gray {
+  background: var(--color-light-gray);
+}
+
+.bg_white {
+  background: var(--color-white);
+}
+
+.bg_black {
+  background: var(--color-black);
+}
+
+/* color */
+
+.color_red {
+  color: var(--color-red);
+}
+
+.color_blue {
+  color: var(--color-blue);
+}
+
+.color_purple {
+  color: var(--color-bright-purple);
+}
+
+.color_gray {
+  color: var(--color-gray);
+}
+
+.color_white {
+  color: var(--color-white);
+}
