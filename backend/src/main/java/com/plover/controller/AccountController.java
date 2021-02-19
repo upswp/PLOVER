@@ -66,7 +66,6 @@ public class AccountController {
     private FCMService fcmService;
 
 
-
     //postMapping으로 변경
     @PostMapping("/login")
     @ApiOperation(
