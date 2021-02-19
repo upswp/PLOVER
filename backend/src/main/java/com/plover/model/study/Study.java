@@ -4,16 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.plover.converter.BooleanToYNConverter;
 import com.plover.exceptions.ErrorCode;
 import com.plover.exceptions.InvalidValueException;
-import io.swagger.annotations.ApiModelProperty;
+import com.plover.model.user.Users;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,22 +25,13 @@ public class Study {
     @GeneratedValue
     private Long id;
 
-    // 본인이 쓴 글인지 대조하기위해 사용
-    @ApiModelProperty(required = true)
-    @Email
-    @NotBlank
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "user_no") // fk컬럼명
+    private Users user;
 
-    @ApiModelProperty(required = true)
-    @NotBlank
-    private String nickName;
-
-    @ApiModelProperty(required = true)
-    @NotBlank
     private String title;
 
-    @ApiModelProperty(required = true)
-    @NotBlank
+    @Lob
     private String content;
 
     // manytomany보다 연결테이블을 entity로 만들어 주는 것이 좋다
@@ -56,32 +44,29 @@ public class Study {
     @OneToMany(mappedBy = "study",cascade = CascadeType.PERSIST,orphanRemoval=true,fetch = FetchType.EAGER)
     private Set<StudyHashtag> hashtags = new HashSet<>();
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private Date createDate;
+    private LocalDateTime createDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private Date updateDate;
+    private LocalDateTime updateDate;
 
-    @NotNull
     @Convert(converter = BooleanToYNConverter.class)
     private boolean isNotice;
 
     @Builder
-    public Study(@NotBlank @Email String email, @NotBlank String nickName, @NotBlank String title, @NotBlank String content, @NotNull boolean isNotice) {
-        this.email = email;
-        this.nickName = nickName;
+    public Study(String title, String content, boolean isNotice) {
         this.title = title;
         this.content = content;
-        this.isNotice = isNotice();
+        this.isNotice = isNotice;
+    }
+
+    // Study의 user설정
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public Study update(Study requestStudy, Set<Hashtag> hashtags) {
         updateStudyHashtags(hashtags);
-
-        this.email = requestStudy.email;
-        this.nickName = requestStudy.nickName;
         this.title = requestStudy.title;
         this.content = requestStudy.content;
 

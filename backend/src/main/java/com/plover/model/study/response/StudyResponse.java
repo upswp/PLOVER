@@ -1,9 +1,13 @@
 package com.plover.model.study.response;
 
-import com.plover.model.study.Hashtag;
 import com.plover.model.study.Study;
-import lombok.*;
+import lombok.Getter;
+import lombok.ToString;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -11,21 +15,31 @@ import java.util.Set;
 @Getter
 @ToString
 public class StudyResponse {
+    private String nickname;
+
+    private String profileImageUrl;
+
     private Long id;
 
     private String title;
 
     private Set<HashtagResponse> hashtags;
 
-    public StudyResponse(Long id, String title, Set<HashtagResponse> hashtags) {
+    private String date;
+
+
+    public StudyResponse(String nickname, String profileImageUrl, Long id, String title, Set<HashtagResponse> hashtags, LocalDateTime createDate) {
+        this.nickname = nickname;
+        this.profileImageUrl = profileImageUrl;
         this.id = id;
         this.title = title;
         this.hashtags = hashtags;
+        this.date = countDay(createDate);
     }
 
     public static StudyResponse of(Study study) {
-        return new StudyResponse(study.getId(), study.getTitle(),
-                HashtagResponse.listOf(study.getHashtags()));
+        return new StudyResponse(study.getUser().getNickName(), study.getUser().getProfileImageUrl(), study.getId(), study.getTitle(),
+                HashtagResponse.listOf(study.getHashtags()),study.getCreateDate());
     }
 
     public static List<StudyResponse> listOf(List<Study> studies) {
@@ -35,5 +49,28 @@ public class StudyResponse {
             studyResponses.add(of(study));
         }
         return studyResponses;
+    }
+
+    public static String countDay(LocalDateTime createDate){
+        ZonedDateTime nowSeoul = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
+        LocalDateTime currDate = nowSeoul.toLocalDateTime();
+
+        StringBuilder period_s = new StringBuilder();
+        long period = 0;
+        if((period=createDate.until(currDate, ChronoUnit.YEARS))>0){
+            period_s.append(period).append("년전");
+        }else if((period=createDate.until(currDate, ChronoUnit.MONTHS))>0){
+            period_s.append(period).append("달전");
+        }else if((period=createDate.until(currDate, ChronoUnit.DAYS))>0){
+            period_s.append(period).append("일전");
+        }else if((period=createDate.until(currDate, ChronoUnit.HOURS))>0){
+            period_s.append(period).append("시간전");
+        }else if((period=createDate.until(currDate, ChronoUnit.MINUTES))>0){
+            period_s.append(period).append("분전");
+        }else{
+            period = createDate.until(currDate,ChronoUnit.SECONDS);
+            period_s.append(period).append("초전");
+        }
+        return period_s.toString();
     }
 }
