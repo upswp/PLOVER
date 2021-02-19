@@ -36,7 +36,7 @@ class PulseBadge extends Component {
         const pulseClass = this.buildPulseClass(this.props.pulseColor);
 
         return (
-            <div className={badgeClass + " " + "bg_" + this.props.bg} style={this.props.style}>
+            <div id={this.props.id} className={badgeClass + " " + "bg_" + this.props.bg + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}>
                 {this.props.title}
                 <div className={pulseClass}></div>
             </div>

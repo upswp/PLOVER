@@ -40,7 +40,6 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         if(hasRole(authorities,UserRole.ROLE_NOT_PERMITTED.name())){
             response.setMessage("사용자 인증메일 확인을 받지 않았습니다.");
-            System.out.println("이거맞아?");
         }
 
         PrintWriter out = httpServletResponse.getWriter();

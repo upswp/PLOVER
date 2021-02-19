@@ -1,0 +1,63 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+.logout__Button {
+  border-style: none;
+  background-color: white;
+  margin: 0 12px;
+  font-size: 1.6rem;
+  line-height: 1rem;
+  color: rgb(149, 170, 157);
+  transition: all 300ms ease-in;
+}
+
+.logout__Button:hover {
+  color: green;
+  font-size: 2rem;
+}
+
+.mentoring__title {
+  margin-top: 2.5em;
+  margin-left: 1em;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.friend__reco__title {
+  margin-top: 10px;
+  margin-left: 1em;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.study__title {
+  margin-bottom: 1em;
+  margin-left: 1em;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.pulse{
+  position:absolute;
+  top:6px;
+  right:45px;
+  width:8px;
+  height:8px;
+  background:red;
+  border-radius: 50%;
+  animation: pulse_red_ani 2s infinite;
+}
+
+@keyframes pulse_red_ani {
+  0% {
+      box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8);
+    }
+    50% {
+      box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+    }
+    100% {
+
+      box-shadow: 0 0 0 0px rgba(255, 0, 0, 0);
+    }
+}

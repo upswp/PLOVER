@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+.study_list_item {
+  background-color: var(--color-light-blue);
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  margin: 0.6em 1em;
+  padding: 0 0.6em;
+  border-radius: 10px;
+}
+
+.profile {
+  width: 60px;
+  height: 60px;
+  margin-right: 1em;
+}
+
+.study_info {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  width: 30%;
+}
+
+.study_username {
+  font-size: 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.study_time {
+  font-size: 0.7rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.study_title {
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 10px;
+  width: 45%;
+}

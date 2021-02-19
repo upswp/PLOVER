@@ -1,0 +1,103 @@
+.icon{
+    font-size: 1.1em;
+    margin-left: 10px;
+}
+
+.title{
+    margin: 0 auto;
+    font-weight: bold;
+}
+
+.img_box{
+    width: 100%;
+    padding: 10px;
+    height: 200px;
+}
+
+.img{
+    width:100%;
+    height:100%;
+}
+
+.desc{
+    margin-top: 20px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.input_text_box{
+    margin-top: 2px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 30px;
+}
+
+.input_text{
+    width: 100%;
+    height: 100%;
+}
+
+.select_box{
+    margin-top: 2px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 30px;
+}
+
+.select{
+    width: 100%;
+    height: 100%;
+}
+
+.input_datetime_box{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 2px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 30px;
+}
+
+.input_datetime_item{
+    width:49%;
+}
+
+.input_datetime{
+    width: 100%;
+    height: 100%;
+}
+
+.textarea_box{
+    margin-top: 2px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 200px;
+}
+
+.textarea{
+    width: 100%;
+    height: 100%;
+    line-height: 20px;
+    padding: 5px;
+    resize: none;
+    border-radius: 5px;
+}
+
+.button_box{
+    margin: 20px 0px;
+    width: 100%;
+    padding: 0px 10px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.button{
+    width: 100%;
+    height: 100%;
+}

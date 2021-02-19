@@ -52,11 +52,11 @@ class Cardslider extends Component {
 
     buildPulseClass = (item) => {
         let result = "";
-        const { pulseColor } = item;
+        let color = null;
 
         let classes = ['pulse'];//pulse 기본 class
-        if (pulseColor) {
-            classes.push('pulse_' + pulseColor);
+        if (color) {
+            classes.push('pulse_' + color);
         };
 
         result += cx(...classes);
@@ -93,9 +93,13 @@ class Cardslider extends Component {
     }
 
     resizeHandler = () => {
+
         this.scrollWidth = this.box.current.scrollWidth; //스크롤 총 길이
         this.clientWidth = this.box.current.clientWidth; //보여지는 컨텐츠의 길이
         this.pointlength = Math.ceil(this.scrollWidth / this.clientWidth); //포인트 개수
+        console.log(this.scrollWidth);
+        console.log(this.clientWidth);
+
 
         let arr = new Array(this.pointlength);
 
@@ -108,9 +112,17 @@ class Cardslider extends Component {
 
         if (arr.length > 0) arr[0].active = true;
 
+        console.log(arr);
+
         this.setState({
             point: arr
         })
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.data !== this.props.data) {
+            this.resizeHandler();
+        }
     }
 
     scrollTo = (x) => {
@@ -124,8 +136,18 @@ class Cardslider extends Component {
     }
 
     componentWillUnmount() {
+        this.resizeHandler();
         this.box.current.removeEventListener('scroll', this.scrollHandler);
         window.removeEventListener('resize', this.resizeHandler);
+    }
+
+    toColor(type) {
+        if (type === "meet") {
+            return "purple"
+        } else if (type === "chat") {
+            return "blue"
+        }
+        return "black";
     }
 
     render() {
@@ -136,16 +158,16 @@ class Cardslider extends Component {
 
         return (
             <>
-                <div className={boxClass} style={this.props.box === undefined ? {} : this.props.box} ref={this.box}>
+                <div id={this.props.id} className={boxClass + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style} ref={this.box}>
                     <div style={{ display: "inline-flex" }}>
                         {
                             this.props.data.map((v, i) => {
 
                                 return (
-                                    <div key={"card_" + i} className={cardClass} onClick={() => { this.props.history.push(v.url) }} style={this.props.card === undefined ? {} : this.props.card}>
-                                        <img src={v.img} style={{ width: "100%", height: "100%" }} />
-                                        <div className={badgeClass + " " + "bg_" + v.badgeColor}>
-                                            {v.badgeValue}
+                                    <div key={"card_" + i} className={cardClass} onClick={() => { this.props.history.push(`/mentoring/detail/${v.id}`) }} style={this.props.card === undefined ? {} : this.props.card}>
+                                        <img src={`${process.env.REACT_APP_PUBLIC_HOST}/${v.mentoringImageUrl}`} style={{ height: "100%" }} />
+                                        <div className={badgeClass + " bg_" + this.toColor(v.type)}>
+                                            {v.type.toUpperCase()}
                                             <div className={this.buildPulseClass(v)}></div>
                                         </div>
                                         <div className={this.buildTitleClass()}>{v.title}</div>

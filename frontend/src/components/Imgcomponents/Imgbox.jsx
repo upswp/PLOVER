@@ -24,13 +24,13 @@ class Imgbox extends Component {
 
     render() {
         return (
-            <div className={this.buildImgboxClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}
+            <div id={this.props.id} className={this.buildImgboxClass() + " " + (this.props.className === undefined ? '' : this.props.className)} style={this.props.style}
                 onClick={this.props.onClick}>
 
                 {   this.props.src ?
                     <img
                         className={styles.image}
-                        src={this.props.src}
+                        src={`${process.env.REACT_APP_PUBLIC_HOST}/${this.props.src}`}
 
                     /> : "이미지 없음"}
             </div>

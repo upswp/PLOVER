@@ -9,18 +9,21 @@ function Page() {
     return (
         <div>
             지영페이지
+            <h1>------------------</h1>
+            
+            <h1>------------------</h1>
             <p>fontawesome_test</p>
             <button><i className="fas fa-play-circle"></i></button>
             <button><i className="fas fa-bars"></i></button>
             <br/>
             <br/>
-            <ButtonComp width="small" type="base" value="버튼s" />
+            <ButtonComp width="small" type="base" textvalue="버튼s" />
             <br/>
-            <ButtonComp width="regular" type="base" value="버튼r" />
+            <ButtonComp width="regular" type="base" textvalue="버튼r" />
             <br/>
-            <ButtonComp width="large" type="base" value="버튼l" />
+            <ButtonComp width="large" type="base" textvalue="버튼l" />
             <br/>
-            <ButtonComp width="login" type="login-option" value="로그인" />
+            <ButtonComp width="login" type="login-option" textvalue="로그인" />
             <br/>
             <br/>
             <Badge ordnum="first" value="1" />

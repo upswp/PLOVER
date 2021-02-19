@@ -1,0 +1,27 @@
+.editBtn {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 10px;
+  width: 100%;
+  height: 38px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid rgb(35, 75, 136);
+  border-radius: 5px;
+  background-color: white;
+  color: rgb(35, 75, 136);
+  margin: 45px 0 20px 0px;
+  transition: all 300ms ease-in;
+  line-height: 1rem;
+}
+
+.editBtn:hover {
+  background-color: rgb(35, 75, 136);
+  color: white;
+}
+
+.editBtnText {
+  margin-right: 7px;
+}

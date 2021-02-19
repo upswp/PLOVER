@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+}
+
+.container {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  z-index: 400;
+}
+
+.menu {
+  background-color: var(--color-dark-purple);
+  width: 430px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  font-size: 1.2rem;
+  color: var(--color-white);
+}
+
+.menu_top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.3em;
+  color: var(--color-white);
+}
+
+.appname {
+  line-height: 40px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.navButtonBox {
+  z-index: 999;
+  background-color: white;
+}
+
+.toggleButton {
+  background-color: var(--color-dark-purple);
+  color: var(--color-white);
+  border-style: none;
+  font-size: 1.5rem;
+  line-height: 40px;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.items {
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  width: 100%;
+  padding: 5px;
+}
+
+.item {
+  display: block;
+  width: 95%;
+  margin: auto;
+  height: 50px;
+  color: inherit;
+  text-align: center;
+  line-height: 50px;
+}
+
+.item:hover {
+  border-color: var(--color-white);
+  background-color: rgba(255, 255, 255, 0.541);
+  color: var(--color-dark-purple);
+  font-weight: 700;
+  border-radius: 10px;
+}
+
+.apptitle {
+  font-size: 1rem;
+  color: var(--color-light-mint);
+  padding-top: 2em;
+  padding-bottom: 1em;
+  text-align: center;
+}

@@ -1,0 +1,61 @@
+.container {
+  text-align: center;
+}
+
+.nav {
+  background-color: rgba(0,0,0,0);
+  position: relative;
+  width: 430px;
+}
+
+.redirect {
+  background-color: rgba(0,0,0,0);
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 7px;
+  cursor: pointer;
+  z-index: 99;
+}
+
+.icon {
+  font-size: 1.1em;
+  margin-left: 15px;
+  position: absolute;
+}
+
+.title {
+  margin: 0 auto;
+}
+
+li {
+  width: 50%;
+}
+
+.row {
+  width: 100%;
+  height: 60px;
+  /* background-color: silver; */
+  justify-content: center;
+  text-align: left;
+  align-items: center;
+  margin-bottom: 1.5em;
+  margin-top: 0.5em;
+  line-height: 60px;
+}
+
+.propic {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.nick {
+  font-weight: bold;
+  display: inline-block;
+  font-size: 1em;
+  vertical-align: top;
+}

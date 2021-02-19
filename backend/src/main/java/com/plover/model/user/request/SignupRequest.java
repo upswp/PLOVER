@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
+import javax.persistence.Column;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -18,7 +20,6 @@ import javax.validation.constraints.Pattern;
 @Valid
 @ToString
 public class SignupRequest {
-	
 	@ApiModelProperty(required = true)
     @Email
     private String email;
@@ -31,25 +32,27 @@ public class SignupRequest {
     @ApiModelProperty(required = true)
     @NotNull
     private String nickName;
-   
-    //기본크기가 255이므로 나중에 char나 boolean 또는 byte로 바꾸면 좋을거 같습니다.
+
     @NotNull
-    private String gender;
-    
+    private String campus;
+
+    @ColumnDefault("images/default-image.png")
+    private String profileImageUrl;
+
     @NotNull
-    private String city;
-   
-    
-    public SignupRequest() {}
+    private String generation;
+
+    @NotNull
+    private String description;
     
     @Builder
-	public SignupRequest(@Email String email,
-			@NotNull @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d$@$!%*#?&]{8,}$") String password,
-			@NotNull String nickName, @NotNull String gender, @NotNull String city) {
-		this.email = email;
-		this.password = password;
-		this.nickName = nickName;
-		this.gender = gender;
-		this.city = city;
-	}
+    public SignupRequest(@Email String email, @NotNull @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d$@$!%*#?&]{8,}$") String password, @NotNull String nickName, @NotNull String campus, String profileImageUrl, @NotNull String generation, @NotNull String description) {
+        this.email = email;
+        this.password = password;
+        this.nickName = nickName;
+        this.campus = campus;
+        this.profileImageUrl = profileImageUrl;
+        this.generation = generation;
+        this.description = description;
+    }
 }

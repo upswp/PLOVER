@@ -54,7 +54,7 @@ class Badgeslider extends Component {
             }
         }
         return (
-            <div className={cardboxClass} key={key}>
+            <div id={this.props.id} className={cardboxClass + " " + (this.props.className === undefined ? '' : this.props.className)} key={key} style={this.props.style}>
                 {
                     temp.map((v, i) => {
                         if (v[0] === 0) {
@@ -62,8 +62,11 @@ class Badgeslider extends Component {
                             </div>);
                         } else {
                             return (<div key={"badge_" + v[1]} className={cardClass} style={this.props.card}>
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", height: "40%" }}><Imgbox src={`${v[0].img}`} size="tiny" shape="circle" style={{ marginRight: "10px", flexShrink: "0" }} /> <span style={{ fontSize: "0.8em", fontWeight: "bold" }}>{`${v[0].nickname.substring(0, 6)} ${v[0].nickname.length > 6 ? ".." : ""}`}</span></div>
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", height: "40%" }}><Badge ordnum={this.changeNum(v[0].ordnum)} value={v[0].ordnum} /></div>
+                                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", height: "40%", padding: "10px"  }}>
+                                    <Imgbox src={`${v[0].profileImageUrl}`} size="tiny" shape="circle" style={{ marginRight: "10px", flexShrink: "0" }} /> 
+                                    <div style={{ fontSize: "0.8em", fontWeight: "bold", width: "70%", textAlign: "left", textOverflow: "ellipsis", overflow: "hidden", whiteSpace: "nowrap" }}>{`${v[0].nickName}`}</div>
+                                </div>
+                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", height: "40%" }}><Badge ordnum={this.changeNum(v[0].generation)} value={v[0].generation} /></div>
                             </div>);
                         }
                     })
@@ -72,16 +75,16 @@ class Badgeslider extends Component {
         )
     }
 
-    changeNum = (ordnum) => {
-        if (ordnum === "1") {
+    changeNum = (generation) => {
+        if (generation === "1") {
             return "first";
-        } else if (ordnum === "2") {
+        } else if (generation === "2") {
             return "second";
-        } else if (ordnum === "3") {
+        } else if (generation === "3") {
             return "third";
-        } else if (ordnum === "4") {
+        } else if (generation === "4") {
             return "fourth";
-        } else if (ordnum === "5") {
+        } else if (generation === "5") {
             return "fifth";
         } else {
             return "first";

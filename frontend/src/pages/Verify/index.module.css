@@ -1,0 +1,29 @@
+.container {
+  text-align: center;
+}
+
+.redirect {
+  background-color: rgba(0,0,0,0);
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 7px;
+  cursor: pointer;
+  z-index: 99;
+}
+
+.icon {
+  font-size: 1.1em;
+  margin-left: 15px;
+  position: absolute;
+}
+
+.title {
+  margin: 0 auto;
+}
+
+.notice {
+  margin-top: 150px;
+  margin-bottom: 20px;
+}

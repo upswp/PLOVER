@@ -15,7 +15,7 @@ function Page(props) {
     return (
         <div className={styles.page}>
             {/* 
-                스켈레톤 UI 예제 
+                스켈레톤 UI 예제 !
                 [필수 속성]
                     shape: PropTypes.string.isRequired, //값 : rect,rectRound,circle
                     size: PropTypes.string //mini tiny small mid large big , auto(100%)
@@ -396,7 +396,7 @@ function Page(props) {
             <Typo ty="p" value="default"></Typo>
             <Typo ty="desc" value="desc"></Typo>
 
-            <ImgAttach></ImgAttach><br/><br/><br/><br/><br/><br/>
+            <ImgAttach></ImgAttach>
             <ImgAttach type="mentoring"></ImgAttach>
         </div>
     )
