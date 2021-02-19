@@ -41,7 +41,7 @@ const Login = (props) => {
             token: fcmtoken
           })
             .then(res => {
-              alert(`hello! ${email}`);
+              //alert(`hello! ${email}`);
             })
             .catch(err => {
               console.log(err);
