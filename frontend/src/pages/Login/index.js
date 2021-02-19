@@ -27,7 +27,7 @@ const Login = (props) => {
     console.log('Email', email);
     console.log('Password', password);
 
-    axios.post(`https://dev.plover.co.kr/ssafy/account/login`, {
+    axios.post(`${process.env.REACT_APP_HOST}/account/login`, {
       email,
       password
     }
@@ -37,7 +37,7 @@ const Login = (props) => {
         //FCM 토큰 코드 추가
         let massage = fire.messaging();
         massage.getToken().then(fcmtoken => {
-          axios.post(`https://dev.plover.co.kr/ssafy/notification/registerFCMToken`, {
+          axios.post(`${process.env.REACT_APP_HOST}/notification/registerFCMToken`, {
             token: fcmtoken
           })
             .then(res => {
