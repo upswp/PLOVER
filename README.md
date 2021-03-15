@@ -6,7 +6,7 @@
 
 
 
-> ## 🏡Let's PLOVER!🌈 [Link](https://plover.co.kr/login)
+> ## 🏡Let's PLOVER!🌈 [Link](https://plover.co.kr/login) [서버 종료]
 
 
 
